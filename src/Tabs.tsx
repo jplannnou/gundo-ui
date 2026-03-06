@@ -59,7 +59,7 @@ export function Tabs({ tabs, activeTab, onTabChange, className = '' }: TabsProps
             onKeyDown={e => handleKeyDown(e, index)}
             className={`px-4 py-2 rounded-md transition-all text-sm font-medium ${
               isActive
-                ? 'bg-[var(--ui-primary)] text-black'
+                ? 'bg-[var(--ui-primary)] text-white font-semibold'
                 : 'text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'
             }`}
           >
