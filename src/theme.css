@@ -1,0 +1,76 @@
+/*
+ * @gundo/ui Theme Contract
+ *
+ * Each consuming project MUST define these CSS custom properties.
+ * Import this file for the fallback defaults (dark theme, emerald accent).
+ *
+ * Override in your project's CSS:
+ *   :root { --ui-primary: #3b82f6; --ui-surface: #ffffff; ... }
+ */
+
+:root {
+  /* Primary action color (buttons, links, focus rings) */
+  --ui-primary: #10b981;
+  --ui-primary-hover: #059669;
+  --ui-primary-soft: rgb(16 185 129 / 0.15);
+
+  /* Surface colors (backgrounds) */
+  --ui-surface: #111111;
+  --ui-surface-raised: rgb(255 255 255 / 0.02);
+  --ui-surface-hover: rgb(255 255 255 / 0.05);
+
+  /* Border colors */
+  --ui-border: rgb(255 255 255 / 0.1);
+  --ui-border-hover: rgb(255 255 255 / 0.2);
+
+  /* Text colors */
+  --ui-text: #ffffff;
+  --ui-text-secondary: #9ca3af;
+  --ui-text-muted: #6b7280;
+
+  /* Semantic colors */
+  --ui-success: #10b981;
+  --ui-success-soft: rgb(16 185 129 / 0.15);
+  --ui-error: #ef4444;
+  --ui-error-soft: rgb(239 68 68 / 0.15);
+  --ui-warning: #f59e0b;
+  --ui-warning-soft: rgb(245 158 11 / 0.15);
+  --ui-info: #3b82f6;
+  --ui-info-soft: rgb(59 130 246 / 0.15);
+
+  /* Overlay */
+  --ui-overlay: rgb(0 0 0 / 0.6);
+}
+
+/* ── Light theme ─────────────────────────────────────────────────────────
+   Apply with: <html class="theme-light">
+   Projects can override individual tokens in their own CSS.
+   ──────────────────────────────────────────────────────────────────────── */
+
+.theme-light {
+  --ui-primary: #059669;
+  --ui-primary-hover: #047857;
+  --ui-primary-soft: rgb(5 150 105 / 0.1);
+
+  --ui-surface: #ffffff;
+  --ui-surface-raised: rgb(0 0 0 / 0.02);
+  --ui-surface-hover: rgb(0 0 0 / 0.04);
+
+  --ui-border: rgb(0 0 0 / 0.1);
+  --ui-border-hover: rgb(0 0 0 / 0.2);
+
+  --ui-text: #111827;
+  --ui-text-secondary: #4b5563;
+  --ui-text-muted: #6b7280;
+
+  --ui-success: #16a34a;
+  --ui-success-soft: rgb(22 163 74 / 0.1);
+  --ui-error: #dc2626;
+  --ui-error-soft: rgb(220 38 38 / 0.1);
+  --ui-warning: #d97706;
+  --ui-warning-soft: rgb(217 119 6 / 0.1);
+  --ui-info: #2563eb;
+  --ui-info-soft: rgb(37 99 235 / 0.1);
+
+  --ui-overlay: rgb(0 0 0 / 0.3);
+}
