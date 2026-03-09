@@ -6,7 +6,7 @@ interface Tab {
   icon?: string;
 }
 
-interface TabsProps {
+export interface TabsProps {
   tabs: Tab[];
   activeTab: string;
   onTabChange: (id: string) => void;
@@ -57,7 +57,7 @@ export function Tabs({ tabs, activeTab, onTabChange, className = '' }: TabsProps
             tabIndex={isActive ? 0 : -1}
             onClick={() => onTabChange(tab.id)}
             onKeyDown={e => handleKeyDown(e, index)}
-            className={`px-4 py-2 rounded-md transition-all text-sm font-medium whitespace-nowrap shrink-0 ${
+            className={`px-4 py-2 rounded-md transition-all text-sm font-medium whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
               isActive
                 ? 'bg-[var(--ui-primary)] text-white font-semibold'
                 : 'text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'

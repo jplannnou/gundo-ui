@@ -42,7 +42,7 @@ export function AccordionItem({
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-controls={contentId}
-        className="w-full flex items-center gap-3 p-4 text-left"
+        className="w-full flex items-center gap-3 p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] rounded-lg"
       >
         <svg
           className={`w-4 h-4 shrink-0 text-[var(--ui-text-muted)] transition-transform duration-300 ${

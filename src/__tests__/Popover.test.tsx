@@ -26,4 +26,18 @@ describe('Popover', () => {
     render(<Popover trigger={<button>Open</button>} open={true}>Content</Popover>);
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
+
+  it('opens on Enter key', () => {
+    render(<Popover trigger={<span>Open</span>}>Popover content</Popover>);
+    const trigger = screen.getByRole('button');
+    fireEvent.keyDown(trigger, { key: 'Enter' });
+    expect(screen.getByText('Popover content')).toBeInTheDocument();
+  });
+
+  it('opens on Space key', () => {
+    render(<Popover trigger={<span>Open</span>}>Popover content</Popover>);
+    const trigger = screen.getByRole('button');
+    fireEvent.keyDown(trigger, { key: ' ' });
+    expect(screen.getByText('Popover content')).toBeInTheDocument();
+  });
 });

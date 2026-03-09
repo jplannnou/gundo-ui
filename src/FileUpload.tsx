@@ -71,7 +71,7 @@ export function FileUpload({
         tabIndex={disabled ? -1 : 0}
         aria-disabled={disabled}
         onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inputRef.current?.click(); } }}
-        className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-8 text-center transition-colors cursor-pointer ${
+        className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-8 text-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
           dragging
             ? 'border-[var(--ui-primary)] bg-[var(--ui-primary-soft)]'
             : 'border-[var(--ui-border)] hover:border-[var(--ui-border-hover)] bg-[var(--ui-surface-raised)]'

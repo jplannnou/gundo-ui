@@ -1,6 +1,6 @@
 import type { InputHTMLAttributes } from 'react';
 
-interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> {
+export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> {
   label?: string;
   checked?: boolean;
   indeterminate?: boolean;
@@ -22,7 +22,7 @@ export function Checkbox({ label, checked = false, indeterminate = false, onChan
           className="peer sr-only"
           {...props}
         />
-        <span className={`flex items-center justify-center w-4 h-4 rounded border transition-colors ${
+        <span className={`flex items-center justify-center w-4 h-4 rounded border transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--ui-focus-ring-color)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--ui-surface)] ${
           checked || indeterminate
             ? 'bg-[var(--ui-primary)] border-[var(--ui-primary)]'
             : 'border-[var(--ui-border)] bg-transparent peer-hover:border-[var(--ui-border-hover)]'

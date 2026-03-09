@@ -53,4 +53,40 @@ describe('Combobox', () => {
     fireEvent.focus(input);
     expect(input).toHaveAttribute('aria-expanded', 'true');
   });
+
+  it('navigates options with ArrowDown', () => {
+    render(<Combobox options={options} />);
+    const input = screen.getByRole('combobox');
+    fireEvent.focus(input);
+    fireEvent.keyDown(input, { key: 'ArrowDown' });
+    // After ArrowDown from index 0, highlight moves to index 1
+    expect(input).toHaveAttribute('aria-activedescendant');
+  });
+
+  it('selects option with Enter', () => {
+    const onChange = vi.fn();
+    render(<Combobox options={options} onChange={onChange} />);
+    const input = screen.getByRole('combobox');
+    fireEvent.focus(input);
+    // First option is highlighted by default
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(onChange).toHaveBeenCalledWith('apple');
+  });
+
+  it('closes dropdown on Escape', () => {
+    render(<Combobox options={options} />);
+    const input = screen.getByRole('combobox');
+    fireEvent.focus(input);
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+    fireEvent.keyDown(input, { key: 'Escape' });
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  });
+
+  it('opens dropdown on ArrowDown when closed', () => {
+    render(<Combobox options={options} />);
+    const input = screen.getByRole('combobox');
+    // Initially, just click without focus to keep closed state
+    fireEvent.keyDown(input, { key: 'ArrowDown' });
+    expect(input).toHaveAttribute('aria-expanded', 'true');
+  });
 });

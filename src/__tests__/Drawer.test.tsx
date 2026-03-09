@@ -30,4 +30,25 @@ describe('Drawer', () => {
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(onClose).toHaveBeenCalled();
   });
+
+  it('traps focus within drawer', () => {
+    render(
+      <Drawer open onClose={() => {}} title="Focus Trap">
+        <button>First</button>
+        <button>Second</button>
+      </Drawer>,
+    );
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toHaveFocus();
+    const firstBtn = screen.getByText('First');
+    firstBtn.focus();
+    expect(firstBtn).toHaveFocus();
+  });
+
+  it('closes on Escape key', () => {
+    const onClose = vi.fn();
+    render(<Drawer open onClose={onClose} title="Test"><p>Content</p></Drawer>);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
 });

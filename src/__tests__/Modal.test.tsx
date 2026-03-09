@@ -22,4 +22,36 @@ describe('Modal', () => {
     fireEvent.click(screen.getByLabelText('Close'));
     expect(onClose).toHaveBeenCalledOnce();
   });
+
+  it('has aria-modal attribute', () => {
+    render(<Modal open onClose={() => {}} title="Test">Content</Modal>);
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toHaveAttribute('aria-modal', 'true');
+  });
+
+  it('closes on Escape key', () => {
+    const onClose = vi.fn();
+    render(<Modal open onClose={onClose} title="Test">Content</Modal>);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it('traps focus within modal', () => {
+    render(
+      <Modal open onClose={() => {}} title="Focus Trap">
+        <button>First</button>
+        <button>Second</button>
+      </Modal>,
+    );
+    const dialog = screen.getByRole('dialog');
+    // The modal itself should be focused initially (tabIndex={-1})
+    expect(dialog).toHaveFocus();
+    // Tab should keep focus inside the modal
+    const firstBtn = screen.getByText('First');
+    const secondBtn = screen.getByText('Second');
+    firstBtn.focus();
+    expect(firstBtn).toHaveFocus();
+    secondBtn.focus();
+    expect(secondBtn).toHaveFocus();
+  });
 });

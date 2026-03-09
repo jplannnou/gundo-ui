@@ -3,7 +3,7 @@ import { useState, useRef, useEffect, useId, type ReactNode } from 'react';
 type PopoverAlign = 'start' | 'center' | 'end';
 type PopoverSide = 'top' | 'bottom' | 'left' | 'right';
 
-interface PopoverProps {
+export interface PopoverProps {
   trigger: ReactNode;
   children: ReactNode;
   open?: boolean;
@@ -67,8 +67,12 @@ export function Popover({
     <div ref={containerRef} className={`relative inline-flex ${className}`}>
       <div
         onClick={() => setOpen(!isOpen)}
+        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!isOpen); } }}
+        tabIndex={0}
+        role="button"
         aria-expanded={isOpen}
         aria-controls={contentId}
+        className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] rounded-md"
       >
         {trigger}
       </div>

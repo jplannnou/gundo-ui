@@ -1,12 +1,15 @@
-import type { ReactNode } from 'react';
+import { useState, useId, type ReactNode } from 'react';
 
-interface TooltipProps {
+export interface TooltipProps {
   text: string;
   children: ReactNode;
   position?: 'top' | 'bottom' | 'left' | 'right';
 }
 
 export function Tooltip({ text, children, position = 'top' }: TooltipProps) {
+  const [visible, setVisible] = useState(false);
+  const tooltipId = useId();
+
   const positionClasses: Record<string, string> = {
     top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
     bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
@@ -21,12 +24,26 @@ export function Tooltip({ text, children, position = 'top' }: TooltipProps) {
     right: 'right-full top-1/2 -translate-y-1/2 border-r-[var(--ui-surface)] border-y-transparent border-l-transparent',
   };
 
+  const show = () => setVisible(true);
+  const hide = () => setVisible(false);
+
   return (
-    <span className="relative inline-flex group/tooltip">
+    <span
+      className="relative inline-flex"
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      onFocus={show}
+      onBlur={hide}
+      tabIndex={0}
+      aria-describedby={visible ? tooltipId : undefined}
+    >
       {children}
       <span
+        id={tooltipId}
         role="tooltip"
-        className={`absolute z-50 ${positionClasses[position]} pointer-events-none opacity-0 group-hover/tooltip:opacity-100 transition-opacity delay-200 whitespace-nowrap max-w-xs`}
+        className={`absolute z-50 ${positionClasses[position]} pointer-events-none whitespace-nowrap max-w-xs transition-opacity delay-200 ${
+          visible ? 'opacity-100' : 'opacity-0'
+        }`}
       >
         <span className="block bg-[var(--ui-surface)] text-[var(--ui-text)] text-xs rounded-lg px-3 py-2 shadow-lg border border-[var(--ui-border)] whitespace-normal">
           {text}

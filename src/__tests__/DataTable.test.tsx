@@ -38,4 +38,49 @@ describe('DataTable', () => {
     fireEvent.click(screen.getByText('Alice'));
     expect(onRowClick).toHaveBeenCalledWith(data[0]);
   });
+
+  it('sorts on Enter key on sortable header', () => {
+    const sortableColumns = [
+      { key: 'name', header: 'Name', render: (row: Row) => row.name, sortable: true },
+      { key: 'email', header: 'Email', render: (row: Row) => row.email },
+    ];
+    const onSort = vi.fn();
+    render(<DataTable columns={sortableColumns} data={data} rowKey={(r) => r.id} onSort={onSort} />);
+    const nameHeader = screen.getByText('Name').closest('th')!;
+    fireEvent.keyDown(nameHeader, { key: 'Enter' });
+    expect(onSort).toHaveBeenCalledWith({ key: 'name', direction: 'asc' });
+  });
+
+  it('has aria-sort attribute on sortable headers', () => {
+    const sortableColumns = [
+      { key: 'name', header: 'Name', render: (row: Row) => row.name, sortable: true },
+      { key: 'email', header: 'Email', render: (row: Row) => row.email },
+    ];
+    render(
+      <DataTable
+        columns={sortableColumns}
+        data={data}
+        rowKey={(r) => r.id}
+        onSort={() => {}}
+        sort={{ key: 'name', direction: 'asc' }}
+      />,
+    );
+    const nameHeader = screen.getByText('Name').closest('th')!;
+    expect(nameHeader).toHaveAttribute('aria-sort', 'ascending');
+  });
+
+  it('checkboxes have aria-label', () => {
+    const selectedKeys = new Set<string | number>();
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        rowKey={(r) => r.id}
+        selectedKeys={selectedKeys}
+        onSelectChange={() => {}}
+      />,
+    );
+    expect(screen.getByLabelText('Select all')).toBeInTheDocument();
+    expect(screen.getAllByLabelText('Select row')).toHaveLength(2);
+  });
 });

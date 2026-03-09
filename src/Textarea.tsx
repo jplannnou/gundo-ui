@@ -14,7 +14,7 @@ export function Textarea({ label, error, className = '', ...props }: TextareaPro
         </label>
       )}
       <textarea
-        className={`w-full rounded-lg border bg-[var(--ui-surface-hover)] px-3 py-2 text-sm text-[var(--ui-text)] outline-none transition-colors placeholder:text-[var(--ui-text-muted)] resize-none ${
+        className={`w-full rounded-lg border bg-[var(--ui-surface-hover)] px-3 py-2 text-sm text-[var(--ui-text)] outline-none transition-colors placeholder:text-[var(--ui-text-muted)] resize-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
           error
             ? 'border-[var(--ui-error)] focus:border-[var(--ui-error)]'
             : 'border-[var(--ui-border)] focus:border-[var(--ui-primary)]'

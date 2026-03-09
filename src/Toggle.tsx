@@ -1,4 +1,4 @@
-interface ToggleProps {
+export interface ToggleProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
   label?: string;
@@ -31,7 +31,7 @@ export function Toggle({ checked, onChange, label, disabled = false, size = 'md'
         aria-checked={checked}
         disabled={disabled}
         onClick={() => onChange(!checked)}
-        className={`relative inline-flex items-center rounded-full transition-colors duration-200 ${trackSize[size]} ${
+        className={`relative inline-flex items-center rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${trackSize[size]} ${
           checked ? 'bg-[var(--ui-primary)]' : 'bg-[var(--ui-border)]'
         }`}
       >

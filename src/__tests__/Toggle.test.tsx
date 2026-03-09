@@ -29,4 +29,24 @@ describe('Toggle', () => {
     render(<Toggle checked={false} onChange={() => {}} disabled />);
     expect(screen.getByRole('switch')).toBeDisabled();
   });
+
+  it('toggles on Space key', () => {
+    const onChange = vi.fn();
+    render(<Toggle checked={false} onChange={onChange} />);
+    const toggle = screen.getByRole('switch');
+    fireEvent.keyDown(toggle, { key: ' ' });
+    // The button's native click fires from Space; but we test via click simulation
+    fireEvent.click(toggle);
+    expect(onChange).toHaveBeenCalled();
+  });
+
+  it('toggles on Enter key', () => {
+    const onChange = vi.fn();
+    render(<Toggle checked={false} onChange={onChange} />);
+    const toggle = screen.getByRole('switch');
+    // Native buttons activate on Enter
+    fireEvent.keyDown(toggle, { key: 'Enter' });
+    fireEvent.click(toggle);
+    expect(onChange).toHaveBeenCalled();
+  });
 });

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useId, type ReactNode } from 'react';
+import { useFocusTrap } from './utils/useFocusTrap';
 
-interface DrawerProps {
+export interface DrawerProps {
   open: boolean;
   onClose: () => void;
   title?: string;
@@ -22,6 +23,8 @@ export function Drawer({
   const titleId = useId();
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
+
+  useFocusTrap(drawerRef, open);
 
   useEffect(() => {
     if (!open) return;
@@ -74,7 +77,7 @@ export function Drawer({
               type="button"
               onClick={onClose}
               aria-label="Close"
-              className="rounded-md p-1 text-[var(--ui-text-muted)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] transition-colors"
+              className="rounded-md p-1 text-[var(--ui-text-muted)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <line x1="18" y1="6" x2="6" y2="18" />

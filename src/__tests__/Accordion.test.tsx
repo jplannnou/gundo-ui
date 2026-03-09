@@ -35,4 +35,33 @@ describe('Accordion', () => {
     const button = screen.getByRole('button', { name: /open item/i });
     expect(button).toHaveAttribute('aria-expanded', 'true');
   });
+
+  it('has aria-controls linking button to content region', () => {
+    render(
+      <Accordion>
+        <AccordionItem id="d1" header="Linked">Region content</AccordionItem>
+      </Accordion>
+    );
+    const button = screen.getByRole('button', { name: /linked/i });
+    expect(button).toHaveAttribute('aria-controls', 'accordion-content-d1');
+    expect(document.getElementById('accordion-content-d1')).toBeInTheDocument();
+  });
+
+  it('region has role="region"', () => {
+    render(
+      <Accordion>
+        <AccordionItem id="e1" header="Region Test" defaultOpen>Content</AccordionItem>
+      </Accordion>
+    );
+    expect(screen.getByRole('region')).toBeInTheDocument();
+  });
+
+  it('shows preview text when collapsed', () => {
+    render(
+      <Accordion>
+        <AccordionItem id="f1" header="With Preview" preview="Preview text">Hidden</AccordionItem>
+      </Accordion>
+    );
+    expect(screen.getByText('Preview text')).toBeInTheDocument();
+  });
 });

@@ -1,8 +1,8 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, KeyboardEvent } from 'react';
 
 /* ── Column definition ──────────────────────────────────────────────────── */
 
-interface Column<T> {
+export interface Column<T> {
   key: string;
   header: string;
   render: (row: T) => ReactNode;
@@ -20,7 +20,7 @@ interface SortState {
 
 /* ── Props ──────────────────────────────────────────────────────────────── */
 
-interface DataTableProps<T> {
+export interface DataTableProps<T> {
   columns: Column<T>[];
   data: T[];
   rowKey: (row: T) => string | number;
@@ -87,6 +87,20 @@ export function DataTable<T>({
     onSort({ key: col.key, direction });
   }
 
+  function handleHeaderKeyDown(e: KeyboardEvent<HTMLTableCellElement>, col: Column<T>) {
+    if (!col.sortable) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleSort(col);
+    }
+  }
+
+  function getAriaSortValue(col: Column<T>): 'ascending' | 'descending' | 'none' | undefined {
+    if (!col.sortable) return undefined;
+    if (sort?.key !== col.key) return 'none';
+    return sort.direction === 'asc' ? 'ascending' : 'descending';
+  }
+
   const alignClass = { left: 'text-left', center: 'text-center', right: 'text-right' };
 
   return (
@@ -101,6 +115,7 @@ export function DataTable<T>({
                   checked={allSelected}
                   ref={el => { if (el) el.indeterminate = someSelected; }}
                   onChange={handleSelectAll}
+                  aria-label="Select all"
                   className="accent-[var(--ui-primary)]"
                 />
               </th>
@@ -113,6 +128,9 @@ export function DataTable<T>({
                 }`}
                 style={col.width ? { width: col.width } : undefined}
                 onClick={col.sortable ? () => handleSort(col) : undefined}
+                onKeyDown={e => handleHeaderKeyDown(e, col)}
+                tabIndex={col.sortable ? 0 : undefined}
+                aria-sort={getAriaSortValue(col)}
               >
                 {col.header}
                 {col.sortable && (
@@ -147,6 +165,7 @@ export function DataTable<T>({
                         type="checkbox"
                         checked={selected}
                         onChange={() => handleSelectRow(key)}
+                        aria-label="Select row"
                         className="accent-[var(--ui-primary)]"
                       />
                     </td>

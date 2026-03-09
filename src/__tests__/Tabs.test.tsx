@@ -42,4 +42,36 @@ describe('Tabs', () => {
     render(<Tabs tabs={tabs} activeTab="a" onTabChange={() => {}} />);
     expect(screen.getByRole('tablist')).toBeInTheDocument();
   });
+
+  it('supports keyboard navigation (ArrowLeft)', () => {
+    const onChange = vi.fn();
+    render(<Tabs tabs={tabs} activeTab="a" onTabChange={onChange} />);
+    const allTabs = screen.getAllByRole('tab');
+    fireEvent.keyDown(allTabs[0], { key: 'ArrowLeft' });
+    expect(onChange).toHaveBeenCalledWith('c');
+  });
+
+  it('navigates to first with Home', () => {
+    const onChange = vi.fn();
+    render(<Tabs tabs={tabs} activeTab="c" onTabChange={onChange} />);
+    const allTabs = screen.getAllByRole('tab');
+    fireEvent.keyDown(allTabs[2], { key: 'Home' });
+    expect(onChange).toHaveBeenCalledWith('a');
+  });
+
+  it('navigates to last with End', () => {
+    const onChange = vi.fn();
+    render(<Tabs tabs={tabs} activeTab="a" onTabChange={onChange} />);
+    const allTabs = screen.getAllByRole('tab');
+    fireEvent.keyDown(allTabs[0], { key: 'End' });
+    expect(onChange).toHaveBeenCalledWith('c');
+  });
+
+  it('implements roving tabindex', () => {
+    render(<Tabs tabs={tabs} activeTab="b" onTabChange={() => {}} />);
+    const allTabs = screen.getAllByRole('tab');
+    expect(allTabs[1]).toHaveAttribute('tabindex', '0');
+    expect(allTabs[0]).toHaveAttribute('tabindex', '-1');
+    expect(allTabs[2]).toHaveAttribute('tabindex', '-1');
+  });
 });

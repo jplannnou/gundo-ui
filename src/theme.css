@@ -63,10 +63,42 @@
   --ui-shadow-md: 0 4px 6px rgb(0 0 0 / 0.4);
   --ui-shadow-lg: 0 10px 15px rgb(0 0 0 / 0.5);
 
+  /* Font weights */
+  --ui-font-weight-normal: 400;
+  --ui-font-weight-medium: 500;
+  --ui-font-weight-semibold: 600;
+  --ui-font-weight-bold: 700;
+
+  /* Line heights */
+  --ui-line-height-tight: 1.25;
+  --ui-line-height-normal: 1.5;
+  --ui-line-height-relaxed: 1.75;
+
+  /* Spacing scale (4px base grid) */
+  --ui-spacing-1: 0.25rem;
+  --ui-spacing-2: 0.5rem;
+  --ui-spacing-3: 0.75rem;
+  --ui-spacing-4: 1rem;
+  --ui-spacing-5: 1.25rem;
+  --ui-spacing-6: 1.5rem;
+  --ui-spacing-8: 2rem;
+  --ui-spacing-10: 2.5rem;
+  --ui-spacing-12: 3rem;
+  --ui-spacing-16: 4rem;
+  --ui-spacing-20: 5rem;
+
+  /* Focus ring (accessibility) */
+  --ui-focus-ring-width: 2px;
+  --ui-focus-ring-color: var(--ui-primary);
+  --ui-focus-ring-offset: 2px;
+
   /* Animation */
   --ui-duration-fast: 150ms;
   --ui-duration-normal: 200ms;
   --ui-duration-slow: 300ms;
+  --ui-easing-in: cubic-bezier(0.4, 0, 1, 1);
+  --ui-easing-out: cubic-bezier(0, 0, 0.2, 1);
+  --ui-easing-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Z-index layers */
   --ui-z-dropdown: 50;
