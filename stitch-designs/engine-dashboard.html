@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gundo Engine Content Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#10b77f",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#0a0a0a",
+                        "surface-dark": "#111111",
+                        "border-dark": "rgba(255, 255, 255, 0.1)"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 flex min-h-screen antialiased">
+<!-- Sidebar -->
+<aside class="w-[240px] flex-shrink-0 bg-surface-dark border-r border-border-dark flex flex-col justify-between h-screen sticky top-0">
+<div class="flex flex-col gap-4 p-4">
+<div class="flex items-center gap-3 px-3 py-2">
+<span class="material-symbols-outlined text-primary text-2xl">manufacturing</span>
+<h1 class="text-slate-100 text-lg font-bold tracking-tight">GUNDO Engine</h1>
+</div>
+<nav class="flex flex-col gap-1 mt-4">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 border-l-4 border-primary text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="text-sm font-medium">Articles</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span class="text-sm font-medium">Planner</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">menu_book</span>
+<span class="text-sm font-medium">Library</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-colors border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<div class="p-4">
+<div class="flex items-center gap-3 px-3 py-3 rounded-lg bg-white/5 border border-border-dark">
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">
+                    JD
+                 </div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-100 truncate">Jane Doe</p>
+<p class="text-xs text-slate-400 truncate">Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto">
+<div class="max-w-[1200px] mx-auto p-8 space-y-8">
+<!-- Header -->
+<header class="flex flex-wrap items-center justify-between gap-4">
+<div>
+<h2 class="text-3xl font-bold text-slate-100 tracking-tight">Content Dashboard</h2>
+<p class="text-slate-400 mt-1">Overview of your AI content engine performance.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg font-medium transition-colors shadow-sm shadow-primary/20">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                    New Article
+                </button>
+</header>
+<!-- KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 flex flex-col justify-between hover:border-primary/30 transition-colors">
+<div class="flex items-center justify-between mb-4">
+<p class="text-sm font-medium text-slate-400">Articles Published</p>
+<span class="material-symbols-outlined text-slate-500 text-[20px]">check_circle</span>
+</div>
+<p class="text-3xl font-bold text-slate-100">156</p>
+<p class="text-xs text-primary mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                        +12% from last month
+                    </p>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 flex flex-col justify-between hover:border-primary/30 transition-colors">
+<div class="flex items-center justify-between mb-4">
+<p class="text-sm font-medium text-slate-400">Pipeline Active</p>
+<span class="material-symbols-outlined text-slate-500 text-[20px]">sync</span>
+</div>
+<p class="text-3xl font-bold text-slate-100">12</p>
+<p class="text-xs text-slate-400 mt-2">Currently in progress</p>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 flex items-center justify-between hover:border-primary/30 transition-colors">
+<div class="flex flex-col justify-between h-full">
+<p class="text-sm font-medium text-slate-400 mb-4">Avg SEO Score</p>
+<div class="flex items-baseline gap-1">
+<p class="text-3xl font-bold text-slate-100">87</p>
+<p class="text-sm text-slate-500">/100</p>
+</div>
+<p class="text-xs text-primary mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                            +3 pts
+                        </p>
+</div>
+<div class="relative w-16 h-16">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-white/10" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="87, 100" stroke-width="3"></path>
+</svg>
+</div>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 flex flex-col justify-between hover:border-primary/30 transition-colors">
+<div class="flex items-center justify-between mb-4">
+<p class="text-sm font-medium text-slate-400">Social Reach</p>
+<span class="material-symbols-outlined text-slate-500 text-[20px]">campaign</span>
+</div>
+<p class="text-3xl font-bold text-slate-100">45.2K</p>
+<p class="text-xs text-primary mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                        +2.4K this week
+                    </p>
+</div>
+</div>
+<!-- Two Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Recent Articles List (Left Column) -->
+<div class="lg:col-span-2 space-y-4">
+<h3 class="text-xl font-bold text-slate-100 tracking-tight">Recent Articles</h3>
+<div class="bg-surface-dark border border-border-dark rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-border-dark bg-white/5">
+<th class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Article</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider w-32">Status</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider w-32">Date</th>
+<th class="px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider w-40">SEO Score</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-dark">
+<!-- Row 1 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary text-[20px]">smart_toy</span>
+</div>
+<p class="text-sm font-medium text-slate-100 group-hover:text-primary transition-colors">The Future of AI Content Generation</p>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                                            Published
+                                        </span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm text-slate-400">Oct 12</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 92%"></div>
+</div>
+<span class="text-sm font-medium text-slate-300 w-6 text-right">92</span>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-500/20 to-slate-500/5 border border-slate-500/20 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-slate-400 text-[20px]">rocket_launch</span>
+</div>
+<p class="text-sm font-medium text-slate-100 group-hover:text-primary transition-colors">B2B SaaS Growth Strategies for 2024</p>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-slate-500/10 text-slate-300 border border-slate-500/20">
+                                            Draft
+                                        </span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm text-slate-400">Oct 14</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-amber-400 rounded-full" style="width: 65%"></div>
+</div>
+<span class="text-sm font-medium text-slate-300 w-6 text-right">65</span>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-500/5 border border-amber-500/20 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-amber-400 text-[20px]">trending_up</span>
+</div>
+<p class="text-sm font-medium text-slate-100 group-hover:text-primary transition-colors">Top 10 Content Marketing Trends</p>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                            In Review
+                                        </span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm text-slate-400">Oct 15</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 88%"></div>
+</div>
+<span class="text-sm font-medium text-slate-300 w-6 text-right">88</span>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary text-[20px]">engineering</span>
+</div>
+<p class="text-sm font-medium text-slate-100 group-hover:text-primary transition-colors">How to Build a Content Engine</p>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                                            Published
+                                        </span>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm text-slate-400">Oct 10</p>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 95%"></div>
+</div>
+<span class="text-sm font-medium text-slate-300 w-6 text-right">95</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Content Pipeline (Right Column) -->
+<div class="space-y-4">
+<h3 class="text-xl font-bold text-slate-100 tracking-tight">Content Pipeline</h3>
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6">
+<div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-border-dark">
+<!-- Step 1 -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+<div class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-surface-dark bg-primary text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white/5 border border-border-dark p-4 rounded-xl shadow">
+<div class="flex items-center justify-between mb-1">
+<div class="font-bold text-slate-100">Discovery</div>
+<div class="text-xs font-medium text-slate-400 bg-white/10 px-2 py-0.5 rounded-md">8</div>
+</div>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<div class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-surface-dark bg-amber-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+<span class="material-symbols-outlined text-[20px]">science</span>
+</div>
+<div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white/5 border border-border-dark p-4 rounded-xl shadow">
+<div class="flex items-center justify-between mb-1">
+<div class="font-bold text-slate-100">Research</div>
+<div class="text-xs font-medium text-slate-400 bg-white/10 px-2 py-0.5 rounded-md">5</div>
+</div>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<div class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-surface-dark bg-blue-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+<span class="material-symbols-outlined text-[20px]">edit_document</span>
+</div>
+<div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white/5 border border-border-dark p-4 rounded-xl shadow">
+<div class="flex items-center justify-between mb-1">
+<div class="font-bold text-slate-100">Writing</div>
+<div class="text-xs font-medium text-slate-400 bg-white/10 px-2 py-0.5 rounded-md">3</div>
+</div>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<div class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-surface-dark bg-purple-500 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+<span class="material-symbols-outlined text-[20px]">rate_review</span>
+</div>
+<div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white/5 border border-border-dark p-4 rounded-xl shadow">
+<div class="flex items-center justify-between mb-1">
+<div class="font-bold text-slate-100">Review</div>
+<div class="text-xs font-medium text-slate-400 bg-white/10 px-2 py-0.5 rounded-md">2</div>
+</div>
+</div>
+</div>
+<!-- Step 5 -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<div class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-surface-dark bg-slate-700 text-slate-300 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+<span class="material-symbols-outlined text-[20px]">publish</span>
+</div>
+<div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white/5 border border-border-dark p-4 rounded-xl shadow opacity-70">
+<div class="flex items-center justify-between mb-1">
+<div class="font-bold text-slate-100">Published</div>
+<div class="text-xs font-medium text-slate-400 bg-white/10 px-2 py-0.5 rounded-md">156</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Audience Performance Bottom Section -->
+<div class="space-y-4">
+<h3 class="text-xl font-bold text-slate-100 tracking-tight">Audience Performance</h3>
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6">
+<!-- Tabs -->
+<div class="flex flex-wrap border-b border-border-dark mb-6">
+<button class="px-4 py-3 text-sm font-medium text-primary border-b-2 border-primary">B2B Retail</button>
+<button class="px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent hover:border-border-dark transition-colors">B2B Fitness</button>
+<button class="px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent hover:border-border-dark transition-colors">SaaS Healthcare</button>
+<button class="px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent hover:border-border-dark transition-colors">Fintech Startups</button>
+<button class="px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-200 border-b-2 border-transparent hover:border-border-dark transition-colors">EdTech</button>
+</div>
+<!-- Tab Content -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white/5 border border-border-dark rounded-lg p-5">
+<p class="text-sm font-medium text-slate-400 mb-2">Total Impressions</p>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold text-slate-100">124.5K</p>
+<span class="text-xs text-primary mb-1">+14.2%</span>
+</div>
+</div>
+<div class="bg-white/5 border border-border-dark rounded-lg p-5">
+<p class="text-sm font-medium text-slate-400 mb-2">Click-Through Rate</p>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold text-slate-100">4.8%</p>
+<span class="text-xs text-primary mb-1">+0.5%</span>
+</div>
+</div>
+<div class="bg-white/5 border border-border-dark rounded-lg p-5">
+<p class="text-sm font-medium text-slate-400 mb-2">Conversion Rate</p>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold text-slate-100">2.1%</p>
+<span class="text-xs text-amber-400 mb-1">-0.2%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JP Assistant AI Email Detail View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#10b77f",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#111111",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex flex-col h-screen">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between border-b border-primary/10 bg-background-dark/50 backdrop-blur-md px-6 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-3xl">auto_awesome</span>
+<h2 class="text-xl font-bold tracking-tight">JP Assistant</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-primary border-b-2 border-primary pb-1" href="#">Inbox</a>
+<a class="text-sm font-medium text-slate-400 hover:text-slate-100 transition-colors" href="#">Analytics</a>
+<a class="text-sm font-medium text-slate-400 hover:text-slate-100 transition-colors" href="#">Drafts</a>
+<a class="text-sm font-medium text-slate-400 hover:text-slate-100 transition-colors" href="#">Archive</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">search</span>
+<input class="bg-primary/5 border border-primary/20 rounded-lg pl-10 pr-4 py-1.5 text-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none w-64" placeholder="Search mail..." type="text"/>
+</div>
+<button class="p-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary/20 border border-primary/30 overflow-hidden" data-alt="User profile avatar">
+<img alt="Profile" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEnuSgk08Jo2gNl2st40pfuriJNx0WDyEhnl_m25t1m2h5Harr2SBAv0DIs7-vhYSMNsUEWxa8ShmZ868VqT2WzF-LUUqtjVvmyxw4EzQ6p8Q-fohOsOjbdh9F31-n5df7JlvBFjTiFRAGrsqiy255NUpunSpRy1LUy2jUrbaTKt6HMZ7aoIrh_LS5L8E7ZZQLW4AlB5LPnIRj4uvmM3fwDoUVikJ3jmSOTPDqovY0at4ubdTtAEteY7dssN8g7YpVAd6e7i8pqV_c"/>
+</div>
+</div>
+</header>
+<main class="flex-1 flex overflow-hidden">
+<!-- Left Sidebar / Main Content -->
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<div class="max-w-4xl mx-auto px-6 py-8">
+<!-- Action Bar -->
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-lg hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div>
+<h1 class="text-2xl font-extrabold tracking-tight">Q3 Financial Report - Revision Required</h1>
+<div class="flex items-center gap-2 mt-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-500/20 text-amber-500 border border-amber-500/30">Priority P2</span>
+<span class="text-xs text-slate-500">•</span>
+<span class="text-xs text-slate-500 italic">2 hours ago</span>
+</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-lg border border-primary/20 hover:bg-primary/5 transition-colors text-sm font-semibold">Archive</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-background-dark hover:bg-primary/90 transition-colors text-sm font-bold">Reply</button>
+</div>
+</div>
+<!-- Sender Card -->
+<div class="bg-primary/5 border border-primary/10 rounded-xl p-5 mb-6 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-full border-2 border-primary/30 p-0.5" data-alt="Sender profile photo">
+<img alt="Sender" class="rounded-full w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoZd5pgFtahGKYDdsAy8oDKlWggnB3B6n7NK5vErMfKaFi9tmBMLS_CE4UaKqYFIIgJWov-JXFIKogg_puVr-3JCUu8-y1EILKjXRi0OjzRdifaT81kxAhsMTTW81BNKLSSAFv0mKbS4R8Q7bLZH0mibayDo4Ed3zDTBWo3nzWgxzKzGa3s1kDvQFbFxZDzGeATvkda7AsmvZgZV_ogSWDIKC_4zE7I5OMWMqwOW9EcRLp1VDdP_pXY_WEIVDdYoVkB-jm_XYY18sm"/>
+</div>
+<div>
+<h3 class="font-bold text-slate-100">Sarah Jenkins</h3>
+<p class="text-sm text-slate-400 italic">sarah.j@corporate.com</p>
+</div>
+</div>
+<button class="text-primary text-sm font-semibold hover:underline">View History</button>
+</div>
+<!-- AI Analysis Card -->
+<div class="bg-primary/5 border-l-4 border-primary rounded-r-xl p-6 mb-8 shadow-xl shadow-primary/5">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">psychology</span>
+<h2 class="font-bold text-lg tracking-tight">AI Analysis</h2>
+</div>
+<p class="text-slate-300 leading-relaxed mb-4">
+                            This email requests an urgent update to the regional performance section of the Q3 report. The sender expresses moderate concern about the upcoming board meeting on Friday. Sentiment is <span class="text-primary font-semibold">Professional/Urgent</span>.
+                        </p>
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-medium border border-primary/30">#Financial</span>
+<span class="px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-medium border border-primary/30">#Urgent</span>
+<span class="px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-medium border border-primary/30">#BoardMeeting</span>
+</div>
+<div class="space-y-3">
+<h4 class="text-xs font-bold uppercase text-slate-500 tracking-widest">Suggested Actions</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<div class="flex items-center gap-3 bg-background-dark/40 p-3 rounded-lg border border-primary/10">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="text-sm">Review EMEA regional data</span>
+</div>
+<div class="flex items-center gap-3 bg-background-dark/40 p-3 rounded-lg border border-primary/10">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="text-sm">Update slide 14 of deck</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Email Content Area -->
+<div class="prose prose-invert max-w-none bg-background-dark border border-slate-800 rounded-xl p-8 mb-8">
+<p>Hi team,</p>
+<p>I've just reviewed the preliminary Q3 report drafts. We need to make a quick adjustment to the EMEA revenue section as the latest numbers from the Berlin office haven't been factored in correctly.</p>
+<p>The board meeting is scheduled for this Friday at 10 AM, so we need the final deck by Thursday afternoon at the latest.</p>
+<p>Could you please update the spreadsheets and the summary text to reflect the 12% growth we saw in the DACH region?</p>
+<p>Best regards,<br/>Sarah Jenkins<br/><span class="text-slate-500">VP of Finance</span></p>
+</div>
+<!-- Suggested Replies -->
+<div class="mb-8">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-sm">magic_button</span>
+<h3 class="text-sm font-bold uppercase tracking-widest text-slate-500">AI Suggested Replies</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Formal -->
+<div class="bg-background-dark border border-slate-800 p-4 rounded-xl flex flex-col justify-between hover:border-primary/40 transition-colors">
+<div>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Formal</span>
+<p class="text-sm text-slate-300 mt-2 mb-4 line-clamp-3">Acknowledged. We will revise the EMEA revenue figures and DACH growth data as requested...</p>
+</div>
+<button class="w-full py-2 bg-primary/10 text-primary rounded-lg text-xs font-bold hover:bg-primary hover:text-background-dark transition-all">Use this</button>
+</div>
+<!-- Casual -->
+<div class="bg-background-dark border border-slate-800 p-4 rounded-xl flex flex-col justify-between hover:border-primary/40 transition-colors">
+<div>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Casual</span>
+<p class="text-sm text-slate-300 mt-2 mb-4 line-clamp-3">Thanks Sarah! On it. We'll get the Berlin numbers sorted by Thursday afternoon.</p>
+</div>
+<button class="w-full py-2 bg-primary/10 text-primary rounded-lg text-xs font-bold hover:bg-primary hover:text-background-dark transition-all">Use this</button>
+</div>
+<!-- Decline -->
+<div class="bg-background-dark border border-slate-800 p-4 rounded-xl flex flex-col justify-between hover:border-primary/40 transition-colors">
+<div>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Need more info</span>
+<p class="text-sm text-slate-300 mt-2 mb-4 line-clamp-3">Could you share the specific Berlin data file you're referring to? We haven't received it.</p>
+</div>
+<button class="w-full py-2 bg-primary/10 text-primary rounded-lg text-xs font-bold hover:bg-primary hover:text-background-dark transition-all">Use this</button>
+</div>
+</div>
+</div>
+<!-- Reply Composer -->
+<div class="bg-background-dark border border-slate-800 rounded-xl overflow-hidden focus-within:border-primary transition-colors shadow-2xl">
+<div class="flex items-center gap-4 px-4 py-2 border-b border-slate-800 bg-slate-900/50">
+<button class="p-1 hover:text-primary"><span class="material-symbols-outlined text-sm">format_bold</span></button>
+<button class="p-1 hover:text-primary"><span class="material-symbols-outlined text-sm">format_italic</span></button>
+<button class="p-1 hover:text-primary"><span class="material-symbols-outlined text-sm">list</span></button>
+<button class="p-1 hover:text-primary"><span class="material-symbols-outlined text-sm">attach_file</span></button>
+<div class="h-4 w-[1px] bg-slate-700 mx-1"></div>
+<button class="p-1 hover:text-primary"><span class="material-symbols-outlined text-sm">image</span></button>
+</div>
+<textarea class="w-full h-32 bg-transparent border-none focus:ring-0 p-4 text-slate-200 resize-none placeholder:text-slate-600" placeholder="Type your reply..."></textarea>
+<div class="flex items-center justify-between p-4 bg-slate-900/30">
+<div class="flex items-center gap-2 text-xs text-slate-500">
+<span class="material-symbols-outlined text-xs">info</span>
+<span>AI response assistance active</span>
+</div>
+<button class="px-6 py-2 bg-primary text-background-dark font-bold rounded-lg hover:shadow-lg hover:shadow-primary/20 transition-all">Send</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Thread History -->
+<aside class="w-80 border-l border-slate-800 hidden lg:flex flex-col bg-background-dark/30">
+<div class="p-6 border-b border-slate-800">
+<h3 class="font-bold text-sm uppercase tracking-widest text-slate-500">Thread History</h3>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-3">
+<!-- History Item 1 -->
+<div class="p-3 bg-slate-900/50 border border-slate-800 rounded-lg cursor-pointer hover:border-slate-700 transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold text-slate-300">Re: Q3 Initial Draft</span>
+<span class="text-[10px] text-slate-500">Oct 12</span>
+</div>
+<p class="text-[11px] text-slate-500 mt-1 truncate">I've attached the first version of the slides...</p>
+</div>
+<!-- History Item 2 (Collapsed) -->
+<div class="p-3 bg-slate-900/50 border border-slate-800 rounded-lg cursor-pointer hover:border-slate-700 transition-colors opacity-60">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold text-slate-300">EMEA Data Upload</span>
+<span class="text-[10px] text-slate-500">Oct 10</span>
+</div>
+<p class="text-[11px] text-slate-500 mt-1 truncate">The raw data for EMEA is now available in the...</p>
+</div>
+<!-- History Item 3 -->
+<div class="p-3 bg-slate-900/50 border border-slate-800 rounded-lg cursor-pointer hover:border-slate-700 transition-colors opacity-60">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold text-slate-300">Kick-off Meeting</span>
+<span class="text-[10px] text-slate-500">Oct 05</span>
+</div>
+<p class="text-[11px] text-slate-500 mt-1 truncate">Let's start gathering the quarterly data for...</p>
+</div>
+</div>
+<div class="p-6 border-t border-slate-800">
+<div class="bg-primary/5 rounded-xl p-4 border border-primary/20">
+<h4 class="text-xs font-bold text-primary mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">auto_graph</span>
+                            Context Insight
+                        </h4>
+<p class="text-[11px] text-slate-400">Sarah usually responds faster on Thursdays. You might want to get this done early.</p>
+</div>
+</div>
+</aside>
+</main>
+</div>
+</body></html>

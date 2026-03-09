@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#10b77f",
+                "background-light": "#f6f8f7",
+                "background-dark": "#111111",
+              },
+              fontFamily: {
+                "display": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<title>Gundo Engine Article Detail</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-4 md:px-10 py-3">
+<div class="max-w-[1400px] mx-auto flex items-center justify-between whitespace-nowrap">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl">deployed_code</span>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">Gundo Engine</h2>
+</div>
+<div class="hidden lg:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Dashboard</a>
+<a class="text-primary text-sm font-medium" href="#">Articles</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Assets</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Templates</a>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">
+<span>Edit</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold gap-2 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span>Regenerate</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-primary/20 text-primary text-sm font-bold hover:bg-primary/30 transition-all border border-primary/30">
+<span>Schedule</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 px-6 bg-primary text-background-dark text-sm font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+<span>Publish</span>
+</button>
+<div class="ml-2 bg-slate-200 dark:bg-slate-800 rounded-full h-10 w-10 overflow-hidden border border-slate-300 dark:border-slate-700">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="User avatar of Alex Rivera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzMW2nAytoGT7Iwjm1ro1qQw2ws0HFYSHRRNHHNIRVKWovvmOzJpH4J1fQ84HMIxF6EcnB5216v3uWMEbxWkLmMxcI3bVgkPtdsnocUC4pnCjYhv02EyRXmOaaXMcVzGK238vpwZp8NMeSIMjuyupzh3763vitQH02K1YTXabQmRtvDL2AMqR1qIF4evjwS2uGBunoHJT2bCIDjYFK_pj4BFp8UAgytsp7yjORn1cmUIQOQN1p0A17TK9c4R0eG7jchlQtW9Xyt6ef"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[1400px] mx-auto px-4 md:px-10 py-8">
+<!-- Hero Section -->
+<section class="relative rounded-xl overflow-hidden mb-8 border border-slate-200 dark:border-slate-800 shadow-2xl">
+<div class="h-[400px] w-full relative">
+<img alt="Featured" class="w-full h-full object-cover" data-alt="Abstract AI technology visualization with neural networks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnAjmP5b9Tak2HbrGpGWuU92DQJK5QmlRgBcm_SXERCE7nOQNRNtmKllla7G46IHRYDm4cIlTVpeJxZB_aO3LgUsavgaE6XHNjYofIrXoX9nLpIod_aFfsHYCmh9mWEBnN5wFtSQQmH0u0vlpAVOob58Scj2RNrrwzgW3rCQ_hnKrG-LcKnz_5Zpf_lC6FqYO8W1elPj7XUFCNnT1Klk5weZgHiExrDH-Jfo3aOXCahb9OmF7jTYJarwx2IsdbqDJdmcVhoeP-f72Y"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/60 to-transparent"></div>
+</div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<div class="flex flex-wrap gap-3 mb-4">
+<span class="bg-primary text-background-dark text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">Published</span>
+<span class="bg-slate-800/80 backdrop-blur text-slate-100 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-slate-700">B2B Tech</span>
+</div>
+<h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight max-w-4xl">
+                    Gundo Engine: The Future of AI Content Generation and SEO Optimization
+                </h1>
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-full border-2 border-primary overflow-hidden">
+<img alt="Author" class="w-full h-full object-cover" data-alt="Portrait of Alex Rivera, tech author" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgyjS1B0QyeQzue87Ie8Y05-muHbokh1UZOdCPo5YuUVQYPJF-Df6VtNPvN202YLZA_qYAItRnXMAt_zVk8uaQEAxfGORoKuvoZ0Zm1NS72z_R3jVBQ9hYvd-r8_7Dv96YTXqGeYHG_2kC2OJwfu_Ow5N-e_3YTCPKv630mQ8LJ5G9Iiqo2qHzsrc6YhnbEcj_QD_0xGQ1fP2cLnZxrRllVtOJT3Izw6Ppzi3mPbSHRD7DHPeQHmeVbBaUHAqpcqh20mwF5uB0Qz9r"/>
+</div>
+<div>
+<p class="text-white font-semibold">Alex Rivera</p>
+<p class="text-slate-400 text-sm">Oct 24, 2023 • 8 min read</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Metrics Bar -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+<div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-lg border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-2">visibility</span>
+<p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest">Views</p>
+<p class="text-2xl font-bold mt-1">12,482</p>
+<p class="text-primary text-xs font-medium mt-1">+12% vs last week</p>
+</div>
+<div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-lg border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-2">timer</span>
+<p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest">Avg. Read Time</p>
+<p class="text-2xl font-bold mt-1">6m 42s</p>
+<p class="text-primary text-xs font-medium mt-1">Top 5% of category</p>
+</div>
+<div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-lg border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center">
+<div class="relative flex items-center justify-center mb-2">
+<svg class="w-12 h-12">
+<circle class="text-slate-300 dark:text-slate-700" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-primary" cx="24" cy="24" fill="transparent" r="20" stroke="currentColor" stroke-dasharray="125.6" stroke-dashoffset="14" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-[10px] font-bold">89</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest">SEO Score</p>
+<p class="text-2xl font-bold mt-1">Optimized</p>
+</div>
+<div class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-lg border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary mb-2">share</span>
+<p class="text-slate-500 dark:text-slate-400 text-xs uppercase font-bold tracking-widest">Total Shares</p>
+<p class="text-2xl font-bold mt-1">452</p>
+<div class="flex gap-2 mt-2">
+<span class="w-2 h-2 rounded-full bg-blue-500"></span>
+<span class="w-2 h-2 rounded-full bg-sky-400"></span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</div>
+</div>
+</section>
+<!-- Main Content Area -->
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Content Preview -->
+<div class="flex-1">
+<div class="bg-white dark:bg-slate-900/30 p-8 md:p-12 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<article class="prose prose-slate dark:prose-invert max-w-none">
+<h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-slate-100">The Evolution of AI Content</h2>
+<p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                            In the rapidly shifting landscape of digital marketing, the Gundo Engine represents a paradigm shift. Unlike previous generations of large language models, it focuses on context-aware generation that preserves the unique voice of the brand while adhering to the strictest SEO requirements.
+                        </p>
+<figure class="my-10">
+<img alt="Infrastructure" class="rounded-lg border border-slate-200 dark:border-slate-800" data-alt="Futuristic server room with glowing green lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtyP-TSaxfRGsG11oDimRK3Xt5s6cbmYXJTL34E3Z4BZyUPFccC4obscJHIC3FniLZggUmTNjggwpSGJj3VTLuydKUvOjAGy2KMer8R4Mqvx53peQCaoe1w493VVNGz8zuuegs14_LbkE_eqs9QLTHlKvNmeRHVwlx34QVIcg8yNAwCOHaSwKuMVl1qTYO7K-LC7uc4oloj5DVDCTHIKBMapwHmyva-b6xZYXnVR2lrCRfeJI3OyeT6n1YWosZ06_e1L-_SRfq_57W"/>
+<figcaption class="text-center text-sm text-slate-500 mt-3 italic">Gundo Engine proprietary neural architecture visualization</figcaption>
+</figure>
+<h3 class="text-xl font-bold mb-4 text-slate-900 dark:text-slate-100">Key Features of the Gundo Engine</h3>
+<ul class="space-y-3 text-slate-600 dark:text-slate-300 list-disc pl-5 mb-6">
+<li>Semantic link mapping for deep internal structure</li>
+<li>Real-time keyword density monitoring and adjustment</li>
+<li>Automated entity extraction for schema markup</li>
+<li>Sentiment analysis to ensure brand alignment</li>
+</ul>
+<p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            The results speak for themselves. Early adopters have reported a 40% increase in organic reach within the first month of implementation. By automating the mechanical aspects of writing, the engine allows creators to focus on strategy and high-level messaging.
+                        </p>
+</article>
+</div>
+</div>
+<!-- Right Sidebar -->
+<aside class="w-full lg:w-[380px] space-y-6">
+<!-- Article Metadata -->
+<section class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-lg border border-slate-200 dark:border-slate-800">
+<h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">info</span> Article Metadata
+                    </h3>
+<div class="space-y-4">
+<div>
+<p class="text-xs font-medium text-slate-400 mb-1">Category</p>
+<p class="text-sm font-semibold">Technology &amp; Innovation</p>
+</div>
+<div>
+<p class="text-xs font-medium text-slate-400 mb-2">Tags</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-slate-200 dark:bg-slate-800 px-2 py-1 rounded text-[10px] font-bold">AI</span>
+<span class="bg-slate-200 dark:bg-slate-800 px-2 py-1 rounded text-[10px] font-bold">CONTENT OPS</span>
+<span class="bg-slate-200 dark:bg-slate-800 px-2 py-1 rounded text-[10px] font-bold">SEO</span>
+<span class="bg-slate-200 dark:bg-slate-800 px-2 py-1 rounded text-[10px] font-bold">MARKETING</span>
+</div>
+</div>
+<div>
+<p class="text-xs font-medium text-slate-400 mb-2">Primary Keywords</p>
+<p class="text-sm text-primary font-medium italic">Gundo Engine, AI Writing, SEO Automation, Content Strategy</p>
+</div>
+</div>
+</section>
+<!-- SEO Checklist -->
+<section class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-lg border border-slate-200 dark:border-slate-800">
+<h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">task_alt</span> SEO Checklist
+                    </h3>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-[20px] font-bold">check</span>
+<span>Target keyword in H1</span>
+</li>
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-[20px] font-bold">check</span>
+<span>Meta description optimized</span>
+</li>
+<li class="flex items-center gap-3 text-sm text-slate-400">
+<span class="material-symbols-outlined text-[20px]">circle</span>
+<span>Internal links (2/3)</span>
+</li>
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-[20px] font-bold">check</span>
+<span>Image alt text present</span>
+</li>
+<li class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-primary text-[20px] font-bold">check</span>
+<span>Mobile responsiveness confirmed</span>
+</li>
+</ul>
+</section>
+<!-- Distribution Channels -->
+<section class="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-lg border border-slate-200 dark:border-slate-800">
+<h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">hub</span> Distribution
+                    </h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-2 rounded bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-500 text-lg">php</span>
+<span class="text-xs font-semibold">WordPress</span>
+</div>
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold">Synced</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sky-500 text-lg">share</span>
+<span class="text-xs font-semibold">LinkedIn / X</span>
+</div>
+<span class="text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold">Scheduled</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500 text-lg">mail</span>
+<span class="text-xs font-semibold">Newsletter</span>
+</div>
+<span class="text-[10px] bg-slate-200 dark:bg-slate-700 text-slate-500 px-2 py-0.5 rounded-full font-bold">Pending</span>
+</div>
+</div>
+</section>
+</aside>
+</div>
+<!-- AI Audit Score Card -->
+<section class="mt-8 mb-12 bg-slate-50 dark:bg-slate-900/50 p-8 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="text-xl font-bold">AI Audit Report</h2>
+<p class="text-slate-500 text-sm">Quality metrics breakdown by section</p>
+</div>
+<button class="flex items-center gap-2 text-primary font-bold text-sm">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Full Report
+                </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">Factual Accuracy</span>
+<span class="text-primary font-bold">98%</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 98%"></div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">Brand Tone Sync</span>
+<span class="text-primary font-bold">92%</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 92%"></div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">Readability (Flesch)</span>
+<span class="text-yellow-500 font-bold">76%</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-1.5">
+<div class="bg-yellow-500 h-1.5 rounded-full" style="width: 76%"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 bg-primary/5 rounded-lg border border-primary/20 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">tips_and_updates</span>
+<p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+<span class="font-bold text-primary">AI Insight:</span> Your conclusion section is slightly more complex than the rest of the article. Consider simplifying the last two paragraphs to improve overall readability score by approximately 5 points.
+                </p>
+</div>
+</section>
+</main>
+<footer class="border-t border-slate-200 dark:border-slate-800 py-8 px-4 md:px-10 text-center">
+<p class="text-slate-500 text-xs">© 2023 Gundo Engine AI. All Rights Reserved. Powered by proprietary Neural Fabric™ architecture.</p>
+</footer>
+</body></html>

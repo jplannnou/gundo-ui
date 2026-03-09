@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gundo Radar Intelligence Feed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#10b77f",
+          "background-light": "#f6f8f7",
+          "background-dark": "#10221c",
+        },
+        fontFamily: {
+          "display": ["Inter", "sans-serif"]
+        },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<aside class="w-60 flex flex-col bg-white dark:bg-[#0a0a0a] border-r border-slate-200 dark:border-white/10 shrink-0">
+<div class="h-16 flex items-center px-6 border-b border-slate-200 dark:border-white/10">
+<h1 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">radar</span>
+        GUNDO Radar
+      </h1>
+</div>
+<div class="flex-1 overflow-y-auto py-4 flex flex-col gap-1 px-3">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-sm font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary border-l-4 border-primary" href="#">
+<span class="material-symbols-outlined">lightbulb</span>
+<span class="text-sm font-medium">Intelligence</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Executives</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined">domain</span>
+<span class="text-sm font-medium">Companies</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined">checklist</span>
+<span class="text-sm font-medium">Tasks</span>
+</a>
+</div>
+<div class="p-3 border-t border-slate-200 dark:border-white/10">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</aside>
+<main class="flex-1 flex flex-col overflow-hidden bg-slate-50 dark:bg-[#111111]">
+<header class="h-20 px-8 flex items-center justify-between border-b border-slate-200 dark:border-white/10 bg-white dark:bg-[#111111] shrink-0">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Intelligence Dashboard</h2>
+<div class="flex items-center gap-4">
+<div class="relative">
+<select class="appearance-none bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-sm rounded-lg pl-4 pr-10 py-2 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors">
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+<option>This Quarter</option>
+<option>Year to Date</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xl">expand_more</span>
+</div>
+<button class="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-blue-600 overflow-hidden shadow-sm" data-alt="User Avatar Profile Picture"></div>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-8">
+<div class="max-w-7xl mx-auto space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-[#181818] border border-slate-200 dark:border-white/10 rounded-xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-400">
+<span class="material-symbols-outlined">group</span>
+</div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Executives Tracked</p>
+</div>
+<p class="text-3xl font-bold text-slate-900 dark:text-white mt-4">247</p>
+<p class="text-sm text-green-600 dark:text-green-400 mt-2 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+              +12 this month
+            </p>
+</div>
+<div class="bg-white dark:bg-[#181818] border border-slate-200 dark:border-white/10 rounded-xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">sensors</span>
+</div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Signals This Week</p>
+</div>
+<p class="text-3xl font-bold text-slate-900 dark:text-white mt-4">89</p>
+<p class="text-sm text-green-600 dark:text-green-400 mt-2 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+              +5% vs last week
+            </p>
+</div>
+<div class="bg-white dark:bg-[#181818] border border-slate-200 dark:border-white/10 rounded-xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-500/10 flex items-center justify-center text-amber-600 dark:text-amber-400">
+<span class="material-symbols-outlined">task</span>
+</div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400">Tasks Pending</p>
+</div>
+<p class="text-3xl font-bold text-slate-900 dark:text-white mt-4">12</p>
+<p class="text-sm text-amber-600 dark:text-amber-400 mt-2 flex items-center gap-1 font-medium">
+              3 high priority
+            </p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 space-y-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-semibold text-slate-900 dark:text-white">Feed of Intelligence Signals</h3>
+<button class="text-sm text-primary hover:text-primary/80 font-medium">View All</button>
+</div>
+<div class="space-y-4">
+<div class="bg-white dark:bg-[#181818] border border-slate-200 dark:border-white/10 rounded-xl p-5 shadow-sm hover:border-primary/50 transition-colors">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 shrink-0" data-alt="Sarah Jenkins Profile Picture"></div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-2 mb-1">
+<h4 class="font-semibold text-slate-900 dark:text-white truncate">Sarah Jenkins</h4>
+<span class="text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">2h ago</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-500/20 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30">Promotion</span>
+<span class="text-sm text-slate-600 dark:text-slate-300">VP of Engineering at TechFlow</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">Promoted from Director to VP of Engineering. Likely signals a strategic shift towards AI integration based on her previous track record.</p>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#181818] border border-slate-200 dark:border-white/10 rounded-xl p-5 shadow-sm hover:border-primary/50 transition-colors">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 shrink-0" data-alt="Michael Chang Profile Picture"></div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-2 mb-1">
+<h4 class="font-semibold text-slate-900 dark:text-white truncate">Michael Chang</h4>
+<span class="text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">5h ago</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-primary/20 dark:text-primary border border-emerald-200 dark:border-primary/30">Hiring</span>
+<span class="text-sm text-slate-600 dark:text-slate-300">Chief Marketing Officer at NovaCorp</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">Recently appointed as CMO. Previously spent 6 years scaling marketing efforts at competitor DataSync. Watch for aggressive ad campaigns in Q3.</p>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#181818] border border-slate-200 dark:border-white/10 rounded-xl p-5 shadow-sm hover:border-primary/50 transition-colors">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-full bg-gradient-to-br from-rose-500 to-orange-600 shrink-0" data-alt="Elena Rodriguez Profile Picture"></div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-2 mb-1">
+<h4 class="font-semibold text-slate-900 dark:text-white truncate">Elena Rodriguez</h4>
+<span class="text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">1d ago</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-500/20 dark:text-purple-300 border border-purple-200 dark:border-purple-500/30">M&amp;A</span>
+<span class="text-sm text-slate-600 dark:text-slate-300">CEO at CloudScale</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">Spearheaded the acquisition of EdgeSec for $45M. This consolidates their position in the regional cloud security market.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-semibold text-slate-900 dark:text-white">Task List</h3>
+<button class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+<div class="bg-white dark:bg-[#181818] border border-slate-200 dark:border-white/10 rounded-xl p-4 shadow-sm space-y-3">
+<div class="flex items-start gap-3 p-2 hover:bg-slate-50 dark:hover:bg-white/5 rounded-lg transition-colors group">
+<input class="mt-1 rounded border-slate-300 dark:border-white/20 text-primary focus:ring-primary bg-transparent w-4 h-4 cursor-pointer" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<p class="text-sm text-slate-800 dark:text-slate-200 font-medium mb-1">Review Sarah Jenkins background</p>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400 border border-red-200 dark:border-red-500/30">High</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Due Today</span>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-3 p-2 hover:bg-slate-50 dark:hover:bg-white/5 rounded-lg transition-colors group">
+<input class="mt-1 rounded border-slate-300 dark:border-white/20 text-primary focus:ring-primary bg-transparent w-4 h-4 cursor-pointer" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<p class="text-sm text-slate-800 dark:text-slate-200 font-medium mb-1">Update NovaCorp organizational chart</p>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30">Medium</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Due Tomorrow</span>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-3 p-2 hover:bg-slate-50 dark:hover:bg-white/5 rounded-lg transition-colors group">
+<input class="mt-1 rounded border-slate-300 dark:border-white/20 text-primary focus:ring-primary bg-transparent w-4 h-4 cursor-pointer" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<p class="text-sm text-slate-800 dark:text-slate-200 font-medium mb-1">Draft summary on CloudScale acquisition</p>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400 border border-amber-200 dark:border-amber-500/30">Medium</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Due in 2 days</span>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-3 p-2 hover:bg-slate-50 dark:hover:bg-white/5 rounded-lg transition-colors group">
+<input class="mt-1 rounded border-slate-300 dark:border-white/20 text-primary focus:ring-primary bg-transparent w-4 h-4 cursor-pointer" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<p class="text-sm text-slate-800 dark:text-slate-200 font-medium mb-1">Schedule sync with intelligence team</p>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-700 dark:bg-primary/20 dark:text-primary border border-emerald-200 dark:border-primary/30">Low</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Next Week</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
