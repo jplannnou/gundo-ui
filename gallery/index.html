@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>@gundo/ui — Component Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --ui-primary: #10b981; --ui-primary-hover: #059669;
+  --ui-primary-soft: rgb(16 185 129 / 0.15);
+  --ui-surface: #111111; --ui-surface-raised: rgb(255 255 255 / 0.02);
+  --ui-surface-hover: rgb(255 255 255 / 0.05);
+  --ui-border: rgb(255 255 255 / 0.1); --ui-border-hover: rgb(255 255 255 / 0.2);
+  --ui-text: #ffffff; --ui-text-secondary: #9ca3af; --ui-text-muted: #6b7280;
+  --ui-success: #10b981; --ui-success-soft: rgb(16 185 129 / 0.15);
+  --ui-error: #ef4444; --ui-error-soft: rgb(239 68 68 / 0.15);
+  --ui-warning: #f59e0b; --ui-warning-soft: rgb(245 158 11 / 0.15);
+  --ui-info: #3b82f6; --ui-info-soft: rgb(59 130 246 / 0.15);
+  --ui-overlay: rgb(0 0 0 / 0.6);
+  --ui-font-family: 'Inter', system-ui, sans-serif;
+  --ui-font-mono: 'JetBrains Mono', monospace;
+  --ui-radius-sm: 0.25rem; --ui-radius-md: 0.5rem;
+  --ui-radius-lg: 0.75rem; --ui-radius-xl: 1rem;
+  --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+  --ui-shadow-md: 0 4px 6px rgb(0 0 0 / 0.4);
+  --ui-shadow-lg: 0 10px 15px rgb(0 0 0 / 0.5);
+  --ui-duration-fast: 150ms; --ui-duration-normal: 200ms;
+  --ui-z-dropdown: 50; --ui-z-modal: 500; --ui-z-toast: 600;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--ui-font-family); background: #0a0a0a; color: var(--ui-text); line-height: 1.6; }
+a { color: var(--ui-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Layout */
+.gallery-layout { display: flex; min-height: 100vh; }
+.sidebar { width: 260px; background: var(--ui-surface); border-right: 1px solid var(--ui-border); position: fixed; top: 0; left: 0; bottom: 0; overflow-y: auto; padding: 24px 0; }
+.sidebar h1 { font-size: 1.125rem; font-weight: 700; padding: 0 20px; margin-bottom: 8px; }
+.sidebar .subtitle { font-size: 0.75rem; color: var(--ui-text-muted); padding: 0 20px; margin-bottom: 24px; }
+.sidebar h2 { font-size: 0.625rem; font-weight: 600; color: var(--ui-text-muted); text-transform: uppercase; letter-spacing: 0.1em; padding: 16px 20px 8px; }
+.sidebar a { display: block; padding: 6px 20px; font-size: 0.875rem; color: var(--ui-text-secondary); transition: all 150ms; }
+.sidebar a:hover { color: var(--ui-text); background: var(--ui-surface-hover); text-decoration: none; }
+.main { margin-left: 260px; flex: 1; padding: 48px; max-width: 960px; }
+
+/* Hero */
+.hero { margin-bottom: 48px; }
+.hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+.hero p { color: var(--ui-text-secondary); max-width: 600px; }
+.hero .stats { display: flex; gap: 24px; margin-top: 20px; }
+.stat { background: var(--ui-surface); border: 1px solid var(--ui-border); border-radius: var(--ui-radius-lg); padding: 12px 20px; }
+.stat .num { font-size: 1.5rem; font-weight: 700; color: var(--ui-primary); }
+.stat .label { font-size: 0.75rem; color: var(--ui-text-muted); }
+
+/* Section */
+.section { margin-bottom: 48px; }
+.section h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; padding-bottom: 8px; border-bottom: 1px solid var(--ui-border); }
+.component { background: var(--ui-surface); border: 1px solid var(--ui-border); border-radius: var(--ui-radius-lg); margin-bottom: 20px; overflow: hidden; }
+.component-header { padding: 16px 20px; border-bottom: 1px solid var(--ui-border); display: flex; justify-content: space-between; align-items: center; }
+.component-header h3 { font-size: 1rem; font-weight: 600; }
+.component-header .file { font-size: 0.75rem; color: var(--ui-text-muted); font-family: var(--ui-font-mono); }
+.component-preview { padding: 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.component-props { border-top: 1px solid var(--ui-border); padding: 16px 20px; }
+.component-props summary { font-size: 0.8125rem; font-weight: 600; color: var(--ui-text-secondary); cursor: pointer; }
+.props-table { width: 100%; margin-top: 12px; font-size: 0.8125rem; border-collapse: collapse; }
+.props-table th { text-align: left; color: var(--ui-text-muted); font-weight: 500; padding: 6px 12px 6px 0; border-bottom: 1px solid var(--ui-border); }
+.props-table td { padding: 6px 12px 6px 0; border-bottom: 1px solid rgb(255 255 255 / 0.04); color: var(--ui-text-secondary); }
+.props-table code { font-family: var(--ui-font-mono); font-size: 0.75rem; background: var(--ui-surface-hover); padding: 2px 6px; border-radius: 4px; color: var(--ui-primary); }
+
+/* Mock components */
+.mock-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--ui-radius-md); font-size: 0.875rem; font-weight: 500; cursor: pointer; border: none; transition: all 150ms; font-family: inherit; }
+.mock-btn-primary { background: var(--ui-primary); color: white; }
+.mock-btn-secondary { background: var(--ui-surface-hover); color: var(--ui-text); border: 1px solid var(--ui-border); }
+.mock-btn-danger { background: var(--ui-error); color: white; }
+.mock-btn-ghost { background: transparent; color: var(--ui-text-secondary); }
+.mock-btn-sm { padding: 6px 12px; font-size: 0.8125rem; }
+.mock-btn-lg { padding: 10px 20px; font-size: 1rem; }
+
+.mock-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
+.mock-badge-default { background: var(--ui-surface-hover); color: var(--ui-text-secondary); }
+.mock-badge-success { background: var(--ui-success-soft); color: var(--ui-success); }
+.mock-badge-error { background: var(--ui-error-soft); color: var(--ui-error); }
+.mock-badge-warning { background: var(--ui-warning-soft); color: var(--ui-warning); }
+.mock-badge-info { background: var(--ui-info-soft); color: var(--ui-info); }
+
+.mock-input { width: 240px; padding: 8px 12px; border-radius: var(--ui-radius-md); border: 1px solid var(--ui-border); background: var(--ui-surface-hover); color: var(--ui-text); font-size: 0.875rem; font-family: inherit; outline: none; }
+.mock-input:focus { border-color: var(--ui-primary); }
+.mock-input-error { border-color: var(--ui-error); }
+
+.mock-card { border: 1px solid var(--ui-border); border-radius: var(--ui-radius-lg); padding: 20px; background: var(--ui-surface); }
+.mock-card h4 { font-weight: 600; margin-bottom: 4px; }
+.mock-card p { color: var(--ui-text-secondary); font-size: 0.875rem; }
+
+.mock-alert { padding: 12px 16px; border-radius: var(--ui-radius-md); border-left: 3px solid; font-size: 0.875rem; }
+.mock-alert-error { border-color: var(--ui-error); background: var(--ui-error-soft); color: #fca5a5; }
+.mock-alert-warning { border-color: var(--ui-warning); background: var(--ui-warning-soft); color: #fcd34d; }
+.mock-alert-info { border-color: var(--ui-info); background: var(--ui-info-soft); color: #93c5fd; }
+.mock-alert-success { border-color: var(--ui-success); background: var(--ui-success-soft); color: #6ee7b7; }
+
+.mock-spinner { width: 24px; height: 24px; border: 3px solid var(--ui-border); border-top-color: var(--ui-primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.mock-skeleton { background: linear-gradient(90deg, var(--ui-surface-hover) 25%, rgb(255 255 255 / 0.08) 50%, var(--ui-surface-hover) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--ui-radius-md); }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+.mock-toggle { width: 44px; height: 24px; border-radius: 12px; background: var(--ui-border); position: relative; cursor: pointer; transition: background 200ms; }
+.mock-toggle.active { background: var(--ui-primary); }
+.mock-toggle::after { content: ''; width: 18px; height: 18px; background: white; border-radius: 50%; position: absolute; top: 3px; left: 3px; transition: transform 200ms; }
+.mock-toggle.active::after { transform: translateX(20px); }
+
+.mock-checkbox { width: 18px; height: 18px; border: 2px solid var(--ui-border); border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.mock-checkbox.checked { background: var(--ui-primary); border-color: var(--ui-primary); }
+.mock-checkbox.checked::after { content: '✓'; color: white; font-size: 12px; }
+
+.mock-tabs { display: flex; border-bottom: 1px solid var(--ui-border); }
+.mock-tab { padding: 8px 16px; font-size: 0.875rem; color: var(--ui-text-muted); cursor: pointer; border-bottom: 2px solid transparent; }
+.mock-tab.active { color: var(--ui-primary); border-bottom-color: var(--ui-primary); }
+
+.mock-progress { height: 8px; background: var(--ui-surface-hover); border-radius: 4px; overflow: hidden; width: 200px; }
+.mock-progress-bar { height: 100%; background: var(--ui-primary); border-radius: 4px; transition: width 300ms; }
+
+.mock-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--ui-primary), #059669); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.875rem; }
+
+.mock-tooltip { position: relative; display: inline-block; }
+.mock-tooltip-content { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--ui-text); color: var(--ui-surface); padding: 6px 12px; border-radius: var(--ui-radius-sm); font-size: 0.75rem; white-space: nowrap; }
+.mock-tooltip-content::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--ui-text); }
+
+.mock-kpi { border: 1px solid var(--ui-border); border-radius: var(--ui-radius-xl); padding: 20px; background: var(--ui-surface); min-width: 180px; }
+.mock-kpi .title { font-size: 0.75rem; color: var(--ui-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.mock-kpi .value { font-size: 1.75rem; font-weight: 700; margin: 4px 0; }
+.mock-kpi .trend { font-size: 0.8125rem; color: var(--ui-success); }
+.mock-kpi .trend.down { color: var(--ui-error); }
+
+.mock-divider { height: 1px; background: var(--ui-border); width: 100%; }
+
+.mock-breadcrumbs { display: flex; align-items: center; gap: 8px; font-size: 0.875rem; color: var(--ui-text-muted); }
+.mock-breadcrumbs span:last-child { color: var(--ui-text); }
+
+.mock-pagination { display: flex; align-items: center; gap: 4px; }
+.mock-page { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--ui-radius-md); font-size: 0.8125rem; cursor: pointer; color: var(--ui-text-secondary); }
+.mock-page.active { background: var(--ui-primary); color: white; }
+.mock-page:hover:not(.active) { background: var(--ui-surface-hover); }
+
+.mock-empty { text-align: center; padding: 40px; }
+.mock-empty .icon { font-size: 2rem; margin-bottom: 12px; opacity: 0.4; }
+.mock-empty .title { font-size: 1rem; font-weight: 500; color: var(--ui-text-secondary); }
+.mock-empty .desc { font-size: 0.875rem; color: var(--ui-text-muted); margin-top: 4px; }
+
+.mock-step { display: flex; align-items: center; gap: 12px; }
+.mock-step-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; }
+.mock-step-dot.done { background: var(--ui-primary); color: white; }
+.mock-step-dot.current { background: var(--ui-primary-soft); color: var(--ui-primary); border: 2px solid var(--ui-primary); }
+.mock-step-dot.pending { background: var(--ui-surface-hover); color: var(--ui-text-muted); }
+
+.mock-segmented { display: inline-flex; background: var(--ui-surface-hover); border-radius: var(--ui-radius-md); padding: 2px; }
+.mock-seg-item { padding: 6px 16px; font-size: 0.8125rem; border-radius: calc(var(--ui-radius-md) - 2px); cursor: pointer; color: var(--ui-text-muted); transition: all 150ms; }
+.mock-seg-item.active { background: var(--ui-primary); color: white; }
+
+.flex-col { display: flex; flex-direction: column; gap: 8px; }
+.gap-16 { gap: 16px; }
+</style>
+</head>
+<body>
+
+<div class="gallery-layout">
+<!-- Sidebar -->
+<nav class="sidebar">
+  <h1>@gundo/ui</h1>
+  <div class="subtitle">40 Components &bull; v0.1.0</div>
+
+  <h2>Layout</h2>
+  <a href="#Card">Card</a>
+  <a href="#Container">Container</a>
+  <a href="#Divider">Divider</a>
+  <a href="#Stack">Stack</a>
+
+  <h2>Navigation</h2>
+  <a href="#Breadcrumbs">Breadcrumbs</a>
+  <a href="#Tabs">Tabs</a>
+  <a href="#StepIndicator">StepIndicator</a>
+  <a href="#Pagination">Pagination</a>
+
+  <h2>Forms</h2>
+  <a href="#Button">Button</a>
+  <a href="#Input">Input</a>
+  <a href="#Textarea">Textarea</a>
+  <a href="#Checkbox">Checkbox</a>
+  <a href="#Toggle">Toggle</a>
+  <a href="#SearchInput">SearchInput</a>
+  <a href="#FormField">FormField</a>
+  <a href="#Combobox">Combobox</a>
+  <a href="#TagsInput">TagsInput</a>
+  <a href="#SegmentedControl">SegmentedControl</a>
+  <a href="#FileUpload">FileUpload</a>
+
+  <h2>Feedback</h2>
+  <a href="#AlertBanner">AlertBanner</a>
+  <a href="#Spinner">Spinner</a>
+  <a href="#ProgressBar">ProgressBar</a>
+  <a href="#Skeleton">Skeleton</a>
+  <a href="#Toast">Toast</a>
+  <a href="#EmptyState">EmptyState</a>
+  <a href="#ErrorRetry">ErrorRetry</a>
+  <a href="#KpiCard">KpiCard</a>
+
+  <h2>Overlay</h2>
+  <a href="#Modal">Modal</a>
+  <a href="#ConfirmDialog">ConfirmDialog</a>
+  <a href="#Drawer">Drawer</a>
+  <a href="#DropdownMenu">DropdownMenu</a>
+  <a href="#Tooltip">Tooltip</a>
+  <a href="#Popover">Popover</a>
+
+  <h2>Data</h2>
+  <a href="#DataTable">DataTable</a>
+  <a href="#Badge">Badge</a>
+  <a href="#Avatar">Avatar</a>
+
+  <h2>Compound</h2>
+  <a href="#Sidebar">Sidebar</a>
+  <a href="#Accordion">Accordion</a>
+</nav>
+
+<!-- Main Content -->
+<main class="main">
+
+<div class="hero">
+  <h1>@gundo/ui Component Gallery</h1>
+  <p>Shared design system for the GUNDO ecosystem. Dark-first, CSS Custom Properties, React 19, TypeScript.</p>
+  <div class="stats">
+    <div class="stat"><div class="num">40</div><div class="label">Components</div></div>
+    <div class="stat"><div class="num">169</div><div class="label">Tests</div></div>
+    <div class="stat"><div class="num">4</div><div class="label">Projects</div></div>
+    <div class="stat"><div class="num">50+</div><div class="label">Tokens</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section class="section" id="layout-section">
+<h2>Layout</h2>
+
+<div class="component" id="Card">
+  <div class="component-header"><h3>Card</h3><span class="file">Card.tsx</span></div>
+  <div class="component-preview">
+    <div class="mock-card" style="width:280px"><h4>Card Title</h4><p>Card content with automatic padding and border.</p></div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>children</td><td><code>ReactNode</code></td><td>-</td></tr>
+    <tr><td>className</td><td><code>string</code></td><td><code>''</code></td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="Container">
+  <div class="component-header"><h3>Container</h3><span class="file">Container.tsx</span></div>
+  <div class="component-preview">
+    <div style="border:1px dashed var(--ui-border);padding:16px;border-radius:8px;width:100%;text-align:center;color:var(--ui-text-muted)">max-w-7xl centered container</div>
+  </div>
+</div>
+
+<div class="component" id="Divider">
+  <div class="component-header"><h3>Divider</h3><span class="file">Divider.tsx</span></div>
+  <div class="component-preview" style="flex-direction:column;width:100%">
+    <span style="color:var(--ui-text-muted);font-size:0.875rem">Content above</span>
+    <div class="mock-divider"></div>
+    <span style="color:var(--ui-text-muted);font-size:0.875rem">Content below</span>
+  </div>
+</div>
+
+<div class="component" id="Stack">
+  <div class="component-header"><h3>Stack</h3><span class="file">Stack.tsx</span></div>
+  <div class="component-preview">
+    <div class="flex-col" style="width:200px">
+      <div style="padding:8px;background:var(--ui-surface-hover);border-radius:4px;text-align:center;font-size:0.8125rem">Item 1</div>
+      <div style="padding:8px;background:var(--ui-surface-hover);border-radius:4px;text-align:center;font-size:0.8125rem">Item 2</div>
+      <div style="padding:8px;background:var(--ui-surface-hover);border-radius:4px;text-align:center;font-size:0.8125rem">Item 3</div>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>gap</td><td><code>'sm' | 'md' | 'lg'</code></td><td><code>'md'</code></td></tr>
+    <tr><td>direction</td><td><code>'vertical' | 'horizontal'</code></td><td><code>'vertical'</code></td></tr>
+    </table></details></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section class="section" id="nav-section">
+<h2>Navigation</h2>
+
+<div class="component" id="Breadcrumbs">
+  <div class="component-header"><h3>Breadcrumbs</h3><span class="file">Breadcrumbs.tsx</span></div>
+  <div class="component-preview">
+    <div class="mock-breadcrumbs"><span>Home</span><span>/</span><span>Dashboard</span><span>/</span><span>Settings</span></div>
+  </div>
+</div>
+
+<div class="component" id="Tabs">
+  <div class="component-header"><h3>Tabs</h3><span class="file">Tabs.tsx</span></div>
+  <div class="component-preview" style="flex-direction:column;width:100%">
+    <div class="mock-tabs">
+      <div class="mock-tab active">Overview</div>
+      <div class="mock-tab">Analytics</div>
+      <div class="mock-tab">Settings</div>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>tabs</td><td><code>Tab[]</code></td><td>-</td></tr>
+    <tr><td>activeTab</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>onTabChange</td><td><code>(id: string) => void</code></td><td>-</td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="StepIndicator">
+  <div class="component-header"><h3>StepIndicator</h3><span class="file">StepIndicator.tsx</span></div>
+  <div class="component-preview">
+    <div class="mock-step"><div class="mock-step-dot done">✓</div><span style="font-size:0.875rem">Upload</span></div>
+    <span style="color:var(--ui-border)">→</span>
+    <div class="mock-step"><div class="mock-step-dot current">2</div><span style="font-size:0.875rem">Review</span></div>
+    <span style="color:var(--ui-border)">→</span>
+    <div class="mock-step"><div class="mock-step-dot pending">3</div><span style="font-size:0.875rem">Publish</span></div>
+  </div>
+</div>
+
+<div class="component" id="Pagination">
+  <div class="component-header"><h3>Pagination</h3><span class="file">Pagination.tsx</span></div>
+  <div class="component-preview">
+    <div class="mock-pagination">
+      <div class="mock-page">‹</div>
+      <div class="mock-page active">1</div>
+      <div class="mock-page">2</div>
+      <div class="mock-page">3</div>
+      <div class="mock-page">...</div>
+      <div class="mock-page">12</div>
+      <div class="mock-page">›</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section class="section" id="forms-section">
+<h2>Forms</h2>
+
+<div class="component" id="Button">
+  <div class="component-header"><h3>Button</h3><span class="file">Button.tsx</span></div>
+  <div class="component-preview">
+    <button class="mock-btn mock-btn-primary">Primary</button>
+    <button class="mock-btn mock-btn-secondary">Secondary</button>
+    <button class="mock-btn mock-btn-danger">Danger</button>
+    <button class="mock-btn mock-btn-ghost">Ghost</button>
+    <button class="mock-btn mock-btn-primary mock-btn-sm">Small</button>
+    <button class="mock-btn mock-btn-primary mock-btn-lg">Large</button>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>variant</td><td><code>'primary' | 'secondary' | 'danger' | 'ghost'</code></td><td><code>'primary'</code></td></tr>
+    <tr><td>size</td><td><code>'sm' | 'md' | 'lg'</code></td><td><code>'md'</code></td></tr>
+    <tr><td>loading</td><td><code>boolean</code></td><td><code>false</code></td></tr>
+    <tr><td>icon</td><td><code>ReactNode</code></td><td>-</td></tr>
+    <tr><td>iconPosition</td><td><code>'left' | 'right'</code></td><td><code>'left'</code></td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="Input">
+  <div class="component-header"><h3>Input</h3><span class="file">Input.tsx</span></div>
+  <div class="component-preview">
+    <input class="mock-input" placeholder="Default input" />
+    <input class="mock-input mock-input-error" value="Invalid value" />
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>label</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>error</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>...rest</td><td><code>InputHTMLAttributes</code></td><td>-</td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="Textarea">
+  <div class="component-header"><h3>Textarea</h3><span class="file">Textarea.tsx</span></div>
+  <div class="component-preview">
+    <textarea class="mock-input" style="height:80px;resize:vertical" placeholder="Enter description..."></textarea>
+  </div>
+</div>
+
+<div class="component" id="Checkbox">
+  <div class="component-header"><h3>Checkbox</h3><span class="file">Checkbox.tsx</span></div>
+  <div class="component-preview">
+    <div style="display:flex;align-items:center;gap:8px"><div class="mock-checkbox checked"></div><span style="font-size:0.875rem">Checked</span></div>
+    <div style="display:flex;align-items:center;gap:8px"><div class="mock-checkbox"></div><span style="font-size:0.875rem">Unchecked</span></div>
+  </div>
+</div>
+
+<div class="component" id="Toggle">
+  <div class="component-header"><h3>Toggle</h3><span class="file">Toggle.tsx</span></div>
+  <div class="component-preview">
+    <div style="display:flex;align-items:center;gap:8px"><div class="mock-toggle active"></div><span style="font-size:0.875rem">Enabled</span></div>
+    <div style="display:flex;align-items:center;gap:8px"><div class="mock-toggle"></div><span style="font-size:0.875rem">Disabled</span></div>
+  </div>
+</div>
+
+<div class="component" id="SearchInput">
+  <div class="component-header"><h3>SearchInput</h3><span class="file">SearchInput.tsx</span></div>
+  <div class="component-preview">
+    <input class="mock-input" placeholder="🔍  Search..." style="width:300px" />
+  </div>
+</div>
+
+<div class="component" id="FormField">
+  <div class="component-header"><h3>FormField</h3><span class="file">FormField.tsx</span></div>
+  <div class="component-preview" style="flex-direction:column">
+    <div><label style="display:block;font-size:0.75rem;color:var(--ui-text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px">Email Address</label><input class="mock-input" placeholder="user@example.com" /></div>
+  </div>
+</div>
+
+<div class="component" id="Combobox">
+  <div class="component-header"><h3>Combobox</h3><span class="file">Combobox.tsx</span></div>
+  <div class="component-preview">
+    <input class="mock-input" placeholder="Type to search..." style="width:280px" />
+  </div>
+</div>
+
+<div class="component" id="TagsInput">
+  <div class="component-header"><h3>TagsInput</h3><span class="file">TagsInput.tsx</span></div>
+  <div class="component-preview">
+    <div style="display:flex;gap:6px;align-items:center;padding:6px 12px;border:1px solid var(--ui-border);border-radius:var(--ui-radius-md);background:var(--ui-surface-hover)">
+      <span class="mock-badge mock-badge-info">React</span>
+      <span class="mock-badge mock-badge-info">TypeScript</span>
+      <span style="color:var(--ui-text-muted);font-size:0.8125rem">Add tag...</span>
+    </div>
+  </div>
+</div>
+
+<div class="component" id="SegmentedControl">
+  <div class="component-header"><h3>SegmentedControl</h3><span class="file">SegmentedControl.tsx</span></div>
+  <div class="component-preview">
+    <div class="mock-segmented">
+      <div class="mock-seg-item active">Monthly</div>
+      <div class="mock-seg-item">Quarterly</div>
+      <div class="mock-seg-item">Yearly</div>
+    </div>
+  </div>
+</div>
+
+<div class="component" id="FileUpload">
+  <div class="component-header"><h3>FileUpload</h3><span class="file">FileUpload.tsx</span></div>
+  <div class="component-preview">
+    <div style="border:2px dashed var(--ui-border);border-radius:var(--ui-radius-lg);padding:32px;text-align:center;width:300px">
+      <div style="font-size:1.5rem;margin-bottom:8px;opacity:0.4">📁</div>
+      <div style="font-size:0.875rem;color:var(--ui-text-secondary)">Drop files here or click to browse</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section class="section" id="feedback-section">
+<h2>Feedback</h2>
+
+<div class="component" id="AlertBanner">
+  <div class="component-header"><h3>AlertBanner</h3><span class="file">AlertBanner.tsx</span></div>
+  <div class="component-preview" style="flex-direction:column;width:100%;gap:8px">
+    <div class="mock-alert mock-alert-error"><strong>Error:</strong> Payment failed. Please retry.</div>
+    <div class="mock-alert mock-alert-warning"><strong>Warning:</strong> 14 uncategorized transactions.</div>
+    <div class="mock-alert mock-alert-info"><strong>Info:</strong> New features available.</div>
+    <div class="mock-alert mock-alert-success"><strong>Success:</strong> All changes saved.</div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>type</td><td><code>'error' | 'warning' | 'info' | 'success'</code></td><td><code>'info'</code></td></tr>
+    <tr><td>title</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>onDismiss</td><td><code>() => void</code></td><td>-</td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="Spinner">
+  <div class="component-header"><h3>Spinner</h3><span class="file">Spinner.tsx</span></div>
+  <div class="component-preview">
+    <div class="mock-spinner"></div>
+    <div class="mock-spinner" style="width:16px;height:16px;border-width:2px"></div>
+    <div class="mock-spinner" style="width:40px;height:40px;border-width:4px"></div>
+  </div>
+</div>
+
+<div class="component" id="ProgressBar">
+  <div class="component-header"><h3>ProgressBar</h3><span class="file">ProgressBar.tsx</span></div>
+  <div class="component-preview" style="flex-direction:column;width:100%;gap:12px">
+    <div><div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--ui-text-secondary);margin-bottom:4px"><span>Upload Progress</span><span>73%</span></div><div class="mock-progress" style="width:100%"><div class="mock-progress-bar" style="width:73%"></div></div></div>
+    <div><div class="mock-progress" style="width:100%"><div class="mock-progress-bar" style="width:45%;background:var(--ui-warning)"></div></div></div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>value</td><td><code>number</code></td><td>-</td></tr>
+    <tr><td>max</td><td><code>number</code></td><td><code>100</code></td></tr>
+    <tr><td>label</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>showPercentage</td><td><code>boolean</code></td><td><code>false</code></td></tr>
+    <tr><td>color</td><td><code>string</code></td><td>-</td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="Skeleton">
+  <div class="component-header"><h3>Skeleton / SkeletonText</h3><span class="file">Skeleton.tsx</span></div>
+  <div class="component-preview" style="flex-direction:column;width:100%;gap:8px">
+    <div class="mock-skeleton" style="width:100%;height:120px"></div>
+    <div class="mock-skeleton" style="width:80%;height:12px"></div>
+    <div class="mock-skeleton" style="width:60%;height:12px"></div>
+  </div>
+</div>
+
+<div class="component" id="Toast">
+  <div class="component-header"><h3>Toast / ToastProvider</h3><span class="file">Toast.tsx, ToastProvider.tsx</span></div>
+  <div class="component-preview">
+    <div style="background:var(--ui-surface);border:1px solid var(--ui-border);border-radius:var(--ui-radius-lg);padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:var(--ui-shadow-lg)">
+      <span style="color:var(--ui-success)">✓</span>
+      <span style="font-size:0.875rem">Changes saved successfully</span>
+      <span style="color:var(--ui-text-muted);cursor:pointer;margin-left:8px">✕</span>
+    </div>
+  </div>
+</div>
+
+<div class="component" id="EmptyState">
+  <div class="component-header"><h3>EmptyState</h3><span class="file">EmptyState.tsx</span></div>
+  <div class="component-preview" style="justify-content:center;width:100%">
+    <div class="mock-empty">
+      <div class="icon">📋</div>
+      <div class="title">No transactions yet</div>
+      <div class="desc">Import your first bank statement to get started.</div>
+      <button class="mock-btn mock-btn-primary" style="margin-top:16px">Import CSV</button>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>icon</td><td><code>ReactNode</code></td><td>-</td></tr>
+    <tr><td>title</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>description</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>actionLabel</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>onAction</td><td><code>() => void</code></td><td>-</td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="ErrorRetry">
+  <div class="component-header"><h3>ErrorRetry</h3><span class="file">ErrorRetry.tsx</span></div>
+  <div class="component-preview" style="justify-content:center;width:100%">
+    <div class="mock-empty">
+      <div class="icon" style="color:var(--ui-error)">⚠</div>
+      <div class="title" style="color:var(--ui-error)">Something went wrong</div>
+      <div class="desc">Failed to load data. Please try again.</div>
+      <button class="mock-btn mock-btn-secondary" style="margin-top:16px">Retry</button>
+    </div>
+  </div>
+</div>
+
+<div class="component" id="KpiCard">
+  <div class="component-header"><h3>KpiCard</h3><span class="file">KpiCard.tsx</span></div>
+  <div class="component-preview">
+    <div class="mock-kpi"><div class="title">Revenue</div><div class="value">€45,230</div><div class="trend">↑ +12% vs last month</div></div>
+    <div class="mock-kpi"><div class="title">Burn Rate</div><div class="value">€12.5k</div><div class="trend down">↓ -8% vs last month</div></div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>title</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>value</td><td><code>string | number</code></td><td>-</td></tr>
+    <tr><td>subtitle</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>icon</td><td><code>ReactNode</code></td><td>-</td></tr>
+    <tr><td>trend</td><td><code>{ value: number; label?: string }</code></td><td>-</td></tr>
+    </table></details></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section class="section" id="overlay-section">
+<h2>Overlay</h2>
+
+<div class="component" id="Modal">
+  <div class="component-header"><h3>Modal</h3><span class="file">Modal.tsx</span></div>
+  <div class="component-preview" style="justify-content:center;width:100%">
+    <div style="background:var(--ui-overlay);padding:40px;border-radius:var(--ui-radius-lg);width:100%;display:flex;justify-content:center">
+      <div style="background:var(--ui-surface);border:1px solid var(--ui-border);border-radius:var(--ui-radius-lg);padding:24px;width:400px;box-shadow:var(--ui-shadow-lg)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h4>Confirm Action</h4><span style="cursor:pointer;color:var(--ui-text-muted)">✕</span></div>
+        <p style="color:var(--ui-text-secondary);font-size:0.875rem;margin-bottom:20px">Are you sure you want to proceed? This action cannot be undone.</p>
+        <div style="display:flex;gap:8px;justify-content:flex-end"><button class="mock-btn mock-btn-secondary">Cancel</button><button class="mock-btn mock-btn-primary">Confirm</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>open</td><td><code>boolean</code></td><td>-</td></tr>
+    <tr><td>onClose</td><td><code>() => void</code></td><td>-</td></tr>
+    <tr><td>title</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>size</td><td><code>'sm' | 'md' | 'lg' | 'xl'</code></td><td><code>'md'</code></td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="ConfirmDialog">
+  <div class="component-header"><h3>ConfirmDialog</h3><span class="file">ConfirmDialog.tsx</span></div>
+  <div class="component-preview"><span style="color:var(--ui-text-muted);font-size:0.875rem">Extends Modal with confirm/cancel actions and danger variant.</span></div>
+</div>
+
+<div class="component" id="Drawer">
+  <div class="component-header"><h3>Drawer</h3><span class="file">Drawer.tsx</span></div>
+  <div class="component-preview"><span style="color:var(--ui-text-muted);font-size:0.875rem">Slide-out panel from left/right edge. Supports title, close button, custom width.</span></div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>open</td><td><code>boolean</code></td><td>-</td></tr>
+    <tr><td>onClose</td><td><code>() => void</code></td><td>-</td></tr>
+    <tr><td>side</td><td><code>'left' | 'right'</code></td><td><code>'right'</code></td></tr>
+    <tr><td>width</td><td><code>string</code></td><td><code>'max-w-md'</code></td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="DropdownMenu">
+  <div class="component-header"><h3>DropdownMenu</h3><span class="file">DropdownMenu.tsx</span></div>
+  <div class="component-preview">
+    <div style="position:relative;display:inline-block">
+      <button class="mock-btn mock-btn-secondary">Actions ▾</button>
+      <div style="position:absolute;top:calc(100% + 4px);left:0;background:var(--ui-surface);border:1px solid var(--ui-border);border-radius:var(--ui-radius-md);padding:4px;min-width:160px;box-shadow:var(--ui-shadow-lg);z-index:50">
+        <div style="padding:6px 12px;font-size:0.8125rem;border-radius:4px;cursor:pointer;color:var(--ui-text-secondary)">Edit</div>
+        <div style="padding:6px 12px;font-size:0.8125rem;border-radius:4px;cursor:pointer;color:var(--ui-text-secondary)">Duplicate</div>
+        <div style="height:1px;background:var(--ui-border);margin:4px 0"></div>
+        <div style="padding:6px 12px;font-size:0.8125rem;border-radius:4px;cursor:pointer;color:var(--ui-error)">Delete</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="component" id="Tooltip">
+  <div class="component-header"><h3>Tooltip</h3><span class="file">Tooltip.tsx</span></div>
+  <div class="component-preview" style="padding-top:40px">
+    <div class="mock-tooltip">
+      <div class="mock-tooltip-content">Helpful tooltip text</div>
+      <button class="mock-btn mock-btn-secondary">Hover me</button>
+    </div>
+  </div>
+</div>
+
+<div class="component" id="Popover">
+  <div class="component-header"><h3>Popover</h3><span class="file">Popover.tsx</span></div>
+  <div class="component-preview"><span style="color:var(--ui-text-muted);font-size:0.875rem">Click-triggered content popup with auto-positioning. Similar to Tooltip but for rich content.</span></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section class="section" id="data-section">
+<h2>Data</h2>
+
+<div class="component" id="DataTable">
+  <div class="component-header"><h3>DataTable</h3><span class="file">DataTable.tsx</span></div>
+  <div class="component-preview" style="flex-direction:column;width:100%;padding:0">
+    <table style="width:100%;border-collapse:collapse;font-size:0.8125rem">
+      <thead><tr style="border-bottom:1px solid var(--ui-border)">
+        <th style="text-align:left;padding:12px 16px;color:var(--ui-text-muted);font-weight:500">Name</th>
+        <th style="text-align:left;padding:12px 16px;color:var(--ui-text-muted);font-weight:500">Status</th>
+        <th style="text-align:right;padding:12px 16px;color:var(--ui-text-muted);font-weight:500">Amount</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgb(255 255 255 / 0.04)"><td style="padding:12px 16px">Invoice #1042</td><td style="padding:12px 16px"><span class="mock-badge mock-badge-success">Paid</span></td><td style="padding:12px 16px;text-align:right;color:var(--ui-success)">€2,340</td></tr>
+        <tr style="border-bottom:1px solid rgb(255 255 255 / 0.04)"><td style="padding:12px 16px">Invoice #1041</td><td style="padding:12px 16px"><span class="mock-badge mock-badge-warning">Pending</span></td><td style="padding:12px 16px;text-align:right">€1,890</td></tr>
+        <tr><td style="padding:12px 16px">Invoice #1040</td><td style="padding:12px 16px"><span class="mock-badge mock-badge-error">Overdue</span></td><td style="padding:12px 16px;text-align:right;color:var(--ui-error)">€3,200</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>columns</td><td><code>Column&lt;T&gt;[]</code></td><td>-</td></tr>
+    <tr><td>data</td><td><code>T[]</code></td><td>-</td></tr>
+    <tr><td>rowKey</td><td><code>(row: T) => string | number</code></td><td>-</td></tr>
+    <tr><td>sort</td><td><code>SortState</code></td><td>-</td></tr>
+    <tr><td>onSort</td><td><code>(sort: SortState) => void</code></td><td>-</td></tr>
+    <tr><td>selectedKeys</td><td><code>Set&lt;string | number&gt;</code></td><td>-</td></tr>
+    <tr><td>onSelectChange</td><td><code>(keys: Set) => void</code></td><td>-</td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="Badge">
+  <div class="component-header"><h3>Badge</h3><span class="file">Badge.tsx</span></div>
+  <div class="component-preview">
+    <span class="mock-badge mock-badge-default">Default</span>
+    <span class="mock-badge mock-badge-success">Success</span>
+    <span class="mock-badge mock-badge-error">Error</span>
+    <span class="mock-badge mock-badge-warning">Warning</span>
+    <span class="mock-badge mock-badge-info">Info</span>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>variant</td><td><code>'default' | 'success' | 'error' | 'warning' | 'info' | 'purple'</code></td><td><code>'default'</code></td></tr>
+    <tr><td>size</td><td><code>'sm' | 'md'</code></td><td><code>'sm'</code></td></tr>
+    <tr><td>icon</td><td><code>ReactNode</code></td><td>-</td></tr>
+    <tr><td>dot</td><td><code>boolean</code></td><td><code>false</code></td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="Avatar">
+  <div class="component-header"><h3>Avatar</h3><span class="file">Avatar.tsx</span></div>
+  <div class="component-preview">
+    <div class="mock-avatar">JP</div>
+    <div class="mock-avatar" style="width:32px;height:32px;font-size:0.75rem">MG</div>
+    <div class="mock-avatar" style="width:48px;height:48px;font-size:1rem">SR</div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section class="section" id="compound-section">
+<h2>Compound</h2>
+
+<div class="component" id="Sidebar">
+  <div class="component-header"><h3>Sidebar</h3><span class="file">Sidebar.tsx</span></div>
+  <div class="component-preview" style="padding:0">
+    <div style="width:240px;background:#0a0a0a;border-right:1px solid var(--ui-border);padding:16px 0;min-height:300px">
+      <div style="padding:0 16px;margin-bottom:16px;font-weight:700;font-size:0.9375rem">GUNDO App</div>
+      <div style="padding:8px 16px;font-size:0.8125rem;color:var(--ui-primary);background:var(--ui-primary-soft);border-left:3px solid var(--ui-primary)">Dashboard</div>
+      <div style="padding:8px 16px;font-size:0.8125rem;color:var(--ui-text-muted)">Settings</div>
+      <div style="padding:8px 16px;font-size:0.8125rem;color:var(--ui-text-muted)">Analytics</div>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Sub-components</summary>
+    <table class="props-table"><tr><th>Component</th><th>Description</th></tr>
+    <tr><td><code>Sidebar</code></td><td>Root wrapper with collapse context</td></tr>
+    <tr><td><code>Sidebar.Header</code></td><td>Logo/title area</td></tr>
+    <tr><td><code>Sidebar.Content</code></td><td>Scrollable nav area</td></tr>
+    <tr><td><code>Sidebar.Group</code></td><td>Labeled group of items</td></tr>
+    <tr><td><code>Sidebar.Item</code></td><td>Navigation item (active, icon)</td></tr>
+    <tr><td><code>Sidebar.Footer</code></td><td>Bottom section</td></tr>
+    <tr><td><code>Sidebar.Toggle</code></td><td>Collapse/expand button</td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="Accordion">
+  <div class="component-header"><h3>Accordion / AccordionItem</h3><span class="file">Accordion.tsx</span></div>
+  <div class="component-preview" style="flex-direction:column;width:100%">
+    <div style="border:1px solid var(--ui-border);border-radius:var(--ui-radius-md);overflow:hidden">
+      <div style="padding:12px 16px;border-bottom:1px solid var(--ui-border);display:flex;justify-content:space-between;cursor:pointer"><span style="font-size:0.875rem;font-weight:500">What is @gundo/ui?</span><span style="color:var(--ui-text-muted)">▼</span></div>
+      <div style="padding:12px 16px;font-size:0.8125rem;color:var(--ui-text-secondary);border-bottom:1px solid var(--ui-border);background:var(--ui-surface-raised)">A shared component library for the GUNDO ecosystem with 40 React components, CSS Custom Properties theming, and full accessibility support.</div>
+      <div style="padding:12px 16px;display:flex;justify-content:space-between;cursor:pointer"><span style="font-size:0.875rem;font-weight:500">How do I install it?</span><span style="color:var(--ui-text-muted)">▶</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<section class="section">
+<h2>Design Tokens</h2>
+<div class="component">
+  <div class="component-header"><h3>Color Palette</h3><span class="file">theme.css</span></div>
+  <div class="component-preview" style="flex-wrap:wrap;gap:16px">
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--ui-primary);border-radius:8px"></div><div style="font-size:0.625rem;color:var(--ui-text-muted);margin-top:4px">primary</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--ui-surface);border:1px solid var(--ui-border);border-radius:8px"></div><div style="font-size:0.625rem;color:var(--ui-text-muted);margin-top:4px">surface</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--ui-success);border-radius:8px"></div><div style="font-size:0.625rem;color:var(--ui-text-muted);margin-top:4px">success</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--ui-error);border-radius:8px"></div><div style="font-size:0.625rem;color:var(--ui-text-muted);margin-top:4px">error</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--ui-warning);border-radius:8px"></div><div style="font-size:0.625rem;color:var(--ui-text-muted);margin-top:4px">warning</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--ui-info);border-radius:8px"></div><div style="font-size:0.625rem;color:var(--ui-text-muted);margin-top:4px">info</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--ui-text);border-radius:8px"></div><div style="font-size:0.625rem;color:var(--ui-text-muted);margin-top:4px">text</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--ui-text-secondary);border-radius:8px"></div><div style="font-size:0.625rem;color:var(--ui-text-muted);margin-top:4px">text-secondary</div></div>
+    <div style="text-align:center"><div style="width:48px;height:48px;background:var(--ui-text-muted);border-radius:8px"></div><div style="font-size:0.625rem;color:var(--ui-text-muted);margin-top:4px">text-muted</div></div>
+  </div>
+</div>
+
+<div class="component">
+  <div class="component-header"><h3>Typography</h3><span class="file">theme.css</span></div>
+  <div class="component-preview" style="flex-direction:column;gap:8px;width:100%">
+    <div style="font-size:var(--ui-font-size-2xl);font-weight:700">2xl — Heading (1.5rem)</div>
+    <div style="font-size:var(--ui-font-size-xl);font-weight:600">xl — Subheading (1.25rem)</div>
+    <div style="font-size:var(--ui-font-size-lg)">lg — Large (1.125rem)</div>
+    <div style="font-size:var(--ui-font-size-base)">base — Body (1rem)</div>
+    <div style="font-size:var(--ui-font-size-sm);color:var(--ui-text-secondary)">sm — Small (0.875rem)</div>
+    <div style="font-size:var(--ui-font-size-xs);color:var(--ui-text-muted)">xs — Caption (0.75rem)</div>
+    <div style="font-family:var(--ui-font-mono);font-size:var(--ui-font-size-sm);color:var(--ui-primary)">mono — Code (JetBrains Mono)</div>
+  </div>
+</div>
+
+<div class="component">
+  <div class="component-header"><h3>Border Radius</h3><span class="file">theme.css</span></div>
+  <div class="component-preview">
+    <div style="width:60px;height:60px;background:var(--ui-surface-hover);border:1px solid var(--ui-border);border-radius:var(--ui-radius-sm);display:flex;align-items:center;justify-content:center;font-size:0.625rem;color:var(--ui-text-muted)">sm</div>
+    <div style="width:60px;height:60px;background:var(--ui-surface-hover);border:1px solid var(--ui-border);border-radius:var(--ui-radius-md);display:flex;align-items:center;justify-content:center;font-size:0.625rem;color:var(--ui-text-muted)">md</div>
+    <div style="width:60px;height:60px;background:var(--ui-surface-hover);border:1px solid var(--ui-border);border-radius:var(--ui-radius-lg);display:flex;align-items:center;justify-content:center;font-size:0.625rem;color:var(--ui-text-muted)">lg</div>
+    <div style="width:60px;height:60px;background:var(--ui-surface-hover);border:1px solid var(--ui-border);border-radius:var(--ui-radius-xl);display:flex;align-items:center;justify-content:center;font-size:0.625rem;color:var(--ui-text-muted)">xl</div>
+    <div style="width:60px;height:60px;background:var(--ui-surface-hover);border:1px solid var(--ui-border);border-radius:var(--ui-radius-full);display:flex;align-items:center;justify-content:center;font-size:0.625rem;color:var(--ui-text-muted)">full</div>
+  </div>
+</div>
+</section>
+
+<footer style="padding:40px 0;border-top:1px solid var(--ui-border);color:var(--ui-text-muted);font-size:0.8125rem;text-align:center">
+  @gundo/ui v0.1.0 &bull; 40 Components &bull; 169 Tests &bull; React 19 + TypeScript + CSS Custom Properties
+</footer>
+
+</main>
+</div>
+
+</body>
+</html>

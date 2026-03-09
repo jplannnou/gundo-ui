@@ -40,6 +40,40 @@
 
   /* Overlay */
   --ui-overlay: rgb(0 0 0 / 0.6);
+
+  /* Typography */
+  --ui-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --ui-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --ui-font-size-xs: 0.75rem;
+  --ui-font-size-sm: 0.875rem;
+  --ui-font-size-base: 1rem;
+  --ui-font-size-lg: 1.125rem;
+  --ui-font-size-xl: 1.25rem;
+  --ui-font-size-2xl: 1.5rem;
+
+  /* Border radius */
+  --ui-radius-sm: 0.25rem;
+  --ui-radius-md: 0.5rem;
+  --ui-radius-lg: 0.75rem;
+  --ui-radius-xl: 1rem;
+  --ui-radius-full: 9999px;
+
+  /* Shadows */
+  --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+  --ui-shadow-md: 0 4px 6px rgb(0 0 0 / 0.4);
+  --ui-shadow-lg: 0 10px 15px rgb(0 0 0 / 0.5);
+
+  /* Animation */
+  --ui-duration-fast: 150ms;
+  --ui-duration-normal: 200ms;
+  --ui-duration-slow: 300ms;
+
+  /* Z-index layers */
+  --ui-z-dropdown: 50;
+  --ui-z-sticky: 100;
+  --ui-z-overlay: 400;
+  --ui-z-modal: 500;
+  --ui-z-toast: 600;
 }
 
 /* ── Light theme ─────────────────────────────────────────────────────────
@@ -73,4 +107,13 @@
   --ui-info-soft: rgb(37 99 235 / 0.1);
 
   --ui-overlay: rgb(0 0 0 / 0.3);
+
+  /* Typography */
+  --ui-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --ui-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+
+  /* Shadows (lighter for light theme) */
+  --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --ui-shadow-md: 0 4px 6px rgb(0 0 0 / 0.1);
+  --ui-shadow-lg: 0 10px 15px rgb(0 0 0 / 0.15);
 }

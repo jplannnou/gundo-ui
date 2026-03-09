@@ -43,7 +43,7 @@ export function Tabs({ tabs, activeTab, onTabChange, className = '' }: TabsProps
     <div
       role="tablist"
       aria-orientation="horizontal"
-      className={`flex gap-1 bg-[var(--ui-surface)] rounded-lg p-1 ${className}`}
+      className={`flex gap-1 bg-[var(--ui-surface)] rounded-lg p-1 overflow-x-auto ${className}`}
     >
       {tabs.map((tab, index) => {
         const isActive = activeTab === tab.id;
@@ -57,7 +57,7 @@ export function Tabs({ tabs, activeTab, onTabChange, className = '' }: TabsProps
             tabIndex={isActive ? 0 : -1}
             onClick={() => onTabChange(tab.id)}
             onKeyDown={e => handleKeyDown(e, index)}
-            className={`px-4 py-2 rounded-md transition-all text-sm font-medium ${
+            className={`px-4 py-2 rounded-md transition-all text-sm font-medium whitespace-nowrap shrink-0 ${
               isActive
                 ? 'bg-[var(--ui-primary)] text-white font-semibold'
                 : 'text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'

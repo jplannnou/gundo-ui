@@ -32,9 +32,9 @@ export function Pagination({ page, totalPages, onPageChange, total, pageSize, cl
   const to = total ? Math.min(page * (pageSize || 1), total) : undefined;
 
   return (
-    <div className={`flex items-center justify-between ${className}`}>
+    <nav aria-label="Pagination" className={`flex items-center justify-between ${className}`}>
       {total !== undefined && from !== undefined && to !== undefined ? (
-        <p className="text-sm text-[var(--ui-text-muted)]">
+        <p className="text-sm text-[var(--ui-text-muted)]" aria-live="polite">
           <span className="text-[var(--ui-text)]">{from}</span>–<span className="text-[var(--ui-text)]">{to}</span> of {total}
         </p>
       ) : (
@@ -45,18 +45,21 @@ export function Pagination({ page, totalPages, onPageChange, total, pageSize, cl
           type="button"
           disabled={page <= 1}
           onClick={() => onPageChange(page - 1)}
+          aria-label="Previous page"
           className="px-2.5 py-1.5 text-sm rounded-md border border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 transition-colors"
         >
           ‹
         </button>
         {pages.map((p, i) =>
           p === '...' ? (
-            <span key={`ellipsis-${i}`} className="px-1 text-[var(--ui-text-muted)]">…</span>
+            <span key={`ellipsis-${i}`} className="px-1 text-[var(--ui-text-muted)]" aria-hidden="true">…</span>
           ) : (
             <button
               key={p}
               type="button"
               onClick={() => onPageChange(p)}
+              aria-label={`Page ${p}`}
+              aria-current={p === page ? 'page' : undefined}
               className={`min-w-[32px] py-1.5 text-sm rounded-md transition-colors ${
                 p === page
                   ? 'bg-[var(--ui-primary)] text-white font-medium'
@@ -71,11 +74,12 @@ export function Pagination({ page, totalPages, onPageChange, total, pageSize, cl
           type="button"
           disabled={page >= totalPages}
           onClick={() => onPageChange(page + 1)}
+          aria-label="Next page"
           className="px-2.5 py-1.5 text-sm rounded-md border border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 transition-colors"
         >
           ›
         </button>
       </div>
-    </div>
+    </nav>
   );
 }
