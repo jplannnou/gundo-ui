@@ -62,3 +62,7 @@ export { StatusDot } from './StatusDot';
 export { ThemeToggle } from './ThemeToggle';
 export { UserMenu } from './UserMenu';
 export { VisuallyHidden } from './VisuallyHidden';
+export { Sheet } from './Sheet';
+export { NumberInput } from './NumberInput';
+export { DatePicker } from './DatePicker';
+export { DateRangePicker } from './DateRangePicker';

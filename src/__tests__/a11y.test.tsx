@@ -59,6 +59,10 @@ import {
   VisuallyHidden,
   AppShell,
   AppShellMain,
+  Sheet,
+  NumberInput,
+  DatePicker,
+  DateRangePicker,
 } from '../index';
 
 describe('Accessibility (axe)', () => {
@@ -393,6 +397,32 @@ describe('Accessibility (axe)', () => {
   it('AppShell has no a11y violations', async () => {
     const { container } = render(
       <AppShell><AppShellMain>Content</AppShellMain></AppShell>,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('Sheet has no a11y violations', async () => {
+    const { container } = render(
+      <Sheet open onClose={() => {}} title="Details">Content</Sheet>,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('NumberInput has no a11y violations', async () => {
+    const { container } = render(
+      <NumberInput value={5} onChange={() => {}} label="Quantity" />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('DatePicker has no a11y violations', async () => {
+    const { container } = render(<DatePicker onChange={() => {}} />);
+    await expectNoA11yViolations(container);
+  });
+
+  it('DateRangePicker has no a11y violations', async () => {
+    const { container } = render(
+      <DateRangePicker value={{ from: null, to: null }} onChange={() => {}} />,
     );
     await expectNoA11yViolations(container);
   });
