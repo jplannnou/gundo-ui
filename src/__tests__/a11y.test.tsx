@@ -46,6 +46,8 @@ import {
   Stack,
   StatusDot,
   StepIndicator,
+  ThemeProvider,
+  ThemeToggle,
   Tabs,
   TagsInput,
   Textarea,
@@ -53,7 +55,10 @@ import {
   ToastProvider,
   Toggle,
   Tooltip,
+  UserMenu,
   VisuallyHidden,
+  AppShell,
+  AppShellMain,
 } from '../index';
 
 describe('Accessibility (axe)', () => {
@@ -368,6 +373,27 @@ describe('Accessibility (axe)', () => {
 
   it('VisuallyHidden has no a11y violations', async () => {
     const { container } = render(<VisuallyHidden>Screen reader text</VisuallyHidden>);
+    await expectNoA11yViolations(container);
+  });
+
+  it('ThemeToggle has no a11y violations', async () => {
+    const { container } = render(
+      <ThemeProvider><ThemeToggle /></ThemeProvider>,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('UserMenu has no a11y violations', async () => {
+    const { container } = render(
+      <UserMenu user={{ name: 'John Doe', email: 'john@gundo.io' }} onLogout={() => {}} />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('AppShell has no a11y violations', async () => {
+    const { container } = render(
+      <AppShell><AppShellMain>Content</AppShellMain></AppShell>,
+    );
     await expectNoA11yViolations(container);
   });
 });
