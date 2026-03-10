@@ -15,7 +15,7 @@
   --ui-surface-hover: rgb(255 255 255 / 0.07);
   --ui-border: rgb(255 255 255 / 0.1); --ui-border-hover: rgb(255 255 255 / 0.2);
   --ui-text: #F2F4F3; --ui-text-secondary: #9ca3af; --ui-text-muted: #6b7280;
-  --ui-success: #10b981; --ui-success-soft: rgb(16 185 129 / 0.15);
+  --ui-success: #22c55e; --ui-success-soft: rgb(34 197 94 / 0.15);
   --ui-error: #ef4444; --ui-error-soft: rgb(239 68 68 / 0.15);
   --ui-warning: #f59e0b; --ui-warning-soft: rgb(245 158 11 / 0.15);
   --ui-info: #3b82f6; --ui-info-soft: rgb(59 130 246 / 0.15);
@@ -72,7 +72,7 @@ a:hover { text-decoration: underline; }
 
 /* Mock components */
 .mock-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--ui-radius-md); font-size: 0.875rem; font-weight: 500; cursor: pointer; border: none; transition: all 150ms; font-family: inherit; }
-.mock-btn-primary { background: var(--ui-primary); color: white; }
+.mock-btn-primary { background: var(--ui-primary); color: var(--ui-surface); }
 .mock-btn-secondary { background: var(--ui-surface-hover); color: var(--ui-text); border: 1px solid var(--ui-border); }
 .mock-btn-danger { background: var(--ui-error); color: white; }
 .mock-btn-ghost { background: transparent; color: var(--ui-text-secondary); }
@@ -122,7 +122,7 @@ a:hover { text-decoration: underline; }
 .mock-progress { height: 8px; background: var(--ui-surface-hover); border-radius: 4px; overflow: hidden; width: 200px; }
 .mock-progress-bar { height: 100%; background: var(--ui-primary); border-radius: 4px; transition: width 300ms; }
 
-.mock-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--ui-primary), #059669); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.875rem; }
+.mock-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--ui-primary), #08563E); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.875rem; }
 
 .mock-tooltip { position: relative; display: inline-block; }
 .mock-tooltip-content { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--ui-text); color: var(--ui-surface); padding: 6px 12px; border-radius: var(--ui-radius-sm); font-size: 0.75rem; white-space: nowrap; }
@@ -141,7 +141,7 @@ a:hover { text-decoration: underline; }
 
 .mock-pagination { display: flex; align-items: center; gap: 4px; }
 .mock-page { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--ui-radius-md); font-size: 0.8125rem; cursor: pointer; color: var(--ui-text-secondary); }
-.mock-page.active { background: var(--ui-primary); color: white; }
+.mock-page.active { background: var(--ui-primary); color: var(--ui-surface); }
 .mock-page:hover:not(.active) { background: var(--ui-surface-hover); }
 
 .mock-empty { text-align: center; padding: 40px; }
@@ -151,13 +151,13 @@ a:hover { text-decoration: underline; }
 
 .mock-step { display: flex; align-items: center; gap: 12px; }
 .mock-step-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; }
-.mock-step-dot.done { background: var(--ui-primary); color: white; }
+.mock-step-dot.done { background: var(--ui-primary); color: var(--ui-surface); }
 .mock-step-dot.current { background: var(--ui-primary-soft); color: var(--ui-primary); border: 2px solid var(--ui-primary); }
 .mock-step-dot.pending { background: var(--ui-surface-hover); color: var(--ui-text-muted); }
 
 .mock-segmented { display: inline-flex; background: var(--ui-surface-hover); border-radius: var(--ui-radius-md); padding: 2px; }
 .mock-seg-item { padding: 6px 16px; font-size: 0.8125rem; border-radius: calc(var(--ui-radius-md) - 2px); cursor: pointer; color: var(--ui-text-muted); transition: all 150ms; }
-.mock-seg-item.active { background: var(--ui-primary); color: white; }
+.mock-seg-item.active { background: var(--ui-primary); color: var(--ui-surface); }
 
 .flex-col { display: flex; flex-direction: column; gap: 8px; }
 .gap-16 { gap: 16px; }
@@ -713,7 +713,7 @@ a:hover { text-decoration: underline; }
 <div class="component" id="Sidebar">
   <div class="component-header"><h3>Sidebar</h3><span class="file">Sidebar.tsx</span></div>
   <div class="component-preview" style="padding:0">
-    <div style="width:240px;background:#0a0a0a;border-right:1px solid var(--ui-border);padding:16px 0;min-height:300px">
+    <div style="width:240px;background:#292E37;border-right:1px solid var(--ui-border);padding:16px 0;min-height:300px">
       <div style="padding:0 16px;margin-bottom:16px;font-weight:700;font-size:0.9375rem">GUNDO App</div>
       <div style="padding:8px 16px;font-size:0.8125rem;color:var(--ui-primary);background:var(--ui-primary-soft);border-left:3px solid var(--ui-primary)">Dashboard</div>
       <div style="padding:8px 16px;font-size:0.8125rem;color:var(--ui-text-muted)">Settings</div>
