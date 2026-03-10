@@ -45,8 +45,8 @@
   --ui-text-muted: #6b7280;
 
   /* Semantic colors */
-  --ui-success: #10b981;
-  --ui-success-soft: rgb(16 185 129 / 0.15);
+  --ui-success: #22c55e;
+  --ui-success-soft: rgb(34 197 94 / 0.15);
   --ui-error: #ef4444;
   --ui-error-soft: rgb(239 68 68 / 0.15);
   --ui-warning: #f59e0b;

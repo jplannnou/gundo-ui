@@ -38,7 +38,7 @@
 --ui-text: #F2F4F3;  --ui-text-secondary: #9ca3af;  --ui-text-muted: #6b7280;
 
 /* Semantic + soft variants */
---ui-success: #10b981;  --ui-error: #ef4444;
+--ui-success: #22c55e;  --ui-error: #ef4444;
 --ui-warning: #f59e0b;  --ui-info: #3b82f6;
 
 /* Typography — Montserrat (main) + Quicksand (display) */
