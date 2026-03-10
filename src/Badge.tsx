@@ -18,7 +18,7 @@ const variantStyles: Record<Variant, string> = {
   error: 'bg-[var(--ui-error-soft)] text-[var(--ui-error)]',
   warning: 'bg-[var(--ui-warning-soft)] text-[var(--ui-warning)]',
   info: 'bg-[var(--ui-info-soft)] text-[var(--ui-info)]',
-  purple: 'bg-purple-500/15 text-purple-400',
+  purple: 'bg-[var(--ui-tertiary-soft)] text-[var(--ui-tertiary)]',
 };
 
 const sizeStyles: Record<Size, string> = {

@@ -28,10 +28,10 @@ function NoDataIllustration() {
       <line x1="36" y1="56" x2="84" y2="56" stroke="var(--ui-border, rgba(255,255,255,0.1))" strokeWidth="0.75" strokeDasharray="2 2" />
       <line x1="36" y1="68" x2="84" y2="68" stroke="var(--ui-border, rgba(255,255,255,0.1))" strokeWidth="0.75" strokeDasharray="2 2" />
       {/* Empty bars */}
-      <rect x="38" y="52" width="8" height="24" rx="2" fill="var(--ui-primary, #10b981)" opacity="0.15" />
-      <rect x="50" y="44" width="8" height="32" rx="2" fill="var(--ui-primary, #10b981)" opacity="0.15" />
-      <rect x="62" y="60" width="8" height="16" rx="2" fill="var(--ui-primary, #10b981)" opacity="0.15" />
-      <rect x="74" y="48" width="8" height="28" rx="2" fill="var(--ui-primary, #10b981)" opacity="0.15" />
+      <rect x="38" y="52" width="8" height="24" rx="2" fill="var(--ui-primary, #67C728)" opacity="0.15" />
+      <rect x="50" y="44" width="8" height="32" rx="2" fill="var(--ui-primary, #67C728)" opacity="0.15" />
+      <rect x="62" y="60" width="8" height="16" rx="2" fill="var(--ui-primary, #67C728)" opacity="0.15" />
+      <rect x="74" y="48" width="8" height="28" rx="2" fill="var(--ui-primary, #67C728)" opacity="0.15" />
       {/* Dashed flat line indicating no data */}
       <line x1="34" y1="58" x2="88" y2="58" stroke="var(--ui-text-muted, #6b7280)" strokeWidth="1.5" strokeDasharray="4 3" strokeLinecap="round" />
       {/* Small "empty" icon */}
@@ -60,13 +60,13 @@ function NoResultsIllustration() {
       />
       {/* Inner "?" */}
       <text x="52" y="54" textAnchor="middle" fontSize="16" fontWeight="600"
-        fill="var(--ui-primary, #10b981)" opacity="0.5"
-        fontFamily="var(--ui-font-family, Inter, system-ui, sans-serif)"
+        fill="var(--ui-primary, #67C728)" opacity="0.5"
+        fontFamily="var(--ui-font-family, Montserrat, system-ui, sans-serif)"
       >?</text>
       {/* Small floating dots suggesting emptiness */}
-      <circle cx="28" cy="36" r="2" fill="var(--ui-primary, #10b981)" opacity="0.2" />
-      <circle cx="82" cy="32" r="1.5" fill="var(--ui-primary, #10b981)" opacity="0.15" />
-      <circle cx="36" cy="78" r="1.5" fill="var(--ui-primary, #10b981)" opacity="0.2" />
+      <circle cx="28" cy="36" r="2" fill="var(--ui-primary, #67C728)" opacity="0.2" />
+      <circle cx="82" cy="32" r="1.5" fill="var(--ui-primary, #67C728)" opacity="0.15" />
+      <circle cx="36" cy="78" r="1.5" fill="var(--ui-primary, #67C728)" opacity="0.2" />
       {/* X marks for "not found" */}
       <g stroke="var(--ui-text-muted, #6b7280)" strokeWidth="1.5" strokeLinecap="round" opacity="0.35">
         <line x1="84" y1="40" x2="90" y2="46" />
@@ -86,16 +86,16 @@ function WelcomeIllustration() {
       {/* Rocket body */}
       <path d="M60 22 C60 22 72 36 72 56 C72 64 66 70 60 72 C54 70 48 64 48 56 C48 36 60 22 60 22Z"
         fill="var(--ui-surface-raised, rgba(255,255,255,0.02))"
-        stroke="var(--ui-primary, #10b981)" strokeWidth="2"
+        stroke="var(--ui-primary, #67C728)" strokeWidth="2"
       />
       {/* Rocket window */}
-      <circle cx="60" cy="46" r="6" fill="var(--ui-primary, #10b981)" opacity="0.2"
-        stroke="var(--ui-primary, #10b981)" strokeWidth="1.5"
+      <circle cx="60" cy="46" r="6" fill="var(--ui-primary, #67C728)" opacity="0.2"
+        stroke="var(--ui-primary, #67C728)" strokeWidth="1.5"
       />
-      <circle cx="60" cy="46" r="3" fill="var(--ui-primary, #10b981)" opacity="0.4" />
+      <circle cx="60" cy="46" r="3" fill="var(--ui-primary, #67C728)" opacity="0.4" />
       {/* Fins */}
-      <path d="M48 58 L38 68 L48 66Z" fill="var(--ui-primary, #10b981)" opacity="0.3" />
-      <path d="M72 58 L82 68 L72 66Z" fill="var(--ui-primary, #10b981)" opacity="0.3" />
+      <path d="M48 58 L38 68 L48 66Z" fill="var(--ui-primary, #67C728)" opacity="0.3" />
+      <path d="M72 58 L82 68 L72 66Z" fill="var(--ui-primary, #67C728)" opacity="0.3" />
       {/* Exhaust flames */}
       <path d="M54 72 Q57 84 60 78 Q63 84 66 72" fill="none"
         stroke="var(--ui-warning, #f59e0b)" strokeWidth="1.5" strokeLinecap="round" opacity="0.6"
@@ -104,7 +104,7 @@ function WelcomeIllustration() {
         stroke="var(--ui-error, #ef4444)" strokeWidth="1" strokeLinecap="round" opacity="0.4"
       />
       {/* Sparkles */}
-      <g fill="var(--ui-primary, #10b981)" opacity="0.5">
+      <g fill="var(--ui-primary, #67C728)" opacity="0.5">
         <path d="M30 30 L32 34 L34 30 L32 26Z" />
         <path d="M86 44 L87.5 47 L89 44 L87.5 41Z" />
         <path d="M24 54 L25 56 L26 54 L25 52Z" />
@@ -189,7 +189,7 @@ function OfflineIllustration() {
       />
       {/* Bottom dots */}
       <circle cx="40" cy="72" r="1.5" fill="var(--ui-text-muted, #6b7280)" opacity="0.25" />
-      <circle cx="60" cy="68" r="1" fill="var(--ui-primary, #10b981)" opacity="0.2" />
+      <circle cx="60" cy="68" r="1" fill="var(--ui-primary, #67C728)" opacity="0.2" />
       <circle cx="80" cy="72" r="1.5" fill="var(--ui-text-muted, #6b7280)" opacity="0.25" />
       {/* Status text line */}
       <rect x="40" y="78" width="40" height="3" rx="1.5" fill="var(--ui-text-muted, #6b7280)" opacity="0.15" />
@@ -211,10 +211,10 @@ function UploadIllustration() {
       />
       {/* Upload arrow */}
       <line x1="53" y1="78" x2="53" y2="52"
-        stroke="var(--ui-primary, #10b981)" strokeWidth="2.5" strokeLinecap="round"
+        stroke="var(--ui-primary, #67C728)" strokeWidth="2.5" strokeLinecap="round"
       />
       <polyline points="43,60 53,48 63,60"
-        fill="none" stroke="var(--ui-primary, #10b981)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+        fill="none" stroke="var(--ui-primary, #67C728)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
       />
       {/* Document icon at base */}
       <rect x="44" y="78" width="18" height="14" rx="2"
@@ -224,10 +224,10 @@ function UploadIllustration() {
       <line x1="48" y1="83" x2="58" y2="83" stroke="var(--ui-text-muted, #6b7280)" strokeWidth="1" opacity="0.5" />
       <line x1="48" y1="87" x2="55" y2="87" stroke="var(--ui-text-muted, #6b7280)" strokeWidth="1" opacity="0.5" />
       {/* Sparkle accents */}
-      <path d="M82 26 L83.5 30 L85 26 L83.5 22Z" fill="var(--ui-primary, #10b981)" opacity="0.4" />
-      <path d="M26 24 L27 27 L28 24 L27 21Z" fill="var(--ui-primary, #10b981)" opacity="0.3" />
+      <path d="M82 26 L83.5 30 L85 26 L83.5 22Z" fill="var(--ui-primary, #67C728)" opacity="0.4" />
+      <path d="M26 24 L27 27 L28 24 L27 21Z" fill="var(--ui-primary, #67C728)" opacity="0.3" />
       {/* Plus sign */}
-      <g stroke="var(--ui-primary, #10b981)" strokeWidth="1.5" strokeLinecap="round" opacity="0.35">
+      <g stroke="var(--ui-primary, #67C728)" strokeWidth="1.5" strokeLinecap="round" opacity="0.35">
         <line x1="88" y1="60" x2="88" y2="68" />
         <line x1="84" y1="64" x2="92" y2="64" />
       </g>

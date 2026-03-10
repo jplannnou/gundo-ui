@@ -8,30 +8,42 @@
 - **Consumer projects**: Gundo Engine, Gundo Finance, Gundo Radar, JP Assistant
 - **Tests**: 250 tests (Vitest + React Testing Library), including 43 axe-core accessibility tests
 
-## Design System Tokens (theme.css)
+## Design System Tokens (theme.css) — Brandbook v1 aligned
 
 ```css
-/* Primary (emerald accent) */
---ui-primary: #10b981;  --ui-primary-hover: #059669;
---ui-primary-soft: rgb(16 185 129 / 0.15);
+/* Primary — GUNDO green */
+--ui-primary: #67C728;  --ui-primary-hover: #5ab322;
+--ui-primary-soft: rgb(103 199 40 / 0.15);
 
-/* Surfaces (dark-first) */
---ui-surface: #111111;
---ui-surface-raised: rgb(255 255 255 / 0.02);
---ui-surface-hover: rgb(255 255 255 / 0.05);
+/* Secondary — deep dark green */
+--ui-secondary: #08563E;  --ui-secondary-hover: #064a35;
+--ui-secondary-soft: rgb(8 86 62 / 0.15);
+
+/* Tertiary — dark teal */
+--ui-tertiary: #24495A;  --ui-tertiary-hover: #1e3d4c;
+--ui-tertiary-soft: rgb(36 73 90 / 0.15);
+
+/* Brand gradient */
+--ui-gradient: linear-gradient(135deg, #24495A, #409C35);
+
+/* Surfaces — brandbook charcoal (dark-first) */
+--ui-surface: #292E37;
+--ui-surface-raised: rgb(255 255 255 / 0.04);
+--ui-surface-hover: rgb(255 255 255 / 0.07);
 
 /* Borders */
 --ui-border: rgb(255 255 255 / 0.1);  --ui-border-hover: rgb(255 255 255 / 0.2);
 
-/* Text */
---ui-text: #ffffff;  --ui-text-secondary: #9ca3af;  --ui-text-muted: #6b7280;
+/* Text — brandbook warm off-white */
+--ui-text: #F2F4F3;  --ui-text-secondary: #9ca3af;  --ui-text-muted: #6b7280;
 
 /* Semantic + soft variants */
 --ui-success: #10b981;  --ui-error: #ef4444;
 --ui-warning: #f59e0b;  --ui-info: #3b82f6;
 
-/* Typography */
---ui-font-family: 'Inter', system-ui, sans-serif;
+/* Typography — Montserrat (main) + Quicksand (display) */
+--ui-font-family: 'Montserrat', system-ui, sans-serif;
+--ui-font-display: 'Quicksand', 'Montserrat', sans-serif;
 --ui-font-mono: 'JetBrains Mono', monospace;
 --ui-font-size-xs..2xl: 0.75rem..1.5rem;
 

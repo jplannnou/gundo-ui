@@ -1,30 +1,46 @@
 /*
- * @gundo/ui Theme Contract
+ * @gundo/ui Theme Contract — GUNDO Brandbook v1 aligned
  *
  * Each consuming project MUST define these CSS custom properties.
- * Import this file for the fallback defaults (dark theme, emerald accent).
+ * Import this file for the fallback defaults (dark theme, GUNDO green accent).
+ *
+ * Brand colors: Primary #67C728, Secondary #08563E, Tertiary #24495A
+ * Brand fonts: Montserrat (main), Quicksand (display)
  *
  * Override in your project's CSS:
- *   :root { --ui-primary: #3b82f6; --ui-surface: #ffffff; ... }
+ *   :root { --ui-primary: #67C728; --ui-surface: #292E37; ... }
  */
 
 :root {
-  /* Primary action color (buttons, links, focus rings) */
-  --ui-primary: #10b981;
-  --ui-primary-hover: #059669;
-  --ui-primary-soft: rgb(16 185 129 / 0.15);
+  /* Primary action color — GUNDO green (buttons, links, focus rings) */
+  --ui-primary: #67C728;
+  --ui-primary-hover: #5ab322;
+  --ui-primary-soft: rgb(103 199 40 / 0.15);
 
-  /* Surface colors (backgrounds) */
-  --ui-surface: #111111;
-  --ui-surface-raised: rgb(255 255 255 / 0.02);
-  --ui-surface-hover: rgb(255 255 255 / 0.05);
+  /* Secondary — deep dark green */
+  --ui-secondary: #08563E;
+  --ui-secondary-hover: #064a35;
+  --ui-secondary-soft: rgb(8 86 62 / 0.15);
+
+  /* Tertiary — dark teal */
+  --ui-tertiary: #24495A;
+  --ui-tertiary-hover: #1e3d4c;
+  --ui-tertiary-soft: rgb(36 73 90 / 0.15);
+
+  /* Brand gradient */
+  --ui-gradient: linear-gradient(135deg, #24495A, #409C35);
+
+  /* Surface colors — brandbook charcoal (backgrounds) */
+  --ui-surface: #292E37;
+  --ui-surface-raised: rgb(255 255 255 / 0.04);
+  --ui-surface-hover: rgb(255 255 255 / 0.07);
 
   /* Border colors */
   --ui-border: rgb(255 255 255 / 0.1);
   --ui-border-hover: rgb(255 255 255 / 0.2);
 
-  /* Text colors */
-  --ui-text: #ffffff;
+  /* Text colors — brandbook warm off-white */
+  --ui-text: #F2F4F3;
   --ui-text-secondary: #9ca3af;
   --ui-text-muted: #6b7280;
 
@@ -41,8 +57,9 @@
   /* Overlay */
   --ui-overlay: rgb(0 0 0 / 0.6);
 
-  /* Typography */
-  --ui-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Typography — Montserrat (main) + Quicksand (display) */
+  --ui-font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --ui-font-display: 'Quicksand', 'Montserrat', system-ui, sans-serif;
   --ui-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
   --ui-font-size-xs: 0.75rem;
   --ui-font-size-sm: 0.875rem;
@@ -114,18 +131,31 @@
    ──────────────────────────────────────────────────────────────────────── */
 
 .theme-light {
-  --ui-primary: #059669;
-  --ui-primary-hover: #047857;
-  --ui-primary-soft: rgb(5 150 105 / 0.1);
+  /* Primary — secondary green for better contrast on light backgrounds */
+  --ui-primary: #08563E;
+  --ui-primary-hover: #064a35;
+  --ui-primary-soft: rgb(8 86 62 / 0.1);
 
-  --ui-surface: #ffffff;
+  --ui-secondary: #24495A;
+  --ui-secondary-hover: #1e3d4c;
+  --ui-secondary-soft: rgb(36 73 90 / 0.1);
+
+  --ui-tertiary: #67C728;
+  --ui-tertiary-hover: #5ab322;
+  --ui-tertiary-soft: rgb(103 199 40 / 0.1);
+
+  --ui-gradient: linear-gradient(135deg, #08563E, #67C728);
+
+  /* Surface — brandbook warm off-white */
+  --ui-surface: #F2F4F3;
   --ui-surface-raised: rgb(0 0 0 / 0.02);
   --ui-surface-hover: rgb(0 0 0 / 0.04);
 
   --ui-border: rgb(0 0 0 / 0.1);
   --ui-border-hover: rgb(0 0 0 / 0.2);
 
-  --ui-text: #111827;
+  /* Text — brandbook charcoal */
+  --ui-text: #292E37;
   --ui-text-secondary: #4b5563;
   --ui-text-muted: #6b7280;
 
@@ -140,8 +170,9 @@
 
   --ui-overlay: rgb(0 0 0 / 0.3);
 
-  /* Typography */
-  --ui-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Typography — same brand fonts */
+  --ui-font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --ui-font-display: 'Quicksand', 'Montserrat', system-ui, sans-serif;
   --ui-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 
   /* Shadows (lighter for light theme) */

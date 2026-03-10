@@ -4,22 +4,24 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>@gundo/ui — Component Gallery</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --ui-primary: #10b981; --ui-primary-hover: #059669;
-  --ui-primary-soft: rgb(16 185 129 / 0.15);
-  --ui-surface: #111111; --ui-surface-raised: rgb(255 255 255 / 0.02);
-  --ui-surface-hover: rgb(255 255 255 / 0.05);
+  --ui-primary: #67C728; --ui-primary-hover: #5ab322;
+  --ui-primary-soft: rgb(103 199 40 / 0.15);
+  --ui-secondary: #08563E; --ui-secondary-soft: rgb(8 86 62 / 0.15);
+  --ui-tertiary: #24495A; --ui-tertiary-soft: rgb(36 73 90 / 0.15);
+  --ui-gradient: linear-gradient(135deg, #24495A, #409C35);
+  --ui-surface: #292E37; --ui-surface-raised: rgb(255 255 255 / 0.04);
+  --ui-surface-hover: rgb(255 255 255 / 0.07);
   --ui-border: rgb(255 255 255 / 0.1); --ui-border-hover: rgb(255 255 255 / 0.2);
-  --ui-text: #ffffff; --ui-text-secondary: #9ca3af; --ui-text-muted: #6b7280;
+  --ui-text: #F2F4F3; --ui-text-secondary: #9ca3af; --ui-text-muted: #6b7280;
   --ui-success: #10b981; --ui-success-soft: rgb(16 185 129 / 0.15);
   --ui-error: #ef4444; --ui-error-soft: rgb(239 68 68 / 0.15);
   --ui-warning: #f59e0b; --ui-warning-soft: rgb(245 158 11 / 0.15);
   --ui-info: #3b82f6; --ui-info-soft: rgb(59 130 246 / 0.15);
   --ui-overlay: rgb(0 0 0 / 0.6);
-  --ui-font-family: 'Inter', system-ui, sans-serif;
+  --ui-font-family: 'Montserrat', system-ui, sans-serif;
+  --ui-font-display: 'Quicksand', 'Montserrat', sans-serif;
   --ui-font-mono: 'JetBrains Mono', monospace;
   --ui-radius-sm: 0.25rem; --ui-radius-md: 0.5rem;
   --ui-radius-lg: 0.75rem; --ui-radius-xl: 1rem;
@@ -30,7 +32,7 @@
   --ui-z-dropdown: 50; --ui-z-modal: 500; --ui-z-toast: 600;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: var(--ui-font-family); background: #0a0a0a; color: var(--ui-text); line-height: 1.6; }
+body { font-family: var(--ui-font-family); background: #1e2229; color: var(--ui-text); line-height: 1.6; }
 a { color: var(--ui-primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
