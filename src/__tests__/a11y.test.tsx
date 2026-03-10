@@ -9,11 +9,13 @@ import {
   Badge,
   Breadcrumbs,
   Button,
+  Callout,
   Card,
   Checkbox,
   Combobox,
   ConfirmDialog,
   Container,
+  CopyButton,
   DataTable,
   Divider,
   Drawer,
@@ -31,6 +33,7 @@ import {
   Pagination,
   Popover,
   ProgressBar,
+  RadioGroup,
   SearchInput,
   SegmentedControl,
   Sidebar,
@@ -41,6 +44,7 @@ import {
   SkeletonText,
   Spinner,
   Stack,
+  StatusDot,
   StepIndicator,
   Tabs,
   TagsInput,
@@ -49,6 +53,7 @@ import {
   ToastProvider,
   Toggle,
   Tooltip,
+  VisuallyHidden,
 } from '../index';
 
 describe('Accessibility (axe)', () => {
@@ -330,6 +335,39 @@ describe('Accessibility (axe)', () => {
     const { container } = render(
       <Tooltip text="Help"><button>Hover me</button></Tooltip>,
     );
+    await expectNoA11yViolations(container);
+  });
+
+  it('Callout has no a11y violations', async () => {
+    const { container } = render(
+      <Callout variant="info" title="Note">Important information</Callout>,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('CopyButton has no a11y violations', async () => {
+    const { container } = render(<CopyButton text="hello" />);
+    await expectNoA11yViolations(container);
+  });
+
+  it('RadioGroup has no a11y violations', async () => {
+    const { container } = render(
+      <RadioGroup
+        options={[{ value: 'a', label: 'Option A' }, { value: 'b', label: 'Option B' }]}
+        value="a"
+        onChange={() => {}}
+      />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('StatusDot has no a11y violations', async () => {
+    const { container } = render(<StatusDot status="success" label="Online" />);
+    await expectNoA11yViolations(container);
+  });
+
+  it('VisuallyHidden has no a11y violations', async () => {
+    const { container } = render(<VisuallyHidden>Screen reader text</VisuallyHidden>);
     await expectNoA11yViolations(container);
   });
 });
