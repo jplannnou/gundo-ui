@@ -169,13 +169,14 @@ a:hover { text-decoration: underline; }
 <!-- Sidebar -->
 <nav class="sidebar">
   <h1>@gundo/ui</h1>
-  <div class="subtitle">41 Components &bull; v1.0.0</div>
+  <div class="subtitle">56 Components &bull; v1.0.0</div>
 
   <h2>Layout</h2>
   <a href="#Card">Card</a>
   <a href="#Container">Container</a>
   <a href="#Divider">Divider</a>
   <a href="#Stack">Stack</a>
+  <a href="#AppShell">AppShell</a>
 
   <h2>Navigation</h2>
   <a href="#Breadcrumbs">Breadcrumbs</a>
@@ -195,6 +196,10 @@ a:hover { text-decoration: underline; }
   <a href="#TagsInput">TagsInput</a>
   <a href="#SegmentedControl">SegmentedControl</a>
   <a href="#FileUpload">FileUpload</a>
+  <a href="#RadioGroup">RadioGroup</a>
+  <a href="#NumberInput">NumberInput</a>
+  <a href="#DatePicker">DatePicker</a>
+  <a href="#DateRangePicker">DateRangePicker</a>
 
   <h2>Feedback</h2>
   <a href="#AlertBanner">AlertBanner</a>
@@ -205,6 +210,9 @@ a:hover { text-decoration: underline; }
   <a href="#EmptyState">EmptyState</a>
   <a href="#ErrorRetry">ErrorRetry</a>
   <a href="#KpiCard">KpiCard</a>
+  <a href="#StatusDot">StatusDot</a>
+  <a href="#Callout">Callout</a>
+  <a href="#Timeline">Timeline</a>
 
   <h2>Overlay</h2>
   <a href="#Modal">Modal</a>
@@ -213,15 +221,24 @@ a:hover { text-decoration: underline; }
   <a href="#DropdownMenu">DropdownMenu</a>
   <a href="#Tooltip">Tooltip</a>
   <a href="#Popover">Popover</a>
+  <a href="#Sheet">Sheet</a>
+  <a href="#CommandPalette">CommandPalette</a>
 
   <h2>Data</h2>
   <a href="#DataTable">DataTable</a>
   <a href="#Badge">Badge</a>
   <a href="#Avatar">Avatar</a>
+  <a href="#ChartTheme">ChartTheme</a>
 
   <h2>Compound</h2>
   <a href="#Sidebar">Sidebar</a>
   <a href="#Accordion">Accordion</a>
+  <a href="#UserMenu">UserMenu</a>
+
+  <h2>Utility</h2>
+  <a href="#VisuallyHidden">VisuallyHidden</a>
+  <a href="#CopyButton">CopyButton</a>
+  <a href="#ThemeToggle">ThemeToggle</a>
 
   <h2>Accessibility</h2>
   <a href="#a11y">Keyboard &amp; Focus</a>
@@ -234,8 +251,8 @@ a:hover { text-decoration: underline; }
   <h1>@gundo/ui Component Gallery</h1>
   <p>Shared design system for the GUNDO ecosystem. Dark-first, CSS Custom Properties, React 19, TypeScript.</p>
   <div class="stats">
-    <div class="stat"><div class="num">41</div><div class="label">Components</div></div>
-    <div class="stat"><div class="num">250</div><div class="label">Tests</div></div>
+    <div class="stat"><div class="num">56</div><div class="label">Components</div></div>
+    <div class="stat"><div class="num">368</div><div class="label">Tests</div></div>
     <div class="stat"><div class="num">4</div><div class="label">Projects</div></div>
     <div class="stat"><div class="num">50+</div><div class="label">Tokens</div></div>
   </div>
@@ -286,6 +303,31 @@ a:hover { text-decoration: underline; }
     <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
     <tr><td>gap</td><td><code>'sm' | 'md' | 'lg'</code></td><td><code>'md'</code></td></tr>
     <tr><td>direction</td><td><code>'vertical' | 'horizontal'</code></td><td><code>'vertical'</code></td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="AppShell">
+  <div class="component-header"><h3>AppShell</h3><span class="file">AppShell.tsx</span></div>
+  <div class="component-preview">
+    <div style="width:100%;height:180px;border:1px solid var(--ui-border);border-radius:var(--ui-radius-md);overflow:hidden;display:flex;flex-direction:column">
+      <div style="height:36px;border-bottom:1px solid var(--ui-border);background:var(--ui-surface);display:flex;align-items:center;padding:0 12px;gap:8px">
+        <span style="font-size:0.875rem;color:var(--ui-text-muted)">&#9776;</span>
+        <span style="font-size:0.8125rem;font-weight:600">Header</span>
+      </div>
+      <div style="flex:1;display:flex">
+        <div style="width:160px;background:var(--ui-surface);border-right:1px solid var(--ui-border);padding:8px;font-size:0.75rem;color:var(--ui-text-muted)">
+          <div style="padding:4px 8px;border-radius:var(--ui-radius-sm);background:var(--ui-primary-soft);color:var(--ui-primary);margin-bottom:4px">Dashboard</div>
+          <div style="padding:4px 8px">Settings</div>
+        </div>
+        <div style="flex:1;padding:12px;background:var(--ui-surface-hover);font-size:0.8125rem;color:var(--ui-text-secondary)">Main content area</div>
+      </div>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>children</td><td><code>ReactNode</code></td><td>-</td></tr>
+    <tr><td colspan="3" style="color:var(--ui-text-muted)">Compound: AppShell, AppShellHeader, AppShellMain</td></tr>
+    <tr><td colspan="3" style="color:var(--ui-text-muted)">Hook: useAppShell() &rarr; {mobileOpen, toggleMobile, closeMobile}</td></tr>
     </table></details></div>
 </div>
 </section>
@@ -458,6 +500,86 @@ a:hover { text-decoration: underline; }
     </div>
   </div>
 </div>
+
+<div class="component" id="RadioGroup">
+  <div class="component-header"><h3>RadioGroup</h3><span class="file">RadioGroup.tsx</span></div>
+  <div class="component-preview">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.875rem">
+        <div style="width:18px;height:18px;border-radius:50%;border:2px solid var(--ui-primary);display:flex;align-items:center;justify-content:center"><div style="width:10px;height:10px;border-radius:50%;background:var(--ui-primary)"></div></div> Option A
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.875rem">
+        <div style="width:18px;height:18px;border-radius:50%;border:2px solid var(--ui-border)"></div> Option B
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.875rem">
+        <div style="width:18px;height:18px;border-radius:50%;border:2px solid var(--ui-border)"></div> Option C
+      </label>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>options</td><td><code>{value, label, description?, disabled?}[]</code></td><td>-</td></tr>
+    <tr><td>value</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>onChange</td><td><code>(value: string) =&gt; void</code></td><td>-</td></tr>
+    <tr><td>orientation</td><td><code>'vertical' | 'horizontal'</code></td><td><code>'vertical'</code></td></tr>
+    <tr><td>disabled</td><td><code>boolean</code></td><td><code>false</code></td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="NumberInput">
+  <div class="component-header"><h3>NumberInput</h3><span class="file">NumberInput.tsx</span></div>
+  <div class="component-preview">
+    <div style="display:inline-flex;border:1px solid var(--ui-border);border-radius:var(--ui-radius-md);overflow:hidden">
+      <button style="width:36px;height:40px;border:none;border-right:1px solid var(--ui-border);background:var(--ui-surface);color:var(--ui-text-secondary);cursor:pointer;font-size:1rem">&minus;</button>
+      <div style="display:flex;align-items:center;gap:4px;padding:0 12px;background:var(--ui-surface)">
+        <span style="color:var(--ui-text-muted);font-size:0.875rem">$</span>
+        <span style="color:var(--ui-text);font-size:0.875rem;min-width:3ch;text-align:center">42</span>
+      </div>
+      <button style="width:36px;height:40px;border:none;border-left:1px solid var(--ui-border);background:var(--ui-surface);color:var(--ui-text-secondary);cursor:pointer;font-size:1rem">+</button>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>value</td><td><code>number | ''</code></td><td>-</td></tr>
+    <tr><td>onChange</td><td><code>(value: number | '') =&gt; void</code></td><td>-</td></tr>
+    <tr><td>min / max</td><td><code>number</code></td><td>-</td></tr>
+    <tr><td>step</td><td><code>number</code></td><td><code>1</code></td></tr>
+    <tr><td>prefix / suffix</td><td><code>string</code></td><td>-</td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="DatePicker">
+  <div class="component-header"><h3>DatePicker</h3><span class="file">DatePicker.tsx</span></div>
+  <div class="component-preview">
+    <button style="display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:var(--ui-radius-md);border:1px solid var(--ui-border);background:var(--ui-surface);color:var(--ui-text);font-size:0.875rem;font-family:inherit;cursor:pointer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ui-text-muted)"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Mar 10, 2026
+    </button>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>value</td><td><code>Date | null</code></td><td>-</td></tr>
+    <tr><td>onChange</td><td><code>(date: Date | null) =&gt; void</code></td><td>-</td></tr>
+    <tr><td>min / max</td><td><code>Date</code></td><td>-</td></tr>
+    <tr><td>locale</td><td><code>string</code></td><td><code>'en-US'</code></td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="DateRangePicker">
+  <div class="component-header"><h3>DateRangePicker</h3><span class="file">DateRangePicker.tsx</span></div>
+  <div class="component-preview">
+    <button style="display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:var(--ui-radius-md);border:1px solid var(--ui-border);background:var(--ui-surface);color:var(--ui-text);font-size:0.875rem;font-family:inherit;cursor:pointer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ui-text-muted)"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Mar 1 &mdash; Mar 15
+    </button>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>value</td><td><code>{from: Date | null, to: Date | null}</code></td><td>-</td></tr>
+    <tr><td>onChange</td><td><code>(range) =&gt; void</code></td><td>-</td></tr>
+    <tr><td>presets</td><td><code>{label, range}[]</code></td><td>Last 7/30 days, This month, Last 3 months</td></tr>
+    </table></details></div>
+</div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -572,6 +694,75 @@ a:hover { text-decoration: underline; }
     <tr><td>trend</td><td><code>{ value: number; label?: string }</code></td><td>-</td></tr>
     </table></details></div>
 </div>
+
+<div class="component" id="StatusDot">
+  <div class="component-header"><h3>StatusDot</h3><span class="file">StatusDot.tsx</span></div>
+  <div class="component-preview" style="gap:20px">
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:var(--ui-success)"></div><span style="font-size:0.875rem">Online</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:var(--ui-warning)"></div><span style="font-size:0.875rem">Away</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:var(--ui-error)"></div><span style="font-size:0.875rem">Offline</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:var(--ui-info)"></div><span style="font-size:0.875rem">Busy</span></div>
+    <div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:50%;background:var(--ui-text-muted)"></div><span style="font-size:0.875rem">Neutral</span></div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>status</td><td><code>'success' | 'warning' | 'error' | 'info' | 'neutral'</code></td><td><code>'neutral'</code></td></tr>
+    <tr><td>size</td><td><code>'sm' | 'md' | 'lg'</code></td><td><code>'md'</code></td></tr>
+    <tr><td>pulse</td><td><code>boolean</code></td><td><code>false</code></td></tr>
+    <tr><td>label</td><td><code>string</code></td><td>-</td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="Callout">
+  <div class="component-header"><h3>Callout</h3><span class="file">Callout.tsx</span></div>
+  <div class="component-preview" style="flex-direction:column;width:100%">
+    <div class="mock-alert mock-alert-info" style="display:flex;gap:8px;align-items:flex-start"><span>&#8505;</span><div><strong style="display:block;margin-bottom:2px">Information</strong>This is an informational callout with a title and body text.</div></div>
+    <div class="mock-alert mock-alert-warning" style="display:flex;gap:8px;align-items:flex-start"><span>&#9888;</span><div>Warning: This action cannot be undone.</div></div>
+    <div class="mock-alert mock-alert-success" style="display:flex;gap:8px;align-items:flex-start"><span>&#10003;</span><div>Your changes have been saved.</div></div>
+    <div style="padding:12px 16px;border-radius:var(--ui-radius-md);border-left:3px solid var(--ui-primary);background:var(--ui-primary-soft);color:#a3e635;display:flex;gap:8px;align-items:flex-start;font-size:0.875rem"><span>&#128161;</span><div>Tip: Use keyboard shortcuts for faster navigation.</div></div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>variant</td><td><code>'info' | 'warning' | 'error' | 'success' | 'tip'</code></td><td><code>'info'</code></td></tr>
+    <tr><td>title</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>children</td><td><code>ReactNode</code></td><td>-</td></tr>
+    <tr><td>icon</td><td><code>ReactNode</code></td><td>default per variant</td></tr>
+    <tr><td>action</td><td><code>{label, onClick}</code></td><td>-</td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="Timeline">
+  <div class="component-header"><h3>Timeline</h3><span class="file">Timeline.tsx</span></div>
+  <div class="component-preview">
+    <div style="display:flex;flex-direction:column;gap:0;padding:8px 0">
+      <div style="display:flex;gap:12px;padding-bottom:20px;position:relative">
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--ui-success);flex-shrink:0"></div>
+          <div style="width:1px;flex:1;background:var(--ui-border);margin-top:4px"></div>
+        </div>
+        <div style="padding-top:0"><div style="font-size:0.875rem;font-weight:500">Project created</div><div style="font-size:0.75rem;color:var(--ui-text-muted)">2 hours ago</div></div>
+      </div>
+      <div style="display:flex;gap:12px;padding-bottom:20px;position:relative">
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--ui-info);flex-shrink:0"></div>
+          <div style="width:1px;flex:1;background:var(--ui-border);margin-top:4px"></div>
+        </div>
+        <div style="padding-top:0"><div style="font-size:0.875rem;font-weight:500">Build started</div><div style="font-size:0.8125rem;color:var(--ui-text-secondary)">Running CI pipeline</div><div style="font-size:0.75rem;color:var(--ui-text-muted)">1 hour ago</div></div>
+      </div>
+      <div style="display:flex;gap:12px">
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--ui-error);flex-shrink:0"></div>
+        </div>
+        <div style="padding-top:0"><div style="font-size:0.875rem;font-weight:500">Deploy failed</div><div style="font-size:0.8125rem;color:var(--ui-text-secondary)">Timeout on health check</div><div style="font-size:0.75rem;color:var(--ui-text-muted)">30 min ago</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>items</td><td><code>{id, title, description?, time?, icon?, status?}[]</code></td><td>-</td></tr>
+    <tr><td>size</td><td><code>'sm' | 'md'</code></td><td><code>'md'</code></td></tr>
+    </table></details></div>
+</div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -644,6 +835,59 @@ a:hover { text-decoration: underline; }
   <div class="component-header"><h3>Popover</h3><span class="file">Popover.tsx</span></div>
   <div class="component-preview"><span style="color:var(--ui-text-muted);font-size:0.875rem">Click-triggered content popup with auto-positioning. Similar to Tooltip but for rich content.</span></div>
 </div>
+
+<div class="component" id="Sheet">
+  <div class="component-header"><h3>Sheet</h3><span class="file">Sheet.tsx</span></div>
+  <div class="component-preview">
+    <div style="width:100%;height:200px;position:relative;background:var(--ui-surface-hover);border-radius:var(--ui-radius-md);overflow:hidden">
+      <div style="position:absolute;right:0;top:0;bottom:0;width:55%;background:var(--ui-surface);border-left:1px solid var(--ui-border);padding:16px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+          <div>
+            <div style="font-weight:600;font-size:0.9375rem">Detail Panel</div>
+            <div style="font-size:0.8125rem;color:var(--ui-text-secondary);margin-top:2px">View and edit details</div>
+          </div>
+          <span style="color:var(--ui-text-muted);cursor:pointer">&#10005;</span>
+        </div>
+        <div style="font-size:0.8125rem;color:var(--ui-text-muted)">Full-height panel with header, description, and scrollable content area.</div>
+      </div>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>open</td><td><code>boolean</code></td><td>-</td></tr>
+    <tr><td>onClose</td><td><code>() =&gt; void</code></td><td>-</td></tr>
+    <tr><td>title / description</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>side</td><td><code>'left' | 'right'</code></td><td><code>'right'</code></td></tr>
+    <tr><td>size</td><td><code>'sm' | 'md' | 'lg' | 'xl' | 'full'</code></td><td><code>'md'</code></td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="CommandPalette">
+  <div class="component-header"><h3>CommandPalette</h3><span class="file">CommandPalette.tsx</span></div>
+  <div class="component-preview" style="justify-content:center">
+    <div style="width:380px;border:1px solid var(--ui-border);border-radius:var(--ui-radius-xl);background:var(--ui-surface);overflow:hidden;box-shadow:var(--ui-shadow-lg)">
+      <div style="display:flex;align-items:center;gap:8px;padding:0 12px;border-bottom:1px solid var(--ui-border)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ui-text-muted);flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <div style="flex:1;padding:10px 0;font-size:0.875rem;color:var(--ui-text-muted)">Type a command...</div>
+        <kbd style="font-family:var(--ui-font-mono);font-size:0.625rem;padding:2px 6px;border:1px solid var(--ui-border);border-radius:4px;color:var(--ui-text-muted)">&#8984;K</kbd>
+      </div>
+      <div style="padding:6px">
+        <div style="padding:4px 8px;font-size:0.6875rem;color:var(--ui-text-muted);text-transform:uppercase;letter-spacing:0.05em">Actions</div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:var(--ui-radius-md);background:var(--ui-primary-soft);font-size:0.875rem">Create project</div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:var(--ui-radius-md);font-size:0.875rem;color:var(--ui-text-secondary)">Search files</div>
+        <div style="padding:4px 8px;font-size:0.6875rem;color:var(--ui-text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-top:4px">Navigation</div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:var(--ui-radius-md);font-size:0.875rem;color:var(--ui-text-secondary)">Open settings</div>
+      </div>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>commands</td><td><code>{id, label, description?, icon?, group?, keywords?, onSelect}[]</code></td><td>-</td></tr>
+    <tr><td>open</td><td><code>boolean</code></td><td>-</td></tr>
+    <tr><td>onOpenChange</td><td><code>(open: boolean) =&gt; void</code></td><td>-</td></tr>
+    <tr><td>hotkey</td><td><code>string</code></td><td><code>'k'</code></td></tr>
+    </table></details></div>
+</div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -704,6 +948,32 @@ a:hover { text-decoration: underline; }
     <div class="mock-avatar" style="width:48px;height:48px;font-size:1rem">SR</div>
   </div>
 </div>
+
+<div class="component" id="ChartTheme">
+  <div class="component-header"><h3>ChartTheme</h3><span class="file">ChartTheme.tsx</span></div>
+  <div class="component-preview" style="flex-direction:column;gap:16px;width:100%">
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:6px"><div style="width:16px;height:16px;border-radius:4px;background:#67C728"></div><span style="font-size:0.75rem;font-family:var(--ui-font-mono);color:var(--ui-text-muted)">#67C728</span></div>
+      <div style="display:flex;align-items:center;gap:6px"><div style="width:16px;height:16px;border-radius:4px;background:#3b82f6"></div><span style="font-size:0.75rem;font-family:var(--ui-font-mono);color:var(--ui-text-muted)">#3b82f6</span></div>
+      <div style="display:flex;align-items:center;gap:6px"><div style="width:16px;height:16px;border-radius:4px;background:#f59e0b"></div><span style="font-size:0.75rem;font-family:var(--ui-font-mono);color:var(--ui-text-muted)">#f59e0b</span></div>
+      <div style="display:flex;align-items:center;gap:6px"><div style="width:16px;height:16px;border-radius:4px;background:#08563E"></div><span style="font-size:0.75rem;font-family:var(--ui-font-mono);color:var(--ui-text-muted)">#08563E</span></div>
+      <div style="display:flex;align-items:center;gap:6px"><div style="width:16px;height:16px;border-radius:4px;background:#ef4444"></div><span style="font-size:0.75rem;font-family:var(--ui-font-mono);color:var(--ui-text-muted)">#ef4444</span></div>
+      <div style="display:flex;align-items:center;gap:6px"><div style="width:16px;height:16px;border-radius:4px;background:#24495A"></div><span style="font-size:0.75rem;font-family:var(--ui-font-mono);color:var(--ui-text-muted)">#24495A</span></div>
+      <div style="display:flex;align-items:center;gap:6px"><div style="width:16px;height:16px;border-radius:4px;background:#22c55e"></div><span style="font-size:0.75rem;font-family:var(--ui-font-mono);color:var(--ui-text-muted)">#22c55e</span></div>
+      <div style="display:flex;align-items:center;gap:6px"><div style="width:16px;height:16px;border-radius:4px;background:#8b5cf6"></div><span style="font-size:0.75rem;font-family:var(--ui-font-mono);color:var(--ui-text-muted)">#8b5cf6</span></div>
+    </div>
+    <div style="border:1px solid var(--ui-border);border-radius:var(--ui-radius-md);padding:8px 12px;font-size:0.8125rem;color:var(--ui-text);box-shadow:var(--ui-shadow-md);display:inline-block">
+      <div style="font-weight:500;margin-bottom:4px">ChartTooltip</div>
+      <div style="color:var(--ui-text-secondary)">Revenue: $12,450</div>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Export</th><th>Type</th><th>Description</th></tr>
+    <tr><td>chartColors</td><td><code>string[8]</code></td><td>8 brand-derived data colors</td></tr>
+    <tr><td>chartThemeConfig</td><td><code>object</code></td><td>grid, axis, tooltip, legend config</td></tr>
+    <tr><td>ChartTooltip</td><td><code>Component</code></td><td>Pre-styled tooltip wrapper</td></tr>
+    </table></details></div>
+</div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -738,9 +1008,29 @@ a:hover { text-decoration: underline; }
     <div style="border:1px solid var(--ui-border);border-radius:var(--ui-radius-md);overflow:hidden">
       <div style="padding:12px 16px;border-bottom:1px solid var(--ui-border);display:flex;justify-content:space-between;cursor:pointer"><span style="font-size:0.875rem;font-weight:500">What is @gundo/ui?</span><span style="color:var(--ui-text-muted)">▼</span></div>
       <div style="padding:12px 16px;font-size:0.8125rem;color:var(--ui-text-secondary);border-bottom:1px solid var(--ui-border);background:var(--ui-surface-raised)">A shared component library for the GUNDO ecosystem with 41 React components, CSS Custom Properties theming, and full accessibility support.</div>
-      <div style="padding:12px 16px;display:flex;justify-content:space-between;cursor:pointer"><span style="font-size:0.875rem;font-weight:500">How do I install it?</span><span style="color:var(--ui-text-muted)">▶</span></div>
+      <div style="padding:12px 16px;display:flex;justify-content:space-between;cursor:pointer"><span style="font-size:0.875rem;font-weight:500">How do I install it?</span><span style="color:var(--ui-text-muted)">&#9654;</span></div>
     </div>
   </div>
+</div>
+
+<div class="component" id="UserMenu">
+  <div class="component-header"><h3>UserMenu</h3><span class="file">UserMenu.tsx</span></div>
+  <div class="component-preview">
+    <div style="display:flex;align-items:center;gap:8px;cursor:pointer">
+      <div class="mock-avatar" style="width:32px;height:32px;font-size:0.75rem">JP</div>
+      <div>
+        <div style="font-size:0.875rem;font-weight:500;line-height:1.2">Jean-Philippe</div>
+        <div style="font-size:0.75rem;color:var(--ui-text-muted);line-height:1.2">jp@gundo.io</div>
+      </div>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>user</td><td><code>{name, email?, avatar?}</code></td><td>-</td></tr>
+    <tr><td>onLogout</td><td><code>() =&gt; void</code></td><td>-</td></tr>
+    <tr><td>onSettings</td><td><code>() =&gt; void</code></td><td>-</td></tr>
+    <tr><td>menuItems</td><td><code>{label, onClick, icon?}[]</code></td><td><code>[]</code></td></tr>
+    </table></details></div>
 </div>
 </section>
 
@@ -788,24 +1078,79 @@ a:hover { text-decoration: underline; }
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
+<section class="section" id="utility-section">
+<h2>Utility</h2>
+
+<div class="component" id="VisuallyHidden">
+  <div class="component-header"><h3>VisuallyHidden</h3><span class="file">VisuallyHidden.tsx</span></div>
+  <div class="component-preview">
+    <div style="padding:16px;background:var(--ui-surface-hover);border-radius:var(--ui-radius-md);font-size:0.8125rem;color:var(--ui-text-secondary)">
+      Content hidden visually but accessible to screen readers. Uses CSS clip technique.
+      <code style="display:block;margin-top:8px;font-family:var(--ui-font-mono);font-size:0.75rem;color:var(--ui-primary)">&lt;VisuallyHidden&gt;Skip to content&lt;/VisuallyHidden&gt;</code>
+    </div>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>children</td><td><code>ReactNode</code></td><td>-</td></tr>
+    <tr><td>as</td><td><code>'span' | 'div'</code></td><td><code>'span'</code></td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="CopyButton">
+  <div class="component-header"><h3>CopyButton</h3><span class="file">CopyButton.tsx</span></div>
+  <div class="component-preview" style="gap:16px">
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--ui-radius-md);border:1px solid var(--ui-border);background:var(--ui-surface);color:var(--ui-text-secondary);font-size:0.8125rem;font-family:inherit;cursor:pointer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copy
+    </button>
+    <button style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--ui-radius-md);border:none;background:transparent;color:var(--ui-text-muted);font-size:0.8125rem;font-family:inherit;cursor:pointer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      ghost
+    </button>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>text</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>label</td><td><code>string</code></td><td>-</td></tr>
+    <tr><td>variant</td><td><code>'default' | 'ghost'</code></td><td><code>'default'</code></td></tr>
+    </table></details></div>
+</div>
+
+<div class="component" id="ThemeToggle">
+  <div class="component-header"><h3>ThemeToggle</h3><span class="file">ThemeToggle.tsx</span></div>
+  <div class="component-preview" style="gap:16px">
+    <button style="width:36px;height:36px;padding:6px;border-radius:var(--ui-radius-md);border:1px solid var(--ui-border);background:var(--ui-surface);color:var(--ui-text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <span style="font-size:0.8125rem;color:var(--ui-text-secondary)">Requires ThemeProvider wrapper. Toggles dark/light theme.</span>
+  </div>
+  <div class="component-props"><details><summary>Props</summary>
+    <table class="props-table"><tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+    <tr><td>size</td><td><code>'sm' | 'md' | 'lg'</code></td><td><code>'md'</code></td></tr>
+    <tr><td colspan="3" style="color:var(--ui-text-muted)">Provider: ThemeProvider &rarr; useTheme() &rarr; {theme, resolvedTheme, setTheme, toggle}</td></tr>
+    </table></details></div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
 <section class="section" id="a11y">
 <h2>Accessibility</h2>
 <div class="component">
   <div class="component-header"><h3>Keyboard Navigation &amp; Focus Management</h3><span class="file">WCAG AA</span></div>
   <div class="component-preview" style="flex-direction:column;gap:12px;width:100%">
-    <p style="font-size:0.875rem;color:var(--ui-text-secondary);margin:0">All 16 interactive components support <code style="font-family:var(--ui-font-mono);font-size:0.8125rem;color:var(--ui-primary)">:focus-visible</code> styling. Modal and Drawer trap focus using the <code style="font-family:var(--ui-font-mono);font-size:0.8125rem;color:var(--ui-primary)">useFocusTrap</code> hook. 43 axe-core tests verify compliance.</p>
+    <p style="font-size:0.875rem;color:var(--ui-text-secondary);margin:0">All interactive components support <code style="font-family:var(--ui-font-mono);font-size:0.8125rem;color:var(--ui-primary)">:focus-visible</code> styling. Modal, Drawer, Sheet, and CommandPalette trap focus using the <code style="font-family:var(--ui-font-mono);font-size:0.8125rem;color:var(--ui-primary)">useFocusTrap</code> hook. 58 axe-core tests verify compliance.</p>
     <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:0.8125rem">
       <kbd style="font-family:var(--ui-font-mono);background:var(--ui-surface-hover);padding:2px 8px;border-radius:var(--ui-radius-sm);border:1px solid var(--ui-border);font-size:0.75rem">Tab</kbd><span style="color:var(--ui-text-secondary)">Move focus between interactive elements</span>
-      <kbd style="font-family:var(--ui-font-mono);background:var(--ui-surface-hover);padding:2px 8px;border-radius:var(--ui-radius-sm);border:1px solid var(--ui-border);font-size:0.75rem">&uarr; &darr;</kbd><span style="color:var(--ui-text-secondary)">Navigate items in DropdownMenu, DataTable, SegmentedControl</span>
+      <kbd style="font-family:var(--ui-font-mono);background:var(--ui-surface-hover);padding:2px 8px;border-radius:var(--ui-radius-sm);border:1px solid var(--ui-border);font-size:0.75rem">&uarr; &darr;</kbd><span style="color:var(--ui-text-secondary)">Navigate items in DropdownMenu, DataTable, SegmentedControl, RadioGroup, NumberInput, DatePicker, CommandPalette</span>
       <kbd style="font-family:var(--ui-font-mono);background:var(--ui-surface-hover);padding:2px 8px;border-radius:var(--ui-radius-sm);border:1px solid var(--ui-border);font-size:0.75rem">Enter / Space</kbd><span style="color:var(--ui-text-secondary)">Activate buttons, toggles, checkboxes, menu items</span>
-      <kbd style="font-family:var(--ui-font-mono);background:var(--ui-surface-hover);padding:2px 8px;border-radius:var(--ui-radius-sm);border:1px solid var(--ui-border);font-size:0.75rem">Escape</kbd><span style="color:var(--ui-text-secondary)">Close Modal, Drawer, DropdownMenu, Tooltip, Popover</span>
+      <kbd style="font-family:var(--ui-font-mono);background:var(--ui-surface-hover);padding:2px 8px;border-radius:var(--ui-radius-sm);border:1px solid var(--ui-border);font-size:0.75rem">Escape</kbd><span style="color:var(--ui-text-secondary)">Close Modal, Drawer, Sheet, CommandPalette, DropdownMenu, Tooltip, Popover</span>
     </div>
   </div>
 </div>
 </section>
 
 <footer style="padding:40px 0;border-top:1px solid var(--ui-border);color:var(--ui-text-muted);font-size:0.8125rem;text-align:center">
-  @gundo/ui v1.0.0 &bull; 41 Components &bull; 250 Tests &bull; WCAG AA &bull; React 19 + TypeScript + CSS Custom Properties
+  @gundo/ui v1.0.0 &bull; 56 Components &bull; 368 Tests &bull; WCAG AA &bull; React 19 + TypeScript + CSS Custom Properties
 </footer>
 
 </main>
