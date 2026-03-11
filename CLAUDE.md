@@ -6,7 +6,7 @@
 - **Theming**: CSS Custom Properties contract (`--ui-*` tokens)
 - **Stack**: React 19 + TypeScript + CSS Custom Properties
 - **Consumer projects**: Gundo Engine, Gundo Finance, Gundo Radar, JP Assistant
-- **Tests**: 250 tests (Vitest + React Testing Library), including 43 axe-core accessibility tests
+- **Tests**: 368 tests (Vitest + React Testing Library), including 58 axe-core accessibility tests
 
 ## Design System Tokens (theme.css) — Brandbook v1 aligned
 
@@ -76,23 +76,24 @@
 
 Light theme via `.theme-light` class (overrides shadows, colors).
 
-## Components (41 total)
+## Components (56 total)
 
-**Layout**: Card, Container, Divider, Stack
+**Layout**: Card, Container, Divider, Stack, AppShell (Header/Main)
 **Navigation**: Breadcrumbs, Tabs, StepIndicator, Pagination
-**Forms**: Button, Input, Select, Textarea, Checkbox, Toggle, SearchInput, FormField, Combobox, TagsInput, SegmentedControl, FileUpload
-**Feedback**: AlertBanner, Spinner, ProgressBar, Skeleton, SkeletonText, Toast, ToastProvider, EmptyState, EmptyStateIllustration, ErrorBoundary, ErrorRetry, KpiCard
-**Overlay**: Modal (with size prop), ConfirmDialog, Drawer, DropdownMenu, Tooltip, Popover
-**Data**: DataTable, Badge, Avatar
-**Compound**: Sidebar (Header/Content/Footer/Group/Item/Toggle), Accordion/AccordionItem
+**Forms**: Button, Input, Select, Textarea, Checkbox, Toggle, SearchInput, FormField, Combobox, TagsInput, SegmentedControl, FileUpload, RadioGroup, NumberInput, DatePicker, DateRangePicker
+**Feedback**: AlertBanner, Spinner, ProgressBar, Skeleton, SkeletonText, Toast, ToastProvider, EmptyState, EmptyStateIllustration, ErrorBoundary, ErrorRetry, KpiCard, StatusDot, Callout, Timeline
+**Overlay**: Modal (with size prop), ConfirmDialog, Drawer, Sheet, DropdownMenu, Tooltip, Popover, CommandPalette
+**Data**: DataTable, Badge, Avatar, ChartTooltip (+ chartColors, chartThemeConfig)
+**Compound**: Sidebar (Header/Content/Footer/Group/Item/Toggle), Accordion/AccordionItem, UserMenu
+**Utility**: VisuallyHidden, CopyButton, ThemeToggle, ThemeProvider
 
 ## Accessibility (WCAG AA)
 
-- **focus-visible** on all 16 interactive components (Button, Input, Select, Textarea, Checkbox, Toggle, SearchInput, Combobox, TagsInput, SegmentedControl, FileUpload, Tabs, Pagination, DropdownMenu, DataTable, Tooltip)
-- **Keyboard navigation**: Arrow keys in DropdownMenu, DataTable, SegmentedControl, Tooltip
-- **Focus trapping**: Modal, Drawer (via `useFocusTrap` hook)
-- **axe-core testing**: 43 automated accessibility tests
-- **Utility export**: `useFocusTrap` — reusable hook for focus trapping in overlay components
+- **focus-visible** on all interactive components
+- **Keyboard navigation**: Arrow keys in DropdownMenu, DataTable, SegmentedControl, Tooltip, RadioGroup, NumberInput, DatePicker, CommandPalette
+- **Focus trapping**: Modal, Drawer, Sheet, CommandPalette (via `useFocusTrap` hook)
+- **axe-core testing**: 58 automated accessibility tests
+- **Utility exports**: `useFocusTrap`, `useCopyToClipboard`, `useTheme`, `useAppShell`
 
 ## Rules for New Components
 
