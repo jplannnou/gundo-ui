@@ -122,6 +122,7 @@
   --ui-z-sticky: 100;
   --ui-z-overlay: 400;
   --ui-z-modal: 500;
+  --ui-z-command: 550;
   --ui-z-toast: 600;
 }
 

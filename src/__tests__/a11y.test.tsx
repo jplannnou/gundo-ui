@@ -63,6 +63,9 @@ import {
   NumberInput,
   DatePicker,
   DateRangePicker,
+  CommandPalette,
+  Timeline,
+  ChartTooltip,
 } from '../index';
 
 describe('Accessibility (axe)', () => {
@@ -424,6 +427,25 @@ describe('Accessibility (axe)', () => {
     const { container } = render(
       <DateRangePicker value={{ from: null, to: null }} onChange={() => {}} />,
     );
+    await expectNoA11yViolations(container);
+  });
+
+  it('CommandPalette has no a11y violations', async () => {
+    const { container } = render(
+      <CommandPalette commands={[{ id: '1', label: 'Test', onSelect: () => {} }]} open onOpenChange={() => {}} />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('Timeline has no a11y violations', async () => {
+    const { container } = render(
+      <Timeline items={[{ id: '1', title: 'Event', time: 'Now' }]} />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('ChartTooltip has no a11y violations', async () => {
+    const { container } = render(<ChartTooltip>Tooltip content</ChartTooltip>);
     await expectNoA11yViolations(container);
   });
 });

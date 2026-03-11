@@ -66,3 +66,6 @@ export { Sheet } from './Sheet';
 export { NumberInput } from './NumberInput';
 export { DatePicker } from './DatePicker';
 export { DateRangePicker } from './DateRangePicker';
+export { CommandPalette } from './CommandPalette';
+export { Timeline } from './Timeline';
+export { ChartTooltip, chartColors, chartThemeConfig } from './ChartTheme';
