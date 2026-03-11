@@ -1,4 +1,4 @@
-import { useRef, useCallback, type KeyboardEvent, type ReactNode } from 'react';
+import { useRef, useCallback, type KeyboardEvent } from 'react';
 
 export interface RadioGroupOption {
   value: string;
