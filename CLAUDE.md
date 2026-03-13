@@ -116,10 +116,10 @@ All projects use Tailwind 4 `@theme` directive mapping `--ui-*` tokens to utilit
 
 | Project | Adoption | Notes |
 |---------|----------|-------|
-| Engine | ~84% | Chart components excluded |
-| Finance | ~84% | Chart wrappers excluded |
-| Radar | ~65% | Filter pills/sidebar nav custom |
-| JP Assistant | ~79% | Only LoginPage excluded |
+| Engine | ~86% | Chart components excluded |
+| Finance | ~86% | Chart wrappers excluded |
+| Radar | ~100% | All UI imports use @gundo/ui directly |
+| JP Assistant | ~81% | Only LoginPage excluded |
 
 ## Design Intelligence
 
