@@ -2,6 +2,7 @@ import { useTheme } from './utils/useTheme';
 
 interface ThemeToggleProps {
   size?: 'sm' | 'md' | 'lg';
+  variant?: 'icon' | 'row';
   className?: string;
 }
 
@@ -37,9 +38,25 @@ function MoonIcon({ className }: { className: string }) {
   );
 }
 
-export function ThemeToggle({ size = 'md', className = '' }: ThemeToggleProps) {
+export function ThemeToggle({ size = 'md', variant = 'icon', className = '' }: ThemeToggleProps) {
   const { resolvedTheme, toggle } = useTheme();
   const isLight = resolvedTheme === 'light';
+
+  if (variant === 'row') {
+    return (
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={isLight ? 'Switch to dark mode' : 'Switch to light mode'}
+        className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-[var(--ui-radius-md)] text-sm font-medium text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${className}`}
+      >
+        <span className="w-5 h-5 flex items-center justify-center text-base" aria-hidden="true">
+          {isLight ? '☀️' : '🌙'}
+        </span>
+        <span>{isLight ? 'Light mode' : 'Dark mode'}</span>
+      </button>
+    );
+  }
 
   return (
     <button
