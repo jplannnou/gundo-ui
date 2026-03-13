@@ -62,7 +62,7 @@ export { StatusDot } from './StatusDot';
 export { ThemeToggle } from './ThemeToggle';
 export { UserMenu } from './UserMenu';
 export { SidebarUserCard } from './SidebarUserCard';
-export type { SidebarUserCardProps, SidebarUserCardUser, SidebarUserCardMenuItem } from './SidebarUserCard';
+export type { SidebarUserCardProps, SidebarUserCardUser } from './SidebarUserCard';
 export { VisuallyHidden } from './VisuallyHidden';
 export { Sheet } from './Sheet';
 export { NumberInput } from './NumberInput';
