@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'react';
+import type { HTMLAttributes, ReactElement } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
@@ -111,8 +111,8 @@ function tokenize(markdown: string): Token[] {
 }
 
 // Parses inline markdown: **bold**, *italic*, `code`, [link](url)
-function parseInline(text: string): (string | JSX.Element)[] {
-  const result: (string | JSX.Element)[] = [];
+function parseInline(text: string): (string | ReactElement)[] {
+  const result: (string | ReactElement)[] = [];
   const pattern = /(\*\*(.+?)\*\*|\*(.+?)\*|`([^`]+)`|\[([^\]]+)\]\(([^)]+)\))/g;
   let lastIndex = 0;
   let match: RegExpExecArray | null;

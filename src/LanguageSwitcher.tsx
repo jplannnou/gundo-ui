@@ -56,7 +56,6 @@ export function LanguageSwitcher({
         languages={languages}
         currentLanguage={currentLanguage}
         onChange={onChange}
-        showFlag={showFlag}
         className={className}
         {...props}
       />

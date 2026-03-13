@@ -3,8 +3,6 @@ import {
   useEffect,
   useRef,
   useState,
-  type ReactNode,
-  type RefObject,
   type SyntheticEvent,
 } from 'react';
 
@@ -77,7 +75,7 @@ export function VideoPlayer({
   const [volume, setVolume] = useState(1);
   const [showControls, setShowControls] = useState(true);
   const [fullscreen, setFullscreen] = useState(false);
-  const hideTimeout = useRef<ReturnType<typeof setTimeout>>();
+  const hideTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

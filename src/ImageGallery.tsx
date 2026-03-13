@@ -4,7 +4,6 @@ import {
   useId,
   useRef,
   useState,
-  type KeyboardEvent,
   type ReactNode,
 } from 'react';
 import { useFocusTrap } from './utils/useFocusTrap';
