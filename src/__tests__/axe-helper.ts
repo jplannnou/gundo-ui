@@ -8,5 +8,6 @@ export async function expectNoA11yViolations(container: HTMLElement) {
       'region': { enabled: false }, // Components tested in isolation, not full pages
     },
   });
-  expect(results).toHaveNoViolations();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (expect(results) as any).toHaveNoViolations();
 }

@@ -6,7 +6,7 @@
 - **Theming**: CSS Custom Properties contract (`--ui-*` tokens)
 - **Stack**: React 19 + TypeScript + CSS Custom Properties
 - **Consumer projects**: Gundo Engine, Gundo Finance, Gundo Radar, JP Assistant
-- **Tests**: 368 tests (Vitest + React Testing Library), including 58 axe-core accessibility tests
+- **Tests**: 647 tests across 83 files (Vitest + React Testing Library), including 58 axe-core accessibility tests
 
 ## Design System Tokens (theme.css) — Brandbook v1 aligned
 
@@ -76,16 +76,21 @@
 
 Light theme via `.theme-light` class (overrides shadows, colors).
 
-## Components (56 total)
+## Components (96 total)
 
 **Layout**: Card, Container, Divider, Stack, AppShell (Header/Main)
 **Navigation**: Breadcrumbs, Tabs, StepIndicator, Pagination
-**Forms**: Button, Input, Select, Textarea, Checkbox, Toggle, SearchInput, FormField, Combobox, TagsInput, SegmentedControl, FileUpload, RadioGroup, NumberInput, DatePicker, DateRangePicker
-**Feedback**: AlertBanner, Spinner, ProgressBar, Skeleton, SkeletonText, Toast, ToastProvider, EmptyState, EmptyStateIllustration, ErrorBoundary, ErrorRetry, KpiCard, StatusDot, Callout, Timeline
-**Overlay**: Modal (with size prop), ConfirmDialog, Drawer, Sheet, DropdownMenu, Tooltip, Popover, CommandPalette
-**Data**: DataTable, Badge, Avatar, ChartTooltip (+ chartColors, chartThemeConfig)
-**Compound**: Sidebar (Header/Content/Footer/Group/Item/Toggle), Accordion/AccordionItem, UserMenu
-**Utility**: VisuallyHidden, CopyButton, ThemeToggle, ThemeProvider
+**Forms**: Button, Input, Select, Textarea, Checkbox, Toggle, SearchInput, FormField, Combobox, TagsInput, SegmentedControl, FileUpload, RadioGroup, NumberInput, DatePicker, DateRangePicker, CharacterCounter, InlineEdit
+**Feedback**: AlertBanner, Spinner, ProgressBar, Skeleton, SkeletonText, Toast, ToastProvider, EmptyState, EmptyStateIllustration, ErrorBoundary, ErrorRetry, KpiCard, StatusDot, Callout, Timeline, SaveBar, ScoreGauge, ScoreGaugeMini, MilestonesTracker, SparklineChart
+**Overlay**: Modal (with size prop), ConfirmDialog, Drawer, Sheet, DropdownMenu, Tooltip, Popover, CommandPalette, StepWizard (+ Modal/Progress/Content/Actions), CookieBanner
+**Data**: DataTable, Badge, Avatar, ChartTooltip (+ chartColors, chartThemeConfig), ProductCard, FilterBar, CommentThread, CalendarGrid, ImageGallery (+ Lightbox), MarkdownRenderer
+**Commerce**: ProductCard, SubscriptionGate, FreemiumBanner, PricingCard
+**Media**: VideoPlayer, ImageGallery, Lightbox
+**Compound**: Sidebar (Header/Content/Footer/Group/Item/Toggle), Accordion/AccordionItem, UserMenu, LanguageSwitcher (dropdown/pills/select)
+**Utility**: VisuallyHidden, CopyButton, ThemeToggle, ThemeProvider, FloatingActionButton, SEOHead
+**Health/Nutrition**: MealCard, MacrosDisplay
+**Profile/Contact**: ProfileHeader, ContactCard, DetailHeader
+**Organization**: TreeView, LeaderboardTable, MilestonesTracker
 
 ## Accessibility (WCAG AA)
 

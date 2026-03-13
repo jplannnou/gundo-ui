@@ -86,7 +86,7 @@ describe('Accessibility (axe)', () => {
   });
 
   it('Avatar has no a11y violations', async () => {
-    const { container } = render(<Avatar name="John Doe" />);
+    const { container } = render(<Avatar initials="JD" alt="John Doe" />);
     await expectNoA11yViolations(container);
   });
 
@@ -97,7 +97,7 @@ describe('Accessibility (axe)', () => {
 
   it('Breadcrumbs has no a11y violations', async () => {
     const { container } = render(
-      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Page' }]} />,
+      <Breadcrumbs items={[{ label: 'Home', onClick: () => {} }, { label: 'Page' }]} />,
     );
     await expectNoA11yViolations(container);
   });
@@ -231,7 +231,7 @@ describe('Accessibility (axe)', () => {
 
   it('Pagination has no a11y violations', async () => {
     const { container } = render(
-      <Pagination currentPage={1} totalPages={5} onPageChange={() => {}} />,
+      <Pagination page={1} totalPages={5} onPageChange={() => {}} />,
     );
     await expectNoA11yViolations(container);
   });
