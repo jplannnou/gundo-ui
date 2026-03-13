@@ -121,6 +121,19 @@ All projects use Tailwind 4 `@theme` directive mapping `--ui-*` tokens to utilit
 | Radar | ~100% | All UI imports use @gundo/ui directly |
 | JP Assistant | ~81% | Only LoginPage excluded |
 
+## Deploy & CI/CD
+
+- **GitHub Pages**: Component gallery at `https://jplannnou.github.io/gundo-ui/` — auto-deploys via `.github/workflows/pages.yml` on push to main
+- **No npm publish** — consumed via `file:` protocol directly from source
+
+## Known Gotchas
+
+- **`file:` protocol creates COPIES not symlinks** — after any change to this library, run `pnpm install` in every consumer project (Engine, Finance, Radar, JP Assistant) to pick up changes
+- **No build step** — consumers import TypeScript source directly; they handle transpilation
+- **Theme is NOT imported** — consumers redefine `--ui-*` tokens in their own CSS (`index.css` / `globals.css`); never import `@gundo/ui/src/theme.css`
+- **Button text color** — use `text-[var(--ui-surface)]` (not `text-white`) on `bg-brand` for WCAG AA on #67C728
+- **Badge purple variant** — maps to `--ui-tertiary` token, not a hardcoded purple
+
 ## Design Intelligence
 
 - **UI/UX Pro Max Skill**: `.claude/skills/ui-ux-pro-max/`

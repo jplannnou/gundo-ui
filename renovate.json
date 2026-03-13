@@ -1,0 +1,51 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":pinAllExceptPeerDependencies"
+  ],
+  "schedule": ["before 9am on monday"],
+  "timezone": "America/Madrid",
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 9am on monday"]
+  },
+  "packageRules": [
+    {
+      "description": "Auto-merge patch updates",
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "description": "Auto-merge minor updates for dev dependencies",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": true
+    },
+    {
+      "description": "Group React ecosystem",
+      "matchPackageNames": ["react", "react-dom", "@types/react", "@types/react-dom"],
+      "groupName": "React"
+    },
+    {
+      "description": "Group testing tools",
+      "matchPackageNames": ["vitest", "@vitest/coverage-v8", "@testing-library/react", "vitest-axe", "axe-core"],
+      "groupName": "Testing"
+    },
+    {
+      "description": "Group Vite and plugins",
+      "matchPackagePrefixes": ["vite", "@vitejs/"],
+      "groupName": "Vite"
+    },
+    {
+      "description": "Group ESLint and Prettier",
+      "matchPackagePrefixes": ["@eslint/", "@typescript-eslint/", "eslint"],
+      "matchPackageNames": ["prettier"],
+      "groupName": "Linting"
+    }
+  ]
+}
