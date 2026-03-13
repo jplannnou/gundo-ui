@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type HTMLAttributes } from 'react';
+import { useEffect, useId, useRef, useState, type HTMLAttributes } from 'react';
 import { Avatar } from './Avatar';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -28,17 +28,17 @@ export interface SidebarUserCardProps extends Omit<HTMLAttributes<HTMLDivElement
 function ChevronIcon({ open }: { open: boolean }) {
   return (
     <svg
-      width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"
+      width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"
       className={`shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
     >
-      <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
 function SettingsIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <circle cx="12" cy="12" r="3" />
       <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
     </svg>
@@ -47,7 +47,7 @@ function SettingsIcon() {
 
 function LogoutIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
       <polyline points="16 17 21 12 16 7" />
       <line x1="21" y1="12" x2="9" y2="12" />
@@ -66,8 +66,36 @@ export function SidebarUserCard({
   ...props
 }: SidebarUserCardProps) {
   const [open, setOpen] = useState(false);
+  const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
   const menuId = useId();
-  const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  // Calculate fixed position to escape sidebar stacking context
+  const openMenu = () => {
+    if (triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      setDropdownStyle({
+        position: 'fixed',
+        bottom: window.innerHeight - rect.top + 4,
+        left: rect.left,
+        width: rect.width,
+        zIndex: 9999,
+      });
+    }
+    setOpen((v) => !v);
+  };
+
+  // Close on scroll / resize
+  useEffect(() => {
+    if (!open) return;
+    const close = () => setOpen(false);
+    window.addEventListener('scroll', close, true);
+    window.addEventListener('resize', close);
+    return () => {
+      window.removeEventListener('scroll', close, true);
+      window.removeEventListener('resize', close);
+    };
+  }, [open]);
 
   const items: SidebarUserCardMenuItem[] = [
     ...menuItems,
@@ -81,11 +109,12 @@ export function SidebarUserCard({
   };
 
   return (
-    <div ref={containerRef} className={`relative ${className}`} {...props}>
-      {/* Trigger */}
+    <div className={`relative ${className}`} {...props}>
+      {/* Trigger — full-width card */}
       <button
+        ref={triggerRef}
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={openMenu}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={menuId}
@@ -106,31 +135,29 @@ export function SidebarUserCard({
         <ChevronIcon open={open} />
       </button>
 
-      {/* Dropdown — opens upward */}
+      {/* Dropdown — fixed positioning to escape sidebar stacking context */}
       {open && (
         <>
-          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} aria-hidden="true" />
+          <div
+            className="fixed inset-0"
+            style={{ zIndex: 9998 }}
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />
           <ul
             id={menuId}
             role="menu"
             aria-label={`Options for ${user.name}`}
-            className="absolute bottom-full left-0 right-0 mb-1 z-50 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface)] py-1 shadow-[var(--ui-shadow-md)]"
+            style={dropdownStyle}
+            className="rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface)] py-1 shadow-[var(--ui-shadow-lg)]"
           >
-            {/* User info header */}
-            <li role="none" className="px-3 py-2 border-b border-[var(--ui-border)] mb-1">
-              <p className="text-xs font-semibold text-[var(--ui-text)] truncate">{user.name}</p>
-              {user.email && (
-                <p className="text-xs text-[var(--ui-text-muted)] truncate">{user.email}</p>
-              )}
-            </li>
-
             {items.map((item, i) => (
               <li key={i} role="none">
                 <button
                   type="button"
                   role="menuitem"
                   onClick={() => handleSelect(item.onClick)}
-                  className={`flex items-center gap-2.5 w-full px-3 py-1.5 text-sm transition-colors hover:bg-[var(--ui-surface-hover)] ${
+                  className={`flex items-center gap-2.5 w-full px-3 py-2 text-sm transition-colors hover:bg-[var(--ui-surface-hover)] ${
                     item.danger
                       ? 'text-[var(--ui-error)]'
                       : 'text-[var(--ui-text)]'
