@@ -35,5 +35,10 @@
     "vitest": "^4.0.18",
     "vitest-axe": "^0.1.0"
   },
+  "pnpm": {
+    "overrides": {
+      "undici": "7.24.1"
+    }
+  },
   "packageManager": "pnpm@10.30.1"
 }
