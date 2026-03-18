@@ -26,77 +26,91 @@ const PIE_DATA = [
 
 /* ─── Demo wrappers ───────────────────────────────────────────────────── */
 
+function ChartWrap({ children }: { children: React.ReactNode }) {
+  return <div style={{ width: '100%', minHeight: 280 }}>{children}</div>;
+}
+
 function LineChartDemo() {
   return (
-    <GundoLineChart
-      data={SAMPLE_DATA}
-      xKey="month"
-      series={[
-        { key: 'revenue', label: 'Revenue', color: 'primary' },
-        { key: 'users', label: 'Users', color: 'info', dashed: true },
-      ]}
-      height={280}
-      showLegend
-    />
+    <ChartWrap>
+      <GundoLineChart
+        data={SAMPLE_DATA}
+        xKey="month"
+        series={[
+          { key: 'revenue', label: 'Revenue', color: 'primary' },
+          { key: 'users', label: 'Users', color: 'info', dashed: true },
+        ]}
+        height={280}
+        showLegend
+      />
+    </ChartWrap>
   );
 }
 
 function AreaChartDemo() {
   return (
-    <GundoAreaChart
-      data={SAMPLE_DATA}
-      xKey="month"
-      series={[
-        { key: 'revenue', label: 'Revenue', color: 'primary' },
-        { key: 'cost', label: 'Cost', color: 'warning' },
-      ]}
-      height={280}
-      showLegend
-    />
+    <ChartWrap>
+      <GundoAreaChart
+        data={SAMPLE_DATA}
+        xKey="month"
+        series={[
+          { key: 'revenue', label: 'Revenue', color: 'primary' },
+          { key: 'cost', label: 'Cost', color: 'warning' },
+        ]}
+        height={280}
+        showLegend
+      />
+    </ChartWrap>
   );
 }
 
 function BarChartDemo() {
   return (
-    <GundoBarChart
-      data={SAMPLE_DATA}
-      xKey="month"
-      series={[
-        { key: 'revenue', label: 'Revenue', color: 'primary', radius: [4, 4, 0, 0] },
-        { key: 'cost', label: 'Cost', color: 'error', radius: [4, 4, 0, 0] },
-      ]}
-      height={280}
-      showLegend
-    />
+    <ChartWrap>
+      <GundoBarChart
+        data={SAMPLE_DATA}
+        xKey="month"
+        series={[
+          { key: 'revenue', label: 'Revenue', color: 'primary', radius: [4, 4, 0, 0] },
+          { key: 'cost', label: 'Cost', color: 'error', radius: [4, 4, 0, 0] },
+        ]}
+        height={280}
+        showLegend
+      />
+    </ChartWrap>
   );
 }
 
 function PieChartDemo() {
   return (
-    <GundoPieChart
-      data={PIE_DATA}
-      height={280}
-      innerRadius={50}
-      outerRadius={90}
-      showLegend
-      showLabels
-    />
+    <ChartWrap>
+      <GundoPieChart
+        data={PIE_DATA}
+        height={280}
+        innerRadius={50}
+        outerRadius={90}
+        showLegend
+        showLabels
+      />
+    </ChartWrap>
   );
 }
 
 function ComposedChartDemo() {
   return (
-    <GundoComposedChart
-      data={SAMPLE_DATA}
-      xKey="month"
-      series={[
-        { key: 'revenue', label: 'Revenue', color: 'primary', type: 'bar', radius: [4, 4, 0, 0] },
-        { key: 'users', label: 'Users', color: 'info', type: 'line' },
-        { key: 'cost', label: 'Cost', color: 'warning', type: 'area' },
-      ]}
-      height={280}
-      showLegend
-    />
+    <ChartWrap>
+      <GundoComposedChart
+        data={SAMPLE_DATA}
+        xKey="month"
+        series={[
+          { key: 'revenue', label: 'Revenue', color: 'primary', type: 'bar', radius: [4, 4, 0, 0] },
+          { key: 'users', label: 'Users', color: 'info', type: 'line' },
+          { key: 'cost', label: 'Cost', color: 'warning', type: 'area' },
+        ]}
+        height={280}
+        showLegend
+      />
+    </ChartWrap>
   );
 }
 
