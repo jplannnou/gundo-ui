@@ -24,6 +24,18 @@ jobs:
           node-version: 22
           registry-url: https://npm.pkg.github.com
 
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Verify dist
+        run: |
+          test -f dist/index.js || (echo "dist/index.js not found" && exit 1)
+          test -f dist/index.d.ts || (echo "dist/index.d.ts not found" && exit 1)
+          echo "dist/ verified"
+
       - name: Publish
         run: pnpm publish --no-git-checks --access public
         env:
