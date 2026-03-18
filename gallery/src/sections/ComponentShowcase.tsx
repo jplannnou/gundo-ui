@@ -144,26 +144,34 @@ function ComponentCard({ item }: { item: ComponentDef }) {
 
       {/* Props API */}
       {item.props && item.props.length > 0 && (
-        <div
+        <details
           style={{
             borderTop: '1px solid var(--ui-border)',
-            padding: '16px 20px',
           }}
         >
-          <h4
+          <summary
             style={{
+              padding: '12px 20px',
               fontSize: '0.75rem',
               fontWeight: 600,
               color: 'var(--ui-text-muted)',
               textTransform: 'uppercase',
               letterSpacing: '0.05em',
-              marginBottom: 12,
+              cursor: 'pointer',
+              userSelect: 'none',
+              listStyle: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
             }}
           >
-            API
-          </h4>
-          <PropsTable props={item.props} />
-        </div>
+            <span style={{ transition: 'transform 150ms', display: 'inline-block' }} className="details-arrow">&#9654;</span>
+            API ({item.props.length} props)
+          </summary>
+          <div style={{ padding: '0 20px 16px' }}>
+            <PropsTable props={item.props} />
+          </div>
+        </details>
       )}
     </div>
   );
