@@ -1,4 +1,4 @@
-import { cleanup, render, screen, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { Modal } from '../Modal';
 
@@ -36,7 +36,7 @@ describe('Modal', () => {
     expect(onClose).toHaveBeenCalled();
   });
 
-  it('traps focus within modal', () => {
+  it('traps focus within modal', async () => {
     render(
       <Modal open onClose={() => {}} title="Focus Trap">
         <button>First</button>
@@ -44,8 +44,8 @@ describe('Modal', () => {
       </Modal>,
     );
     const dialog = screen.getByRole('dialog');
-    // The modal itself should be focused initially (tabIndex={-1})
-    expect(dialog).toHaveFocus();
+    // Focus is set via requestAnimationFrame, so wait for it
+    await waitFor(() => expect(dialog).toHaveFocus());
     // Tab should keep focus inside the modal
     const firstBtn = screen.getByText('First');
     const secondBtn = screen.getByText('Second');

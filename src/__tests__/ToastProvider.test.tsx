@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { ToastProvider, useToast } from '../ToastProvider';
 
@@ -31,21 +31,22 @@ describe('ToastProvider', () => {
     expect(screen.getByText('Error!')).toBeInTheDocument();
   });
 
-  it('dismisses all toasts', () => {
+  it('dismisses all toasts', async () => {
     render(<ToastProvider><TestConsumer /></ToastProvider>);
     fireEvent.click(screen.getByText('Show Success'));
     expect(screen.getByText('Success!')).toBeInTheDocument();
     fireEvent.click(screen.getByText('Dismiss All'));
-    expect(screen.queryByText('Success!')).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByText('Success!')).not.toBeInTheDocument());
   });
 
-  it('auto-dismisses after duration', () => {
-    vi.useFakeTimers();
+  it('auto-dismisses after duration', async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
     render(<ToastProvider><TestConsumer /></ToastProvider>);
     fireEvent.click(screen.getByText('Show Success'));
     expect(screen.getByText('Success!')).toBeInTheDocument();
+    // Advance past the toast duration (4000ms) + exit animation time
     act(() => { vi.advanceTimersByTime(5000); });
-    expect(screen.queryByText('Success!')).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByText('Success!')).not.toBeInTheDocument());
     vi.useRealTimers();
   });
 

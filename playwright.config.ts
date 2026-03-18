@@ -15,8 +15,22 @@ export default defineConfig({
   },
 
   projects: [
+    /* ─── Visual regression tests (local harness) ─────────────── */
+    {
+      name: 'visual',
+      testDir: './e2e/visual',
+      testMatch: '**/*.spec.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: 'http://localhost:4173',
+      },
+    },
+
+    /* ─── Deployed app smoke tests ────────────────────────────── */
     {
       name: 'finance',
+      testDir: './e2e',
+      testMatch: 'smoke.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'https://gundo-finance.web.app',
@@ -24,6 +38,8 @@ export default defineConfig({
     },
     {
       name: 'radar',
+      testDir: './e2e',
+      testMatch: 'smoke.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'https://gundo-radar.web.app',
@@ -31,6 +47,8 @@ export default defineConfig({
     },
     {
       name: 'jp-assistant',
+      testDir: './e2e',
+      testMatch: 'smoke.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'https://jp-assistant-app.web.app',
@@ -38,10 +56,19 @@ export default defineConfig({
     },
     {
       name: 'engine',
+      testDir: './e2e',
+      testMatch: 'smoke.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'https://gundo-engine.vercel.app',
       },
     },
   ],
+
+  /* ─── Local dev server for visual tests ─────────────────────── */
+  webServer: {
+    command: 'npx vite --config e2e/visual/vite.config.ts',
+    port: 4173,
+    reuseExistingServer: !process.env.CI,
+  },
 });

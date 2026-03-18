@@ -1,4 +1,5 @@
 import { useRef, useState, useCallback, useId, type DragEvent } from 'react';
+import { Upload } from 'lucide-react';
 
 interface FileUploadProps {
   onFiles: (files: File[]) => void;
@@ -79,9 +80,7 @@ export function FileUpload({
       >
         {children ?? (
           <>
-            <svg className="w-8 h-8 text-[var(--ui-text-muted)] mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 16V4m0 0-4 4m4-4 4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
-            </svg>
+            <Upload className="w-8 h-8 text-[var(--ui-text-muted)] mb-3" strokeWidth={1.5} aria-hidden="true" />
             <p className="text-sm text-[var(--ui-text-secondary)]">
               <span className="font-medium text-[var(--ui-primary)]">Click to upload</span> or drag and drop
             </p>

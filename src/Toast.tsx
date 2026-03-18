@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
+import { Check, X, AlertTriangle, Info } from 'lucide-react';
 
 type ToastType = 'success' | 'error' | 'info' | 'warning';
 
@@ -18,26 +19,10 @@ const typeStyles: Record<ToastType, { bg: string; border: string; color: string 
 };
 
 const typeIcons: Record<ToastType, ReactNode> = {
-  success: (
-    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  ),
-  error: (
-    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-    </svg>
-  ),
-  warning: (
-    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <line x1="12" y1="9" x2="12" y2="13" /><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  ),
-  info: (
-    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="12" cy="8" r="1" fill="currentColor" stroke="none" /><line x1="12" y1="12" x2="12" y2="17" />
-    </svg>
-  ),
+  success: <Check className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />,
+  error: <X className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />,
+  warning: <AlertTriangle className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />,
+  info: <Info className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />,
 };
 
 export function Toast({ type = 'info', children, onClose, duration = 4000, className = '' }: ToastProps) {
@@ -56,7 +41,7 @@ export function Toast({ type = 'info', children, onClose, duration = 4000, class
       role="alert"
       aria-live="polite"
       aria-atomic="true"
-      className={`flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg text-sm font-medium animate-[fadeIn_0.2s_ease-out] ${className}`}
+      className={`flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg text-sm font-medium ${className}`}
       style={{ backgroundColor: s.bg, borderColor: s.border, color: s.color, border: '1px solid' }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -75,9 +60,7 @@ export function Toast({ type = 'info', children, onClose, duration = 4000, class
           className="ml-2 opacity-60 hover:opacity-100 transition-opacity"
           aria-label="Dismiss notification"
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          <X className="w-4 h-4" aria-hidden="true" />
         </button>
       )}
     </div>

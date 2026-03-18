@@ -1,4 +1,6 @@
 import { useState, useId, type ReactNode } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useReducedMotion } from './utils/useReducedMotion';
 
 export interface TooltipProps {
   text: string;
@@ -9,6 +11,7 @@ export interface TooltipProps {
 export function Tooltip({ text, children, position = 'top' }: TooltipProps) {
   const [visible, setVisible] = useState(false);
   const tooltipId = useId();
+  const reducedMotion = useReducedMotion();
 
   const positionClasses: Record<string, string> = {
     top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
@@ -38,18 +41,27 @@ export function Tooltip({ text, children, position = 'top' }: TooltipProps) {
       aria-describedby={visible ? tooltipId : undefined}
     >
       {children}
-      <span
-        id={tooltipId}
-        role="tooltip"
-        className={`absolute z-50 ${positionClasses[position]} pointer-events-none whitespace-nowrap max-w-xs transition-opacity delay-200 ${
-          visible ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <span className="block bg-[var(--ui-surface)] text-[var(--ui-text)] text-xs rounded-lg px-3 py-2 shadow-lg border border-[var(--ui-border)] whitespace-normal">
-          {text}
-        </span>
-        <span className={`absolute w-0 h-0 border-4 ${arrowClasses[position]}`} />
-      </span>
+      <AnimatePresence>
+        {visible && (
+          <motion.span
+            id={tooltipId}
+            role="tooltip"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{
+              duration: reducedMotion ? 0 : 0.15,
+              ease: 'easeOut',
+            }}
+            className={`absolute z-50 ${positionClasses[position]} pointer-events-none whitespace-nowrap max-w-xs`}
+          >
+            <span className="block bg-[var(--ui-surface)] text-[var(--ui-text)] text-xs rounded-lg px-3 py-2 shadow-lg border border-[var(--ui-border)] whitespace-normal">
+              {text}
+            </span>
+            <span className={`absolute w-0 h-0 border-4 ${arrowClasses[position]}`} />
+          </motion.span>
+        )}
+      </AnimatePresence>
     </span>
   );
 }

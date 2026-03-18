@@ -1,3 +1,5 @@
+import { ChevronRight } from 'lucide-react';
+
 interface BreadcrumbItem {
   label: string;
   onClick?: () => void;
@@ -15,9 +17,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
         return (
           <span key={index} className="flex items-center gap-1">
             {index > 0 && (
-              <svg className="w-3.5 h-3.5 text-[var(--ui-text-muted)] shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-              </svg>
+              <ChevronRight className="w-3.5 h-3.5 text-[var(--ui-text-muted)] shrink-0" aria-hidden="true" />
             )}
             {isLast || !item.onClick ? (
               <span className={isLast ? 'text-[var(--ui-text)] font-medium' : ''} aria-current={isLast ? 'page' : undefined}>

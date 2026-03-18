@@ -7,6 +7,7 @@ import {
   type HTMLAttributes,
   type KeyboardEvent,
 } from 'react';
+import { Check, X } from 'lucide-react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
@@ -146,9 +147,7 @@ export function InlineEdit({
           aria-label="Confirmar"
           className="flex h-6 w-6 items-center justify-center rounded text-[var(--ui-success)] transition-colors hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
         >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          <Check className="w-3 h-3" strokeWidth={2} aria-hidden="true" />
         </button>
         <button
           type="button"
@@ -156,9 +155,7 @@ export function InlineEdit({
           aria-label="Cancelar"
           className="flex h-6 w-6 items-center justify-center rounded text-[var(--ui-text-muted)] transition-colors hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
         >
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-            <path d="M8 2L2 8M2 2l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
+          <X className="w-2.5 h-2.5" strokeWidth={2} aria-hidden="true" />
         </button>
       </div>
       {error && (

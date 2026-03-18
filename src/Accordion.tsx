@@ -1,4 +1,7 @@
 import { useState, type ReactNode } from 'react';
+import { ChevronDown } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useReducedMotion } from './utils/useReducedMotion';
 
 interface AccordionProps {
   children: ReactNode;
@@ -28,6 +31,7 @@ export function AccordionItem({
 }: AccordionItemProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const contentId = `accordion-content-${id}`;
+  const reducedMotion = useReducedMotion();
 
   return (
     <div
@@ -44,17 +48,12 @@ export function AccordionItem({
         aria-controls={contentId}
         className="w-full flex items-center gap-3 p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] rounded-lg"
       >
-        <svg
+        <ChevronDown
           className={`w-4 h-4 shrink-0 text-[var(--ui-text-muted)] transition-transform duration-300 ${
             isOpen ? 'rotate-180' : ''
           }`}
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-        </svg>
+          aria-hidden="true"
+        />
 
         <div className="flex-1 min-w-0">
           {header}
@@ -64,16 +63,24 @@ export function AccordionItem({
         </div>
       </button>
 
-      <div
-        id={contentId}
-        role="region"
-        className="grid transition-all duration-300 ease-in-out"
-        style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
-      >
-        <div className="overflow-hidden">
-          <div className="px-4 pb-4 pt-0">{children}</div>
-        </div>
-      </div>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            id={contentId}
+            role="region"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{
+              duration: reducedMotion ? 0 : 0.3,
+              ease: 'easeInOut',
+            }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div className="px-4 pb-4 pt-0">{children}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

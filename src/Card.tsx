@@ -14,12 +14,14 @@ export function Card({
   onClick,
   ...props
 }: CardProps) {
+  const isInteractive = hover || !!onClick;
+
   return (
     <div
       className={`rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] ${
         padding ? 'p-6' : ''
       } ${
-        hover || onClick ? 'hover:bg-[var(--ui-surface-hover)] cursor-pointer transition-colors' : ''
+        isInteractive ? 'hover:bg-[var(--ui-surface-hover)] hover:-translate-y-0.5 cursor-pointer transition-all duration-200' : ''
       } ${className}`}
       onClick={onClick}
       role={onClick ? 'button' : undefined}

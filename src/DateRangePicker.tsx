@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback, type KeyboardEvent } from 'react';
+import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface DateRange {
   from: Date | null;
@@ -195,9 +196,7 @@ export function DateRangePicker({
         aria-expanded={open}
         className="flex items-center gap-2 h-10 px-3 rounded-[var(--ui-radius-md)] border border-[var(--ui-border)] bg-[var(--ui-surface)] text-sm text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] transition-colors"
       >
-        <svg className="w-4 h-4 text-[var(--ui-text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
-        </svg>
+        <Calendar className="w-4 h-4 text-[var(--ui-text-muted)]" aria-hidden="true" />
         <span className={value.from ? '' : 'text-[var(--ui-text-muted)]'}>{displayText}</span>
       </button>
 
@@ -224,10 +223,10 @@ export function DateRangePicker({
           <div className="p-3">
             <div className="flex items-center justify-between mb-2 px-1">
               <button type="button" onClick={prevMonth} aria-label="Previous month" className="p-1 rounded hover:bg-[var(--ui-surface-hover)] text-[var(--ui-text-secondary)]">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="15 18 9 12 15 6" /></svg>
+                <ChevronLeft className="w-4 h-4" aria-hidden="true" />
               </button>
               <button type="button" onClick={nextMonth} aria-label="Next month" className="p-1 rounded hover:bg-[var(--ui-surface-hover)] text-[var(--ui-text-secondary)]">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><polyline points="9 18 15 12 9 6" /></svg>
+                <ChevronRight className="w-4 h-4" aria-hidden="true" />
               </button>
             </div>
             <div className="flex gap-4">

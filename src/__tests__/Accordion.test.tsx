@@ -44,6 +44,8 @@ describe('Accordion', () => {
     );
     const button = screen.getByRole('button', { name: /linked/i });
     expect(button).toHaveAttribute('aria-controls', 'accordion-content-d1');
+    // Content region is only in DOM when open (AnimatePresence)
+    fireEvent.click(button);
     expect(document.getElementById('accordion-content-d1')).toBeInTheDocument();
   });
 

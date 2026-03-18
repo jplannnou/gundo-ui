@@ -1,3 +1,5 @@
+import { Check } from 'lucide-react';
+
 interface Step {
   label: string;
   description?: string;
@@ -29,9 +31,7 @@ export function StepIndicator({ steps, currentStep, className = '' }: StepIndica
                 }`}
               >
                 {status === 'complete' ? (
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M2.5 6l2.5 2.5 4.5-4.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  <Check className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
                 ) : (
                   i + 1
                 )}

@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect, useId, type ReactNode } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useReducedMotion } from './utils/useReducedMotion';
 
 type PopoverAlign = 'start' | 'center' | 'end';
 type PopoverSide = 'top' | 'bottom' | 'left' | 'right';
@@ -26,6 +28,7 @@ export function Popover({
   const isOpen = controlledOpen ?? internalOpen;
   const contentId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
 
   const setOpen = (v: boolean) => {
     setInternalOpen(v);
@@ -76,15 +79,24 @@ export function Popover({
       >
         {trigger}
       </div>
-      {isOpen && (
-        <div
-          id={contentId}
-          role="dialog"
-          className={`absolute z-50 ${positionClass} ${alignClass} min-w-[200px] rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-4 shadow-xl animate-[fadeIn_0.15s_ease-out]`}
-        >
-          {children}
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            id={contentId}
+            role="dialog"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{
+              duration: reducedMotion ? 0 : 0.15,
+              ease: 'easeOut',
+            }}
+            className={`absolute z-50 ${positionClass} ${alignClass} min-w-[200px] rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-4 shadow-xl`}
+          >
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

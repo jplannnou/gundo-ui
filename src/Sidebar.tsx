@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 
 /* ─── Context ──────────────────────────────────────────────────────── */
 
@@ -181,17 +182,11 @@ export function SidebarToggle({ className = '' }: { className?: string }) {
       aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
       className={`p-1.5 rounded-md text-[var(--ui-text-muted)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] transition-colors ${className}`}
     >
-      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        {collapsed ? (
-          <>
-            <line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" />
-          </>
-        ) : (
-          <>
-            <line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" />
-          </>
-        )}
-      </svg>
+      {collapsed ? (
+        <PanelLeftOpen className="w-5 h-5" aria-hidden="true" />
+      ) : (
+        <PanelLeftClose className="w-5 h-5" aria-hidden="true" />
+      )}
     </button>
   );
 }

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { Toast } from './Toast';
 
 /* ─── Types ────────────────────────────────────────────────────────── */
@@ -85,6 +86,10 @@ export function ToastProvider({
     'bottom-center': 'bottom-4 left-1/2 -translate-x-1/2',
   }[position];
 
+  // Determine slide direction based on position
+  const isTop = position.startsWith('top');
+  const slideY = isTop ? -20 : 20;
+
   return (
     <ToastContext.Provider value={value}>
       {children}
@@ -92,17 +97,27 @@ export function ToastProvider({
         className={`fixed z-[100] flex flex-col gap-2 ${positionClass}`}
         style={{ maxWidth: '420px', width: '100%', pointerEvents: 'none' }}
       >
-        {toasts.map(t => (
-          <div key={t.id} style={{ pointerEvents: 'auto' }}>
-            <Toast
-              type={t.type}
-              duration={t.duration}
-              onClose={() => dismiss(t.id)}
+        <AnimatePresence initial={false}>
+          {toasts.map(t => (
+            <motion.div
+              key={t.id}
+              layout
+              initial={{ opacity: 0, y: slideY, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.15 } }}
+              transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
+              style={{ pointerEvents: 'auto' }}
             >
-              {t.message}
-            </Toast>
-          </div>
-        ))}
+              <Toast
+                type={t.type}
+                duration={t.duration}
+                onClose={() => dismiss(t.id)}
+              >
+                {t.message}
+              </Toast>
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </ToastContext.Provider>
   );

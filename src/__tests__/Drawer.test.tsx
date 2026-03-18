@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { Drawer } from '../Drawer';
 
@@ -31,7 +31,7 @@ describe('Drawer', () => {
     expect(onClose).toHaveBeenCalled();
   });
 
-  it('traps focus within drawer', () => {
+  it('traps focus within drawer', async () => {
     render(
       <Drawer open onClose={() => {}} title="Focus Trap">
         <button>First</button>
@@ -39,7 +39,8 @@ describe('Drawer', () => {
       </Drawer>,
     );
     const dialog = screen.getByRole('dialog');
-    expect(dialog).toHaveFocus();
+    // Focus is set via requestAnimationFrame, so wait for it
+    await waitFor(() => expect(dialog).toHaveFocus());
     const firstBtn = screen.getByText('First');
     firstBtn.focus();
     expect(firstBtn).toHaveFocus();

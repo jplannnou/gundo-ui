@@ -1,4 +1,5 @@
 import type { ReactNode, KeyboardEvent } from 'react';
+import { ChevronUp, ChevronDown } from 'lucide-react';
 
 /* ── Column definition ──────────────────────────────────────────────────── */
 
@@ -37,10 +38,10 @@ export interface DataTableProps<T> {
 
 function SortIcon({ active, direction }: { active: boolean; direction?: 'asc' | 'desc' }) {
   return (
-    <svg className={`w-3.5 h-3.5 inline-block ml-1 ${active ? 'text-[var(--ui-primary)]' : 'text-[var(--ui-text-muted)]'}`} viewBox="0 0 16 16" fill="currentColor">
-      <path d="M8 3l4 5H4z" opacity={!active || direction === 'asc' ? 1 : 0.3} />
-      <path d="M8 13l-4-5h8z" opacity={!active || direction === 'desc' ? 1 : 0.3} />
-    </svg>
+    <span className={`inline-flex flex-col items-center ml-1 -space-y-1.5 ${active ? 'text-[var(--ui-primary)]' : 'text-[var(--ui-text-muted)]'}`} aria-hidden="true">
+      <ChevronUp className="w-3.5 h-3.5" style={{ opacity: !active || direction === 'asc' ? 1 : 0.3 }} />
+      <ChevronDown className="w-3.5 h-3.5" style={{ opacity: !active || direction === 'desc' ? 1 : 0.3 }} />
+    </span>
   );
 }
 

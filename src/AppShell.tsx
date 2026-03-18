@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { Menu } from 'lucide-react';
 
 interface AppShellContextValue {
   mobileOpen: boolean;
@@ -49,9 +50,7 @@ export function AppShellHeader({ children, className = '' }: AppShellHeaderProps
         aria-label="Toggle navigation"
         className="lg:hidden p-1.5 rounded-[var(--ui-radius-md)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
       >
-        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
+        <Menu className="w-5 h-5" aria-hidden="true" />
       </button>
       {children}
     </header>

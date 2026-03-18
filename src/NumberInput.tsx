@@ -1,4 +1,5 @@
 import { useRef, useId, type KeyboardEvent } from 'react';
+import { Minus, Plus } from 'lucide-react';
 
 interface NumberInputProps {
   value: number | '';
@@ -93,7 +94,7 @@ export function NumberInput({
           aria-label="Decrease"
           className={`${btnSize[size]} flex items-center justify-center border-r border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors`}
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="5" y1="12" x2="19" y2="12" /></svg>
+          <Minus className="w-4 h-4" aria-hidden="true" />
         </button>
 
         <div className={`flex items-center gap-1 ${sizeStyles[size]}`}>
@@ -126,7 +127,7 @@ export function NumberInput({
           aria-label="Increase"
           className={`${btnSize[size]} flex items-center justify-center border-l border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors`}
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+          <Plus className="w-4 h-4" aria-hidden="true" />
         </button>
       </div>
     </div>

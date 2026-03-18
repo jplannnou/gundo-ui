@@ -1,4 +1,5 @@
 import { useCallback, useId, useState, type ReactNode } from 'react';
+import { Check, X } from 'lucide-react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
@@ -212,9 +213,7 @@ function FilterDropdown({ group, active, onChange }: FilterDropdownProps) {
                       aria-hidden="true"
                     >
                       {isSelected && (
-                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
-                          <path d="M1.5 4l2 2 3-3" stroke="var(--ui-surface)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        <Check className="w-2.5 h-2.5" stroke="var(--ui-surface)" strokeWidth={2} aria-hidden="true" />
                       )}
                     </span>
                     {opt.label}
@@ -249,9 +248,7 @@ function FilterPill({ label, onRemove }: FilterPillProps) {
         aria-label={`Quitar filtro: ${label}`}
         className="flex h-4 w-4 items-center justify-center rounded-full transition-colors hover:bg-[var(--ui-primary)] hover:text-[var(--ui-surface)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ui-primary)]"
       >
-        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" aria-hidden="true">
-          <path d="M6 2L2 6M2 2l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
+        <X className="w-2 h-2" strokeWidth={2} aria-hidden="true" />
       </button>
     </span>
   );

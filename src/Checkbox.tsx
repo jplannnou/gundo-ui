@@ -1,4 +1,5 @@
 import type { InputHTMLAttributes } from 'react';
+import { Check, Minus } from 'lucide-react';
 
 export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> {
   label?: string;
@@ -28,14 +29,10 @@ export function Checkbox({ label, checked = false, indeterminate = false, onChan
             : 'border-[var(--ui-border)] bg-transparent peer-hover:border-[var(--ui-border-hover)]'
         }`}>
           {checked && !indeterminate && (
-            <svg className="w-3 h-3 text-white" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M2.5 6l2.5 2.5 4.5-4.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <Check className="w-3 h-3 text-white" strokeWidth={2.5} aria-hidden="true" />
           )}
           {indeterminate && (
-            <svg className="w-3 h-3 text-white" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M2.5 6h7" strokeLinecap="round" />
-            </svg>
+            <Minus className="w-3 h-3 text-white" strokeWidth={2.5} aria-hidden="true" />
           )}
         </span>
       </span>

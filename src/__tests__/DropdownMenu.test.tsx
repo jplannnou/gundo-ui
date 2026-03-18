@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { DropdownMenu } from '../DropdownMenu';
 
@@ -29,13 +29,13 @@ describe('DropdownMenu', () => {
     expect(editFn).toHaveBeenCalled();
   });
 
-  it('closes on Escape', () => {
+  it('closes on Escape', async () => {
     const items = [{ label: 'Edit', onClick: vi.fn() }];
     render(<DropdownMenu trigger={<span>Open</span>} items={items} />);
     fireEvent.click(screen.getByText('Open'));
     expect(screen.getByRole('menu')).toBeInTheDocument();
     fireEvent.keyDown(document, { key: 'Escape' });
-    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument());
   });
 
   it('opens on Enter key', () => {
@@ -85,14 +85,14 @@ describe('DropdownMenu', () => {
     expect(screen.getAllByRole('menuitem')[0]).toHaveFocus();
   });
 
-  it('closes on Tab', () => {
+  it('closes on Tab', async () => {
     const items = [{ label: 'Edit', onClick: vi.fn() }];
     render(<DropdownMenu trigger={<span>Menu</span>} items={items} />);
     fireEvent.click(screen.getByText('Menu'));
     expect(screen.getByRole('menu')).toBeInTheDocument();
     const menu = screen.getByRole('menu');
     fireEvent.keyDown(menu, { key: 'Tab' });
-    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument());
   });
 
   it('trigger has aria-haspopup', () => {

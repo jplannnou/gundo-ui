@@ -1,4 +1,5 @@
 import type { InputHTMLAttributes } from 'react';
+import { Search, X } from 'lucide-react';
 
 interface SearchInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   onClear?: () => void;
@@ -9,16 +10,10 @@ export function SearchInput({ value, onClear, className = '', ...props }: Search
 
   return (
     <div className={`relative ${className}`}>
-      <svg
+      <Search
         className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--ui-text-muted)]"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
         aria-hidden="true"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-      </svg>
+      />
       <input
         type="search"
         value={value}
@@ -32,10 +27,7 @@ export function SearchInput({ value, onClear, className = '', ...props }: Search
           className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 rounded text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
           aria-label="Clear search"
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          <X className="w-4 h-4" aria-hidden="true" />
         </button>
       )}
     </div>

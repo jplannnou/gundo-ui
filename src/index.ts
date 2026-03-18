@@ -125,3 +125,22 @@ export { TreeView } from './TreeView';
 export type { TreeViewProps, TreeNode } from './TreeView';
 export { LeaderboardTable } from './LeaderboardTable';
 export type { LeaderboardTableProps, LeaderboardEntry } from './LeaderboardTable';
+
+// Chart wrappers — available via '@gundo/ui/charts' (requires recharts as peerDep)
+// Types are safe to re-export (no runtime import of recharts)
+export type {
+  ChartSeries,
+  BaseChartProps,
+  BarChartSeries,
+  SemanticColor,
+} from './charts/types';
+
+// Icons — curated re-exports from lucide-react
+export * from './icons';
+
+// Motion utilities — optional wrappers for consumer animations
+export { AnimatedOverlay } from './motion/AnimatedOverlay';
+export { PageTransition } from './motion/PageTransition';
+export { FadeIn } from './motion/FadeIn';
+export { useReducedMotion } from './utils/useReducedMotion';
+
