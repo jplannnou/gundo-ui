@@ -76,10 +76,10 @@ function DrawerDemo() {
 function TooltipDemo() {
   return (
     <div style={{ display: 'flex', gap: 16 }}>
-      <Tooltip content="Hello from tooltip!">
+      <Tooltip text="Hello from tooltip!">
         <Button variant="secondary">Hover me</Button>
       </Tooltip>
-      <Tooltip content="Another tooltip" position="right">
+      <Tooltip text="Another tooltip" position="right">
         <Badge variant="info">Info badge</Badge>
       </Tooltip>
     </div>
@@ -144,25 +144,27 @@ function DropdownMenuDemo() {
       items={[
         { label: 'Edit', onClick: () => {} },
         { label: 'Duplicate', onClick: () => {} },
-        { label: 'Delete', onClick: () => {}, variant: 'danger' },
+        { label: 'Delete', onClick: () => {}, danger: true },
       ]}
     />
   );
 }
 
 function DataTableDemo() {
+  type Row = { name: string; role: string; status: string };
   return (
-    <DataTable
+    <DataTable<Row>
       columns={[
-        { key: 'name', header: 'Name' },
-        { key: 'role', header: 'Role' },
-        { key: 'status', header: 'Status' },
+        { key: 'name', header: 'Name', render: (row) => row.name },
+        { key: 'role', header: 'Role', render: (row) => row.role },
+        { key: 'status', header: 'Status', render: (row) => row.status },
       ]}
       data={[
         { name: 'Alice', role: 'Engineer', status: 'Active' },
         { name: 'Bob', role: 'Designer', status: 'Away' },
         { name: 'Charlie', role: 'Manager', status: 'Active' },
       ]}
+      rowKey={(row) => row.name}
     />
   );
 }
@@ -248,8 +250,8 @@ export const componentGroups: ComponentGroup[] = [
         demo: () => (
           <Breadcrumbs
             items={[
-              { label: 'Home', href: '#' },
-              { label: 'Dashboard', href: '#' },
+              { label: 'Home', onClick: () => {} },
+              { label: 'Dashboard', onClick: () => {} },
               { label: 'Settings' },
             ]}
           />
@@ -310,7 +312,7 @@ export const componentGroups: ComponentGroup[] = [
         demo: () => (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 300 }}>
             <Input placeholder="Default input" />
-            <Input placeholder="With error" error />
+            <Input placeholder="With error" error="This field is required" />
             <Input placeholder="Disabled" disabled />
           </div>
         ),
@@ -333,7 +335,7 @@ export const componentGroups: ComponentGroup[] = [
         file: 'FormField.tsx',
         demo: () => (
           <FormField label="Email" error="Invalid email address">
-            <Input placeholder="you@example.com" error />
+            <Input placeholder="you@example.com" error="Invalid email address" />
           </FormField>
         ),
       },
@@ -366,10 +368,10 @@ export const componentGroups: ComponentGroup[] = [
         file: 'AlertBanner.tsx',
         demo: () => (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%' }}>
-            <AlertBanner variant="info" message="Informational message" />
-            <AlertBanner variant="success" message="Operation completed successfully" />
-            <AlertBanner variant="warning" message="Proceed with caution" />
-            <AlertBanner variant="error" message="Something went wrong" />
+            <AlertBanner type="info" title="Info">Informational message</AlertBanner>
+            <AlertBanner type="success" title="Success">Operation completed successfully</AlertBanner>
+            <AlertBanner type="warning" title="Warning">Proceed with caution</AlertBanner>
+            <AlertBanner type="error" title="Error">Something went wrong</AlertBanner>
           </div>
         ),
       },
@@ -379,8 +381,8 @@ export const componentGroups: ComponentGroup[] = [
         file: 'Toast.tsx',
         demo: () => (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <Toast variant="success" message="Saved successfully" onClose={() => {}} />
-            <Toast variant="error" message="Failed to save" onClose={() => {}} />
+            <Toast type="success" onClose={() => {}}>Saved successfully</Toast>
+            <Toast type="error" onClose={() => {}}>Failed to save</Toast>
           </div>
         ),
       },
@@ -414,7 +416,7 @@ export const componentGroups: ComponentGroup[] = [
         file: 'Skeleton.tsx',
         demo: () => (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 300 }}>
-            <Skeleton width="100%" height={16} />
+            <Skeleton className="w-full h-4" />
             <SkeletonText lines={3} />
           </div>
         ),
@@ -436,10 +438,10 @@ export const componentGroups: ComponentGroup[] = [
         file: 'StatusDot.tsx',
         demo: () => (
           <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-            <StatusDot status="online" />
-            <StatusDot status="offline" />
-            <StatusDot status="busy" />
-            <StatusDot status="away" />
+            <StatusDot status="success" label="Online" />
+            <StatusDot status="neutral" label="Offline" />
+            <StatusDot status="error" label="Busy" pulse />
+            <StatusDot status="warning" label="Away" />
           </div>
         ),
       },
@@ -449,8 +451,8 @@ export const componentGroups: ComponentGroup[] = [
         file: 'KpiCard.tsx',
         demo: () => (
           <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-            <KpiCard title="Revenue" value="$12,345" trend={{ value: 12.5, direction: 'up' }} />
-            <KpiCard title="Users" value="1,234" trend={{ value: 3.2, direction: 'down' }} />
+            <KpiCard title="Revenue" value="$12,345" trend={{ value: 12.5, label: 'vs last month' }} />
+            <KpiCard title="Users" value="1,234" trend={{ value: -3.2, label: 'vs last month' }} />
           </div>
         ),
       },
@@ -519,9 +521,9 @@ export const componentGroups: ComponentGroup[] = [
         file: 'Avatar.tsx',
         demo: () => (
           <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-            <Avatar name="JP" size="sm" />
-            <Avatar name="Alice" />
-            <Avatar name="Bob" size="lg" />
+            <Avatar alt="JP" size="sm" />
+            <Avatar alt="Alice" />
+            <Avatar alt="Bob" size="lg" />
           </div>
         ),
       },
@@ -554,9 +556,9 @@ export const componentGroups: ComponentGroup[] = [
         file: 'Accordion.tsx',
         demo: () => (
           <Accordion>
-            <AccordionItem title="Section 1">Content for the first section.</AccordionItem>
-            <AccordionItem title="Section 2">Content for the second section.</AccordionItem>
-            <AccordionItem title="Section 3">Content for the third section.</AccordionItem>
+            <AccordionItem id="1" header="Section 1">Content for the first section.</AccordionItem>
+            <AccordionItem id="2" header="Section 2">Content for the second section.</AccordionItem>
+            <AccordionItem id="3" header="Section 3">Content for the third section.</AccordionItem>
           </Accordion>
         ),
       },
