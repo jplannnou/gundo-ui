@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { ComponentShowcase } from './sections/ComponentShowcase';
 import { IconBrowser } from './sections/IconBrowser';
 import { ThemePreview } from './sections/ThemePreview';
-import { componentGroups } from './data/components';
+import { componentGroups } from './data';
 import { Sun, Moon, ExternalLink } from '../../src/icons';
 
 type Section = 'components' | 'icons' | 'theme';

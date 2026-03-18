@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { componentGroups } from '../data/components';
+import { componentGroups } from '../data';
+import { PropsTable } from '../components/PropsTable';
+import type { ComponentDef } from '../data/types';
 
 interface Props {
   activeComponent: string | null;
@@ -82,7 +84,7 @@ export function ComponentShowcase({ activeComponent }: Props) {
   );
 }
 
-function ComponentCard({ item }: { item: { name: string; description: string; file: string; demo: () => JSX.Element } }) {
+function ComponentCard({ item }: { item: ComponentDef }) {
   return (
     <div
       id={`component-${item.name}`}
@@ -139,6 +141,30 @@ function ComponentCard({ item }: { item: { name: string; description: string; fi
       >
         <item.demo />
       </div>
+
+      {/* Props API */}
+      {item.props && item.props.length > 0 && (
+        <div
+          style={{
+            borderTop: '1px solid var(--ui-border)',
+            padding: '16px 20px',
+          }}
+        >
+          <h4
+            style={{
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              color: 'var(--ui-text-muted)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              marginBottom: 12,
+            }}
+          >
+            API
+          </h4>
+          <PropsTable props={item.props} />
+        </div>
+      )}
     </div>
   );
 }
