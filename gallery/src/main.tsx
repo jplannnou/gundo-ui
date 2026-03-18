@@ -1,4 +1,4 @@
-import '../../src/theme.css';
+import './gallery.css';
 import { createRoot } from 'react-dom/client';
 import { ThemeProvider } from '../../src/utils/useTheme';
 import { ToastProvider } from '../../src/ToastProvider';
