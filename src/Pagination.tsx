@@ -46,7 +46,7 @@ export function Pagination({ page, totalPages, onPageChange, total, pageSize, cl
           disabled={page <= 1}
           onClick={() => onPageChange(page - 1)}
           aria-label="Previous page"
-          className="px-2.5 py-1.5 text-sm rounded-md border border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
+          className="px-3 py-2 text-sm rounded-md border border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
         >
           ‹
         </button>
@@ -60,7 +60,7 @@ export function Pagination({ page, totalPages, onPageChange, total, pageSize, cl
               onClick={() => onPageChange(p)}
               aria-label={`Page ${p}`}
               aria-current={p === page ? 'page' : undefined}
-              className={`min-w-[32px] py-1.5 text-sm rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
+              className={`min-w-[36px] py-2 text-sm rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
                 p === page
                   ? 'bg-[var(--ui-primary)] text-white font-medium'
                   : 'text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)]'
@@ -75,7 +75,7 @@ export function Pagination({ page, totalPages, onPageChange, total, pageSize, cl
           disabled={page >= totalPages}
           onClick={() => onPageChange(page + 1)}
           aria-label="Next page"
-          className="px-2.5 py-1.5 text-sm rounded-md border border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
+          className="px-3 py-2 text-sm rounded-md border border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
         >
           ›
         </button>

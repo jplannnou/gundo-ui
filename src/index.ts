@@ -143,4 +143,5 @@ export { AnimatedOverlay } from './motion/AnimatedOverlay';
 export { PageTransition } from './motion/PageTransition';
 export { FadeIn } from './motion/FadeIn';
 export { useReducedMotion } from './utils/useReducedMotion';
+export { useMediaQuery, useIsMobile } from './utils/useMediaQuery';
 
