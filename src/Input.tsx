@@ -19,6 +19,12 @@ export function Input({ label, error, className = '', ...props }: InputProps) {
             ? 'border-[var(--ui-error)] focus:border-[var(--ui-error)]'
             : 'border-[var(--ui-border)] focus:border-[var(--ui-primary)]'
         } ${className}`}
+        style={{
+          color: 'var(--ui-text, #F2F4F3)',
+          backgroundColor: 'var(--ui-surface-hover, rgba(255,255,255,0.07))',
+          borderColor: error ? 'var(--ui-error, #ef4444)' : 'var(--ui-border, rgba(255,255,255,0.1))',
+          ...props.style,
+        }}
         {...props}
       />
       {error && (
@@ -48,6 +54,12 @@ export function Select({ label, error, options, className = '', ...props }: Sele
             ? 'border-[var(--ui-error)] focus:border-[var(--ui-error)]'
             : 'border-[var(--ui-border)] focus:border-[var(--ui-primary)]'
         } ${className}`}
+        style={{
+          color: 'var(--ui-text, #F2F4F3)',
+          backgroundColor: 'var(--ui-surface-hover, rgba(255,255,255,0.07))',
+          borderColor: error ? 'var(--ui-error, #ef4444)' : 'var(--ui-border, rgba(255,255,255,0.1))',
+          ...props.style,
+        }}
         {...props}
       >
         {options.map(o => (
