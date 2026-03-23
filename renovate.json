@@ -46,6 +46,11 @@
       "matchPackagePrefixes": ["@eslint/", "@typescript-eslint/", "eslint"],
       "matchPackageNames": ["prettier"],
       "groupName": "Linting"
+    },
+    {
+      "description": "Ignore @gundo/feedback-sdk — propagated automatically by SDK publish workflow",
+      "matchPackageNames": ["@jplannnou/feedback-sdk"],
+      "enabled": false
     }
   ]
 }
