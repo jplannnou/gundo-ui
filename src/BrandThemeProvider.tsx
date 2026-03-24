@@ -58,6 +58,8 @@ export function BrandThemeProvider({ brand, children, className }: BrandThemePro
   const secondaryText = ensureContrast(brand.secondary.text, brand.secondary.bg);
   const tertiaryText = ensureContrast(brand.tertiary.text, brand.tertiary.bg);
 
+  // Surface and text stay neutral/dark — only accents come from the brand.
+  // This guarantees contrast regardless of the client's palette.
   const style: CSSProperties & Record<string, string> = {
     '--ui-primary': brand.primary.bg,
     '--ui-primary-hover': brand.primary.hover,
@@ -71,9 +73,6 @@ export function BrandThemeProvider({ brand, children, className }: BrandThemePro
     '--ui-tertiary-hover': brand.tertiary.hover,
     '--ui-tertiary-soft': `${brand.tertiary.bg}26`,
     '--ui-tertiary-text': tertiaryText,
-    '--ui-text': primaryText,
-    '--ui-text-secondary': brand.tertiary.muted,
-    '--ui-surface': brand.tertiary.bg,
   };
 
   return (
