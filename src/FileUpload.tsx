@@ -1,3 +1,4 @@
+'use client';
 import { useRef, useState, useCallback, useId, type DragEvent } from 'react';
 import { Upload } from 'lucide-react';
 

@@ -1,3 +1,4 @@
+'use client';
 import { useState, useRef, useEffect, useId, useCallback, type KeyboardEvent } from 'react';
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 

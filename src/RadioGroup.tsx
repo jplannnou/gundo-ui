@@ -1,3 +1,4 @@
+'use client';
 import { useRef, useCallback, type KeyboardEvent } from 'react';
 
 export interface RadioGroupOption {

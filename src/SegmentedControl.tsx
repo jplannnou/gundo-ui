@@ -1,9 +1,12 @@
+'use client';
 import { useRef, useCallback, type KeyboardEvent } from 'react';
 
 interface SegmentedControlOption {
   value: string;
   label: string;
   disabled?: boolean;
+  /** Custom active background color (hex or CSS var). Falls back to --ui-primary */
+  color?: string;
 }
 
 interface SegmentedControlProps {
@@ -79,9 +82,10 @@ export function SegmentedControl({
             onKeyDown={e => handleKeyDown(e, index)}
             className={`${sizeClass} rounded-md font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
               isActive
-                ? 'bg-[var(--ui-primary)] text-white shadow-sm'
+                ? `${opt.color ? '' : 'bg-[var(--ui-primary)]'} text-white shadow-sm`
                 : 'text-[var(--ui-text-muted)] hover:text-[var(--ui-text)]'
             } disabled:opacity-40 disabled:cursor-not-allowed`}
+            style={isActive && opt.color ? { backgroundColor: opt.color } : undefined}
           >
             {opt.label}
           </button>

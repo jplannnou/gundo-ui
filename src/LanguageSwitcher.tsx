@@ -1,3 +1,4 @@
+'use client';
 import { useCallback, useId, useRef, useState, type HTMLAttributes } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */

@@ -1,3 +1,4 @@
+'use client';
 import { useState, type ReactNode } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';

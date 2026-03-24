@@ -1,3 +1,4 @@
+'use client';
 import { useId, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import { Loader2 } from 'lucide-react';
 

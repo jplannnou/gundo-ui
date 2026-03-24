@@ -5,7 +5,7 @@ import { ChevronUp, ChevronDown } from 'lucide-react';
 
 export interface Column<T> {
   key: string;
-  header: string;
+  header: ReactNode;
   render: (row: T) => ReactNode;
   sortable?: boolean;
   width?: string;
@@ -32,6 +32,7 @@ export interface DataTableProps<T> {
   emptyMessage?: string;
   className?: string;
   onRowClick?: (row: T) => void;
+  footerRow?: T;
 }
 
 /* ── Sort icon ──────────────────────────────────────────────────────────── */
@@ -58,6 +59,7 @@ export function DataTable<T>({
   emptyMessage = 'No data',
   className = '',
   onRowClick,
+  footerRow,
 }: DataTableProps<T>) {
   const selectable = !!onSelectChange && !!selectedKeys;
   const allKeys = data.map(rowKey);
@@ -181,6 +183,18 @@ export function DataTable<T>({
             })
           )}
         </tbody>
+        {footerRow && (
+          <tfoot>
+            <tr className="border-t border-[var(--ui-border)] font-semibold bg-[var(--ui-surface-raised)]">
+              {selectable && <td />}
+              {columns.map(col => (
+                <td key={col.key} className={`px-4 py-2.5 text-[var(--ui-text)] ${alignClass[col.align || 'left']}`}>
+                  {col.render(footerRow)}
+                </td>
+              ))}
+            </tr>
+          </tfoot>
+        )}
       </table>
     </div>
   );

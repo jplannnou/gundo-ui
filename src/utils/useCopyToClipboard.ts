@@ -1,3 +1,4 @@
+'use client';
 import { useState, useCallback, useRef } from 'react';
 
 export function useCopyToClipboard(resetDelay = 2000) {

@@ -1,3 +1,4 @@
+'use client';
 import { useCallback, useState, type ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */

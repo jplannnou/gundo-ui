@@ -136,6 +136,8 @@ All projects use Tailwind 4 `@theme` directive mapping `--ui-*` tokens to utilit
 
 ## Design Intelligence
 
-- **UI/UX Pro Max Skill**: `.claude/skills/ui-ux-pro-max/`
+- **UI/UX Pro Max Skill**: `.claude/skills/ui-ux-pro-max/` — BM25 search engine con 50+ estilos, 161 paletas, 57 font pairings. GUNDO design system persistido en `design-system/gundo/`
+- **`/a11y`**: `.claude/skills/a11y/` — auditoría WCAG 2.1 AA (contraste GUNDO, ARIA, keyboard, checklist). Complementa los 58 tests axe-core
+- **`/design-guidelines`**: `.claude/skills/design-guidelines/` — 7 categorías de guidelines UI/UX (interactions, animations, layout, content, forms, performance, patterns) con imports reales de @gundo/ui
 - **Google Stitch**: 8 screens generated in project `15679055516069267003`
 - **21st.dev Magic MCP**: Available but returns generic responses

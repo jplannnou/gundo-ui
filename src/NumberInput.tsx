@@ -1,3 +1,4 @@
+'use client';
 import { useRef, useId, type KeyboardEvent } from 'react';
 import { Minus, Plus } from 'lucide-react';
 

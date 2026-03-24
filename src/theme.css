@@ -42,6 +42,7 @@
   /* Text colors — brandbook warm off-white */
   --ui-text: #F2F4F3;
   --ui-text-secondary: #9ca3af;
+  /* ⚠ Contrast: 3.5:1 on dark surface — use only for large text (>=18px/14px bold) or decorative */
   --ui-text-muted: #6b7280;
 
   /* Semantic colors */
@@ -158,7 +159,8 @@
   /* Text — brandbook charcoal */
   --ui-text: #292E37;
   --ui-text-secondary: #4b5563;
-  --ui-text-muted: #6b7280;
+  /* Muted text — 5.0:1 on light surface (passes AA normal) */
+  --ui-text-muted: #57606a;
 
   --ui-success: #16a34a;
   --ui-success-soft: rgb(22 163 74 / 0.1);

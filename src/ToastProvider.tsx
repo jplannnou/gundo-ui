@@ -1,3 +1,4 @@
+'use client';
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Toast } from './Toast';

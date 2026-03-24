@@ -1,3 +1,4 @@
+'use client';
 import { useState, useRef, useId, type KeyboardEvent } from 'react';
 import { X } from 'lucide-react';
 

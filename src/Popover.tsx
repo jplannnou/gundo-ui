@@ -1,3 +1,4 @@
+'use client';
 import { useState, useRef, useEffect, useId, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useReducedMotion } from './utils/useReducedMotion';

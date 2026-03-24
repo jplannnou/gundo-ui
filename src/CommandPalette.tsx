@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect, useRef, useCallback, useId, type ReactNode, type KeyboardEvent } from 'react';
 import { Search } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';

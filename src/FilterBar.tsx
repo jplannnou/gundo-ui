@@ -1,3 +1,4 @@
+'use client';
 import { useCallback, useId, useState, type ReactNode } from 'react';
 import { Check, X } from 'lucide-react';
 

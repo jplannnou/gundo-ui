@@ -11,3 +11,5 @@ export type { GundoAreaChartProps } from './GundoAreaChart';
 export type { GundoBarChartProps } from './GundoBarChart';
 export type { GundoPieChartProps } from './GundoPieChart';
 export type { GundoComposedChartProps, ComposedSeries } from './GundoComposedChart';
+
+export { chartColors, chartThemeConfig } from '../ChartTheme';
