@@ -1,5 +1,6 @@
-interface SkeletonProps {
-  className?: string;
+import type { HTMLAttributes } from 'react';
+
+interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
   rounded?: 'sm' | 'md' | 'lg' | 'full';
 }
 
@@ -10,11 +11,12 @@ const radiusMap = {
   full: 'rounded-full',
 } as const;
 
-export function Skeleton({ className = '', rounded = 'md' }: SkeletonProps) {
+export function Skeleton({ className = '', rounded = 'md', style, ...rest }: SkeletonProps) {
   return (
     <div
       className={`animate-pulse ${radiusMap[rounded]} ${className}`}
-      style={{ backgroundColor: 'var(--ui-surface-hover)' }}
+      style={{ backgroundColor: 'var(--ui-surface-hover)', ...style }}
+      {...rest}
     />
   );
 }
