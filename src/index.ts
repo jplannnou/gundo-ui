@@ -4,6 +4,7 @@ export { Avatar } from './Avatar';
 export { Badge } from './Badge';
 export { BrandThemeProvider } from './BrandThemeProvider';
 export type { BrandColors, BrandThemeProviderProps } from './BrandThemeProvider';
+export { getContrastRatio, ensureContrast } from './utils/contrast';
 export { Breadcrumbs } from './Breadcrumbs';
 export { Button } from './Button';
 export type { ButtonProps } from './Button';

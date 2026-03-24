@@ -1,5 +1,6 @@
 'use client';
 import type { ReactNode, CSSProperties } from 'react';
+import { ensureContrast } from './utils/contrast';
 
 /**
  * Brand color definition for multi-tenant theming.
@@ -52,17 +53,25 @@ export interface BrandThemeProviderProps {
  * ```
  */
 export function BrandThemeProvider({ brand, children, className }: BrandThemeProviderProps) {
+  // Auto-correct text colors for WCAG AA compliance (4.5:1 minimum)
+  const primaryText = ensureContrast(brand.primary.text, brand.primary.bg);
+  const secondaryText = ensureContrast(brand.secondary.text, brand.secondary.bg);
+  const tertiaryText = ensureContrast(brand.tertiary.text, brand.tertiary.bg);
+
   const style: CSSProperties & Record<string, string> = {
     '--ui-primary': brand.primary.bg,
     '--ui-primary-hover': brand.primary.hover,
     '--ui-primary-soft': `${brand.primary.bg}26`, // ~15% opacity
+    '--ui-primary-text': primaryText,
     '--ui-secondary': brand.secondary.bg,
     '--ui-secondary-hover': brand.secondary.hover,
     '--ui-secondary-soft': `${brand.secondary.bg}26`,
+    '--ui-secondary-text': secondaryText,
     '--ui-tertiary': brand.tertiary.bg,
     '--ui-tertiary-hover': brand.tertiary.hover,
     '--ui-tertiary-soft': `${brand.tertiary.bg}26`,
-    '--ui-text': brand.primary.text,
+    '--ui-tertiary-text': tertiaryText,
+    '--ui-text': primaryText,
     '--ui-text-secondary': brand.tertiary.muted,
     '--ui-surface': brand.tertiary.bg,
   };
