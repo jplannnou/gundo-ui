@@ -140,6 +140,14 @@ export {
   CloudUpload,
   FileCheck,
   ArrowRightLeft,
+
+  // Health / Fitness / Marketing
+  Utensils,
+  Camera,
+  Dumbbell,
+  CalendarClock,
+  FlaskConical,
+  Cpu,
 } from 'lucide-react';
 
 // Re-export the icon type for consumers who need it
