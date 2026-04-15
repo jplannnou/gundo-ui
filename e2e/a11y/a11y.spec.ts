@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
 const components = [
   'Button',
@@ -27,18 +28,20 @@ const components = [
 
 for (const name of components) {
   test.describe(name, () => {
-    test(`dark theme`, async ({ page }) => {
+    test('dark theme a11y', async ({ page }) => {
       await page.goto(`/#/${name}`);
-      await expect(page).toHaveScreenshot(`${name}-dark.png`, {
-        maxDiffPixelRatio: 0.01,
-      });
+      const results = await new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa'])
+        .analyze();
+      expect(results.violations).toEqual([]);
     });
 
-    test(`light theme`, async ({ page }) => {
+    test('light theme a11y', async ({ page }) => {
       await page.goto(`/#/${name}?theme=light`);
-      await expect(page).toHaveScreenshot(`${name}-light.png`, {
-        maxDiffPixelRatio: 0.01,
-      });
+      const results = await new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa'])
+        .analyze();
+      expect(results.violations).toEqual([]);
     });
   });
 }

@@ -25,6 +25,8 @@
     "test:e2e:ui": "playwright test --ui",
     "test:visual": "playwright test --project=visual",
     "test:visual:update": "playwright test --project=visual --update-snapshots",
+    "test:a11y": "playwright test --project=a11y",
+    "test:browser": "vitest run --config vitest.config.browser.ts",
     "gallery:dev": "vite --config gallery/vite.config.ts",
     "gallery:build": "vite build --config gallery/vite.config.ts",
     "gallery:preview": "vite preview --config gallery/vite.config.ts"
@@ -50,12 +52,14 @@
     }
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
     "@playwright/test": "^1.58.2",
     "@tailwindcss/vite": "^4.2.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.2.3",
+    "@vitest/browser": "^4.1.4",
     "axe-core": "^4.11.1",
     "jsdom": "^28.1.0",
     "react": "^19.0.0",

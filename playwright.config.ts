@@ -8,6 +8,8 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: [['html', { open: 'never' }], ['list']],
   timeout: 30_000,
+  snapshotPathTemplate:
+    '{testDir}/{testFileDir}/__snapshots__/{arg}{ext}',
 
   use: {
     trace: 'on-first-retry',
@@ -19,6 +21,18 @@ export default defineConfig({
     {
       name: 'visual',
       testDir: './e2e/visual',
+      testMatch: '**/*.spec.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: 'http://localhost:4173',
+        animations: 'disabled',
+      },
+    },
+
+    /* ─── Accessibility tests (real browser axe-core) ───────────── */
+    {
+      name: 'a11y',
+      testDir: './e2e/a11y',
       testMatch: '**/*.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
