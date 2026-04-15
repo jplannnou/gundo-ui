@@ -38,7 +38,7 @@ export function AccordionItem({
     <div
       className={`rounded-lg border transition-colors ${
         isOpen
-          ? 'bg-[var(--ui-surface)] border-[var(--ui-primary)]/20'
+          ? 'bg-[var(--ui-surface)] border-[var(--ui-border)]'
           : 'bg-[var(--ui-surface)] border-transparent hover:border-[var(--ui-border)]'
       } ${className}`}
     >
