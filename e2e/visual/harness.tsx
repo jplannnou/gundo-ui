@@ -28,7 +28,7 @@ function useHash() {
 
 function Wrapper({ children, theme }: { children: ReactNode; theme?: string }) {
   return (
-    <div className={theme === 'light' ? 'theme-light' : ''} style={{ padding: 24, minHeight: '100vh', background: 'var(--ui-surface)' }}>
+    <div className={theme === 'light' ? 'theme-light' : ''} style={{ padding: 24, minHeight: '100vh', background: 'var(--ui-surface)', color: 'var(--ui-text)' }}>
       {children}
     </div>
   );
