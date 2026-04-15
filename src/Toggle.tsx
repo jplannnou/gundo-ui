@@ -36,7 +36,7 @@ export function Toggle({ checked, onChange, label, disabled = false, size = 'md'
         }`}
       >
         <span
-          className={`inline-block rounded-full bg-white shadow-sm transition-transform duration-200 ${thumbSize[size]} ${
+          className={`inline-block rounded-full bg-[var(--ui-surface)] shadow-sm transition-transform duration-200 ${thumbSize[size]} ${
             checked ? thumbTranslate[size] : 'translate-x-[3px]'
           }`}
         />
