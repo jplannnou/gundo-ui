@@ -28,7 +28,7 @@ importers:
         version: 1.58.2
       '@tailwindcss/vite':
         specifier: ^4.2.2
-        version: 4.2.2(vite@7.3.1(jiti@2.6.1)(lightningcss@1.32.0))
+        version: 4.2.2(vite@7.3.2(jiti@2.6.1)(lightningcss@1.32.0))
       '@testing-library/jest-dom':
         specifier: ^6.9.1
         version: 6.9.1
@@ -43,7 +43,7 @@ importers:
         version: 19.2.3(@types/react@19.2.14)
       '@vitest/browser':
         specifier: ^4.1.4
-        version: 4.1.4(vite@7.3.1(jiti@2.6.1)(lightningcss@1.32.0))(vitest@4.0.18(jiti@2.6.1)(jsdom@28.1.0)(lightningcss@1.32.0))
+        version: 4.1.4(vite@7.3.2(jiti@2.6.1)(lightningcss@1.32.0))(vitest@4.0.18(jiti@2.6.1)(jsdom@28.1.0)(lightningcss@1.32.0))
       axe-core:
         specifier: ^4.11.1
         version: 4.11.1
@@ -66,8 +66,8 @@ importers:
         specifier: ^5.9.0
         version: 5.9.3
       vite:
-        specifier: ^7.0.0
-        version: 7.3.1(jiti@2.6.1)(lightningcss@1.32.0)
+        specifier: ^7.3.2
+        version: 7.3.2(jiti@2.6.1)(lightningcss@1.32.0)
       vitest:
         specifier: ^4.0.18
         version: 4.0.18(jiti@2.6.1)(jsdom@28.1.0)(lightningcss@1.32.0)
@@ -108,6 +108,10 @@ packages:
 
   '@babel/runtime@7.28.6':
     resolution: {integrity: sha512-05WQkdpL9COIMz4LjTxGpPNCdlpyimKppYNoJ5Di5EUObifl8t4tuLuUBBZEpoLYOmfvIWrsp9fCl0HoPRVTdA==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/runtime@7.29.2':
+    resolution: {integrity: sha512-JiDShH45zKHWyGe4ZNVRrCjBz8Nh9TMmZG1kh4QTK8hCBTWBi8Da+i7s1fJw7/lYpM4ccepSNfqzZ/QvABBi5g==}
     engines: {node: '>=6.9.0'}
 
   '@blazediff/core@1.9.1':
@@ -1288,8 +1292,8 @@ packages:
   victory-vendor@37.3.6:
     resolution: {integrity: sha512-SbPDPdDBYp+5MJHhBCAyI7wKM3d5ivekigc2Dk2s7pgbZ9wIgIBYGVw4zGHBml/qTFbexrofXW6Gu4noGxrOwQ==}
 
-  vite@7.3.1:
-    resolution: {integrity: sha512-w+N7Hifpc3gRjZ63vYBXA56dvvRlNWRczTdmCBBa+CotUzAPf5b7YMdMR/8CQoeYE5LX3W4wj6RYTgonm1b9DA==}
+  vite@7.3.2:
+    resolution: {integrity: sha512-Bby3NOsna2jsjfLVOHKes8sGwgl4TT0E6vvpYgnAYDIF/tie7MRaFthmKuHx1NSXjiTueXH3do80FMQgvEktRg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -1445,6 +1449,8 @@ snapshots:
   '@babel/helper-validator-identifier@7.28.5': {}
 
   '@babel/runtime@7.28.6': {}
+
+  '@babel/runtime@7.29.2': {}
 
   '@blazediff/core@1.9.1': {}
 
@@ -1731,17 +1737,17 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.2.2
       '@tailwindcss/oxide-win32-x64-msvc': 4.2.2
 
-  '@tailwindcss/vite@4.2.2(vite@7.3.1(jiti@2.6.1)(lightningcss@1.32.0))':
+  '@tailwindcss/vite@4.2.2(vite@7.3.2(jiti@2.6.1)(lightningcss@1.32.0))':
     dependencies:
       '@tailwindcss/node': 4.2.2
       '@tailwindcss/oxide': 4.2.2
       tailwindcss: 4.2.2
-      vite: 7.3.1(jiti@2.6.1)(lightningcss@1.32.0)
+      vite: 7.3.2(jiti@2.6.1)(lightningcss@1.32.0)
 
   '@testing-library/dom@10.4.1':
     dependencies:
       '@babel/code-frame': 7.29.0
-      '@babel/runtime': 7.28.6
+      '@babel/runtime': 7.29.2
       '@types/aria-query': 5.0.4
       aria-query: 5.3.0
       dom-accessibility-api: 0.5.16
@@ -1813,10 +1819,10 @@ snapshots:
 
   '@types/use-sync-external-store@0.0.6': {}
 
-  '@vitest/browser@4.1.4(vite@7.3.1(jiti@2.6.1)(lightningcss@1.32.0))(vitest@4.0.18(jiti@2.6.1)(jsdom@28.1.0)(lightningcss@1.32.0))':
+  '@vitest/browser@4.1.4(vite@7.3.2(jiti@2.6.1)(lightningcss@1.32.0))(vitest@4.0.18(jiti@2.6.1)(jsdom@28.1.0)(lightningcss@1.32.0))':
     dependencies:
       '@blazediff/core': 1.9.1
-      '@vitest/mocker': 4.1.4(vite@7.3.1(jiti@2.6.1)(lightningcss@1.32.0))
+      '@vitest/mocker': 4.1.4(vite@7.3.2(jiti@2.6.1)(lightningcss@1.32.0))
       '@vitest/utils': 4.1.4
       magic-string: 0.30.21
       pngjs: 7.0.0
@@ -1839,21 +1845,21 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.0.3
 
-  '@vitest/mocker@4.0.18(vite@7.3.1(jiti@2.6.1)(lightningcss@1.32.0))':
+  '@vitest/mocker@4.0.18(vite@7.3.2(jiti@2.6.1)(lightningcss@1.32.0))':
     dependencies:
       '@vitest/spy': 4.0.18
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.1(jiti@2.6.1)(lightningcss@1.32.0)
+      vite: 7.3.2(jiti@2.6.1)(lightningcss@1.32.0)
 
-  '@vitest/mocker@4.1.4(vite@7.3.1(jiti@2.6.1)(lightningcss@1.32.0))':
+  '@vitest/mocker@4.1.4(vite@7.3.2(jiti@2.6.1)(lightningcss@1.32.0))':
     dependencies:
       '@vitest/spy': 4.1.4
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.1(jiti@2.6.1)(lightningcss@1.32.0)
+      vite: 7.3.2(jiti@2.6.1)(lightningcss@1.32.0)
 
   '@vitest/pretty-format@4.0.18':
     dependencies:
@@ -2419,7 +2425,7 @@ snapshots:
       d3-time: 3.1.0
       d3-timer: 3.0.1
 
-  vite@7.3.1(jiti@2.6.1)(lightningcss@1.32.0):
+  vite@7.3.2(jiti@2.6.1)(lightningcss@1.32.0):
     dependencies:
       esbuild: 0.27.3
       fdir: 6.5.0(picomatch@4.0.4)
@@ -2445,7 +2451,7 @@ snapshots:
   vitest@4.0.18(jiti@2.6.1)(jsdom@28.1.0)(lightningcss@1.32.0):
     dependencies:
       '@vitest/expect': 4.0.18
-      '@vitest/mocker': 4.0.18(vite@7.3.1(jiti@2.6.1)(lightningcss@1.32.0))
+      '@vitest/mocker': 4.0.18(vite@7.3.2(jiti@2.6.1)(lightningcss@1.32.0))
       '@vitest/pretty-format': 4.0.18
       '@vitest/runner': 4.0.18
       '@vitest/snapshot': 4.0.18
@@ -2462,7 +2468,7 @@ snapshots:
       tinyexec: 1.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.0.3
-      vite: 7.3.1(jiti@2.6.1)(lightningcss@1.32.0)
+      vite: 7.3.2(jiti@2.6.1)(lightningcss@1.32.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       jsdom: 28.1.0
