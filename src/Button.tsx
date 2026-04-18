@@ -1,5 +1,6 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { Loader2 } from 'lucide-react';
+import './Button.css';
 
 type Variant = 'primary' | 'secondary' | 'danger' | 'ghost' | 'default' | 'destructive' | 'outline' | 'link';
 type Size = 'sm' | 'md' | 'lg' | 'icon';
@@ -14,22 +15,14 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<Variant, string> = {
-  primary:
-    'bg-[var(--ui-primary)] text-[var(--ui-surface)] hover:bg-[var(--ui-primary-hover)]',
-  default:
-    'bg-[var(--ui-primary)] text-[var(--ui-surface)] hover:bg-[var(--ui-primary-hover)]',
-  secondary:
-    'border border-[var(--ui-border)] bg-[var(--ui-surface-hover)] text-[var(--ui-text)] hover:bg-[var(--ui-border)]',
-  danger:
-    'bg-[var(--ui-error)] text-white hover:opacity-90',
-  destructive:
-    'bg-[var(--ui-error)] text-white hover:opacity-90',
-  ghost:
-    'text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]',
-  outline:
-    'border border-[var(--ui-border)] bg-transparent text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]',
-  link:
-    'text-[var(--ui-primary)] underline-offset-4 hover:underline bg-transparent',
+  primary: 'ui-btn-primary',
+  default: 'ui-btn-primary',
+  secondary: 'ui-btn-secondary',
+  danger: 'ui-btn-danger',
+  destructive: 'ui-btn-destructive',
+  ghost: 'ui-btn-ghost',
+  outline: 'ui-btn-outline',
+  link: 'ui-btn-link',
 };
 
 const sizeStyles: Record<Size, string> = {

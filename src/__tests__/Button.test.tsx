@@ -30,6 +30,6 @@ describe('Button', () => {
 
   it('applies variant classes', () => {
     render(<Button variant="ghost">Ghost</Button>);
-    expect(screen.getByRole('button').className).toContain('hover:bg-[var(--ui-surface-hover)]');
+    expect(screen.getByRole('button').className).toContain('ui-btn-ghost');
   });
 });

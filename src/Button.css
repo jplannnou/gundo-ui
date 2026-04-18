@@ -1,0 +1,61 @@
+/**
+ * Button variant styles.
+ *
+ * Defined as plain CSS (not Tailwind arbitrary values) so that consumers don't
+ * need to have @gundo/ui included in their Tailwind @source scanning. The
+ * --ui-* tokens are still defined by each consumer's theme layer.
+ */
+
+.ui-btn-primary {
+  background-color: var(--ui-primary);
+  color: var(--ui-surface);
+}
+.ui-btn-primary:hover:not(:disabled) {
+  background-color: var(--ui-primary-hover);
+}
+
+.ui-btn-secondary {
+  border: 1px solid var(--ui-border);
+  background-color: var(--ui-surface-hover);
+  color: var(--ui-text);
+}
+.ui-btn-secondary:hover:not(:disabled) {
+  background-color: var(--ui-border);
+}
+
+.ui-btn-danger,
+.ui-btn-destructive {
+  background-color: var(--ui-error);
+  color: #ffffff;
+}
+.ui-btn-danger:hover:not(:disabled),
+.ui-btn-destructive:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.ui-btn-ghost {
+  background-color: transparent;
+  color: var(--ui-text-secondary);
+}
+.ui-btn-ghost:hover:not(:disabled) {
+  background-color: var(--ui-surface-hover);
+  color: var(--ui-text);
+}
+
+.ui-btn-outline {
+  border: 1px solid var(--ui-border);
+  background-color: transparent;
+  color: var(--ui-text);
+}
+.ui-btn-outline:hover:not(:disabled) {
+  background-color: var(--ui-surface-hover);
+}
+
+.ui-btn-link {
+  background-color: transparent;
+  color: var(--ui-primary);
+  text-underline-offset: 4px;
+}
+.ui-btn-link:hover:not(:disabled) {
+  text-decoration: underline;
+}
