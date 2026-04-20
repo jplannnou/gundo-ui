@@ -1,19 +1,57 @@
-name: Publish to GitHub Packages
+name: Release & Publish
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches: [main]
+    paths-ignore: ['*.md', 'CHANGELOG.md', '.gitignore']
 
-permissions:
-  contents: read
-  packages: write
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false   # never cancel an in-flight release
 
 jobs:
-  publish:
+  # ── semantic-release: version bump + GitHub Packages publish ──────────────
+  release:
+    uses: jplannnou/gundo-workflows/.github/workflows/reusable-publish-npm.yml@v1
+    with:
+      build-command: 'pnpm install --frozen-lockfile && pnpm build'
+    secrets:
+      GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+
+  # ── Propagate new version to all consumer repos (open PRs) ────────────────
+  propagate:
+    needs: release
+    if: needs.release.outputs.released == 'true'
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - repo: jplannnou/Gundo_Engine
+            pkg_dir: frontend
+          - repo: jplannnou/Gundo_Finance
+            pkg_dir: frontend
+          - repo: jplannnou/Gundo_Radar
+            pkg_dir: client
+          - repo: jplannnou/jp-assistant
+            pkg_dir: frontend
+          - repo: jplannnou/gundo-feedback
+            pkg_dir: frontend
+          - repo: jplannnou/gundo-vida
+            pkg_dir: .
+          - repo: Gundo-Health-and-Food/gundo-admin-fitness-ui
+            pkg_dir: .
+          - repo: Gundo-Health-and-Food/gundo-plataform-ui
+            pkg_dir: .
+    env:
+      VERSION: ${{ needs.release.outputs.new-version }}
+      NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout ${{ matrix.repo }}
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ matrix.repo }}
+          token: ${{ secrets.GH_PACKAGES_TOKEN }}
 
       - uses: pnpm/action-setup@v5
         with:
@@ -22,22 +60,61 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: 'pnpm'
           registry-url: https://npm.pkg.github.com
+          scope: '@jplannnou'
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm run build
-
-      - name: Verify dist
+      - name: Check if @gundo/ui is used via npm (not file:)
+        id: check
         run: |
-          test -f dist/index.js || (echo "dist/index.js not found" && exit 1)
-          test -f dist/index.d.ts || (echo "dist/index.d.ts not found" && exit 1)
-          echo "dist/ verified"
+          PKG="package.json"
+          if [ "${{ matrix.pkg_dir }}" != "." ]; then PKG="${{ matrix.pkg_dir }}/package.json"; fi
+          if ! grep -q '@gundo/ui\|@jplannnou/gundo-ui' "$PKG" 2>/dev/null; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "⚠️  @gundo/ui not found in $PKG — skipping"
+          elif grep '@gundo/ui\|@jplannnou/gundo-ui' "$PKG" | grep -q '"file:'; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "ℹ️  Uses file: protocol — pnpm install picks it up, no version bump needed"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
 
-      - name: Publish
-        run: pnpm publish --no-git-checks --access public
+      - name: Update @gundo/ui to v${{ env.VERSION }}
+        if: steps.check.outputs.skip != 'true'
+        working-directory: ${{ matrix.pkg_dir }}
+        run: |
+          git config --global url."https://x-access-token:${{ secrets.GH_PACKAGES_TOKEN }}@github.com/".insteadOf "https://github.com/"
+          pnpm add "@jplannnou/gundo-ui@^${VERSION}"
+
+      - name: Check for changes
+        if: steps.check.outputs.skip != 'true'
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "✅ Already up to date"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open PR with version bump
+        if: steps.check.outputs.skip != 'true' && steps.changes.outputs.changed == 'true'
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+        run: |
+          BRANCH="chore/update-gundo-ui-${VERSION}"
+          SAFE_REPO=$(echo "${{ matrix.repo }}" | tr '/' '-')
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add .
+          git commit -m "chore: update @gundo/ui to ^${VERSION} (auto-propagate)"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --repo "${{ matrix.repo }}" \
+            --title "chore: update @gundo/ui to ^${VERSION}" \
+            --body "Bumps \`@gundo/ui\` to \`^${VERSION}\` with updated lockfile.
+
+Triggered by [v${VERSION} release](https://github.com/jplannnou/gundo-ui/releases/tag/v${VERSION}).
+
+---
+*Auto-generated by gundo-ui publish workflow.*"
