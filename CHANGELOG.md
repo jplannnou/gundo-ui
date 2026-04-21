@@ -1,3 +1,10 @@
+## [1.2.9](https://github.com/jplannnou/gundo-ui/compare/v1.2.8...v1.2.9) (2026-04-21)
+
+
+### Bug Fixes
+
+* **ci:** capture semantic-release output via git tag comparison ([a23e935](https://github.com/jplannnou/gundo-ui/commit/a23e93576da02df8e9209ee44c13939ba8677329))
+
 ## [1.2.8](https://github.com/jplannnou/gundo-ui/compare/v1.2.7...v1.2.8) (2026-04-21)
 
 
