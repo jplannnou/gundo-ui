@@ -1,3 +1,10 @@
+## [1.2.8](https://github.com/jplannnou/gundo-ui/compare/v1.2.7...v1.2.8) (2026-04-21)
+
+
+### Bug Fixes
+
+* **ci:** use GITHUB_TOKEN for publish (write:packages scope) ([a57f2f3](https://github.com/jplannnou/gundo-ui/commit/a57f2f3ecf8320a6d01cd419e6436f2f620c69f6))
+
 ## [1.2.7](https://github.com/jplannnou/gundo-ui/compare/v1.2.6...v1.2.7) (2026-04-21)
 
 
