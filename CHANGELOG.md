@@ -1,3 +1,10 @@
+## [1.2.11](https://github.com/jplannnou/gundo-ui/compare/v1.2.10...v1.2.11) (2026-04-21)
+
+
+### Bug Fixes
+
+* add packageManager field for pnpm version consistency ([3d5c89d](https://github.com/jplannnou/gundo-ui/commit/3d5c89da634b39a5f715196705cb990f7fecd084))
+
 ## [1.2.10](https://github.com/jplannnou/gundo-ui/compare/v1.2.9...v1.2.10) (2026-04-21)
 
 
