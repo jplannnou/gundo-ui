@@ -1,3 +1,10 @@
+## [1.2.10](https://github.com/jplannnou/gundo-ui/compare/v1.2.9...v1.2.10) (2026-04-21)
+
+
+### Bug Fixes
+
+* **ci:** parse SR stdout to capture released/version outputs ([bc53928](https://github.com/jplannnou/gundo-ui/commit/bc53928e634b092bb2f8840e49a7dfc92ca1980e))
+
 ## [1.2.9](https://github.com/jplannnou/gundo-ui/compare/v1.2.8...v1.2.9) (2026-04-21)
 
 
