@@ -1,3 +1,20 @@
+# [1.4.0](https://github.com/jplannnou/gundo-ui/compare/v1.3.0...v1.4.0) (2026-04-27)
+
+
+### Bug Fixes
+
+* add packageManager field for pnpm version consistency ([3d5c89d](https://github.com/jplannnou/gundo-ui/commit/3d5c89da634b39a5f715196705cb990f7fecd084))
+* **ci:** capture semantic-release output via git tag comparison ([a23e935](https://github.com/jplannnou/gundo-ui/commit/a23e93576da02df8e9209ee44c13939ba8677329))
+* **ci:** fix YAML syntax in publish workflow (PR body + secret refs) ([ef3aca9](https://github.com/jplannnou/gundo-ui/commit/ef3aca913bbb9ba71cf488a7f80fd564fa0cae44))
+* **ci:** parse SR stdout to capture released/version outputs ([bc53928](https://github.com/jplannnou/gundo-ui/commit/bc53928e634b092bb2f8840e49a7dfc92ca1980e))
+* **ci:** run semantic-release in isolated npm dir to avoid pnpm conflict ([94ef39a](https://github.com/jplannnou/gundo-ui/commit/94ef39a3359ebfd4177f76a3286812d3eb1481b6))
+* **ci:** use GITHUB_TOKEN for publish (write:packages scope) ([a57f2f3](https://github.com/jplannnou/gundo-ui/commit/a57f2f3ecf8320a6d01cd419e6436f2f620c69f6))
+
+
+### Features
+
+* 14 componentes B2C redesign para staging Data Center + Ametller ([efdc41e](https://github.com/jplannnou/gundo-ui/commit/efdc41e4b654223b90f18fbbc12ada365f2a4226))
+
 ## [1.2.11](https://github.com/jplannnou/gundo-ui/compare/v1.2.10...v1.2.11) (2026-04-21)
 
 
