@@ -1,4 +1,5 @@
-import { useState, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
+import { DetailTabs, type DetailTabDefinition } from './DetailTabs';
 import { PaywallUnified, type PaywallPricing } from './PaywallUnified';
 import { RecipeReasoningPills, type RecipeReasoningData } from './RecipeReasoningPills';
 
@@ -88,24 +89,7 @@ export interface MealDetailTabsProps {
   className?: string;
 }
 
-/* ─── Tabs catalog ───────────────────────────────────────────────────── */
-
-const tabCatalog: Array<{
-  id: MealDetailTabId;
-  label: string;
-  icon: string;
-  premium?: boolean;
-}> = [
-  { id: 'recipe', label: 'Receta', icon: '🍳' },
-  { id: 'reasoning', label: 'Por qué', icon: '✨' },
-  { id: 'alternatives', label: 'Alternativas', icon: '🔁' },
-  { id: 'hydration', label: 'Hidratación', icon: '💧', premium: true },
-  { id: 'timing', label: 'Timing', icon: '⏰', premium: true },
-  { id: 'learn', label: 'Aprende', icon: '📚' },
-  { id: 'safety', label: 'Seguridad', icon: '🛡️' },
-];
-
-/* ─── Panels ─────────────────────────────────────────────────────────── */
+/* ─── Panels (domain-specific renderers) ─────────────────────────────── */
 
 function RecipePanel({ recipe }: { recipe: MealRecipe }) {
   return (
@@ -289,7 +273,7 @@ function SafetyPanel({ items }: { items: MealSafetyNote[] }) {
   );
 }
 
-/* ─── MealDetailTabs ─────────────────────────────────────────────────── */
+/* ─── MealDetailTabs (wraps DetailTabs with nutrition catalog) ──────── */
 
 export function MealDetailTabs({
   meal,
@@ -299,104 +283,89 @@ export function MealDetailTabs({
   defaultTab = 'recipe',
   className = '',
 }: MealDetailTabsProps) {
-  const [active, setActive] = useState<MealDetailTabId>(defaultTab);
+  const tabs: DetailTabDefinition<MealDetailTabId>[] = [
+    {
+      id: 'recipe',
+      label: 'Receta',
+      icon: '🍳',
+      content: <RecipePanel recipe={meal.recipe} />,
+    },
+    {
+      id: 'reasoning',
+      label: 'Por qué',
+      icon: '✨',
+      content: <RecipeReasoningPills reasons={meal.reasoning} />,
+    },
+    {
+      id: 'alternatives',
+      label: 'Alternativas',
+      icon: '🔁',
+      content: <AlternativesPanel alternatives={meal.alternatives} />,
+    },
+    {
+      id: 'hydration',
+      label: 'Hidratación',
+      icon: '💧',
+      premium: true,
+      content: <HintsPanel items={meal.hydration ?? []} emoji="💧" />,
+    },
+    {
+      id: 'timing',
+      label: 'Timing',
+      icon: '⏰',
+      premium: true,
+      content: <HintsPanel items={meal.timing ?? []} emoji="⏰" />,
+    },
+    {
+      id: 'learn',
+      label: 'Aprende',
+      icon: '📚',
+      content: <EducationPanel items={meal.education} />,
+    },
+    {
+      id: 'safety',
+      label: 'Seguridad',
+      icon: '🛡️',
+      content: <SafetyPanel items={meal.safety} />,
+    },
+  ];
 
-  function renderPanel(): ReactNode {
-    const locked = !isPremium && (active === 'hydration' || active === 'timing');
-    if (locked) {
-      if (!paywallPricing) {
-        return (
-          <p className="rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-6 text-center text-sm text-[var(--ui-text-secondary)]">
-            Esta sección es Premium. Hacete Premium para verla.
-          </p>
-        );
-      }
+  function lockedContent(tab: DetailTabDefinition<MealDetailTabId>): ReactNode {
+    if (!paywallPricing) {
       return (
-        <PaywallUnified
-          trigger={active === 'hydration' ? 'plan' : 'plan'}
-          pricing={paywallPricing}
-          onUpgrade={() => onUpgrade?.()}
-          title={
-            active === 'hydration'
-              ? 'Hidratación personalizada — Premium'
-              : 'Timing de comidas — Premium'
-          }
-          subtitle={
-            active === 'hydration'
-              ? 'Ml exactos por comida, alertas y adaptación según entrenamiento.'
-              : 'Cuándo comer cada macro según tu cronotipo y objetivo.'
-          }
-        />
+        <p className="rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-6 text-center text-sm text-[var(--ui-text-secondary)]">
+          Esta sección es Premium. Hacete Premium para verla.
+        </p>
       );
     }
-
-    switch (active) {
-      case 'recipe':
-        return <RecipePanel recipe={meal.recipe} />;
-      case 'reasoning':
-        return <RecipeReasoningPills reasons={meal.reasoning} />;
-      case 'alternatives':
-        return <AlternativesPanel alternatives={meal.alternatives} />;
-      case 'hydration':
-        return <HintsPanel items={meal.hydration ?? []} emoji="💧" />;
-      case 'timing':
-        return <HintsPanel items={meal.timing ?? []} emoji="⏰" />;
-      case 'learn':
-        return <EducationPanel items={meal.education} />;
-      case 'safety':
-        return <SafetyPanel items={meal.safety} />;
-      default:
-        return null;
-    }
+    return (
+      <PaywallUnified
+        trigger="plan"
+        pricing={paywallPricing}
+        onUpgrade={() => onUpgrade?.()}
+        title={
+          tab.id === 'hydration'
+            ? 'Hidratación personalizada — Premium'
+            : 'Timing de comidas — Premium'
+        }
+        subtitle={
+          tab.id === 'hydration'
+            ? 'Ml exactos por comida, alertas y adaptación según entrenamiento.'
+            : 'Cuándo comer cada macro según tu cronotipo y objetivo.'
+        }
+      />
+    );
   }
 
   return (
-    <div className={`flex flex-col gap-4 ${className}`}>
-      {/* Tab list — horizontal scroll on mobile */}
-      <div
-        role="tablist"
-        aria-label="Detalle de la comida"
-        className="flex gap-1 overflow-x-auto rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-1"
-      >
-        {tabCatalog.map((t) => {
-          const selected = active === t.id;
-          const gated = !isPremium && t.premium;
-          return (
-            <button
-              key={t.id}
-              role="tab"
-              aria-selected={selected}
-              aria-controls={`meal-panel-${t.id}`}
-              id={`meal-tab-${t.id}`}
-              type="button"
-              onClick={() => setActive(t.id)}
-              className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
-                selected
-                  ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)]'
-                  : 'text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)]'
-              }`}
-            >
-              <span aria-hidden="true">{t.icon}</span>
-              {t.label}
-              {gated && (
-                <span className="ml-0.5 text-[10px]" aria-label="Premium" title="Premium">
-                  🔒
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Panel */}
-      <div
-        role="tabpanel"
-        id={`meal-panel-${active}`}
-        aria-labelledby={`meal-tab-${active}`}
-        className="rounded-2xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-4 md:p-5"
-      >
-        {renderPanel()}
-      </div>
-    </div>
+    <DetailTabs
+      tabs={tabs}
+      defaultTab={defaultTab}
+      isPremium={isPremium}
+      lockedContent={lockedContent}
+      ariaLabel="Detalle de la comida"
+      idPrefix="meal"
+      className={className}
+    />
   );
 }
