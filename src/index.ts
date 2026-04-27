@@ -189,6 +189,9 @@ export type {
 export { EmptyStateWithCTA } from './EmptyStateWithCTA';
 export type { EmptyStateWithCTAProps, EmptyStateCTA } from './EmptyStateWithCTA';
 
+export { DetailTabs } from './DetailTabs';
+export type { DetailTabsProps, DetailTabDefinition } from './DetailTabs';
+
 export { MealDetailTabs } from './MealDetailTabs';
 export type {
   MealDetailTabsProps,
