@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/jplannnou/gundo-ui/compare/v1.4.0...v1.5.0) (2026-04-27)
+
+
+### Features
+
+* **DetailTabs:** generic tabbed detail viewer with optional premium gating ([82b1e7d](https://github.com/jplannnou/gundo-ui/commit/82b1e7dc317155850379b3d9f22c19019c0ba8e1))
+
 # [1.4.0](https://github.com/jplannnou/gundo-ui/compare/v1.3.0...v1.4.0) (2026-04-27)
 
 
