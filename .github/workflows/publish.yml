@@ -103,6 +103,10 @@ jobs:
             pkg_dir: .
           - repo: Gundo-Health-and-Food/gundo-plataform-ui
             pkg_dir: .
+          - repo: Gundo-Health-and-Food/genie-ui
+            pkg_dir: .
+          - repo: Gundo-Health-and-Food/gundo-ecommerce-ui
+            pkg_dir: .
     env:
       VERSION: ${{ needs.release.outputs.new-version }}
       NODE_AUTH_TOKEN: ${{ secrets.RENOVATE_PAT }}
