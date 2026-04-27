@@ -129,6 +129,108 @@ export type { TreeViewProps, TreeNode } from './TreeView';
 export { LeaderboardTable } from './LeaderboardTable';
 export type { LeaderboardTableProps, LeaderboardEntry } from './LeaderboardTable';
 
+// ─── B2C Redesign components (2026-04-19) ────────────────────────────
+export { ExplainabilityBadge } from './ExplainabilityBadge';
+export type {
+  ExplainabilityBadgeProps,
+  ExplainabilityTag,
+  ExplainabilityTone,
+} from './ExplainabilityBadge';
+
+export { MatchScoreRing } from './MatchScoreRing';
+export type { MatchScoreRingProps, MatchScoreRingSize } from './MatchScoreRing';
+
+export { PaywallUnified } from './PaywallUnified';
+export type {
+  PaywallUnifiedProps,
+  PaywallTrigger,
+  PaywallPlanVariant,
+  PaywallBillingCycle,
+  PaywallPricing,
+  PaywallTestimonial,
+  PaywallRoi,
+  PaywallFeatureRow,
+} from './PaywallUnified';
+
+export { BottomBar } from './BottomBar';
+export type { BottomBarProps, BottomBarItem } from './BottomBar';
+
+export { MagicLinkAuth } from './MagicLinkAuth';
+export type { MagicLinkAuthProps, MagicLinkAuthState } from './MagicLinkAuth';
+
+export { CheckinWizard } from './CheckinWizard';
+export type {
+  CheckinWizardProps,
+  CheckinQuestion,
+  CheckinQuestionType,
+  CheckinAnswer,
+  CheckinAnswers,
+  CheckinEmojiOption,
+  CheckinMultiOption,
+} from './CheckinWizard';
+
+export { UploadWizard } from './UploadWizard';
+export type {
+  UploadWizardProps,
+  UploadWizardTestType,
+  UploadWizardStep,
+  OCRMetric,
+  OCRResult,
+} from './UploadWizard';
+
+export { ProductCardWithExplainability } from './ProductCardWithExplainability';
+export type {
+  ProductCardWithExplainabilityProps,
+  ExplainabilityProduct,
+  ExplainabilityProductReason,
+  ExplainabilityProductState,
+} from './ProductCardWithExplainability';
+
+export { EmptyStateWithCTA } from './EmptyStateWithCTA';
+export type { EmptyStateWithCTAProps, EmptyStateCTA } from './EmptyStateWithCTA';
+
+export { MealDetailTabs } from './MealDetailTabs';
+export type {
+  MealDetailTabsProps,
+  MealDetailTabId,
+  MealDetail,
+  MealRecipe,
+  MealRecipeIngredient,
+  MealRecipeStep,
+  MealAlternative,
+  MealHydrationHint,
+  MealTimingHint,
+  MealEducation,
+  MealSafetyNote,
+} from './MealDetailTabs';
+
+export { RecipeReasoningPills } from './RecipeReasoningPills';
+export type {
+  RecipeReasoningPillsProps,
+  RecipeReasoningData,
+  RecipeReasonCategory,
+} from './RecipeReasoningPills';
+
+export { DataChip } from './DataChip';
+export type { DataChipProps, DataChipStatus } from './DataChip';
+
+export { NotificationCard } from './NotificationCard';
+export type {
+  NotificationCardProps,
+  NotificationCardCTA,
+  NotificationType,
+} from './NotificationCard';
+
+export {
+  ProductCardSkeleton,
+  MealCardSkeleton,
+  ResultRowSkeleton,
+  ListItemSkeleton,
+  LoadingSkeletonList,
+  LoadingSkeleton,
+} from './LoadingSkeletonVariants';
+export type { LoadingSkeletonBaseProps } from './LoadingSkeletonVariants';
+
 // Chart wrappers — available via '@gundo/ui/charts' (requires recharts as peerDep)
 // Types are safe to re-export (no runtime import of recharts)
 export type {
