@@ -2,6 +2,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { CookiePreferences } from '../CookieBanner';
 
+/**
+ * useCookieConsent — GDPR/ePrivacy-compliant consent persistence helper.
+ *
+ * Pairs with `<CookieBanner>` to store user choices in localStorage,
+ * synchronise across tabs via BroadcastChannel, and forward decisions to
+ * Google Tag Manager via Consent Mode v2 (`gtag('consent', 'update', …)`).
+ */
+
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
 export interface CookieConsentOptions {
