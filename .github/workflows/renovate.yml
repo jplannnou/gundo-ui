@@ -39,4 +39,4 @@ jobs:
           RENOVATE_CONFIG_FILE: renovate.json
           RENOVATE_DEPENDENCY_DASHBOARD: 'false'
           RENOVATE_ONBOARDING: 'false'
-          LOG_LEVEL: warn
+          LOG_LEVEL: info
