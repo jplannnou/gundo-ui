@@ -1,3 +1,16 @@
+# [1.6.0](https://github.com/jplannnou/gundo-ui/compare/v1.5.1...v1.6.0) (2026-04-28)
+
+
+### Features
+
+* add useCookieConsent hook for GDPR-compliant consent persistence ([f90661c](https://github.com/jplannnou/gundo-ui/commit/f90661c5ef40928061a4f257e2c03e7c7c089d1f))
+* document useCookieConsent hook with module-level JSDoc ([abd54e2](https://github.com/jplannnou/gundo-ui/commit/abd54e2652a8b8e3c0c3cc4e94fbac7818d57390))
+
+
+### Reverts
+
+* remove pre-clone workaround that didn't fix Renovate artifacts ([c4507bb](https://github.com/jplannnou/gundo-ui/commit/c4507bb8e22e5eccfa63a5cc90227433222ca685))
+
 ## [1.5.1](https://github.com/jplannnou/gundo-ui/compare/v1.5.0...v1.5.1) (2026-04-28)
 
 
