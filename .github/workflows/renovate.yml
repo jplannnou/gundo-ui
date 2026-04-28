@@ -22,7 +22,7 @@ jobs:
 
       # Required so Renovate's pnpm install can resolve `file:../../gundo-ui` and
       # `file:../../gundo-support-sdk` deps in Engine/Finance/jp-assistant/gundo-feedback.
-      - name: Pre-clone sibling repos for file: protocol
+      - name: Pre-clone sibling repos for file-protocol consumers
         run: |
           mkdir -p /tmp/renovate/repos/github/jplannnou
           git clone --depth 1 https://github.com/jplannnou/gundo-ui.git /tmp/renovate/repos/github/jplannnou/gundo-ui
