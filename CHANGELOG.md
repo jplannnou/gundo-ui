@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/jplannnou/gundo-ui/compare/v1.5.0...v1.5.1) (2026-04-28)
+
+
+### Bug Fixes
+
+* **ci:** quote-free step name so YAML parser keeps workflow_dispatch trigger ([ff626c0](https://github.com/jplannnou/gundo-ui/commit/ff626c01c41c399252c53418e36c9f4f28635b7d))
+
 # [1.5.0](https://github.com/jplannnou/gundo-ui/compare/v1.4.0...v1.5.0) (2026-04-27)
 
 
