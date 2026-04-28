@@ -57,6 +57,11 @@ export type { TooltipProps } from './Tooltip';
 export { useFocusTrap } from './utils/useFocusTrap';
 export { useCopyToClipboard } from './utils/useCopyToClipboard';
 export { ThemeProvider, useTheme } from './utils/useTheme';
+export { useCookieConsent } from './utils/useCookieConsent';
+export type {
+  CookieConsentOptions,
+  UseCookieConsentReturn,
+} from './utils/useCookieConsent';
 export { AppShell, AppShellHeader, AppShellMain, useAppShell } from './AppShell';
 export { Callout } from './Callout';
 export { CopyButton } from './CopyButton';

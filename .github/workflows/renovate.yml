@@ -19,24 +19,14 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-
-      # Required so Renovate's pnpm install can resolve `file:../../gundo-ui` and
-      # `file:../../gundo-support-sdk` deps in Engine/Finance/jp-assistant/gundo-feedback.
-      - name: Pre-clone sibling repos for file-protocol consumers
-        run: |
-          mkdir -p /tmp/renovate/repos/github/jplannnou
-          git clone --depth 1 https://github.com/jplannnou/gundo-ui.git /tmp/renovate/repos/github/jplannnou/gundo-ui
-          git clone --depth 1 https://github.com/jplannnou/gundo-support-sdk.git /tmp/renovate/repos/github/jplannnou/gundo-support-sdk
-
       - name: Run Renovate
         run: npx renovate@latest
         env:
           RENOVATE_TOKEN: ${{ secrets.RENOVATE_PAT }}
           RENOVATE_PLATFORM: github
-          # gundo-ui processed last so consumers see the pre-cloned sibling intact.
-          RENOVATE_REPOSITORIES: '["jplannnou/Gundo_Engine","jplannnou/Gundo_Finance","jplannnou/Gundo_Radar","jplannnou/jp-assistant","jplannnou/gundo-feedback","jplannnou/gundo-feedback-sdk","jplannnou/gundo-ui"]'
+          RENOVATE_REPOSITORIES: '["jplannnou/gundo-ui","jplannnou/Gundo_Engine","jplannnou/Gundo_Finance","jplannnou/Gundo_Radar","jplannnou/jp-assistant","jplannnou/gundo-feedback","jplannnou/gundo-feedback-sdk"]'
           RENOVATE_AUTODISCOVER: 'false'
           RENOVATE_CONFIG_FILE: renovate.json
           RENOVATE_DEPENDENCY_DASHBOARD: 'false'
           RENOVATE_ONBOARDING: 'false'
-          LOG_LEVEL: info
+          LOG_LEVEL: warn
