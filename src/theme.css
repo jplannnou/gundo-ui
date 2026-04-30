@@ -86,6 +86,13 @@
   --ui-range-critical: #ef4444;      /* outside safe range */
   --ui-range-critical-soft: rgb(239 68 68 / 0.15);
 
+  /* Tooltip — inverse-of-surface pattern (GitHub/Linear style).
+     Tooltips on --ui-surface backgrounds become invisible if they share the
+     same color, so we use the inverse: dark text-color as bg, surface as fg.
+     This keeps maximum contrast in both themes without per-consumer overrides. */
+  --ui-tooltip-bg: var(--ui-text);
+  --ui-tooltip-text: var(--ui-surface);
+
   /* Typography — Montserrat (main) + Quicksand (display) */
   --ui-font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
   --ui-font-display: 'Quicksand', 'Montserrat', system-ui, sans-serif;

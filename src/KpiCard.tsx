@@ -20,6 +20,12 @@ interface KpiCardProps {
   iconClassName?: string;
   /** Slot for a sparkline or mini-chart rendered as background overlay */
   sparkline?: ReactNode;
+  /**
+   * Use the display font (Quicksand) for the value. Recommended for B2C/marketing
+   * surfaces (Vida, Datacenter, Ametller). Dashboards (Engine/Radar/Finance/CC)
+   * keep the default Montserrat for data-density.
+   */
+  display?: boolean;
   className?: string;
 }
 
@@ -35,6 +41,7 @@ export function KpiCard({
   color,
   iconClassName,
   sparkline,
+  display = false,
   className = '',
 }: KpiCardProps) {
   const heading = title ?? label ?? '';
@@ -72,7 +79,9 @@ export function KpiCard({
           <p className="text-sm font-medium text-[var(--ui-text-secondary)]">
             {heading}
           </p>
-          <p className={`mt-2 text-2xl font-bold tabular-nums ${valClass}`}>
+          <p
+            className={`mt-2 text-2xl font-bold tabular-nums ${valClass} ${display ? 'font-[var(--ui-font-display)]' : ''}`}
+          >
             {value}
           </p>
           {(subtitle || trendObj) && (

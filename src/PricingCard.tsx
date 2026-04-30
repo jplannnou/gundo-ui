@@ -24,6 +24,11 @@ export interface PricingCardProps {
   onSelect?: () => void;
   /** Custom content below the CTA */
   footer?: ReactNode;
+  /**
+   * Use the display font (Quicksand) for the price. Recommended for B2C/marketing
+   * pricing surfaces; dashboards keep default Montserrat for data-density.
+   */
+  display?: boolean;
   className?: string;
 }
 
@@ -43,6 +48,7 @@ export function PricingCard({
   ctaDisabled = false,
   onSelect,
   footer,
+  display = false,
   className = '',
 }: PricingCardProps) {
   const priceStr =
@@ -76,7 +82,11 @@ export function PricingCard({
           {name}
         </h3>
         <div className="mt-2 flex items-end gap-1">
-          <span className="text-4xl font-bold tabular-nums text-[var(--ui-text)]">{priceStr}</span>
+          <span
+            className={`text-4xl font-bold tabular-nums text-[var(--ui-text)] ${display ? 'font-[var(--ui-font-display)]' : ''}`}
+          >
+            {priceStr}
+          </span>
           {typeof price === 'number' && price > 0 && (
             <span className="mb-1 text-sm text-[var(--ui-text-secondary)]">{period}</span>
           )}
