@@ -42,6 +42,15 @@
   color: var(--ui-text);
 }
 
+.ui-btn-soft {
+  background-color: var(--ui-primary-soft);
+  color: var(--ui-primary);
+}
+.ui-btn-soft:hover:not(:disabled) {
+  background-color: var(--ui-primary-soft);
+  filter: brightness(1.1);
+}
+
 .ui-btn-outline {
   border: 1px solid var(--ui-border);
   background-color: transparent;

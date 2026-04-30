@@ -52,11 +52,39 @@
   --ui-error-soft: rgb(239 68 68 / 0.15);
   --ui-warning: #f59e0b;
   --ui-warning-soft: rgb(245 158 11 / 0.15);
-  --ui-info: #3b82f6;
-  --ui-info-soft: rgb(59 130 246 / 0.15);
+  --ui-info: #60a5fa;
+  --ui-info-soft: rgb(96 165 250 / 0.15);
 
   /* Overlay */
   --ui-overlay: rgb(0 0 0 / 0.6);
+
+  /* Channel tokens — brand colors per outreach/comms channel.
+     Each consumer is responsible for ensuring contrast in usage context
+     (e.g. text on solid surface vs filled badge with -soft variant). */
+  --ui-channel-email: #6366f1;       /* indigo-500 — generic email */
+  --ui-channel-email-soft: rgb(99 102 241 / 0.15);
+  --ui-channel-whatsapp: #25D366;    /* WhatsApp official */
+  --ui-channel-whatsapp-soft: rgb(37 211 102 / 0.15);
+  --ui-channel-linkedin: #0A66C2;    /* LinkedIn official */
+  --ui-channel-linkedin-soft: rgb(10 102 194 / 0.15);
+  --ui-channel-instagram: #E1306C;   /* Instagram pink (representative) */
+  --ui-channel-instagram-soft: rgb(225 48 108 / 0.15);
+  --ui-channel-sms: #22c55e;         /* generic SMS — green */
+  --ui-channel-sms-soft: rgb(34 197 94 / 0.15);
+  --ui-channel-push: #f59e0b;        /* push notification — amber */
+  --ui-channel-push-soft: rgb(245 158 11 / 0.15);
+
+  /* Range tokens — health/data threshold semantics.
+     Distinct from --ui-success/warning/error: ranges express
+     where a value sits in a defined band (optimal vs critical). */
+  --ui-range-optimal: #22c55e;       /* in target band */
+  --ui-range-optimal-soft: rgb(34 197 94 / 0.15);
+  --ui-range-good: #84cc16;          /* close to optimal */
+  --ui-range-good-soft: rgb(132 204 22 / 0.15);
+  --ui-range-attention: #f59e0b;     /* needs monitoring */
+  --ui-range-attention-soft: rgb(245 158 11 / 0.15);
+  --ui-range-critical: #ef4444;      /* outside safe range */
+  --ui-range-critical-soft: rgb(239 68 68 / 0.15);
 
   /* Typography — Montserrat (main) + Quicksand (display) */
   --ui-font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
@@ -166,8 +194,8 @@
   --ui-success-soft: rgb(22 163 74 / 0.1);
   --ui-error: #dc2626;
   --ui-error-soft: rgb(220 38 38 / 0.1);
-  --ui-warning: #d97706;
-  --ui-warning-soft: rgb(217 119 6 / 0.1);
+  --ui-warning: #92400e;
+  --ui-warning-soft: rgb(146 64 14 / 0.1);
   --ui-info: #2563eb;
   --ui-info-soft: rgb(37 99 235 / 0.1);
 

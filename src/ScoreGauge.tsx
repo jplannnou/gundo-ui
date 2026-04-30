@@ -2,7 +2,33 @@ import type { ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
-export type ScoreGaugeVariant = 'default' | 'compact' | 'minimal';
+export type ScoreGaugeVariant = 'default' | 'compact' | 'minimal' | 'match';
+
+/** A scoring band: from `min` (inclusive) to next band's min, with color + label */
+export interface ScoreBand {
+  /** Threshold (inclusive). Score >= min belongs to this band. */
+  min: number;
+  /** CSS color value (typically a `var(--ui-*)` token reference) */
+  color: string;
+  /** Accessible label for this band (used as default ARIA label and badge text) */
+  label: string;
+}
+
+/** Default 4-band scale matching legacy ScoreGauge behavior (Spanish labels). */
+export const DEFAULT_SCORE_BANDS: ScoreBand[] = [
+  { min: 75, color: 'var(--ui-range-optimal)', label: 'Excelente' },
+  { min: 50, color: 'var(--ui-primary)', label: 'Bueno' },
+  { min: 25, color: 'var(--ui-range-attention)', label: 'Regular' },
+  { min: 0, color: 'var(--ui-range-critical)', label: 'Bajo' },
+];
+
+/** Match-style bands (for product match%, recipe affinity, etc.) */
+export const MATCH_SCORE_BANDS: ScoreBand[] = [
+  { min: 90, color: 'var(--ui-range-optimal)', label: 'Match perfecto' },
+  { min: 70, color: 'var(--ui-range-good)', label: 'Buen match' },
+  { min: 40, color: 'var(--ui-range-attention)', label: 'Match medio' },
+  { min: 0, color: 'var(--ui-range-critical)', label: 'Bajo match' },
+];
 
 export interface ScoreGaugeProps {
   /** Score value 0–100 */
@@ -15,31 +41,28 @@ export interface ScoreGaugeProps {
   icon?: ReactNode;
   /** Display size in pixels (diameter) */
   size?: number;
-  /** Visual variant */
+  /** Visual variant. `match` formats the value as "{n}%" for product/recipe affinity. */
   variant?: ScoreGaugeVariant;
-  /** Override color (defaults to semantic color based on score) */
+  /** Override color (defaults to band color from `bands` based on score) */
   color?: string;
   /** Show numeric score value */
   showValue?: boolean;
   /** Arc stroke width */
   strokeWidth?: number;
+  /**
+   * Custom band thresholds with colors and labels. Bands must be sorted descending by `min`.
+   * Defaults to `DEFAULT_SCORE_BANDS`. Use `MATCH_SCORE_BANDS` for match% patterns,
+   * or pass a custom array for domain-specific scales (e.g. health data ranges).
+   */
+  bands?: ScoreBand[];
   className?: string;
 }
 
 /* ─── Helpers ────────────────────────────────────────────────────────── */
 
-function getSemanticColor(score: number): string {
-  if (score >= 75) return 'var(--ui-success)';
-  if (score >= 50) return 'var(--ui-primary)';
-  if (score >= 25) return 'var(--ui-warning)';
-  return 'var(--ui-error)';
-}
-
-function getSemanticLabel(score: number): string {
-  if (score >= 75) return 'Excelente';
-  if (score >= 50) return 'Bueno';
-  if (score >= 25) return 'Regular';
-  return 'Bajo';
+function getBandFor(score: number, bands: ScoreBand[]): ScoreBand {
+  // Bands are sorted descending by min — first matching band wins.
+  return bands.find((b) => score >= b.min) ?? bands[bands.length - 1];
 }
 
 /* ─── ScoreGauge ──────────────────────────────────────────────────────── */
@@ -54,11 +77,14 @@ export function ScoreGauge({
   color,
   showValue = true,
   strokeWidth,
+  bands = DEFAULT_SCORE_BANDS,
   className = '',
 }: ScoreGaugeProps) {
   const clampedScore = Math.max(0, Math.min(100, score));
-  const resolvedColor = color ?? getSemanticColor(clampedScore);
+  const activeBand = getBandFor(clampedScore, bands);
+  const resolvedColor = color ?? activeBand.color;
   const resolvedStroke = strokeWidth ?? (variant === 'minimal' ? 3 : variant === 'compact' ? 5 : 7);
+  const valueDisplay = variant === 'match' ? `${clampedScore}%` : `${clampedScore}`;
 
   // SVG arc geometry
   const radius = (size - resolvedStroke * 2) / 2;
@@ -86,7 +112,7 @@ export function ScoreGauge({
       aria-valuenow={clampedScore}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-label={label ?? getSemanticLabel(clampedScore)}
+      aria-label={label ?? activeBand.label}
     >
       <div className="relative" style={{ width: size, height: size }}>
         <svg
@@ -133,7 +159,7 @@ export function ScoreGauge({
                 className="font-bold tabular-nums leading-none"
                 style={{ fontSize, color: resolvedColor }}
               >
-                {clampedScore}
+                {valueDisplay}
               </span>
             )}
           </div>

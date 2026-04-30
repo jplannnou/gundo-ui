@@ -37,7 +37,7 @@ const DARK = {
   success: '#22c55e',
   error: '#ef4444',
   warning: '#f59e0b',
-  info: '#3b82f6',
+  info: '#60a5fa', // bumped from #3b82f6 (3.6:1 fail) → 5.25:1 AA pass
 };
 
 const LIGHT = {
@@ -48,7 +48,7 @@ const LIGHT = {
   primary: '#08563E',
   success: '#16a34a',
   error: '#dc2626',
-  warning: '#d97706',
+  warning: '#92400e', // bumped from #d97706 (2.9:1 fail) → 6.4:1 AA pass
   info: '#2563eb',
 };
 
@@ -77,6 +77,14 @@ describe('WCAG AA Contrast Ratios — Dark Theme', () => {
   it('text-muted on surface passes AA large (3:1)', () => {
     expect(contrastRatio(DARK.muted, DARK.surface)).toBeGreaterThanOrEqual(3);
   });
+
+  it('warning on surface passes AA (4.5:1)', () => {
+    expect(contrastRatio(DARK.warning, DARK.surface)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('info on surface passes AA (4.5:1)', () => {
+    expect(contrastRatio(DARK.info, DARK.surface)).toBeGreaterThanOrEqual(4.5);
+  });
 });
 
 describe('WCAG AA Contrast Ratios — Light Theme', () => {
@@ -102,5 +110,13 @@ describe('WCAG AA Contrast Ratios — Light Theme', () => {
 
   it('error on surface passes AA (4.5:1)', () => {
     expect(contrastRatio(LIGHT.error, LIGHT.surface)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('warning on surface passes AA (4.5:1)', () => {
+    expect(contrastRatio(LIGHT.warning, LIGHT.surface)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('info on surface passes AA (4.5:1)', () => {
+    expect(contrastRatio(LIGHT.info, LIGHT.surface)).toBeGreaterThanOrEqual(4.5);
   });
 });

@@ -99,8 +99,10 @@ export { CookieBanner } from './CookieBanner';
 export type { CookieBannerProps, CookieCategory, CookiePreferences } from './CookieBanner';
 export { StepWizard, StepWizardModal, StepWizardProgress, StepWizardContent, StepWizardActions, useStepWizard } from './StepWizard';
 export type { StepWizardProps, StepWizardModalProps, WizardStep } from './StepWizard';
-export { ScoreGauge, ScoreGaugeMini } from './ScoreGauge';
-export type { ScoreGaugeProps, ScoreGaugeMiniProps, ScoreGaugeVariant } from './ScoreGauge';
+export { ScoreGauge, ScoreGaugeMini, DEFAULT_SCORE_BANDS, MATCH_SCORE_BANDS } from './ScoreGauge';
+export type { ScoreGaugeProps, ScoreGaugeMiniProps, ScoreGaugeVariant, ScoreBand } from './ScoreGauge';
+export { SenderIdentity } from './SenderIdentity';
+export type { SenderIdentityProps, SenderIdentityActor, SenderIdentityVariant } from './SenderIdentity';
 export { ProductCard } from './ProductCard';
 export type { ProductCardProps } from './ProductCard';
 export { SubscriptionGate, FreemiumBanner } from './SubscriptionGate';
@@ -257,4 +259,18 @@ export { PageTransition } from './motion/PageTransition';
 export { FadeIn } from './motion/FadeIn';
 export { useReducedMotion } from './utils/useReducedMotion';
 export { useMediaQuery, useIsMobile } from './utils/useMediaQuery';
+
+// i18n providers + formatting (peer-dep on i18next/react-i18next)
+export { I18nProvider, DocumentLanguage } from './I18nProvider';
+export type { I18nProviderProps } from './I18nProvider';
+export {
+  formatDate,
+  formatDateTime,
+  formatRelativeTime,
+  formatNumber,
+  formatCurrency,
+  formatPercent,
+  formatList,
+} from './utils/formatLocale';
+export type { Locale } from './utils/formatLocale';
 
