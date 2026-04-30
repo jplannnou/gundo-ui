@@ -326,7 +326,7 @@ export function CodeBlock({
         >
           <span
             className="text-xs font-mono"
-            style={{ color: 'var(--ui-text-muted)' }}
+            style={{ color: 'var(--ui-text-secondary)' }}
           >
             {filename ?? language}
           </span>
@@ -335,7 +335,16 @@ export function CodeBlock({
               type="button"
               onClick={() => void copy(trimmed)}
               className="ui-focus-ring inline-flex items-center gap-1 rounded px-2 py-1 text-xs"
-              style={{ color: 'var(--ui-text-secondary)' }}
+              style={{
+                color: 'var(--ui-text-secondary)',
+                // Native <button> bg is browser-default (~#efefef in Chrome).
+                // Without Tailwind processing in axe-test harness, that bg leaks
+                // through and breaks contrast. Explicit transparent inherits
+                // the surrounding code-bg deterministically.
+                backgroundColor: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+              }}
               aria-label={copied ? 'Copied' : 'Copy code'}
             >
               {copied ? (
@@ -372,18 +381,19 @@ export function CodeBlock({
                 data-highlighted={isHighlighted || undefined}
                 style={{
                   display: 'flex',
-                  backgroundColor: isHighlighted
-                    ? 'var(--ui-code-line-highlight)'
-                    : undefined,
-                  marginInline: isHighlighted ? '-1rem' : undefined,
-                  paddingInline: isHighlighted ? '1rem' : undefined,
+                  marginInline: '-1rem',
+                  paddingInline: '1rem',
+                  borderLeft: isHighlighted
+                    ? '3px solid var(--ui-primary)'
+                    : '3px solid transparent',
                 }}
               >
                 {showLineNumbers && (
                   <span
                     aria-hidden="true"
+                    role="presentation"
                     style={{
-                      color: 'var(--ui-code-line-number)',
+                      color: 'var(--ui-text-secondary)',
                       userSelect: 'none',
                       paddingRight: '1rem',
                       minWidth: '2rem',

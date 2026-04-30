@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const components = [
+  // Tier 1 — primitive components, broad usage cross-product
   'Button',
   'Card',
   'AlertBanner',
@@ -24,6 +25,20 @@ const components = [
   'ThemeToggle',
   'CopyButton',
   'SegmentedControl',
+  // Tier 2 — Sprint 1.3 expansion: docs, forms, data, commerce, B2C
+  'CodeBlock',
+  'BrandHeader',
+  'FormField',
+  'DataTable',
+  // 'MarkdownRenderer' — excluded: links use Tailwind 4 arbitrary value
+  // `text-[var(--ui-primary)]` which the harness vite config doesn't process
+  // (no @tailwindcss/vite plugin), so links fall back to browser default
+  // #0000ee on dark surface (1.45:1 fail). Real consumer apps DO process
+  // Tailwind so the test would be a false positive. Follow-up: refactor
+  // MarkdownRenderer to plain CSS classes (same pattern as Button.css).
+  'Pagination',
+  'ProductCard',
+  'MealCard',
 ];
 
 // Button: refactored — uses .ui-focus-ring CSS class (no Tailwind arbitrary

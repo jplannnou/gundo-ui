@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test';
 
+// Visual snapshots — only Tier 1 (baselines committed). Tier 2 components are
+// covered by a11y.spec.ts but not visual snapshots: snapshots need a baseline
+// generated on CI Linux first (separate workflow_dispatch with update_snapshots).
 const components = [
   'Button',
   'Card',
