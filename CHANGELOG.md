@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/jplannnou/gundo-ui/compare/v1.8.0...v1.9.0) (2026-04-30)
+
+
+### Features
+
+* add CodeBlock + BrandHeader — Sprint 1.2 DS canónico cierre ([#14](https://github.com/jplannnou/gundo-ui/issues/14)) ([68cd743](https://github.com/jplannnou/gundo-ui/commit/68cd743aee8364123ea04eb6116f456709855148))
+
 # [1.8.0](https://github.com/jplannnou/gundo-ui/compare/v1.7.0...v1.8.0) (2026-04-30)
 
 
