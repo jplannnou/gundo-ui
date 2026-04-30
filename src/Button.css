@@ -6,6 +6,19 @@
  * --ui-* tokens are still defined by each consumer's theme layer.
  */
 
+/* ─── Shared focus ring ─────────────────────────────────────────────────────
+ * Plain-CSS focus ring so axe-core can resolve --ui-* tokens through the
+ * cascade. Tailwind 4 arbitrary values (`focus-visible:ring-[var(--ui-*)]`)
+ * trip a known axe-core bug where it can't resolve CSS vars embedded in
+ * arbitrary classnames, and reports false-positive contrast violations.
+ *
+ * Usage: add `ui-focus-ring` class to any focusable element.
+ */
+.ui-focus-ring:focus-visible {
+  outline: var(--ui-focus-ring-width, 2px) solid var(--ui-focus-ring-color);
+  outline-offset: var(--ui-focus-ring-offset, 2px);
+}
+
 .ui-btn-primary {
   background-color: var(--ui-primary);
   color: var(--ui-surface);
@@ -23,10 +36,13 @@
   background-color: var(--ui-border);
 }
 
+/* Danger uses a darker red than --ui-error so white text passes AA (#b91c1c
+ * = 5.83:1 with white). --ui-error itself stays brighter (#ef4444) because
+ * red TEXT on dark surface needs lightness — different context. */
 .ui-btn-danger,
 .ui-btn-destructive {
-  background-color: var(--ui-error);
-  color: var(--ui-surface);
+  background-color: #b91c1c;
+  color: #ffffff;
 }
 .ui-btn-danger:hover:not(:disabled),
 .ui-btn-destructive:hover:not(:disabled) {
