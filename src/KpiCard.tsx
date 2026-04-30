@@ -12,6 +12,12 @@ interface KpiCardProps {
   trend?: { value: number; label?: string } | number;
   /** Compat alias for trend label when trend is a number */
   trendLabel?: string;
+  /**
+   * Trend rendering style. `plain` (default, backwards-compatible) shows the
+   * trend as inline colored text. `pill` shows it as a soft-filled rounded
+   * badge — the modern dashboard pattern (Linear / Vercel / Stripe).
+   */
+  trendVariant?: 'plain' | 'pill';
   /** Custom class for the value text (e.g. color override like `text-brand`) */
   valueClassName?: string;
   /** Compat alias: Tailwind class applied to value text (e.g. `text-income`) */
@@ -37,6 +43,7 @@ export function KpiCard({
   icon,
   trend,
   trendLabel,
+  trendVariant = 'plain',
   valueClassName,
   color,
   iconClassName,
@@ -59,6 +66,15 @@ export function KpiCard({
       : trendObj.value < 0
         ? 'var(--ui-error)'
         : 'var(--ui-text-secondary)'
+    : undefined;
+
+  // Soft fill background for the pill variant — semantic match to trendColor.
+  const trendBg = trendObj
+    ? trendObj.value > 0
+      ? 'var(--ui-success-soft)'
+      : trendObj.value < 0
+        ? 'var(--ui-error-soft)'
+        : 'var(--ui-surface-hover)'
     : undefined;
 
   const trendArrow = trendObj
@@ -88,8 +104,13 @@ export function KpiCard({
             <div className="mt-1 flex items-center gap-2">
               {trendObj && (
                 <span
-                  className="text-xs font-medium tabular-nums"
-                  style={{ color: trendColor }}
+                  className={`inline-flex items-center gap-1 text-xs font-medium tabular-nums ${
+                    trendVariant === 'pill' ? 'rounded-full px-2 py-0.5' : ''
+                  }`}
+                  style={{
+                    color: trendColor,
+                    backgroundColor: trendVariant === 'pill' ? trendBg : undefined,
+                  }}
                 >
                   {trendArrow} {Math.abs(trendObj.value)}%{trendObj.label ? ` ${trendObj.label}` : ''}
                 </span>

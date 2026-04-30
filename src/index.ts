@@ -45,7 +45,7 @@ export { Spinner } from './Spinner';
 export { Stack } from './Stack';
 export { StepIndicator } from './StepIndicator';
 export { Tabs } from './Tabs';
-export type { TabsProps } from './Tabs';
+export type { TabsProps, TabsVariant } from './Tabs';
 export { TagsInput } from './TagsInput';
 export { Textarea } from './Textarea';
 export { Toast } from './Toast';
