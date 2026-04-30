@@ -80,10 +80,10 @@ export function SegmentedControl({
             tabIndex={isActive ? 0 : -1}
             onClick={() => onChange(opt.value)}
             onKeyDown={e => handleKeyDown(e, index)}
-            className={`${sizeClass} rounded-md font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
+            className={`${sizeClass} rounded-md font-medium transition-colors duration-[var(--ui-duration-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
               isActive
-                ? `${opt.color ? '' : 'bg-[var(--ui-primary)]'} text-white shadow-sm`
-                : 'text-[var(--ui-text-muted)] hover:text-[var(--ui-text)]'
+                ? `${opt.color ? '' : 'bg-[var(--ui-primary)]'} text-[var(--ui-surface)] shadow-sm`
+                : 'text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)]'
             } disabled:opacity-40 disabled:cursor-not-allowed`}
             style={isActive && opt.color ? { backgroundColor: opt.color } : undefined}
           >

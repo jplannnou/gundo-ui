@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useRef, useState, useCallback, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Toast } from './Toast';
 
@@ -40,14 +40,15 @@ interface ToastProviderProps {
   maxToasts?: number;
 }
 
-let counter = 0;
-
 export function ToastProvider({
   children,
   position = 'bottom-right',
   maxToasts = 5,
 }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
+  // Per-instance counter avoids cross-instance ID collisions and SSR pitfalls
+  // that the previous module-scoped `let counter` would have hit.
+  const counterRef = useRef(0);
 
   const dismiss = useCallback((id: string) => {
     setToasts(prev => prev.filter(t => t.id !== id));
@@ -58,7 +59,7 @@ export function ToastProvider({
   }, []);
 
   const addToast = useCallback((message: ReactNode, opts?: { type?: ToastType; duration?: number }) => {
-    const id = `toast-${++counter}`;
+    const id = `toast-${++counterRef.current}`;
     const item: ToastItem = {
       id,
       type: opts?.type ?? 'info',
@@ -95,8 +96,8 @@ export function ToastProvider({
     <ToastContext.Provider value={value}>
       {children}
       <div
-        className={`fixed z-[100] flex flex-col gap-2 ${positionClass}`}
-        style={{ maxWidth: '420px', width: '100%', pointerEvents: 'none' }}
+        className={`fixed flex flex-col gap-2 ${positionClass}`}
+        style={{ maxWidth: '420px', width: '100%', pointerEvents: 'none', zIndex: 'var(--ui-z-toast)' }}
       >
         <AnimatePresence initial={false}>
           {toasts.map(t => (

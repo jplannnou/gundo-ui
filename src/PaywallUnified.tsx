@@ -192,7 +192,9 @@ export function PaywallUnified({
         {/* Header */}
         <header className="flex flex-col items-start gap-3">
           <span
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white"
+            // text-white intencional: el background es --ui-gradient (verde brand)
+            // que es theme-invariant; necesita texto light en ambos themes.
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold text-white"
             style={{ background: 'var(--ui-gradient)' }}
           >
             Premium {plan === 'plus' ? '+' : ''}
@@ -263,13 +265,13 @@ export function PaywallUnified({
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-[var(--ui-surface-raised)] text-[var(--ui-text-secondary)]">
-                <th className="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wider">
+                <th className="px-3 py-2 text-left text-xs font-semibold">
                   Feature
                 </th>
-                <th className="px-3 py-2 text-xs font-semibold uppercase tracking-wider">
+                <th className="px-3 py-2 text-xs font-semibold">
                   Free
                 </th>
-                <th className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-[var(--ui-primary)]">
+                <th className="px-3 py-2 text-xs font-semibold text-[var(--ui-primary)]">
                   Premium{plan === 'plus' ? '+' : ''}
                 </th>
               </tr>

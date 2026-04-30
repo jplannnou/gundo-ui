@@ -1,6 +1,7 @@
 'use client';
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useRef, useState, useCallback, type ReactNode } from 'react';
 import { Menu } from 'lucide-react';
+import { useFocusTrap } from './utils/useFocusTrap';
 
 interface AppShellContextValue {
   mobileOpen: boolean;
@@ -61,11 +62,48 @@ export function AppShellHeader({ children, className = '' }: AppShellHeaderProps
 interface AppShellMainProps {
   children: ReactNode;
   sidebar?: ReactNode;
+  /** Accessible label for the mobile navigation drawer. Defaults to "Navigation". */
+  mobileSidebarLabel?: string;
   className?: string;
 }
 
-export function AppShellMain({ children, sidebar, className = '' }: AppShellMainProps) {
+export function AppShellMain({
+  children,
+  sidebar,
+  mobileSidebarLabel = 'Navigation',
+  className = '',
+}: AppShellMainProps) {
   const { mobileOpen, closeMobile } = useAppShell();
+  const drawerRef = useRef<HTMLElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  // Focus trap inside the mobile drawer while open
+  useFocusTrap(drawerRef, mobileOpen);
+
+  // Escape key + body scroll lock + restore focus on close
+  useEffect(() => {
+    if (!mobileOpen) return;
+    previousFocusRef.current = document.activeElement as HTMLElement;
+
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeMobile();
+    };
+    document.addEventListener('keydown', handler);
+
+    // Lock body scroll. Preserve any host-set overflow value.
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    // Move initial focus into the drawer
+    const raf = requestAnimationFrame(() => drawerRef.current?.focus());
+
+    return () => {
+      cancelAnimationFrame(raf);
+      document.removeEventListener('keydown', handler);
+      document.body.style.overflow = previousOverflow;
+      previousFocusRef.current?.focus();
+    };
+  }, [mobileOpen, closeMobile]);
 
   return (
     <>
@@ -82,7 +120,14 @@ export function AppShellMain({ children, sidebar, className = '' }: AppShellMain
             onClick={closeMobile}
             aria-hidden="true"
           />
-          <aside className="fixed inset-y-0 left-0 z-[var(--ui-z-modal)] w-64 lg:hidden">
+          <aside
+            ref={drawerRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={mobileSidebarLabel}
+            tabIndex={-1}
+            className="fixed inset-y-0 left-0 z-[var(--ui-z-modal)] w-64 lg:hidden outline-none"
+          >
             {sidebar}
           </aside>
         </>

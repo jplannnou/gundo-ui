@@ -44,7 +44,7 @@ export function FloatingActionButton({
     <button
       type="button"
       aria-label={label}
-      className={`${fixed ? 'fixed' : 'absolute'} ${positionStyles[position]} z-[var(--ui-z-toast,600)] flex ${sizeStyles[size]} items-center justify-center rounded-full bg-[var(--ui-primary)] text-[var(--ui-surface)] shadow-[var(--ui-shadow-lg)] transition-all hover:bg-[var(--ui-primary-hover)] hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      className={`${fixed ? 'fixed' : 'absolute'} ${positionStyles[position]} z-[var(--ui-z-toast,600)] flex ${sizeStyles[size]} items-center justify-center rounded-full bg-[var(--ui-primary)] text-[var(--ui-surface)] shadow-[var(--ui-shadow-lg)] transition-[transform,background-color] duration-[var(--ui-duration-fast)] hover:bg-[var(--ui-primary-hover)] hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
       {...props}
     >
       <span

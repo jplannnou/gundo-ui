@@ -2,7 +2,7 @@ import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { Loader2 } from 'lucide-react';
 import './Button.css';
 
-type Variant = 'primary' | 'secondary' | 'danger' | 'ghost' | 'default' | 'destructive' | 'outline' | 'link';
+type Variant = 'primary' | 'secondary' | 'danger' | 'ghost' | 'soft' | 'default' | 'destructive' | 'outline' | 'link';
 type Size = 'sm' | 'md' | 'lg' | 'icon';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -21,6 +21,7 @@ const variantStyles: Record<Variant, string> = {
   danger: 'ui-btn-danger',
   destructive: 'ui-btn-destructive',
   ghost: 'ui-btn-ghost',
+  soft: 'ui-btn-soft',
   outline: 'ui-btn-outline',
   link: 'ui-btn-link',
 };

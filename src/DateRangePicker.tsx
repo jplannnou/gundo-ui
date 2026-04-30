@@ -206,7 +206,7 @@ export function DateRangePicker({
           {/* Presets */}
           {presets.length > 0 && (
             <div className="border-r border-[var(--ui-border)] p-3 min-w-[140px]">
-              <div className="text-xs font-medium text-[var(--ui-text-muted)] mb-2 uppercase tracking-wider">Presets</div>
+              <div className="text-xs font-medium text-[var(--ui-text-secondary)] mb-2">Presets</div>
               {presets.map((p, i) => (
                 <button
                   key={i}

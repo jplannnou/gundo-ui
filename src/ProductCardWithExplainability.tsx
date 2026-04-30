@@ -158,7 +158,7 @@ export function ProductCardWithExplainability({
       {/* Content */}
       <div className="flex flex-1 flex-col gap-2 p-3">
         {product.brand && (
-          <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--ui-text-muted)]">
+          <p className="text-xs font-medium text-[var(--ui-text-secondary)]">
             {product.brand}
           </p>
         )}

@@ -158,7 +158,7 @@ export function ProductCard({
       {/* Content */}
       <div className={`flex flex-1 flex-col gap-2 ${isCompact ? 'p-3' : 'p-4'}`}>
         {brand && (
-          <p className="text-xs font-medium uppercase tracking-wider text-[var(--ui-text-muted)]">
+          <p className="text-xs font-medium text-[var(--ui-text-secondary)]">
             {brand}
           </p>
         )}

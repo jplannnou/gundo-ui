@@ -219,7 +219,7 @@ export function CheckinWizard({
                       type="button"
                       onClick={() => setAnswer(v)}
                       aria-pressed={selected}
-                      className={`flex h-12 w-12 items-center justify-center rounded-full border-2 text-base font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
+                      className={`flex h-12 w-12 items-center justify-center rounded-full border-2 text-base font-bold transition-[transform,background-color,border-color,color] duration-[var(--ui-duration-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
                         selected
                           ? 'scale-110 border-[var(--ui-primary)] bg-[var(--ui-primary)] text-[var(--ui-surface)]'
                           : 'border-[var(--ui-border)] bg-[var(--ui-surface-raised)] text-[var(--ui-text-secondary)] hover:border-[var(--ui-primary)]'

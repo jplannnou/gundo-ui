@@ -26,7 +26,7 @@
 .ui-btn-danger,
 .ui-btn-destructive {
   background-color: var(--ui-error);
-  color: #ffffff;
+  color: var(--ui-surface);
 }
 .ui-btn-danger:hover:not(:disabled),
 .ui-btn-destructive:hover:not(:disabled) {
@@ -40,6 +40,15 @@
 .ui-btn-ghost:hover:not(:disabled) {
   background-color: var(--ui-surface-hover);
   color: var(--ui-text);
+}
+
+.ui-btn-soft {
+  background-color: var(--ui-primary-soft);
+  color: var(--ui-primary);
+}
+.ui-btn-soft:hover:not(:disabled) {
+  background-color: var(--ui-primary-soft);
+  filter: brightness(1.1);
 }
 
 .ui-btn-outline {

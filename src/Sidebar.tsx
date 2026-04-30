@@ -58,7 +58,7 @@ export function Sidebar({
   return (
     <SidebarContext.Provider value={{ collapsed: isCollapsed, toggle, setCollapsed }}>
       <aside
-        className={`flex flex-col h-full border-r border-[var(--ui-border)] bg-[var(--ui-surface)] transition-[width] duration-200 overflow-hidden shrink-0 ${className}`}
+        className={`flex flex-col h-full border-r border-[var(--ui-border)] bg-[var(--ui-surface)] transition-[width] duration-[var(--ui-duration-normal)] overflow-hidden shrink-0 ${className}`}
         style={{ width: isCollapsed ? collapsedWidth : width }}
       >
         {children}
@@ -119,7 +119,7 @@ export function SidebarGroup({ label, children, className = '' }: SidebarGroupPr
   return (
     <div className={`px-2 py-1 ${className}`}>
       {label && !collapsed && (
-        <p className="px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--ui-text-muted)]">
+        <p className="px-2 py-1.5 text-xs font-semibold text-[var(--ui-text-secondary)]">
           {label}
         </p>
       )}

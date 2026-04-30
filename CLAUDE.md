@@ -124,7 +124,26 @@ All projects use Tailwind 4 `@theme` directive mapping `--ui-*` tokens to utilit
 ## Deploy & CI/CD
 
 - **GitHub Pages**: Component gallery at `https://jplannnou.github.io/gundo-ui/` — auto-deploys via `.github/workflows/pages.yml` on push to main
-- **No npm publish** — consumed via `file:` protocol directly from source
+- **npm publish**: yes, to GitHub Packages (`@jplannnou/gundo-ui`) — used by repos in the `Gundo-Health-and-Food` org which can't reach the local file: path
+
+## Consumption modes (two paths)
+
+Two valid ways consumers depend on this library — pick by repo location:
+
+| Consumer org | Mode | Why | Update cycle |
+|--------------|------|-----|---------------|
+| `jplannnou/*` repos (Engine, Finance, Radar, JP Assistant, Vida, Plataform, Command Center) | **`file:` protocol** in `package.json` (`"@gundo/ui": "file:../gundo-ui"`) | Same dev machine, no publish friction, TypeScript source direct, instant feedback loop | After any `gundo-ui` change → `pnpm install` in each consumer (file: creates COPIES, not symlinks) |
+| `Gundo-Health-and-Food/*` repos (genie-ui, gundo-ecommerce-ui) | **npm package** `@jplannnou/gundo-ui` from GitHub Packages | Different GitHub org, separate dev team, formal versioning needed | Bump version in `gundo-ui` → semantic-release publishes → consumer bumps and `pnpm install` |
+
+**Why split** (no plan to unify): forcing `Gundo-Health-and-Food` repos to use `file:` would require co-locating monorepos. Forcing `jplannnou` repos to use npm would slow iteration (publish → install for every change). The split is intentional.
+
+**Adding a new consumer**:
+- If in `jplannnou` org → `file:` protocol
+- If in `Gundo-Health-and-Food` (or any other org) → npm via GitHub Packages, requires `NODE_AUTH_TOKEN` for `pnpm install`
+
+**Publishing**:
+- semantic-release on push to `main` reads `feat:`/`fix:`/`BREAKING CHANGE:` commits and publishes patch/minor/major automatically
+- Manual: `pnpm publish --access restricted` from a clean main
 
 ## Known Gotchas
 

@@ -21,7 +21,7 @@ export function Card({
       className={`rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] ${
         padding ? 'p-6' : ''
       } ${
-        isInteractive ? 'hover:bg-[var(--ui-surface-hover)] hover:-translate-y-0.5 cursor-pointer transition-all duration-200' : ''
+        isInteractive ? 'hover:bg-[var(--ui-surface-hover)] hover:-translate-y-0.5 cursor-pointer transition-[transform,background-color] duration-[var(--ui-duration-normal)]' : ''
       } ${className}`}
       onClick={onClick}
       role={onClick ? 'button' : undefined}

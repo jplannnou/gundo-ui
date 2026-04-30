@@ -23,7 +23,7 @@ export const Divider = forwardRef<HTMLDivElement, DividerProps>(
       return (
         <div ref={ref} className={`flex items-center gap-3 ${className}`} role="separator" {...rest}>
           <div className="flex-1 h-px bg-[var(--ui-border)]" />
-          <span className="text-xs text-[var(--ui-text-muted)] uppercase tracking-wider">{label}</span>
+          <span className="text-xs font-medium text-[var(--ui-text-secondary)]">{label}</span>
           <div className="flex-1 h-px bg-[var(--ui-border)]" />
         </div>
       );

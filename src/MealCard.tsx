@@ -134,7 +134,7 @@ export function MealCard({
         <div className="flex items-start justify-between gap-2">
           <div>
             {mealType && (
-              <span className="text-[10px] font-medium uppercase tracking-wider text-[var(--ui-text-muted)]">
+              <span className="text-xs font-medium text-[var(--ui-text-secondary)]">
                 {MEAL_LABELS[mealType]}
               </span>
             )}
