@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/jplannnou/gundo-ui/compare/v1.6.0...v1.7.0) (2026-04-30)
+
+
+### Features
+
+* Sprint 1 — DS foundation upgrade ([#9](https://github.com/jplannnou/gundo-ui/issues/9)) ([bb80305](https://github.com/jplannnou/gundo-ui/commit/bb803055c82547756040649055b4774b5ca6e8d3)), closes [#3b82f6](https://github.com/jplannnou/gundo-ui/issues/3b82f6) [#60a5](https://github.com/jplannnou/gundo-ui/issues/60a5) [#d97706](https://github.com/jplannnou/gundo-ui/issues/d97706) [#92400](https://github.com/jplannnou/gundo-ui/issues/92400) [#2](https://github.com/jplannnou/gundo-ui/issues/2) [#5](https://github.com/jplannnou/gundo-ui/issues/5) [#1](https://github.com/jplannnou/gundo-ui/issues/1) [#3](https://github.com/jplannnou/gundo-ui/issues/3) [#4](https://github.com/jplannnou/gundo-ui/issues/4) [#1](https://github.com/jplannnou/gundo-ui/issues/1) [#3](https://github.com/jplannnou/gundo-ui/issues/3) [#4](https://github.com/jplannnou/gundo-ui/issues/4) [#292e37](https://github.com/jplannnou/gundo-ui/issues/292e37)
+
 # [1.6.0](https://github.com/jplannnou/gundo-ui/compare/v1.5.1...v1.6.0) (2026-04-28)
 
 
