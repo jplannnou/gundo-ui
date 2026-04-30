@@ -182,7 +182,7 @@ export function CalendarGrid({
           <div
             key={name}
             role="columnheader"
-            className="border-b border-[var(--ui-border)] bg-[var(--ui-surface-raised)] px-1 py-2 text-center text-xs font-medium uppercase tracking-wider text-[var(--ui-text-muted)]"
+            className="border-b border-[var(--ui-border)] bg-[var(--ui-surface-raised)] px-1 py-2 text-center text-xs font-medium text-[var(--ui-text-secondary)]"
           >
             {name}
           </div>

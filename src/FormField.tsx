@@ -20,7 +20,7 @@ export function FormField({ label, required, error, hint, children, className = 
     <div className={className}>
       <label
         htmlFor={fieldId}
-        className="block text-xs text-[var(--ui-text-muted)] uppercase tracking-wider mb-1.5"
+        className="block text-sm font-medium text-[var(--ui-text-secondary)] mb-1.5"
       >
         {label}
         {required && <span className="text-[var(--ui-error)] ml-0.5" aria-hidden="true">*</span>}

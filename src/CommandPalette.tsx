@@ -185,7 +185,7 @@ export function CommandPalette({
               {Array.from(grouped.entries()).map(([group, cmds]) => (
                 <div key={group}>
                   {group && (
-                    <div className="px-2 py-1.5 text-xs font-medium text-[var(--ui-text-muted)] uppercase tracking-wider">{group}</div>
+                    <div className="px-2 py-1.5 text-xs font-medium text-[var(--ui-text-secondary)]">{group}</div>
                   )}
                   {cmds.map(cmd => {
                     const isEnabled = !cmd.disabled;

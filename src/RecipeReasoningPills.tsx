@@ -87,7 +87,7 @@ export function RecipeReasoningPills({
               type="button"
               onClick={() => setActive(cat)}
               aria-pressed={selected}
-              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
+              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors duration-[var(--ui-duration-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
                 selected
                   ? 'text-[var(--ui-surface)] shadow-[var(--ui-shadow-sm)]'
                   : 'text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'
@@ -120,7 +120,7 @@ export function RecipeReasoningPills({
         className={`flex-1 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-4`}
         style={{ borderLeftColor: catalog[active].color, borderLeftWidth: 4 }}
       >
-        <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[var(--ui-text-secondary)]">
+        <p className="mb-2 flex items-center gap-2 text-xs font-semibold text-[var(--ui-text-secondary)]">
           <span aria-hidden="true">{catalog[active].emoji}</span>
           Por qué según {catalog[active].label.toLowerCase()}
         </p>

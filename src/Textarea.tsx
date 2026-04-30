@@ -9,7 +9,7 @@ export function Textarea({ label, error, className = '', ...props }: TextareaPro
   return (
     <div>
       {label && (
-        <label className="block text-xs text-[var(--ui-text-muted)] uppercase tracking-wider mb-1.5">
+        <label className="block text-sm font-medium text-[var(--ui-text-secondary)] mb-1.5">
           {label}
         </label>
       )}

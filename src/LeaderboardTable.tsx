@@ -63,8 +63,8 @@ export function LeaderboardTable({
     >
       {/* Header */}
       <div className="flex items-center justify-between border-b border-[var(--ui-border)] px-4 py-2.5">
-        <span className="text-xs font-medium uppercase tracking-wider text-[var(--ui-text-muted)]">Participante</span>
-        <span className="text-xs font-medium uppercase tracking-wider text-[var(--ui-text-muted)]">{scoreLabel}</span>
+        <span className="text-xs font-medium text-[var(--ui-text-secondary)]">Participante</span>
+        <span className="text-xs font-medium text-[var(--ui-text-secondary)]">{scoreLabel}</span>
       </div>
 
       {/* Entries */}
