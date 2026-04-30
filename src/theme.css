@@ -94,10 +94,14 @@
   --ui-tooltip-text: var(--ui-surface);
 
   /* Code syntax highlighting — used by <CodeBlock>.
-     Dark theme palette: tuned for AA contrast (4.5:1) on --ui-surface-raised.
+     Dark theme palette: tuned for AA contrast (4.5:1) on --ui-code-bg.
      Highlight uses left-border accent (no bg tint) so token colors don't have
-     to clear contrast on a hue-shifted bg. */
-  --ui-code-bg: var(--ui-surface-raised);
+     to clear contrast on a hue-shifted bg.
+     Code bg is opaque (NOT --ui-surface-raised which is rgba) so axe-core can
+     resolve the effective bg deterministically — without it, axe walked up
+     the cascade past the transparent layer and computed contrast against the
+     wrong color (false-positive 2.2:1 fails). */
+  --ui-code-bg: #1f2229;
   --ui-code-text: var(--ui-text);
   --ui-code-keyword: #c084fc;        /* purple-400 */
   --ui-code-string: #a3e635;         /* lime-400 */
@@ -223,11 +227,9 @@
 
   --ui-overlay: rgb(0 0 0 / 0.3);
 
-  /* Code syntax highlighting — light variant (darker shades for AA on light bg).
-     All tokens AA-verified on the actual rendered surface (--ui-surface + 0.04
-     black overlay = ~#e8eae9). Borderline tokens darkened one step from the
-     Tailwind palette: keyword 600→700, string 700→800, number 700→800. */
-  --ui-code-bg: rgb(0 0 0 / 0.04);
+  /* Code syntax highlighting — light variant.
+     Opaque bg (matches dark variant pattern — see comment in :root for why). */
+  --ui-code-bg: #fafaf9;
   --ui-code-text: var(--ui-text);
   --ui-code-keyword: #6d28d9;        /* violet-700 (was 7c3aed = violet-600) */
   --ui-code-string: #166534;         /* green-800 (was 15803d = green-700) */

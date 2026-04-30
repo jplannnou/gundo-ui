@@ -198,7 +198,7 @@ export function BrandHeader({
         {showPoweredBy && (
           <span
             className="text-xs"
-            style={{ color: 'var(--ui-text-muted)' }}
+            style={{ color: 'var(--ui-text-secondary)' }}
           >
             {poweredByLabel}
           </span>
