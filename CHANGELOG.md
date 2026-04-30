@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/jplannnou/gundo-ui/compare/v1.7.0...v1.8.0) (2026-04-30)
+
+
+### Features
+
+* add CardButton — semantic button rendered as a card ([#12](https://github.com/jplannnou/gundo-ui/issues/12)) ([0b31f32](https://github.com/jplannnou/gundo-ui/commit/0b31f32d10d90f8764e63feefb9b696959605733)), closes [#4](https://github.com/jplannnou/gundo-ui/issues/4)
+
 # [1.7.0](https://github.com/jplannnou/gundo-ui/compare/v1.6.0...v1.7.0) (2026-04-30)
 
 
