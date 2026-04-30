@@ -9,6 +9,8 @@ export { Breadcrumbs } from './Breadcrumbs';
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
 export { Card } from './Card';
+export { CardButton } from './CardButton';
+export type { CardButtonProps } from './CardButton';
 export { Checkbox } from './Checkbox';
 export type { CheckboxProps } from './Checkbox';
 export { Combobox } from './Combobox';
