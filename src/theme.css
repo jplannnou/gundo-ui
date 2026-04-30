@@ -93,6 +93,20 @@
   --ui-tooltip-bg: var(--ui-text);
   --ui-tooltip-text: var(--ui-surface);
 
+  /* Code syntax highlighting — used by <CodeBlock>.
+     Dark theme palette: tuned for AA contrast on --ui-surface-raised. */
+  --ui-code-bg: var(--ui-surface-raised);
+  --ui-code-text: var(--ui-text);
+  --ui-code-keyword: #c084fc;        /* purple-400 — const, function, if */
+  --ui-code-string: #a3e635;         /* lime-400 — strings */
+  --ui-code-number: #fbbf24;         /* amber-400 — numbers */
+  --ui-code-comment: #9ca3af;        /* gray-400 — comments (italic) */
+  --ui-code-function: #60a5fa;       /* blue-400 — function names */
+  --ui-code-tag: #f472b6;            /* pink-400 — HTML/JSX tags */
+  --ui-code-punctuation: #d1d5db;    /* gray-300 */
+  --ui-code-line-highlight: rgb(103 199 40 / 0.10); /* primary-soft accent */
+  --ui-code-line-number: #6b7280;    /* gutter */
+
   /* Typography — Montserrat (main) + Quicksand (display) */
   --ui-font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
   --ui-font-display: 'Quicksand', 'Montserrat', system-ui, sans-serif;
@@ -207,6 +221,19 @@
   --ui-info-soft: rgb(37 99 235 / 0.1);
 
   --ui-overlay: rgb(0 0 0 / 0.3);
+
+  /* Code syntax highlighting — light variant (darker shades for AA on light bg) */
+  --ui-code-bg: rgb(0 0 0 / 0.04);
+  --ui-code-text: var(--ui-text);
+  --ui-code-keyword: #7c3aed;        /* violet-600 */
+  --ui-code-string: #15803d;         /* green-700 */
+  --ui-code-number: #b45309;         /* amber-700 */
+  --ui-code-comment: #57606a;        /* slate */
+  --ui-code-function: #1d4ed8;       /* blue-700 */
+  --ui-code-tag: #be185d;            /* pink-700 */
+  --ui-code-punctuation: #4b5563;    /* gray-600 */
+  --ui-code-line-highlight: rgb(8 86 62 / 0.08);
+  --ui-code-line-number: #9ca3af;
 
   /* Typography — same brand fonts */
   --ui-font-family: 'Montserrat', system-ui, -apple-system, sans-serif;

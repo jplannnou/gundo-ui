@@ -105,6 +105,10 @@ export { ScoreGauge, ScoreGaugeMini, DEFAULT_SCORE_BANDS, MATCH_SCORE_BANDS } fr
 export type { ScoreGaugeProps, ScoreGaugeMiniProps, ScoreGaugeVariant, ScoreBand } from './ScoreGauge';
 export { SenderIdentity } from './SenderIdentity';
 export type { SenderIdentityProps, SenderIdentityActor, SenderIdentityVariant } from './SenderIdentity';
+export { CodeBlock } from './CodeBlock';
+export type { CodeBlockProps, CodeLanguage } from './CodeBlock';
+export { BrandHeader } from './BrandHeader';
+export type { BrandHeaderProps, BrandHeaderVariant, BrandHeaderSize, BrandPartner } from './BrandHeader';
 export { ProductCard } from './ProductCard';
 export type { ProductCardProps } from './ProductCard';
 export { SubscriptionGate, FreemiumBanner } from './SubscriptionGate';
