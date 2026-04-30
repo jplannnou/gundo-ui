@@ -335,7 +335,16 @@ export function CodeBlock({
               type="button"
               onClick={() => void copy(trimmed)}
               className="ui-focus-ring inline-flex items-center gap-1 rounded px-2 py-1 text-xs"
-              style={{ color: 'var(--ui-text-secondary)' }}
+              style={{
+                color: 'var(--ui-text-secondary)',
+                // Native <button> bg is browser-default (~#efefef in Chrome).
+                // Without Tailwind processing in axe-test harness, that bg leaks
+                // through and breaks contrast. Explicit transparent inherits
+                // the surrounding code-bg deterministically.
+                backgroundColor: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+              }}
               aria-label={copied ? 'Copied' : 'Copy code'}
             >
               {copied ? (
