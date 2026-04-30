@@ -326,7 +326,7 @@ export function CodeBlock({
         >
           <span
             className="text-xs font-mono"
-            style={{ color: 'var(--ui-text-muted)' }}
+            style={{ color: 'var(--ui-text-secondary)' }}
           >
             {filename ?? language}
           </span>
@@ -372,18 +372,19 @@ export function CodeBlock({
                 data-highlighted={isHighlighted || undefined}
                 style={{
                   display: 'flex',
-                  backgroundColor: isHighlighted
-                    ? 'var(--ui-code-line-highlight)'
-                    : undefined,
-                  marginInline: isHighlighted ? '-1rem' : undefined,
-                  paddingInline: isHighlighted ? '1rem' : undefined,
+                  marginInline: '-1rem',
+                  paddingInline: '1rem',
+                  borderLeft: isHighlighted
+                    ? '3px solid var(--ui-primary)'
+                    : '3px solid transparent',
                 }}
               >
                 {showLineNumbers && (
                   <span
                     aria-hidden="true"
+                    role="presentation"
                     style={{
-                      color: 'var(--ui-code-line-number)',
+                      color: 'var(--ui-text-secondary)',
                       userSelect: 'none',
                       paddingRight: '1rem',
                       minWidth: '2rem',
