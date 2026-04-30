@@ -11,7 +11,8 @@ import {
   Tabs, Badge, Spinner, ProgressBar, Input, Select, Checkbox, Toggle, SearchInput,
   Tooltip, EmptyState, KpiCard, Avatar, Breadcrumbs, Callout, CopyButton,
   ThemeToggle, StatusDot, SegmentedControl, Skeleton, SkeletonText,
-  Popover,
+  Popover, CodeBlock, BrandHeader, FormField, DataTable, MarkdownRenderer,
+  Pagination, ProductCard, MealCard,
 } from '../../src/index';
 
 /* ─── Route-based component renderer ─────────────────────────────── */
@@ -240,6 +241,105 @@ const showcases: Record<string, () => ReactNode> = {
       ]}
       value="week"
       onChange={() => {}}
+    />
+  ),
+
+  CodeBlock: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 600 }}>
+      <CodeBlock
+        code={`const greet = (name: string) => {\n  return \`Hello, \${name}!\`;\n};`}
+        language="typescript"
+        filename="greet.ts"
+        showLineNumbers
+        highlightLines={[2]}
+      />
+      <CodeBlock
+        code={'{ "name": "@gundo/ui", "version": "1.9.0" }'}
+        language="json"
+      />
+    </div>
+  ),
+
+  BrandHeader: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}>
+      <BrandHeader partner={{ name: 'Ametller Origen' }} />
+      <BrandHeader
+        partner={{ name: 'Datacenter' }}
+        variant="stacked"
+        tagline="B2B genie · health intelligence"
+      />
+      <BrandHeader partner={{ name: 'Consum' }} variant="minimal" size="sm" />
+    </div>
+  ),
+
+  FormField: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 360 }}>
+      <FormField label="Email" hint="We never share your email">
+        <Input placeholder="you@example.com" />
+      </FormField>
+      <FormField label="Password" error="Must be at least 8 characters">
+        <Input type="password" placeholder="••••••••" />
+      </FormField>
+    </div>
+  ),
+
+  DataTable: () => (
+    <DataTable<{ name: string; role: string; status: string }>
+      columns={[
+        { key: 'name', header: 'Name', render: (row) => row.name },
+        { key: 'role', header: 'Role', render: (row) => row.role },
+        { key: 'status', header: 'Status', render: (row) => row.status },
+      ]}
+      data={[
+        { name: 'Alice', role: 'Engineer', status: 'Active' },
+        { name: 'Bob', role: 'Designer', status: 'Away' },
+        { name: 'Charlie', role: 'Manager', status: 'Active' },
+      ]}
+      rowKey={(row) => row.name}
+    />
+  ),
+
+  MarkdownRenderer: () => (
+    <div style={{ maxWidth: 640 }}>
+      <MarkdownRenderer
+        content={`# Heading 1\n\n## Heading 2\n\nA paragraph with **bold**, *italic*, \`inline code\`, and a [link](https://gundo.life).\n\n- Bullet one\n- Bullet two\n\n> A blockquote with context.\n\n\`\`\`typescript\nconst x = 1;\n\`\`\``}
+      />
+    </div>
+  ),
+
+  Pagination: () => (
+    <Pagination page={3} totalPages={10} onPageChange={() => {}} />
+  ),
+
+  ProductCard: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, maxWidth: 640 }}>
+      <ProductCard
+        name="Avocado Hass"
+        price={3.49}
+        image=""
+        currency="EUR"
+        onAddToCart={() => {}}
+      />
+      <ProductCard
+        name="Salmon Fillet"
+        price={12.99}
+        image=""
+        currency="EUR"
+        originalPrice={15.99}
+        badge="Oferta"
+        onAddToCart={() => {}}
+      />
+    </div>
+  ),
+
+  MealCard: () => (
+    <MealCard
+      name="Bowl mediterráneo"
+      mealType="lunch"
+      calories={520}
+      macros={{ protein: 28, carbs: 60, fat: 18 }}
+      image=""
+      onCardClick={() => {}}
     />
   ),
 };

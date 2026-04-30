@@ -66,6 +66,8 @@ import {
   CommandPalette,
   Timeline,
   ChartTooltip,
+  CodeBlock,
+  BrandHeader,
 } from '../index';
 
 describe('Accessibility (axe)', () => {
@@ -446,6 +448,57 @@ describe('Accessibility (axe)', () => {
 
   it('ChartTooltip has no a11y violations', async () => {
     const { container } = render(<ChartTooltip>Tooltip content</ChartTooltip>);
+    await expectNoA11yViolations(container);
+  });
+
+  it('CodeBlock has no a11y violations', async () => {
+    const { container } = render(
+      <CodeBlock code="const x = 1;" language="typescript" filename="example.ts" />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('CodeBlock with line numbers + highlight has no a11y violations', async () => {
+    const { container } = render(
+      <CodeBlock
+        code={'a\nb\nc'}
+        language="plain"
+        showLineNumbers
+        highlightLines={[2]}
+      />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('BrandHeader text fallback has no a11y violations', async () => {
+    const { container } = render(
+      <BrandHeader partner={{ name: 'Ametller Origen' }} />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('BrandHeader with logo has no a11y violations', async () => {
+    const { container } = render(
+      <BrandHeader
+        partner={{
+          name: 'Ametller Origen',
+          logoUrl: 'https://example.com/ametller.svg',
+          href: 'https://ametller.cat',
+        }}
+        gundoHref="https://gundo.life"
+      />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('BrandHeader stacked variant with tagline has no a11y violations', async () => {
+    const { container } = render(
+      <BrandHeader
+        partner={{ name: 'Ametller Origen' }}
+        variant="stacked"
+        tagline="Salud activa cada día"
+      />,
+    );
     await expectNoA11yViolations(container);
   });
 });

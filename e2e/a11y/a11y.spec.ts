@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const components = [
+  // Tier 1 — primitive components, broad usage cross-product
   'Button',
   'Card',
   'AlertBanner',
@@ -24,6 +25,15 @@ const components = [
   'ThemeToggle',
   'CopyButton',
   'SegmentedControl',
+  // Tier 2 — Sprint 1.3 expansion: docs, forms, data, commerce, B2C
+  'CodeBlock',
+  'BrandHeader',
+  'FormField',
+  'DataTable',
+  'MarkdownRenderer',
+  'Pagination',
+  'ProductCard',
+  'MealCard',
 ];
 
 // Button: refactored — uses .ui-focus-ring CSS class (no Tailwind arbitrary
