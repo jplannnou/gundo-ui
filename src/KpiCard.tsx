@@ -51,7 +51,7 @@ export function KpiCard({
       ? 'var(--ui-success)'
       : trendObj.value < 0
         ? 'var(--ui-error)'
-        : 'var(--ui-text-muted)'
+        : 'var(--ui-text-secondary)'
     : undefined;
 
   const trendArrow = trendObj
@@ -69,7 +69,7 @@ export function KpiCard({
     <div className={`relative overflow-hidden rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-5 ${className}`}>
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-medium uppercase tracking-wider text-[var(--ui-text-muted)]">
+          <p className="text-sm font-medium text-[var(--ui-text-secondary)]">
             {heading}
           </p>
           <p className={`mt-2 text-2xl font-bold tabular-nums ${valClass}`}>
@@ -86,7 +86,7 @@ export function KpiCard({
                 </span>
               )}
               {subtitle && (
-                <span className="text-xs text-[var(--ui-text-muted)]">{subtitle}</span>
+                <span className="text-xs text-[var(--ui-text-secondary)]">{subtitle}</span>
               )}
             </div>
           )}

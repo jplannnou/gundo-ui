@@ -72,13 +72,13 @@ export function PricingCard({
 
       {/* Header */}
       <div className="mb-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--ui-text-muted)]">
+        <h3 className="text-sm font-semibold text-[var(--ui-text-secondary)]">
           {name}
         </h3>
         <div className="mt-2 flex items-end gap-1">
           <span className="text-4xl font-bold tabular-nums text-[var(--ui-text)]">{priceStr}</span>
           {typeof price === 'number' && price > 0 && (
-            <span className="mb-1 text-sm text-[var(--ui-text-muted)]">{period}</span>
+            <span className="mb-1 text-sm text-[var(--ui-text-secondary)]">{period}</span>
           )}
         </div>
         {description && (
@@ -131,7 +131,7 @@ export function PricingCard({
               )}
               <span
                 className={`text-sm ${
-                  feat.included ? 'text-[var(--ui-text-secondary)]' : 'text-[var(--ui-text-muted)] line-through'
+                  feat.included ? 'text-[var(--ui-text-secondary)]' : 'text-[var(--ui-text-secondary)] line-through opacity-60'
                 }`}
                 title={feat.tooltip}
               >

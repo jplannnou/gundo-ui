@@ -35,6 +35,8 @@ export function Avatar({ src, alt, initials, size = 'md', className = '' }: Avat
       <img
         src={src}
         alt={alt || ''}
+        loading="lazy"
+        decoding="async"
         className={`${sizeStyles[size]} rounded-full object-cover shrink-0 ${className}`}
       />
     );

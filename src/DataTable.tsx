@@ -126,7 +126,7 @@ export function DataTable<T>({
             {columns.map(col => (
               <th
                 key={col.key}
-                className={`px-4 py-2.5 font-medium text-[var(--ui-text-muted)] ${alignClass[col.align || 'left']} ${
+                className={`px-4 py-2.5 font-medium text-[var(--ui-text-secondary)] ${alignClass[col.align || 'left']} ${
                   col.sortable ? 'cursor-pointer select-none hover:text-[var(--ui-text)]' : ''
                 }`}
                 style={col.width ? { width: col.width } : undefined}
@@ -146,7 +146,7 @@ export function DataTable<T>({
         <tbody>
           {data.length === 0 ? (
             <tr>
-              <td colSpan={columns.length + (selectable ? 1 : 0)} className="px-4 py-12 text-center text-[var(--ui-text-muted)]">
+              <td colSpan={columns.length + (selectable ? 1 : 0)} className="px-4 py-12 text-center text-[var(--ui-text-secondary)]">
                 {emptyMessage}
               </td>
             </tr>
@@ -159,8 +159,20 @@ export function DataTable<T>({
                   key={key}
                   className={`border-b border-[var(--ui-border)]/50 transition-colors ${
                     selected ? 'bg-[var(--ui-primary-soft)]' : ''
-                  } ${onRowClick ? 'cursor-pointer hover:bg-[var(--ui-surface-hover)]' : ''}`}
+                  } ${onRowClick ? 'cursor-pointer hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--ui-focus-ring-color)]' : ''}`}
                   onClick={onRowClick ? () => onRowClick(row) : undefined}
+                  tabIndex={onRowClick ? 0 : undefined}
+                  role={onRowClick ? 'button' : undefined}
+                  onKeyDown={
+                    onRowClick
+                      ? (e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            onRowClick(row);
+                          }
+                        }
+                      : undefined
+                  }
                 >
                   {selectable && (
                     <td className="w-10 px-3 py-2" onClick={e => e.stopPropagation()}>

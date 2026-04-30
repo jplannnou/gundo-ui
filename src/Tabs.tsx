@@ -58,10 +58,10 @@ export function Tabs({ tabs, activeTab, onTabChange, className = '' }: TabsProps
             tabIndex={isActive ? 0 : -1}
             onClick={() => onTabChange(tab.id)}
             onKeyDown={e => handleKeyDown(e, index)}
-            className={`px-4 py-2 rounded-md transition-all text-sm font-medium whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
+            className={`px-4 py-2 rounded-md transition-colors duration-[var(--ui-duration-fast)] text-sm font-medium whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
               isActive
-                ? 'bg-[var(--ui-primary)] text-white font-semibold'
-                : 'text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'
+                ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)] font-semibold'
+                : 'text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'
             }`}
           >
             {tab.icon && <span className="mr-2" aria-hidden="true">{tab.icon}</span>}

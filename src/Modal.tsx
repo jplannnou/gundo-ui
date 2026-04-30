@@ -34,6 +34,10 @@ export function Modal({ open, onClose, title, children, size = 'md', className =
   useEffect(() => {
     if (!open) return;
     previousFocusRef.current = document.activeElement as HTMLElement;
+    // Lock body scroll while the modal is open. Preserves any inline value
+    // already set so we don't overwrite host-page customizations.
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     // Small delay to let AnimatePresence mount before focusing
     const raf = requestAnimationFrame(() => modalRef.current?.focus());
     const handler = (e: KeyboardEvent) => {
@@ -43,6 +47,7 @@ export function Modal({ open, onClose, title, children, size = 'md', className =
     return () => {
       cancelAnimationFrame(raf);
       document.removeEventListener('keydown', handler);
+      document.body.style.overflow = previousOverflow;
       previousFocusRef.current?.focus();
     };
   }, [open, onClose]);
@@ -58,7 +63,8 @@ export function Modal({ open, onClose, title, children, size = 'md', className =
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--ui-overlay)] backdrop-blur-sm"
+          className="fixed inset-0 flex items-center justify-center bg-[var(--ui-overlay)] backdrop-blur-sm"
+          style={{ zIndex: 'var(--ui-z-modal)' }}
           onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
           role="presentation"
         >

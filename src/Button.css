@@ -26,7 +26,7 @@
 .ui-btn-danger,
 .ui-btn-destructive {
   background-color: var(--ui-error);
-  color: #ffffff;
+  color: var(--ui-surface);
 }
 .ui-btn-danger:hover:not(:disabled),
 .ui-btn-destructive:hover:not(:disabled) {
