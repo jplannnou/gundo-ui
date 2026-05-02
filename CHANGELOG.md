@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/jplannnou/gundo-ui/compare/v1.9.0...v1.9.1) (2026-05-02)
+
+
+### Bug Fixes
+
+* **useCookieConsent:** replay persisted consent into Consent Mode v2 on mount ([3bbc473](https://github.com/jplannnou/gundo-ui/commit/3bbc473b119fda16f4bd2ed4e7501c38f942f9a4))
+
 # [1.9.0](https://github.com/jplannnou/gundo-ui/compare/v1.8.0...v1.9.0) (2026-04-30)
 
 
