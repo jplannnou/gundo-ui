@@ -151,8 +151,14 @@ export function useCookieConsent(options: CookieConsentOptions): UseCookieConsen
         setNeedsConsent(true);
         return;
       }
-      setPreferences(coerceRequired(parsed.preferences ?? {}, optionsRef.current.required));
+      const coerced = coerceRequired(parsed.preferences ?? {}, optionsRef.current.required);
+      setPreferences(coerced);
       setNeedsConsent(false);
+      // Replay the persisted choice into Consent Mode v2 so returning users
+      // don't stay stuck on the default-deny set by GtmConsentDefault. Without
+      // this, gtag stays at analytics_storage='denied' even though the user
+      // already accepted in a prior session and GA4 silently drops events.
+      emitConsentMode(coerced, optionsRef.current.consentModeMap);
     } catch {
       setNeedsConsent(true);
     }
