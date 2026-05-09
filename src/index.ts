@@ -197,6 +197,7 @@ export type {
   ExplainabilityProduct,
   ExplainabilityProductReason,
   ExplainabilityProductState,
+  ProductSuitability,
 } from './ProductCardWithExplainability';
 
 export { EmptyStateWithCTA } from './EmptyStateWithCTA';
