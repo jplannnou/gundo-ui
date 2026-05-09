@@ -33,6 +33,27 @@ export type ExplainabilityProductState =
   | 'incompatible'
   | 'neutral';
 
+/**
+ * Profile suitability surfacing — used by Gundo retail grids that already
+ * have per-user dimensional flags (genie-api `tagProduct` output). Shows
+ * a small pill below the product name plus an optional `+N` chip linking
+ * to the product's profiles tab. Both are independent of the matchScore
+ * ring above (the ring is the holistic view, the pill is the actionable
+ * count).
+ */
+export interface ProductSuitability {
+  /** Visible label, e.g. "1 alerta para tu perfil". Hidden when undefined. */
+  label?: string;
+  /** Tone of the pill. 'alert' = red, 'review' = amber, 'ok' = green. */
+  tone?: 'alert' | 'review' | 'ok';
+  /** When > 0 renders a +N chip after the pill area. */
+  extraProfilesCount?: number;
+  /** Pill click — typically opens an inline modal listing the issues. */
+  onPillClick?: () => void;
+  /** +N chip click — typically navigates to the profiles tab. */
+  onShowMore?: () => void;
+}
+
 export interface ProductCardWithExplainabilityProps {
   product: ExplainabilityProduct;
   /** Explicit state override. Auto-derived from matchScore if omitted. */
@@ -46,6 +67,13 @@ export interface ProductCardWithExplainabilityProps {
   isInCart?: boolean;
   /** Extra slot rendered below the main reason */
   footer?: ReactNode;
+  /**
+   * Per-user suitability surfacing (pill + optional +N chip). Pass when
+   * the consumer has computed alert/warning counts for the active user.
+   * Both the pill and the chip render only when their own props are
+   * present, so this object can be partially populated.
+   */
+  suitability?: ProductSuitability;
   className?: string;
 }
 
@@ -103,6 +131,7 @@ export function ProductCardWithExplainability({
   addToCartLabel = 'Añadir',
   isInCart = false,
   footer,
+  suitability,
   className = '',
 }: ProductCardWithExplainabilityProps) {
   const resolvedState = state ?? deriveState(product.matchScore);
@@ -165,6 +194,52 @@ export function ProductCardWithExplainability({
         <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-[var(--ui-text)]">
           {product.name}
         </h3>
+
+        {(suitability?.label || (suitability?.extraProfilesCount ?? 0) > 0) && (
+          <div className="flex flex-wrap items-center gap-1.5">
+            {suitability?.label && (
+              <button
+                type="button"
+                onClick={
+                  suitability.onPillClick
+                    ? (e) => {
+                        e.stopPropagation();
+                        suitability.onPillClick?.();
+                      }
+                    : undefined
+                }
+                disabled={!suitability.onPillClick}
+                className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium leading-tight transition-colors ${
+                  suitability.tone === 'alert'
+                    ? 'bg-[color-mix(in_srgb,var(--ui-error)_15%,transparent)] text-[var(--ui-error)] ring-1 ring-[color-mix(in_srgb,var(--ui-error)_30%,transparent)]'
+                    : suitability.tone === 'review'
+                      ? 'bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] text-[var(--ui-warning)] ring-1 ring-[color-mix(in_srgb,var(--ui-warning)_30%,transparent)]'
+                      : 'bg-[color-mix(in_srgb,var(--ui-success)_15%,transparent)] text-[var(--ui-success)] ring-1 ring-[color-mix(in_srgb,var(--ui-success)_30%,transparent)]'
+                } ${suitability.onPillClick ? 'cursor-pointer hover:brightness-110' : 'cursor-default'}`}
+              >
+                {suitability.label}
+              </button>
+            )}
+            {(suitability?.extraProfilesCount ?? 0) > 0 && (
+              <button
+                type="button"
+                onClick={
+                  suitability?.onShowMore
+                    ? (e) => {
+                        e.stopPropagation();
+                        suitability.onShowMore?.();
+                      }
+                    : undefined
+                }
+                disabled={!suitability?.onShowMore}
+                aria-label={`Ver ${suitability?.extraProfilesCount} perfiles más`}
+                className="inline-flex items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] px-2 py-0.5 text-[11px] font-semibold text-[var(--ui-warning)] ring-1 ring-[color-mix(in_srgb,var(--ui-warning)_30%,transparent)] transition-colors hover:brightness-110 disabled:cursor-default"
+              >
+                +{suitability?.extraProfilesCount}
+              </button>
+            )}
+          </div>
+        )}
 
         {mainReason && (
           <ExplainabilityBadge
