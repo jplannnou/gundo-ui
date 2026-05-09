@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/jplannnou/gundo-ui/compare/v1.9.1...v1.10.0) (2026-05-09)
+
+
+### Features
+
+* **ProductCardWithExplainability:** optional suitability pill + chip ([#16](https://github.com/jplannnou/gundo-ui/issues/16)) ([51fd0e8](https://github.com/jplannnou/gundo-ui/commit/51fd0e836e48ab2790af1d278425c3e8a468d6cf))
+
 ## [1.9.1](https://github.com/jplannnou/gundo-ui/compare/v1.9.0...v1.9.1) (2026-05-02)
 
 
