@@ -141,7 +141,7 @@ export function PricingCard({
               )}
               <span
                 className={`text-sm ${
-                  feat.included ? 'text-[var(--ui-text-secondary)]' : 'text-[var(--ui-text-secondary)] line-through opacity-60'
+                  feat.included ? 'text-[var(--ui-text-secondary)]' : 'text-[var(--ui-text-secondary)] line-through'
                 }`}
                 title={feat.tooltip}
               >
