@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/jplannnou/gundo-ui/compare/v1.10.0...v1.10.1) (2026-05-20)
+
+
+### Bug Fixes
+
+* **I18nProvider:** add querystring detection so ?lang=en URLs work ([#17](https://github.com/jplannnou/gundo-ui/issues/17)) ([15c9bd0](https://github.com/jplannnou/gundo-ui/commit/15c9bd0784c4a6693a93e1de92812e58fdf1692a))
+
 # [1.10.0](https://github.com/jplannnou/gundo-ui/compare/v1.9.1...v1.10.0) (2026-05-09)
 
 
