@@ -49,9 +49,10 @@ function buildInstance(props: Required<Pick<I18nProviderProps, 'lngs' | 'default
     interpolation: { escapeValue: false }, // React already escapes
     backend: { loadPath: props.loadPath },
     detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
+      order: ['querystring', 'localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
       lookupLocalStorage: 'i18nextLng',
+      lookupQuerystring: 'lang',
     },
     react: { useSuspense: false },
   };
