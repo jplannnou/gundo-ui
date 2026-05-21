@@ -110,8 +110,12 @@ export function MacroPill({
     : `${resolvedLabel}: ${valueText} ${resolvedUnit}`;
 
   return (
+    // role="img" + aria-label is the standard pattern for compact data pills:
+    // it gives screen readers a single accessible name ("proteína: 32 de 50 g")
+    // and prevents them from reading the visual fragments separately.
+    // Avoids role="text" which is non-standard / iOS-Safari-only.
     <span
-      role="text"
+      role="img"
       aria-label={ariaLabel}
       className={`inline-flex items-center rounded-full font-medium tabular-nums ${sizeCls} ${className}`}
       style={{
