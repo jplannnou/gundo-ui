@@ -32,7 +32,63 @@ export function ProductCardSkeleton({ className = '', ...rest }: HTMLAttributes<
 
 /* ─── MealCardSkeleton ───────────────────────────────────────────────── */
 
-export function MealCardSkeleton({ className = '', ...rest }: HTMLAttributes<HTMLDivElement>) {
+interface MealCardSkeletonProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * Layout variant — should mirror the corresponding `<MealCard variant>`
+   * so the loading state matches the eventual rendered card and doesn't
+   * cause a layout shift. Default 'horizontal' (the original behavior).
+   */
+  variant?: 'full' | 'compact' | 'horizontal';
+}
+
+export function MealCardSkeleton({
+  variant = 'horizontal',
+  className = '',
+  ...rest
+}: MealCardSkeletonProps) {
+  if (variant === 'full') {
+    return (
+      <div
+        aria-busy="true"
+        aria-label="Cargando comida"
+        className={`flex flex-col overflow-hidden rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] ${className}`}
+        {...rest}
+      >
+        <Skeleton className="aspect-[16/10] w-full" />
+        <div className="flex flex-col gap-2 p-4">
+          <Skeleton className="h-3 w-1/4" rounded="sm" />
+          <Skeleton className="h-5 w-3/4" rounded="sm" />
+          <Skeleton className="h-3 w-1/2" rounded="sm" />
+          <div className="mt-3 grid grid-cols-4 gap-2">
+            <Skeleton className="h-8" rounded="md" />
+            <Skeleton className="h-8" rounded="md" />
+            <Skeleton className="h-8" rounded="md" />
+            <Skeleton className="h-8" rounded="md" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (variant === 'compact') {
+    return (
+      <div
+        aria-busy="true"
+        aria-label="Cargando comida"
+        className={`flex flex-col gap-2 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-3 ${className}`}
+        {...rest}
+      >
+        <Skeleton className="h-3 w-1/3" rounded="sm" />
+        <Skeleton className="h-4 w-2/3" rounded="sm" />
+        <div className="mt-1 flex gap-2">
+          <Skeleton className="h-3 w-12" rounded="full" />
+          <Skeleton className="h-3 w-12" rounded="full" />
+        </div>
+      </div>
+    );
+  }
+
+  // horizontal — original layout, preserved for backward compatibility
   return (
     <div
       aria-busy="true"
