@@ -228,6 +228,33 @@ export type {
   RecipeReasonCategory,
 } from './RecipeReasoningPills';
 
+// ── Plan generation / live construction (Camino A) ──────────────────────
+export {
+  PLAN_COMPONENT_NAMES,
+  PLAN_COMPONENT_LABELS_ES,
+  PLAN_COMPONENT_LABELS_EN,
+  computeProgress,
+  getCurrentStep,
+} from './PlanTypes';
+export type {
+  PlanComponentName,
+  PlanComponentStatus,
+  PlanComponentStatusMap,
+  PlanGenerationProgress,
+} from './PlanTypes';
+
+export { PlanLoaderStep } from './PlanLoaderStep';
+export type { PlanLoaderStepProps } from './PlanLoaderStep';
+
+export { PlanLoaderProgress } from './PlanLoaderProgress';
+export type { PlanLoaderProgressProps } from './PlanLoaderProgress';
+
+export { PlanStatusBadge } from './PlanStatusBadge';
+export type { PlanStatusBadgeProps, PlanStatusVariant } from './PlanStatusBadge';
+
+export { MacroPill } from './MacroPill';
+export type { MacroPillProps, MacroKind } from './MacroPill';
+
 export { DataChip } from './DataChip';
 export type { DataChipProps, DataChipStatus } from './DataChip';
 
