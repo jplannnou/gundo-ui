@@ -267,6 +267,25 @@ export { FadeIn } from './motion/FadeIn';
 export { useReducedMotion } from './utils/useReducedMotion';
 export { useMediaQuery, useIsMobile } from './utils/useMediaQuery';
 
+// Communication widget-hub (chat + history + feedback slot)
+export { GundoWidget } from './widget/GundoWidget';
+export type { GundoWidgetProps, GundoWidgetSection } from './widget/GundoWidget';
+export { ChatSection } from './widget/ChatSection';
+export type { ChatSectionProps, ChatLabels } from './widget/ChatSection';
+export { ChatHistorySection } from './widget/ChatHistorySection';
+export type { ChatHistorySectionProps } from './widget/ChatHistorySection';
+export { ChatClient } from './widget/chat-client';
+export type {
+  ChatClientConfig,
+  ChatHealthContext,
+  SendMessageParams,
+  ChatStreamEvent,
+  ChatHistoryMessage,
+  ChatHistoryResponse,
+  ChatProductCard,
+  FoodAnalysis,
+} from './widget/chat-client';
+
 // i18n providers + formatting (peer-dep on i18next/react-i18next)
 export { I18nProvider, DocumentLanguage } from './I18nProvider';
 export type { I18nProviderProps } from './I18nProvider';
