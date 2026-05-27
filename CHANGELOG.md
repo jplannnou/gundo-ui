@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/jplannnou/gundo-ui/compare/v1.10.1...v1.11.0) (2026-05-27)
+
+
+### Features
+
+* **widget:** GundoWidget — floating communication hub (chat + history + feedback slot) ([#19](https://github.com/jplannnou/gundo-ui/issues/19)) ([2a9c0d7](https://github.com/jplannnou/gundo-ui/commit/2a9c0d74c3e099efd30c9606f40023a7875e6c0f))
+
 ## [1.10.1](https://github.com/jplannnou/gundo-ui/compare/v1.10.0...v1.10.1) (2026-05-20)
 
 
