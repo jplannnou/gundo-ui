@@ -61,7 +61,20 @@ export function GundoWidget({
     });
   };
 
-  // Focus trap + Esc + initial focus + focus restore on close
+  // Focus restore: when the panel closes (regardless of reason — Esc,
+  // bubble re-click, X button), put focus back on the bubble so keyboard
+  // users don't end up at the start of the document. The trap below only
+  // restored on Esc; clicking the X inside the panel left focus on a
+  // node that just unmounted.
+  const wasOpenRef = useRef(false);
+  useEffect(() => {
+    if (wasOpenRef.current && !open) {
+      bubbleRef.current?.focus();
+    }
+    wasOpenRef.current = open;
+  }, [open]);
+
+  // Focus trap + Esc + initial focus
   useEffect(() => {
     if (!open || !panelRef.current) return;
     const focusables = () =>
