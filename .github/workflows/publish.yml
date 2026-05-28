@@ -117,9 +117,24 @@ jobs:
           repository: ${{ matrix.repo }}
           token: ${{ secrets.RENOVATE_PAT }}
 
+      # Read consumer's pinned pnpm version. Each repo pins a specific
+      # pnpm in its `packageManager` field; running a different version
+      # mutates pnpm-lock.yaml in ways the consumer's CI rejects on the
+      # follow-up PR (e.g. gundo-plataform-ui pins 10.11.0, this workflow
+      # used to hardcode 10.30.1 → propagate PRs auto-failed CI).
+      # Fallback to 10.30.1 if the field is missing (most repos have it).
+      - name: Detect consumer pnpm version
+        id: pnpm-version
+        run: |
+          PKG="package.json"
+          if [ "${{ matrix.pkg_dir }}" != "." ]; then PKG="${{ matrix.pkg_dir }}/package.json"; fi
+          VER=$(node -p "(require('./'+'$PKG').packageManager || 'pnpm@10.30.1').replace(/^pnpm@/,'').split('+')[0]" 2>/dev/null || echo "10.30.1")
+          echo "version=$VER" >> "$GITHUB_OUTPUT"
+          echo "Using pnpm $VER for ${{ matrix.repo }}"
+
       - uses: pnpm/action-setup@v4
         with:
-          version: 10.30.1
+          version: ${{ steps.pnpm-version.outputs.version }}
 
       - uses: actions/setup-node@v4
         with:
