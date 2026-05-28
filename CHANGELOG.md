@@ -1,3 +1,10 @@
+## [1.11.3](https://github.com/jplannnou/gundo-ui/compare/v1.11.2...v1.11.3) (2026-05-28)
+
+
+### Bug Fixes
+
+* **widget+ci:** focus restore on close + auto-propagate pnpm version detection ([#22](https://github.com/jplannnou/gundo-ui/issues/22)) ([ddb14d9](https://github.com/jplannnou/gundo-ui/commit/ddb14d9049b1b14a104d4c4e994d1d259e576199))
+
 ## [1.11.2](https://github.com/jplannnou/gundo-ui/compare/v1.11.1...v1.11.2) (2026-05-28)
 
 
