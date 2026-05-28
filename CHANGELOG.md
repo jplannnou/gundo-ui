@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/jplannnou/gundo-ui/compare/v1.11.0...v1.11.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* **widget:** align tokens to theme + WCAG 2.1 AA a11y baseline ([#20](https://github.com/jplannnou/gundo-ui/issues/20)) ([877074a](https://github.com/jplannnou/gundo-ui/commit/877074add8b27eaf018e44225d73292222612c7a))
+
 # [1.11.0](https://github.com/jplannnou/gundo-ui/compare/v1.10.1...v1.11.0) (2026-05-27)
 
 
