@@ -69,7 +69,7 @@ export function GundoWidget({
         panelRef.current!.querySelectorAll<HTMLElement>(
           'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])',
         ),
-      ).filter((el) => !el.hasAttribute('aria-hidden'));
+      ).filter((el) => !el.hasAttribute('aria-hidden') && el.tabIndex !== -1);
 
     const first = focusables()[0];
     first?.focus();
@@ -157,6 +157,7 @@ export function GundoWidget({
             aria-modal="true"
             aria-label={productName}
             lang={locale}
+            data-gundo-widget="panel"
           >
             <div className="px-4 pt-3 pb-2 shrink-0 border-b border-[var(--ui-border)] bg-[var(--ui-surface)]">
               <div className="flex items-center justify-between mb-2">
