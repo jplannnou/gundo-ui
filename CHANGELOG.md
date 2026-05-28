@@ -1,3 +1,10 @@
+## [1.11.2](https://github.com/jplannnou/gundo-ui/compare/v1.11.1...v1.11.2) (2026-05-28)
+
+
+### Bug Fixes
+
+* **widget:** add data-gundo-widget hook + exclude tabIndex=-1 from focus trap ([#21](https://github.com/jplannnou/gundo-ui/issues/21)) ([f452505](https://github.com/jplannnou/gundo-ui/commit/f4525058ab036556d1dacacff59813ab76f82036))
+
 ## [1.11.1](https://github.com/jplannnou/gundo-ui/compare/v1.11.0...v1.11.1) (2026-05-28)
 
 
