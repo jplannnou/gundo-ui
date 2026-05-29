@@ -126,12 +126,22 @@ jobs:
       #   - If absent (legacy consumers), fall back to 10.30.1.
       # Replaces the hardcoded 10.30.1 that broke gundo-plataform-ui
       # (pins 10.11.0) and the 1st attempt that hit the conflict above.
-      - name: Resolve pnpm version source
+      # Tell pnpm/action-setup which package.json to read packageManager
+      # from. For most matrix entries pkg_dir != '.' (e.g. Engine's
+      # frontend/, Radar's client/), and packageManager lives there —
+      # not at the repo root. The default lookup at root would fail with
+      # "No pnpm version is specified" for those repos. PR #23 (v1.11.4)
+      # hit this on gundo-feedback (packageManager only in frontend/).
+      # Strategy: always set package_json_file to the matrix path; if
+      # that file has packageManager, pass empty version (auto-detect);
+      # otherwise fall back to 10.30.1.
+      - name: Resolve pnpm config
         id: pnpm-version
         run: |
           PKG="package.json"
           if [ "${{ matrix.pkg_dir }}" != "." ]; then PKG="${{ matrix.pkg_dir }}/package.json"; fi
           HAS_PM=$(node -p "!!require('./'+'$PKG').packageManager" 2>/dev/null || echo "false")
+          echo "pkg_file=$PKG" >> "$GITHUB_OUTPUT"
           if [ "$HAS_PM" = "true" ]; then
             echo "version=" >> "$GITHUB_OUTPUT"
             echo "Source: packageManager field in $PKG (auto-detect)"
@@ -143,6 +153,7 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: ${{ steps.pnpm-version.outputs.version }}
+          package_json_file: ${{ steps.pnpm-version.outputs.pkg_file }}
 
       - uses: actions/setup-node@v4
         with:
