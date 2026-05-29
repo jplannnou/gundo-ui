@@ -1,6 +1,6 @@
 {
   "name": "@jplannnou/gundo-ui",
-  "version": "1.11.4",
+  "version": "1.11.5",
   "packageManager": "pnpm@10.30.1",
   "type": "module",
   "main": "./dist/index.js",

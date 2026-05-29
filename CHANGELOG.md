@@ -1,3 +1,10 @@
+## [1.11.5](https://github.com/jplannnou/gundo-ui/compare/v1.11.4...v1.11.5) (2026-05-29)
+
+
+### Bug Fixes
+
+* **ci:** auto-propagate — point package_json_file at matrix.pkg_dir ([#24](https://github.com/jplannnou/gundo-ui/issues/24)) ([d3a2acf](https://github.com/jplannnou/gundo-ui/commit/d3a2acf01f2ba918bb3e893cc511a403c8f16aad)), closes [#23](https://github.com/jplannnou/gundo-ui/issues/23)
+
 ## [1.11.4](https://github.com/jplannnou/gundo-ui/compare/v1.11.3...v1.11.4) (2026-05-29)
 
 
