@@ -1,3 +1,10 @@
+## [1.11.4](https://github.com/jplannnou/gundo-ui/compare/v1.11.3...v1.11.4) (2026-05-29)
+
+
+### Bug Fixes
+
+* **ci:** auto-propagate — empty version when consumer has packageManager ([#23](https://github.com/jplannnou/gundo-ui/issues/23)) ([d5988ec](https://github.com/jplannnou/gundo-ui/commit/d5988ec14aab202d5bd5c78f985e7262120831d4)), closes [#22](https://github.com/jplannnou/gundo-ui/issues/22)
+
 ## [1.11.3](https://github.com/jplannnou/gundo-ui/compare/v1.11.2...v1.11.3) (2026-05-28)
 
 
