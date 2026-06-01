@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Camera, FileText, Paperclip, Send, X as XIcon } from 'lucide-react';
+import { ChatMarkdown } from './ChatMarkdown';
 import {
   ChatClient,
   type ChatProductCard,
@@ -280,7 +281,14 @@ export function ChatSection({
                       : 'bg-[var(--ui-surface)] border border-[var(--ui-border)] text-[var(--ui-text)] rounded-bl-sm'
                   }`}
                 >
-                  <p className="text-sm whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+                  {/* User messages are plain text (typed by the user, no markdown).
+                    * Assistant replies may contain Markdown (bold, lists, etc.); render
+                    * via ChatMarkdown so `**term**` etc. don't show as literal asterisks. */}
+                  {msg.role === 'user' ? (
+                    <p className="text-sm whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+                  ) : (
+                    <ChatMarkdown source={msg.content} className="text-sm" />
+                  )}
                   {msg.isStreaming && !msg.content && (
                     <div role="status" aria-label={labels.typing} className="flex gap-1.5 py-1">
                       {[0, 150, 300].map((d) => (
