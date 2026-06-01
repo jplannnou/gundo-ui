@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/jplannnou/gundo-ui/compare/v1.11.5...v1.12.0) (2026-06-01)
+
+
+### Features
+
+* **widget:** render Markdown in assistant chat replies ([#25](https://github.com/jplannnou/gundo-ui/issues/25)) ([6909302](https://github.com/jplannnou/gundo-ui/commit/690930281f82db8e5c45f257fd4c2226aaee9dd1)), closes [#23](https://github.com/jplannnou/gundo-ui/issues/23)
+
 ## [1.11.5](https://github.com/jplannnou/gundo-ui/compare/v1.11.4...v1.11.5) (2026-05-29)
 
 
