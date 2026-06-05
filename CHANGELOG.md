@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/jplannnou/gundo-ui/compare/v1.12.1...v1.12.2) (2026-06-05)
+
+
+### Bug Fixes
+
+* **e2e:** point finance smoke at the real deploy target (gundo-finance-app) ([#27](https://github.com/jplannnou/gundo-ui/issues/27)) ([3f26f1c](https://github.com/jplannnou/gundo-ui/commit/3f26f1c741d54684c05993d00d471ff3786a16ac))
+
 ## [1.12.1](https://github.com/jplannnou/gundo-ui/compare/v1.12.0...v1.12.1) (2026-06-05)
 
 
