@@ -47,7 +47,10 @@ export default defineConfig({
       testMatch: 'smoke.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: 'https://gundo-finance.web.app',
+        // The deploy target is the `gundo-finance-app` Hosting site, not the
+        // orphaned project-default `gundo-finance.web.app` (which serves a stale
+        // bundle and is never updated by deploys).
+        baseURL: 'https://gundo-finance-app.web.app',
       },
     },
     {
