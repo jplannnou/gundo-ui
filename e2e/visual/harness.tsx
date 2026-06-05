@@ -13,7 +13,11 @@ import {
   ThemeToggle, StatusDot, SegmentedControl, Skeleton, SkeletonText,
   Popover, CodeBlock, BrandHeader, FormField, DataTable, MarkdownRenderer,
   Pagination, ProductCard, MealCard,
+  FloatingActionButton, ImageGallery, InlineEdit, ScoreGauge, SparklineChart, MacrosDisplay,
 } from '../../src/index';
+import {
+  GundoLineChart, GundoAreaChart, GundoBarChart, GundoComposedChart, GundoPieChart,
+} from '../../src/charts';
 
 /* ─── Route-based component renderer ─────────────────────────────── */
 
@@ -342,7 +346,134 @@ const showcases: Record<string, () => ReactNode> = {
       onCardClick={() => {}}
     />
   ),
+
+  // ─── Data / chart components (T-SYS-1) ──────────────────────────────
+  // Rendered here so the a11y sweep measures the real component instead of
+  // the "not found" fallback. Chart axis/legend text contrast is tuned via
+  // chartThemeConfig (text-secondary, AA in both themes).
+  GundoLineChart: () => (
+    <div style={{ width: 480 }}>
+      <GundoLineChart
+        data={SAMPLE_SERIES}
+        xKey="month"
+        showGrid
+        showLegend
+        series={[
+          { key: 'glucose', label: 'Glucosa', color: 'primary' },
+          { key: 'target', label: 'Objetivo', color: 'info', dashed: true },
+        ]}
+      />
+    </div>
+  ),
+
+  GundoAreaChart: () => (
+    <div style={{ width: 480 }}>
+      <GundoAreaChart
+        data={SAMPLE_SERIES}
+        xKey="month"
+        showGrid
+        showLegend
+        series={[{ key: 'glucose', label: 'Glucosa', color: 'primary' }]}
+      />
+    </div>
+  ),
+
+  GundoBarChart: () => (
+    <div style={{ width: 480 }}>
+      <GundoBarChart
+        data={SAMPLE_SERIES}
+        xKey="month"
+        showGrid
+        showLegend
+        series={[
+          { key: 'glucose', label: 'Glucosa', color: 'primary' },
+          { key: 'target', label: 'Objetivo', color: 'secondary' },
+        ]}
+      />
+    </div>
+  ),
+
+  GundoComposedChart: () => (
+    <div style={{ width: 480 }}>
+      <GundoComposedChart
+        data={SAMPLE_SERIES}
+        xKey="month"
+        showGrid
+        showLegend
+        series={[
+          { key: 'glucose', label: 'Glucosa', color: 'primary', type: 'bar' },
+          { key: 'target', label: 'Objetivo', color: 'info', type: 'line' },
+        ]}
+      />
+    </div>
+  ),
+
+  GundoPieChart: () => (
+    <div style={{ width: 360 }}>
+      <GundoPieChart
+        showLegend
+        data={[
+          { name: 'Proteína', value: 28, color: 'primary' },
+          { name: 'Carbohidratos', value: 60, color: 'info' },
+          { name: 'Grasa', value: 18, color: 'warning' },
+        ]}
+      />
+    </div>
+  ),
+
+  ScoreGauge: () => (
+    <div style={{ display: 'flex', gap: 24 }}>
+      <ScoreGauge score={72} label="Salud" sublabel="Buen estado" />
+      <ScoreGauge score={34} label="Riesgo" variant="compact" />
+    </div>
+  ),
+
+  SparklineChart: () => (
+    <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+      <SparklineChart data={[3, 5, 4, 6, 7, 6, 8, 9]} width={120} height={32} fill showLastDot />
+    </div>
+  ),
+
+  MacrosDisplay: () => (
+    <div style={{ width: 420 }}>
+      <MacrosDisplay calories={520} protein={28} carbs={60} fat={18} fiber={9} variant="bars" />
+    </div>
+  ),
+
+  FloatingActionButton: () => (
+    <div style={{ position: 'relative', height: 120 }}>
+      <FloatingActionButton icon={<span aria-hidden>＋</span>} label="Agregar comida" fixed={false} />
+    </div>
+  ),
+
+  ImageGallery: () => (
+    <div style={{ width: 480 }}>
+      <ImageGallery
+        columns={3}
+        showCaptions
+        images={[
+          { id: '1', src: '', alt: 'Plato 1', caption: 'Desayuno' },
+          { id: '2', src: '', alt: 'Plato 2', caption: 'Almuerzo' },
+        ]}
+      />
+    </div>
+  ),
+
+  InlineEdit: () => (
+    <div style={{ width: 320 }}>
+      <InlineEdit value="Nombre del plan" onChange={() => {}} as="p" />
+    </div>
+  ),
 };
+
+/** Shared sample data for the chart showcases. */
+const SAMPLE_SERIES = [
+  { month: 'Ene', glucose: 95, target: 100 },
+  { month: 'Feb', glucose: 102, target: 100 },
+  { month: 'Mar', glucose: 98, target: 100 },
+  { month: 'Abr', glucose: 91, target: 100 },
+  { month: 'May', glucose: 88, target: 100 },
+];
 
 /* ─── App ─────────────────────────────────────────────────────────── */
 

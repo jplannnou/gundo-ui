@@ -1,3 +1,6 @@
 node_modules/
 dist/
 *.tsbuildinfo
+
+# a11y full sweep report (generated)
+e2e/a11y/a11y-full-report.json

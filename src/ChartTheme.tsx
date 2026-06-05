@@ -27,7 +27,11 @@ export const chartThemeConfig = {
   },
   axis: {
     tick: {
-      fill: 'var(--ui-text-muted)',
+      // text-secondary, NOT text-muted. Axis ticks are 12px (small text) so they
+      // need >=4.5:1. text-muted (#6b7280) is only 2.82:1 on the dark surface
+      // (theme.css flags it "large text only"); text-secondary (#9ca3af) is
+      // 5.38:1 dark / 6.84:1 light — passes AA for small text in both themes.
+      fill: 'var(--ui-text-secondary)',
       fontSize: 12,
       fontFamily: 'var(--ui-font-family)',
     },
