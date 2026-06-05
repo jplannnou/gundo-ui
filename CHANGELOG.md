@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/jplannnou/gundo-ui/compare/v1.12.0...v1.12.1) (2026-06-05)
+
+
+### Bug Fixes
+
+* **a11y:** genuine chart axis contrast + honest full a11y sweep (T-SYS-1) ([#26](https://github.com/jplannnou/gundo-ui/issues/26)) ([24c1cd0](https://github.com/jplannnou/gundo-ui/commit/24c1cd05aad2dacddd2e7dbee1ea7ee71eaadee5)), closes [#ef4444](https://github.com/jplannnou/gundo-ui/issues/ef4444) [#6b7280](https://github.com/jplannnou/gundo-ui/issues/6b7280) [#9ca3](https://github.com/jplannnou/gundo-ui/issues/9ca3)
+
 # [1.12.0](https://github.com/jplannnou/gundo-ui/compare/v1.11.5...v1.12.0) (2026-06-01)
 
 
