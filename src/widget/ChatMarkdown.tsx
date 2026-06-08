@@ -157,6 +157,18 @@ function tokenizeInline(text: string): ReactNode[] {
         </a>
       ),
     },
+    {
+      // Autolink — bare URLs the model emits without `[label](url)` wrapping.
+      // Must run LAST so explicit-markdown links above win when both apply.
+      // Trim a trailing `.,;)`-like punctuation outside the match so a URL at
+      // the end of a sentence doesn't swallow the period.
+      regex: /(?<![("'<>])(https?:\/\/[^\s<>()]+[^\s<>().,;:!?])/,
+      render: ([, url]) => (
+        <a href={url} target="_blank" rel="noopener noreferrer" className="underline">
+          {url}
+        </a>
+      ),
+    },
   ];
 
   // Find the earliest match across all patterns; recurse on remainder.
