@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useId, type ReactNode, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { MessageCircle, X, Clock, MessageSquarePlus } from 'lucide-react';
+import { MessageCircle, X, Clock, MessageSquarePlus, Maximize2 } from 'lucide-react';
 import { ChatClient, type ChatClientConfig, type ChatHealthContext } from './chat-client';
 import { ChatSection, type ChatLabels } from './ChatSection';
 import { ChatHistorySection } from './ChatHistorySection';
@@ -19,6 +19,15 @@ export interface GundoWidgetProps {
   badgeCount?: number;
   onEvent?: (event: string, payload?: Record<string, unknown>) => void;
   defaultOpen?: boolean;
+  /**
+   * If provided, renders a "↗ pantalla completa" button in the panel header that
+   * fires this callback. Typical use: navigate the consumer app to a dedicated
+   * full-screen chat route while keeping the bubble available everywhere else.
+   * The widget closes itself before firing the callback so the route transition
+   * is the only thing the user sees.
+   */
+  onFullScreen?: () => void;
+  fullScreenLabel?: string;
 }
 
 const TAB_LABELS: Record<GundoWidgetSection, string> = {
@@ -39,6 +48,8 @@ export function GundoWidget({
   badgeCount = 0,
   onEvent,
   defaultOpen = false,
+  onFullScreen,
+  fullScreenLabel = 'Pantalla completa',
 }: GundoWidgetProps) {
   const [open, setOpen] = useState(defaultOpen);
   const [section, setSection] = useState<GundoWidgetSection>('chat');
@@ -181,13 +192,29 @@ export function GundoWidget({
                   />
                   <span className="text-sm font-bold text-[var(--ui-text)]">{productName}</span>
                 </div>
-                <button
-                  onClick={toggle}
-                  aria-label="Cerrar"
-                  className="min-w-6 min-h-6 p-1.5 rounded text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
-                >
-                  <X className="w-4 h-4" aria-hidden="true" />
-                </button>
+                <div className="flex items-center gap-1">
+                  {onFullScreen && (
+                    <button
+                      onClick={() => {
+                        setOpen(false);
+                        onEvent?.('widget_fullscreen_requested', { section });
+                        onFullScreen();
+                      }}
+                      aria-label={fullScreenLabel}
+                      title={fullScreenLabel}
+                      className="min-w-6 min-h-6 p-1.5 rounded text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+                    >
+                      <Maximize2 className="w-4 h-4" aria-hidden="true" />
+                    </button>
+                  )}
+                  <button
+                    onClick={toggle}
+                    aria-label="Cerrar"
+                    className="min-w-6 min-h-6 p-1.5 rounded text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+                  >
+                    <X className="w-4 h-4" aria-hidden="true" />
+                  </button>
+                </div>
               </div>
               <div role="tablist" aria-label="Secciones del asistente" className="flex gap-1">
                 {sections.map((s, idx) => {
