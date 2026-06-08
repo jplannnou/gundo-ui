@@ -274,6 +274,7 @@ export { ChatSection } from './widget/ChatSection';
 export type { ChatSectionProps, ChatLabels } from './widget/ChatSection';
 export { ChatHistorySection } from './widget/ChatHistorySection';
 export type { ChatHistorySectionProps } from './widget/ChatHistorySection';
+export { ChatMarkdown } from './widget/ChatMarkdown';
 export { ChatClient } from './widget/chat-client';
 export type {
   ChatClientConfig,
