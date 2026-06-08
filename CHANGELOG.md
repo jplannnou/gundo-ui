@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/jplannnou/gundo-ui/compare/v1.12.2...v1.13.0) (2026-06-08)
+
+
+### Features
+
+* **ChatMarkdown:** autolink bare URLs + export from package root ([#28](https://github.com/jplannnou/gundo-ui/issues/28)) ([19614f3](https://github.com/jplannnou/gundo-ui/commit/19614f3cb155cdd5b7c770e64efbd6ccc2fe0450))
+
 ## [1.12.2](https://github.com/jplannnou/gundo-ui/compare/v1.12.1...v1.12.2) (2026-06-05)
 
 
