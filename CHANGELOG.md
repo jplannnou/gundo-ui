@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/jplannnou/gundo-ui/compare/v1.13.0...v1.14.0) (2026-06-08)
+
+
+### Features
+
+* **GundoWidget:** add onFullScreen prop + ↗ button ([#29](https://github.com/jplannnou/gundo-ui/issues/29)) ([c3fad4f](https://github.com/jplannnou/gundo-ui/commit/c3fad4f6380301eb51d76925e95eb5ef75c458c3))
+
 # [1.13.0](https://github.com/jplannnou/gundo-ui/compare/v1.12.2...v1.13.0) (2026-06-08)
 
 
