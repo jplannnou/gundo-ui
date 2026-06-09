@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/jplannnou/gundo-ui/compare/v1.14.0...v1.15.0) (2026-06-09)
+
+
+### Features
+
+* **widget:** bottomOffset prop to clear a host fixed bottom bar (BUG-010) ([#30](https://github.com/jplannnou/gundo-ui/issues/30)) ([be152ef](https://github.com/jplannnou/gundo-ui/commit/be152ef19ffa148379ef3f786393b3eaf65cc73d)), closes [#28](https://github.com/jplannnou/gundo-ui/issues/28)
+
 # [1.14.0](https://github.com/jplannnou/gundo-ui/compare/v1.13.0...v1.14.0) (2026-06-08)
 
 
