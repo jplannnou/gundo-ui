@@ -28,6 +28,13 @@ export interface GundoWidgetProps {
    */
   onFullScreen?: () => void;
   fullScreenLabel?: string;
+  /**
+   * Extra space (in px) to lift the floating bubble and panel above the
+   * bottom edge. Use it when the host app has a fixed bottom bar the default
+   * `bottom: 1.25rem` bubble would overlap (e.g. ecom's BottomBar tap targets).
+   * Defaults to 0 (the bubble sits at the default offset).
+   */
+  bottomOffset?: number;
 }
 
 const TAB_LABELS: Record<GundoWidgetSection, string> = {
@@ -50,7 +57,16 @@ export function GundoWidget({
   defaultOpen = false,
   onFullScreen,
   fullScreenLabel = 'Pantalla completa',
+  bottomOffset = 0,
 }: GundoWidgetProps) {
+  // When the host has a fixed bottom bar, lift the bubble/panel above it.
+  // Inline style overrides the default `bottom-5` / `bottom-24` utilities.
+  const bubbleBottomStyle =
+    bottomOffset > 0
+      ? { bottom: `calc(1.25rem + ${bottomOffset}px)` }
+      : undefined;
+  const panelBottomStyle =
+    bottomOffset > 0 ? { bottom: `calc(6rem + ${bottomOffset}px)` } : undefined;
   const [open, setOpen] = useState(defaultOpen);
   const [section, setSection] = useState<GundoWidgetSection>('chat');
   const [client] = useState(() => new ChatClient(api));
@@ -155,6 +171,7 @@ export function GundoWidget({
         aria-label={open ? 'Cerrar asistente' : `Abrir ${productName}`}
         aria-expanded={open}
         aria-haspopup="dialog"
+        style={bubbleBottomStyle}
         className="fixed bottom-5 right-5 z-[9998] w-14 h-14 rounded-full bg-[var(--ui-primary)] text-[var(--ui-surface)] shadow-lg flex items-center justify-center active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2"
       >
         {open ? <X className="w-6 h-6" aria-hidden="true" /> : <MessageCircle className="w-6 h-6" aria-hidden="true" />}
@@ -176,6 +193,7 @@ export function GundoWidget({
             animate={panelAnimate}
             exit={panelExit}
             transition={{ duration: panelDuration, ease: [0.16, 1, 0.3, 1] as const }}
+            style={panelBottomStyle}
             className="fixed bottom-24 right-5 z-[9998] w-[min(400px,calc(100vw-2.5rem))] h-[min(620px,calc(100vh-8rem))] rounded-2xl overflow-hidden border border-[var(--ui-border)] bg-[var(--ui-surface)] shadow-2xl flex flex-col"
             role="dialog"
             aria-modal="true"
