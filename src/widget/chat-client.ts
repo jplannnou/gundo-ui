@@ -17,6 +17,11 @@ export interface ChatProductCard {
   compatibilityScore?: number;
   healthRanking?: number;
   compatible: boolean;
+  /** Retail price — Engines older than 2026-06 don't send it; render only when present. */
+  price?: {
+    value: number;
+    currency: string;
+  };
   nutritionalInfo?: {
     kcal?: number;
     proteins?: number;
