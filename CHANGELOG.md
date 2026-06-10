@@ -1,3 +1,15 @@
+# [1.16.0](https://github.com/jplannnou/gundo-ui/compare/v1.15.0...v1.16.0) (2026-06-10)
+
+
+### Bug Fixes
+
+* **widget:** responsive debt — dvh, safe-area inset, 44px touch targets ([#31](https://github.com/jplannnou/gundo-ui/issues/31)) ([6c9b21a](https://github.com/jplannnou/gundo-ui/commit/6c9b21a37da512561ef6dbe38e0b2816b4b55b89))
+
+
+### Features
+
+* **chat-client:** activeShoppingContext field (host shopping snapshot) ([#32](https://github.com/jplannnou/gundo-ui/issues/32)) ([2671cf3](https://github.com/jplannnou/gundo-ui/commit/2671cf3878a03ee5438f348cd54dcbb66c485f05))
+
 # [1.15.0](https://github.com/jplannnou/gundo-ui/compare/v1.14.0...v1.15.0) (2026-06-09)
 
 
