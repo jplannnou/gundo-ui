@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/jplannnou/gundo-ui/compare/v1.16.0...v1.17.0) (2026-06-10)
+
+
+### Features
+
+* **widget:** show retail price on chat product cards ([#33](https://github.com/jplannnou/gundo-ui/issues/33)) ([dedaabf](https://github.com/jplannnou/gundo-ui/commit/dedaabfb290342e9005bdbd12ef7d0d2526da54d))
+
 # [1.16.0](https://github.com/jplannnou/gundo-ui/compare/v1.15.0...v1.16.0) (2026-06-10)
 
 
