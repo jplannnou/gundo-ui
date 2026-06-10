@@ -387,7 +387,7 @@ export function ChatSection({
             type="button"
             onClick={() => fileInputRef.current?.click()}
             aria-label={labels.attach}
-            className="w-10 h-10 rounded-xl bg-[var(--ui-surface)] border border-[var(--ui-border)] flex items-center justify-center text-[var(--ui-text-muted)] active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+            className="w-11 h-11 rounded-xl bg-[var(--ui-surface)] border border-[var(--ui-border)] flex items-center justify-center text-[var(--ui-text-muted)] active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
           >
             <Paperclip className="w-5 h-5" aria-hidden="true" />
           </button>
@@ -395,7 +395,7 @@ export function ChatSection({
             type="button"
             onClick={() => cameraInputRef.current?.click()}
             aria-label={labels.capture}
-            className="w-10 h-10 rounded-xl bg-[var(--ui-surface)] border border-[var(--ui-border)] flex items-center justify-center text-[var(--ui-text-muted)] active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+            className="w-11 h-11 rounded-xl bg-[var(--ui-surface)] border border-[var(--ui-border)] flex items-center justify-center text-[var(--ui-text-muted)] active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
           >
             <Camera className="w-5 h-5" aria-hidden="true" />
           </button>
@@ -412,7 +412,7 @@ export function ChatSection({
             type="submit"
             aria-label={labels.send}
             disabled={(!input.trim() && !pendingFiles.length) || isStreaming}
-            className="w-10 h-10 rounded-xl bg-[var(--ui-primary)] text-[var(--ui-surface)] flex items-center justify-center disabled:opacity-50 active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2"
+            className="w-11 h-11 rounded-xl bg-[var(--ui-primary)] text-[var(--ui-surface)] flex items-center justify-center disabled:opacity-50 active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2"
           >
             <Send className="w-4 h-4" aria-hidden="true" />
           </button>

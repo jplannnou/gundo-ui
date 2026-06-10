@@ -59,14 +59,16 @@ export function GundoWidget({
   fullScreenLabel = 'Pantalla completa',
   bottomOffset = 0,
 }: GundoWidgetProps) {
-  // When the host has a fixed bottom bar, lift the bubble/panel above it.
-  // Inline style overrides the default `bottom-5` / `bottom-24` utilities.
-  const bubbleBottomStyle =
-    bottomOffset > 0
-      ? { bottom: `calc(1.25rem + ${bottomOffset}px)` }
-      : undefined;
-  const panelBottomStyle =
-    bottomOffset > 0 ? { bottom: `calc(6rem + ${bottomOffset}px)` } : undefined;
+  // Bubble/panel bottom = base offset + iOS home-indicator inset + host
+  // bottom bar (bottomOffset). Always inline so the safe-area inset applies
+  // even without a host offset; overrides the `bottom-5` / `bottom-24`
+  // utility fallbacks.
+  const bubbleBottomStyle = {
+    bottom: `calc(1.25rem + env(safe-area-inset-bottom, 0px) + ${bottomOffset}px)`,
+  };
+  const panelBottomStyle = {
+    bottom: `calc(6rem + env(safe-area-inset-bottom, 0px) + ${bottomOffset}px)`,
+  };
   const [open, setOpen] = useState(defaultOpen);
   const [section, setSection] = useState<GundoWidgetSection>('chat');
   const [client] = useState(() => new ChatClient(api));
@@ -194,7 +196,7 @@ export function GundoWidget({
             exit={panelExit}
             transition={{ duration: panelDuration, ease: [0.16, 1, 0.3, 1] as const }}
             style={panelBottomStyle}
-            className="fixed bottom-24 right-5 z-[9998] w-[min(400px,calc(100vw-2.5rem))] h-[min(620px,calc(100vh-8rem))] rounded-2xl overflow-hidden border border-[var(--ui-border)] bg-[var(--ui-surface)] shadow-2xl flex flex-col"
+            className="fixed bottom-24 right-5 z-[9998] w-[min(400px,calc(100vw-2.5rem))] h-[min(620px,calc(100vh-8rem))] supports-[height:100dvh]:h-[min(620px,calc(100dvh-8rem))] rounded-2xl overflow-hidden border border-[var(--ui-border)] bg-[var(--ui-surface)] shadow-2xl flex flex-col"
             role="dialog"
             aria-modal="true"
             aria-label={productName}
@@ -220,7 +222,7 @@ export function GundoWidget({
                       }}
                       aria-label={fullScreenLabel}
                       title={fullScreenLabel}
-                      className="min-w-6 min-h-6 p-1.5 rounded text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+                      className="min-w-11 min-h-11 flex items-center justify-center rounded text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
                     >
                       <Maximize2 className="w-4 h-4" aria-hidden="true" />
                     </button>
@@ -228,7 +230,7 @@ export function GundoWidget({
                   <button
                     onClick={toggle}
                     aria-label="Cerrar"
-                    className="min-w-6 min-h-6 p-1.5 rounded text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+                    className="min-w-11 min-h-11 flex items-center justify-center rounded text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
                   >
                     <X className="w-4 h-4" aria-hidden="true" />
                   </button>
