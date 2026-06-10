@@ -68,6 +68,14 @@ export interface ChatSectionProps {
   labels?: Partial<ChatLabels>;
   locale?: string;
   onEvent?: (event: string, payload?: Record<string, unknown>) => void;
+  /**
+   * Message queued by the host (GundoWidget's `gundo-widget:open` event).
+   * Sent as the user's message once the history load settles, so the
+   * history hydration can't clobber the streamed reply. Nonce-keyed so the
+   * same text can be queued twice in a row.
+   */
+  queuedMessage?: { text: string; nonce: number } | null;
+  onQueuedMessageConsumed?: () => void;
 }
 
 export function ChatSection({
@@ -78,6 +86,8 @@ export function ChatSection({
   labels: labelsProp,
   locale = 'es',
   onEvent,
+  queuedMessage = null,
+  onQueuedMessageConsumed,
 }: ChatSectionProps) {
   const labels = { ...DEFAULT_LABELS, ...labelsProp };
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -233,6 +243,19 @@ export function ChatSection({
     },
     [isStreaming, healthContext, client, labels.errorMessage, onEvent],
   );
+
+  // Consume a host-queued message (PDP chip etc.) once the history load
+  // settled — sending earlier would race the history hydration, which
+  // REPLACES the message list and would clobber the streamed reply.
+  const consumedNonceRef = useRef<number | null>(null);
+  useEffect(() => {
+    if (!queuedMessage || !historyLoaded || isStreaming) return;
+    if (consumedNonceRef.current === queuedMessage.nonce) return;
+    consumedNonceRef.current = queuedMessage.nonce;
+    onQueuedMessageConsumed?.();
+    onEvent?.('chat_queued_message_sent');
+    void handleSend(queuedMessage.text);
+  }, [queuedMessage, historyLoaded, isStreaming, handleSend, onQueuedMessageConsumed, onEvent]);
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);

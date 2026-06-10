@@ -268,8 +268,8 @@ export { useReducedMotion } from './utils/useReducedMotion';
 export { useMediaQuery, useIsMobile } from './utils/useMediaQuery';
 
 // Communication widget-hub (chat + history + feedback slot)
-export { GundoWidget } from './widget/GundoWidget';
-export type { GundoWidgetProps, GundoWidgetSection } from './widget/GundoWidget';
+export { GundoWidget, GUNDO_WIDGET_OPEN_EVENT } from './widget/GundoWidget';
+export type { GundoWidgetProps, GundoWidgetSection, GundoWidgetOpenEventDetail } from './widget/GundoWidget';
 export { ChatSection } from './widget/ChatSection';
 export type { ChatSectionProps, ChatLabels } from './widget/ChatSection';
 export { ChatHistorySection } from './widget/ChatHistorySection';
