@@ -324,7 +324,7 @@ export function ChatSection({
                 </div>
 
                 {msg.productCards?.map((p) => (
-                  <ProductCardInline key={p.ean} product={p} labels={labels} />
+                  <ProductCardInline key={p.ean} product={p} labels={labels} locale={locale} />
                 ))}
                 {msg.foodAnalysis && <FoodAnalysisCard analysis={msg.foodAnalysis} labels={labels} />}
                 {msg.disclaimer && (
@@ -441,7 +441,24 @@ function compatibilityTokens(score: number) {
   return { text: 'text-[var(--ui-range-critical)]', bg: 'bg-[var(--ui-range-critical)]', soft: 'bg-[var(--ui-range-critical-soft)]' };
 }
 
-function ProductCardInline({ product, labels }: { product: ChatProductCard; labels: ChatLabels }) {
+function formatPrice(price: NonNullable<ChatProductCard['price']>, locale: string): string {
+  try {
+    return new Intl.NumberFormat(locale, { style: 'currency', currency: price.currency }).format(price.value);
+  } catch {
+    // Unknown/invalid currency code from the API — degrade to a plain number.
+    return `${price.value.toFixed(2)} ${price.currency}`;
+  }
+}
+
+function ProductCardInline({
+  product,
+  labels,
+  locale,
+}: {
+  product: ChatProductCard;
+  labels: ChatLabels;
+  locale: string;
+}) {
   const score = product.compatibilityScore ?? 0;
   const tokens = compatibilityTokens(score);
   return (
@@ -450,6 +467,11 @@ function ProductCardInline({ product, labels }: { product: ChatProductCard; labe
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold text-[var(--ui-text)] truncate">{product.name}</p>
           {product.brand && <p className="text-xs text-[var(--ui-text-secondary)]">{product.brand}</p>}
+          {product.price && typeof product.price.value === 'number' && (
+            <p className="text-xs font-semibold text-[var(--ui-text)] mt-0.5">
+              {formatPrice(product.price, locale)}
+            </p>
+          )}
         </div>
         <div className="text-right shrink-0">
           <span className={`text-lg font-bold ${tokens.text}`}>{score}</span>
