@@ -73,6 +73,13 @@ export interface ChatHealthContext {
   age?: number;
   medications?: string[];
   activePlanSummary?: string;
+  /**
+   * Short snapshot of the host's shopping state (current product / cart
+   * summary) so the assistant can answer "is THIS apt for me?" without the
+   * user re-describing the screen. Same inline-string pattern as
+   * activePlanSummary; keep it under ~600 chars.
+   */
+  activeShoppingContext?: string;
 }
 
 export interface SendMessageParams extends ChatHealthContext {
@@ -111,6 +118,8 @@ export class ChatClient {
     if (params.age) fd.append('age', String(params.age));
     if (params.medications?.length) params.medications.forEach((m) => fd.append('medications', m));
     if (params.activePlanSummary) fd.append('activePlanSummary', params.activePlanSummary);
+    if (params.activeShoppingContext)
+      fd.append('activeShoppingContext', params.activeShoppingContext);
     if (params.media?.length) params.media.forEach((file) => fd.append('media', file));
     return fd;
   }
