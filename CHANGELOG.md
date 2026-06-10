@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/jplannnou/gundo-ui/compare/v1.17.0...v1.18.0) (2026-06-10)
+
+
+### Features
+
+* **widget:** programmatic open event + hideLauncher ([#34](https://github.com/jplannnou/gundo-ui/issues/34)) ([b90fb4e](https://github.com/jplannnou/gundo-ui/commit/b90fb4e20545ea7ed023071f637af07c85d95e23))
+
 # [1.17.0](https://github.com/jplannnou/gundo-ui/compare/v1.16.0...v1.17.0) (2026-06-10)
 
 
