@@ -35,6 +35,29 @@ export interface GundoWidgetProps {
    * Defaults to 0 (the bubble sits at the default offset).
    */
   bottomOffset?: number;
+  /**
+   * Hide the floating launcher bubble. The panel can still be opened
+   * programmatically via the `gundo-widget:open` window event — use this on
+   * screens where the bubble would collide with fixed UI (e.g. a PDP with a
+   * sticky add-to-cart bar) but a contextual entry point should still be
+   * able to summon the chat.
+   */
+  hideLauncher?: boolean;
+}
+
+/**
+ * Programmatic open API. Host apps dispatch:
+ *   window.dispatchEvent(new CustomEvent('gundo-widget:open', {
+ *     detail: { message: '¿Este producto es apto para mí? …' },
+ *   }))
+ * The widget opens on the chat tab; if `detail.message` is present it is
+ * sent as the user's message once the chat history finishes loading.
+ */
+export const GUNDO_WIDGET_OPEN_EVENT = 'gundo-widget:open';
+
+export interface GundoWidgetOpenEventDetail {
+  /** Message to auto-send on open (rendered as the user's own message). */
+  message?: string;
 }
 
 const TAB_LABELS: Record<GundoWidgetSection, string> = {
@@ -58,6 +81,7 @@ export function GundoWidget({
   onFullScreen,
   fullScreenLabel = 'Pantalla completa',
   bottomOffset = 0,
+  hideLauncher = false,
 }: GundoWidgetProps) {
   // Bubble/panel bottom = base offset + iOS home-indicator inset + host
   // bottom bar (bottomOffset). Always inline so the safe-area inset applies
@@ -73,6 +97,10 @@ export function GundoWidget({
   const [section, setSection] = useState<GundoWidgetSection>('chat');
   const [client] = useState(() => new ChatClient(api));
   const [resumeSessionId, setResumeSessionId] = useState<string | null>(null);
+  // Message queued by a `gundo-widget:open` event, consumed by ChatSection
+  // once its history load settles. Nonce keyed so the same text can be
+  // queued twice (e.g. the user taps the PDP chip on two products).
+  const [queuedMessage, setQueuedMessage] = useState<{ text: string; nonce: number } | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const bubbleRef = useRef<HTMLButtonElement>(null);
   const reducedMotion = useReducedMotion();
@@ -89,6 +117,23 @@ export function GundoWidget({
       return next;
     });
   };
+
+  // Programmatic open: host apps (e.g. the ecom PDP "¿Es apto para mí?"
+  // chip) dispatch GUNDO_WIDGET_OPEN_EVENT to open the chat — optionally
+  // auto-sending a message — without needing a ref into this component.
+  useEffect(() => {
+    const onOpenEvent = (e: Event) => {
+      const detail = (e as CustomEvent<GundoWidgetOpenEventDetail>).detail;
+      setSection('chat');
+      setOpen(true);
+      onEvent?.('widget_opened', { section: 'chat', via: 'event' });
+      if (detail?.message) {
+        setQueuedMessage({ text: detail.message, nonce: Date.now() });
+      }
+    };
+    window.addEventListener(GUNDO_WIDGET_OPEN_EVENT, onOpenEvent);
+    return () => window.removeEventListener(GUNDO_WIDGET_OPEN_EVENT, onOpenEvent);
+  }, [onEvent]);
 
   // Focus restore: when the panel closes (regardless of reason — Esc,
   // bubble re-click, X button), put focus back on the bubble so keyboard
@@ -166,26 +211,28 @@ export function GundoWidget({
 
   return (
     <>
-      <button
-        ref={bubbleRef}
-        type="button"
-        onClick={toggle}
-        aria-label={open ? 'Cerrar asistente' : `Abrir ${productName}`}
-        aria-expanded={open}
-        aria-haspopup="dialog"
-        style={bubbleBottomStyle}
-        className="fixed bottom-5 right-5 z-[9998] w-14 h-14 rounded-full bg-[var(--ui-primary)] text-[var(--ui-surface)] shadow-lg flex items-center justify-center active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2"
-      >
-        {open ? <X className="w-6 h-6" aria-hidden="true" /> : <MessageCircle className="w-6 h-6" aria-hidden="true" />}
-        {!open && badgeCount > 0 && (
-          <span
-            aria-label={`${badgeCount} novedades`}
-            className="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-[var(--ui-error)] text-[var(--ui-surface)] text-[11px] font-bold flex items-center justify-center"
-          >
-            {badgeCount > 9 ? '9+' : badgeCount}
-          </span>
-        )}
-      </button>
+      {!hideLauncher && (
+        <button
+          ref={bubbleRef}
+          type="button"
+          onClick={toggle}
+          aria-label={open ? 'Cerrar asistente' : `Abrir ${productName}`}
+          aria-expanded={open}
+          aria-haspopup="dialog"
+          style={bubbleBottomStyle}
+          className="fixed bottom-5 right-5 z-[9998] w-14 h-14 rounded-full bg-[var(--ui-primary)] text-[var(--ui-surface)] shadow-lg flex items-center justify-center active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2"
+        >
+          {open ? <X className="w-6 h-6" aria-hidden="true" /> : <MessageCircle className="w-6 h-6" aria-hidden="true" />}
+          {!open && badgeCount > 0 && (
+            <span
+              aria-label={`${badgeCount} novedades`}
+              className="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-[var(--ui-error)] text-[var(--ui-surface)] text-[11px] font-bold flex items-center justify-center"
+            >
+              {badgeCount > 9 ? '9+' : badgeCount}
+            </span>
+          )}
+        </button>
+      )}
 
       <AnimatePresence>
         {open && (
@@ -285,6 +332,8 @@ export function GundoWidget({
                   labels={chatLabels}
                   locale={locale}
                   onEvent={onEvent}
+                  queuedMessage={queuedMessage}
+                  onQueuedMessageConsumed={() => setQueuedMessage(null)}
                 />
               )}
               {section === 'history' && (
