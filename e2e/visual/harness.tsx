@@ -14,6 +14,8 @@ import {
   Popover, CodeBlock, BrandHeader, FormField, DataTable, MarkdownRenderer,
   Pagination, ProductCard, MealCard,
   FloatingActionButton, ImageGallery, InlineEdit, ScoreGauge, SparklineChart, MacrosDisplay,
+  TourProvider, ExplainerFlow, WhyPanel, EmptyStateEducation, ProgressCelebration,
+  UnlockRing, PersonalizedLoader, FeatureHighlight,
 } from '../../src/index';
 import {
   GundoLineChart, GundoAreaChart, GundoBarChart, GundoComposedChart, GundoPieChart,
@@ -462,6 +464,179 @@ const showcases: Record<string, () => ReactNode> = {
   InlineEdit: () => (
     <div style={{ width: 320 }}>
       <InlineEdit value="Nombre del plan" onChange={() => {}} as="p" />
+    </div>
+  ),
+
+  // ─── GUNDO Learn — education/onboarding system ───────────────────────
+  GuidedTour: () => (
+    <TourProvider
+      isOpen
+      onComplete={() => {}}
+      onSkip={() => {}}
+      labels={{
+        next: 'Siguiente',
+        back: 'Atrás',
+        skip: 'Saltar',
+        done: 'Listo',
+        progress: (c, t) => `${c} de ${t}`,
+      }}
+      steps={[
+        {
+          target: '#tour-demo-target',
+          title: 'Tu panel de resultados',
+          body: 'Acá ves todos los parámetros desbloqueados con tus tests.',
+          placement: 'bottom',
+        },
+        {
+          target: '#tour-demo-secondary',
+          title: 'Subí un test',
+          body: 'Cada test nuevo desbloquea más personalización.',
+        },
+      ]}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24, maxWidth: 480 }}>
+        <div
+          id="tour-demo-target"
+          style={{ padding: 24, borderRadius: 12, border: '1px solid var(--ui-border)', background: 'var(--ui-surface-raised)' }}
+        >
+          Panel de resultados
+        </div>
+        <div
+          id="tour-demo-secondary"
+          style={{ padding: 24, borderRadius: 12, border: '1px solid var(--ui-border)', background: 'var(--ui-surface-raised)' }}
+        >
+          Subir test
+        </div>
+      </div>
+    </TourProvider>
+  ),
+
+  ExplainerFlow: () => (
+    <div style={{ maxWidth: 520 }}>
+      <ExplainerFlow
+        steps={[
+          {
+            kicker: 'Paso 1 · Tus datos',
+            title: 'Leemos tus tests reales',
+            body: 'Analítica de sangre, microbiota y nutrigenética.',
+            chips: ['Ferritina 28 ng/mL', 'Vitamina D baja'],
+          },
+          {
+            kicker: 'Paso 2 · Cruce',
+            title: 'Cruzamos con cada receta',
+            body: 'Cada ingrediente se evalúa contra tus señales.',
+          },
+          {
+            kicker: 'Paso 3 · Resultado',
+            title: 'Score personalizado',
+            body: 'Solo recomendamos con evidencia.',
+            chips: ['Match 87%'],
+          },
+        ]}
+        footer={<p style={{ margin: 0, fontSize: 14 }}>Cero datos inventados — todo sale de tus tests.</p>}
+      />
+    </div>
+  ),
+
+  WhyPanel: () => (
+    <div style={{ maxWidth: 480 }}>
+      <WhyPanel
+        ariaLabel="Por qué te recomendamos esto"
+        signals={[
+          {
+            source: 'blood',
+            label: 'Ferritina baja',
+            evidence: 'Ferritina 28 ng/mL (rango óptimo 50-150). Esta receta aporta hierro hemo.',
+            impact: 'caution',
+            action: { label: 'Ver mi analítica', onClick: () => {} },
+          },
+          {
+            source: 'goal',
+            label: 'Alineado con tu objetivo de energía',
+            impact: 'positive',
+          },
+          {
+            source: 'microbiota',
+            label: 'Fibra prebiótica para tu microbiota',
+            evidence: 'Tu diversidad bacteriana está en percentil 35 — la fibra fermentable ayuda.',
+            impact: 'positive',
+          },
+        ]}
+      />
+    </div>
+  ),
+
+  EmptyStateEducation: () => (
+    <div style={{ maxWidth: 480 }}>
+      <EmptyStateEducation>
+        <EmptyStateEducation.Illustration>
+          <span style={{ fontSize: 40 }} aria-hidden>🧬</span>
+        </EmptyStateEducation.Illustration>
+        <EmptyStateEducation.Title>Todavía no hay resultados</EmptyStateEducation.Title>
+        <EmptyStateEducation.Body>
+          Con tu primer test desbloqueás recomendaciones basadas en TU biología.
+        </EmptyStateEducation.Body>
+        <EmptyStateEducation.Steps>
+          <span>Subí tu analítica de sangre (foto o PDF)</span>
+          <span>La procesamos en menos de 2 minutos</span>
+          <span>Desbloqueás 24 parámetros personalizados</span>
+        </EmptyStateEducation.Steps>
+        <EmptyStateEducation.Action onClick={() => {}}>Subir mi primer test</EmptyStateEducation.Action>
+        <EmptyStateEducation.LearnMore onClick={() => {}}>¿Cómo usamos tus datos?</EmptyStateEducation.LearnMore>
+      </EmptyStateEducation>
+    </div>
+  ),
+
+  ProgressCelebration: () => (
+    <ProgressCelebration
+      icon="🎉"
+      message="¡Análisis completo!"
+      countUp={{ to: 24, prefix: '+', suffix: ' parámetros desbloqueados' }}
+      detail="Tu plan ahora usa tu analítica real."
+      intensity="celebrate"
+      duration={0}
+    />
+  ),
+
+  UnlockRing: () => (
+    <div style={{ display: 'flex', gap: 32, alignItems: 'flex-start' }}>
+      <UnlockRing value={12} max={48} label="Parámetros" size="md" />
+      <UnlockRing
+        value={2}
+        max={4}
+        label="Fuentes de datos"
+        size="lg"
+        segments={[
+          { label: 'Sangre', done: true },
+          { label: 'Orina', done: true },
+          { label: 'Microbiota', done: false },
+          { label: 'Nutrigenética', done: false },
+        ]}
+      />
+    </div>
+  ),
+
+  PersonalizedLoader: () => (
+    <PersonalizedLoader
+      phases={[
+        { icon: '🩸', label: 'Leyendo tu analítica' },
+        { icon: '🧬', label: 'Cruzando con tu genética' },
+        { icon: '🥗', label: 'Armando tu plan' },
+      ]}
+      messages={['Ferritina, vitamina D y 22 parámetros más', 'Comparando 4.500 productos']}
+    />
+  ),
+
+  FeatureHighlight: () => (
+    <div style={{ padding: 24 }}>
+      <FeatureHighlight badge="Nuevo" seen={false} onSeen={() => {}} dismissLabel="Marcar como visto">
+        <button
+          type="button"
+          style={{ padding: '12px 20px', borderRadius: 8, border: '1px solid var(--ui-border)', background: 'var(--ui-surface-raised)', color: 'var(--ui-text)', minHeight: 44 }}
+        >
+          Mis recetas
+        </button>
+      </FeatureHighlight>
     </div>
   ),
 };
