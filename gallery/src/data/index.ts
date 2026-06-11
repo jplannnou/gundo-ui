@@ -10,6 +10,7 @@ import { healthGroup } from './groups/health';
 import { profileGroup } from './groups/profile';
 import { chartsGroup } from './groups/charts';
 import { motionGroup } from './groups/motion';
+import { learnGroup } from './groups/learn';
 
 export type { ComponentDef, PropDef, ComponentGroup } from './types';
 
@@ -25,4 +26,5 @@ export const componentGroups: ComponentGroup[] = [
   { name: 'Profile & Contact', items: profileGroup },
   { name: 'Charts', items: chartsGroup },
   { name: 'Motion', items: motionGroup },
+  { name: 'Learn', items: learnGroup },
 ];

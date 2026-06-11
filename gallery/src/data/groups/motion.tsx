@@ -4,6 +4,11 @@ import {
   PageTransition,
   FadeIn,
   AnimatedOverlay,
+  RevealOnScroll,
+  AnimatedCounter,
+  TypeWriter,
+  PulseGlow,
+  FloatingElement,
 } from '../../../../src/index';
 
 /* ─── Stateful demo wrappers ──────────────────────────────────────────── */
@@ -93,6 +98,99 @@ function AnimatedOverlayDemo() {
   );
 }
 
+function RevealOnScrollDemo() {
+  const [key, setKey] = useState(0);
+
+  return (
+    <div className="flex flex-col gap-4" style={{ maxWidth: 400 }}>
+      <button
+        type="button"
+        onClick={() => setKey((k) => k + 1)}
+        className="self-start rounded-lg bg-[var(--ui-primary)] px-4 py-2 text-sm font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)]"
+      >
+        Reiniciar animacion
+      </button>
+      <div key={key} className="flex flex-col gap-3">
+        {(['up', 'left', 'right'] as const).map((dir, i) => (
+          <RevealOnScroll key={dir} direction={dir} delay={i * 0.12}>
+            <div className="rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] px-4 py-3">
+              <p className="text-sm text-[var(--ui-text)]">Reveal direction: {dir}</p>
+            </div>
+          </RevealOnScroll>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AnimatedCounterDemo() {
+  const [key, setKey] = useState(0);
+
+  return (
+    <div className="flex flex-col gap-4" style={{ maxWidth: 400 }}>
+      <button
+        type="button"
+        onClick={() => setKey((k) => k + 1)}
+        className="self-start rounded-lg bg-[var(--ui-primary)] px-4 py-2 text-sm font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)]"
+      >
+        Reiniciar animacion
+      </button>
+      <div key={key} className="flex gap-8">
+        <p className="text-2xl font-bold text-[var(--ui-text)]">
+          <AnimatedCounter to={4500} suffix=" productos" />
+        </p>
+        <p className="text-2xl font-bold text-[var(--ui-primary)]">
+          <AnimatedCounter to={24} prefix="+" suffix=" parámetros" />
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function TypeWriterDemo() {
+  const [key, setKey] = useState(0);
+
+  return (
+    <div className="flex flex-col gap-4" style={{ maxWidth: 400 }}>
+      <button
+        type="button"
+        onClick={() => setKey((k) => k + 1)}
+        className="self-start rounded-lg bg-[var(--ui-primary)] px-4 py-2 text-sm font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)]"
+      >
+        Reiniciar animacion
+      </button>
+      <p key={key} className="min-h-[24px] text-base text-[var(--ui-text)]">
+        <TypeWriter text="Tu plan se arma con TUS datos reales." speed={35} />
+      </p>
+    </div>
+  );
+}
+
+function PulseGlowDemo() {
+  return (
+    <PulseGlow className="max-w-sm rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)]">
+      <div className="p-8">
+        <p className="text-sm text-[var(--ui-text)]">
+          Mové el mouse sobre esta card — el glow sigue al cursor (desktop, sin reduced-motion).
+        </p>
+      </div>
+    </PulseGlow>
+  );
+}
+
+function FloatingElementDemo() {
+  return (
+    <div className="flex h-28 items-center gap-10 px-6">
+      <FloatingElement>
+        <span className="text-4xl" aria-hidden>🧬</span>
+      </FloatingElement>
+      <FloatingElement amplitude={12} duration={4} delay={0.5}>
+        <span className="text-4xl" aria-hidden>🥗</span>
+      </FloatingElement>
+    </div>
+  );
+}
+
 /* ─── Group ───────────────────────────────────────────────────────────── */
 
 export const motionGroup: ComponentDef[] = [
@@ -125,6 +223,66 @@ export const motionGroup: ComponentDef[] = [
     props: [
       { name: 'children', type: 'ReactNode', required: true, description: 'Overlay content (e.g. modal dialog)' },
       { name: 'onClick', type: '() => void', required: false, description: 'Callback when overlay backdrop is clicked' },
+    ],
+  },
+  {
+    name: 'RevealOnScroll',
+    description: 'Fade + slide + sutil scale al entrar en viewport (una vez). Port de las animations de Vida — nunca deja contenido invisible si el observer no dispara.',
+    file: 'motion/RevealOnScroll.tsx',
+    demo: RevealOnScrollDemo,
+    props: [
+      { name: 'children', type: 'ReactNode', required: true, description: 'Contenido a revelar' },
+      { name: 'direction', type: "'up' | 'down' | 'left' | 'right'", required: false, default: 'up', description: 'Dirección desde la que entra' },
+      { name: 'delay', type: 'number', required: false, default: '0', description: 'Delay en segundos' },
+      { name: 'duration', type: 'number', required: false, default: '0.4', description: 'Duración en segundos' },
+    ],
+  },
+  {
+    name: 'AnimatedCounter',
+    description: 'Número que cuenta hacia arriba con spring al entrar en viewport. Locale por prop (i18n-agnostic).',
+    file: 'motion/AnimatedCounter.tsx',
+    demo: AnimatedCounterDemo,
+    props: [
+      { name: 'to', type: 'number', required: true, description: 'Valor final' },
+      { name: 'prefix', type: 'string', required: false, description: 'Prefijo (ej. "+")' },
+      { name: 'suffix', type: 'string', required: false, description: 'Sufijo (ej. " productos")' },
+      { name: 'duration', type: 'number', required: false, default: '1.5', description: 'Duración aproximada en segundos' },
+      { name: 'locale', type: 'string', required: false, description: 'Locale BCP-47 para formateo (default: browser)' },
+      { name: 'formatValue', type: '(n: number) => string', required: false, description: 'Formateo custom (pisa locale)' },
+    ],
+  },
+  {
+    name: 'TypeWriter',
+    description: 'Texto tipeado caracter por caracter con caret. El texto completo siempre va a assistive tech via aria-label.',
+    file: 'motion/TypeWriter.tsx',
+    demo: TypeWriterDemo,
+    props: [
+      { name: 'text', type: 'string', required: true, description: 'Texto a tipear (copy del host)' },
+      { name: 'speed', type: 'number', required: false, default: '40', description: 'Milisegundos por caracter' },
+      { name: 'delay', type: 'number', required: false, default: '0', description: 'Delay inicial en ms' },
+      { name: 'onComplete', type: '() => void', required: false, description: 'Al terminar de tipear' },
+    ],
+  },
+  {
+    name: 'PulseGlow',
+    description: 'Glow radial que sigue al cursor en hover. Decorativo: deshabilitado en mobile y con reduced-motion.',
+    file: 'motion/PulseGlow.tsx',
+    demo: PulseGlowDemo,
+    props: [
+      { name: 'children', type: 'ReactNode', required: true, description: 'Contenido' },
+      { name: 'color', type: 'string', required: false, default: 'var(--ui-primary-soft)', description: 'Color del glow' },
+    ],
+  },
+  {
+    name: 'FloatingElement',
+    description: 'Flotación infinita suave (bob + micro-rotación) para elementos decorativos. Nunca para controles interactivos o texto de lectura.',
+    file: 'motion/FloatingElement.tsx',
+    demo: FloatingElementDemo,
+    props: [
+      { name: 'children', type: 'ReactNode', required: true, description: 'Elemento decorativo' },
+      { name: 'amplitude', type: 'number', required: false, default: '8', description: 'Distancia vertical en px' },
+      { name: 'duration', type: 'number', required: false, default: '3', description: 'Duración del ciclo en segundos' },
+      { name: 'delay', type: 'number', required: false, default: '0', description: 'Delay en segundos' },
     ],
   },
 ];
