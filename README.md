@@ -103,6 +103,77 @@ A built-in `.theme-light` class provides light-mode overrides. Apply with `<html
 ### Utility
 - **Accordion** / **AccordionItem** - Collapsible sections (`children`)
 
+## Learn system
+
+The GUNDO Learn system (`src/learn/`) is the shared education/onboarding layer
+for every GUNDO product. Philosophy:
+
+1. **Every data request explains what it unlocks** — asking for a blood test
+   shows the parameters and personalization the user gains (`UnlockRing`,
+   `EmptyStateEducation`), never a bare form.
+2. **Every result explains where it comes from and leads to an action** —
+   recommendations carry their signals (`WhyPanel`: source → evidence →
+   action), no black boxes and no invented data.
+
+Shared rules: all components honor `prefers-reduced-motion` (final state
+renders instantly), all copy enters via props (i18n-agnostic — the library
+ships no strings), touch targets are ≥44px, and colors come exclusively from
+`--ui-*` tokens.
+
+| Component | Use for |
+|---|---|
+| `TourProvider` / `TourStep` / `Spotlight` | First-run spotlight tour (max 4 steps; persistence delegated to the host) |
+| `ExplainerFlow` | "How it works" pages with numbered steps + real-signal chips |
+| `WhyPanel` | The unified "why" behind any recommendation (supersedes `RecipeReasoningPills` for new surfaces) |
+| `EmptyStateEducation` | Empty states that teach what the user unlocks (always requires an `.Action` — anti-dead-end) |
+| `ProgressCelebration` | Contained milestone celebration with particle burst + count-up |
+| `UnlockRing` | Progress framing of unlocked data/parameters (never debt framing) |
+| `PersonalizedLoader` | Long waits with storytelling phases + timeout exit (`errorState`) |
+| `FeatureHighlight` | "Nuevo"/"Tip" badge that pulses twice and stops |
+
+### WhyPanel example
+
+```tsx
+<WhyPanel
+  ariaLabel="Por qué te recomendamos esto"
+  signals={[
+    {
+      source: 'blood',
+      label: 'Ferritina baja',
+      evidence: 'Ferritina 28 ng/mL (rango óptimo 50-150). Esta receta aporta hierro hemo.',
+      impact: 'caution',
+      action: { label: 'Ver mi analítica', href: '/results/blood' },
+    },
+    { source: 'goal', label: 'Alineado con tu objetivo de energía', impact: 'positive' },
+  ]}
+/>
+```
+
+### GuidedTour example
+
+```tsx
+const [tourOpen, setTourOpen] = useState(() => !localStorage.getItem('tour-home-v1'));
+const dismiss = () => { localStorage.setItem('tour-home-v1', '1'); setTourOpen(false); };
+
+<TourProvider
+  isOpen={tourOpen}
+  onComplete={dismiss}
+  onSkip={dismiss}
+  labels={{ next: 'Siguiente', back: 'Atrás', skip: 'Saltar', done: 'Listo', progress: (c, t) => `${c} de ${t}` }}
+  steps={[
+    { target: resultsRef, title: 'Tus resultados', body: 'Todo lo que desbloqueaste con tus tests.' },
+    { target: '#upload-cta', title: 'Subí un test', body: 'Cada test desbloquea más personalización.' },
+  ]}
+>
+  {/* page content */}
+</TourProvider>
+```
+
+Motion primitives ported from Gundo Vida live in `src/motion/`:
+`RevealOnScroll`, `AnimatedCounter`, `TypeWriter`, `PulseGlow`,
+`FloatingElement` (plus the existing `FadeIn`, `PageTransition`,
+`AnimatedOverlay`).
+
 ## Consuming projects
 
 | Project | Path | Re-export |
