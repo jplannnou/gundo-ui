@@ -168,6 +168,10 @@
   --ui-duration-fast: 150ms;
   --ui-duration-normal: 200ms;
   --ui-duration-slow: 300ms;
+  /* Learn system — scroll reveals (ExplainerFlow, UnlockRing) */
+  --ui-duration-reveal: 400ms;
+  /* Learn system — attention pulses (FeatureHighlight badge) */
+  --ui-duration-highlight: 500ms;
   --ui-easing-in: cubic-bezier(0.4, 0, 1, 1);
   --ui-easing-out: cubic-bezier(0, 0, 0.2, 1);
   --ui-easing-in-out: cubic-bezier(0.4, 0, 0.2, 1);
@@ -176,6 +180,9 @@
   --ui-z-dropdown: 50;
   --ui-z-sticky: 100;
   --ui-z-overlay: 400;
+  /* Spotlight/GuidedTour sits above page overlays but below modals so a
+     host-triggered Modal can always interrupt an onboarding tour. */
+  --ui-z-spotlight: 450;
   --ui-z-modal: 500;
   --ui-z-command: 550;
   --ui-z-toast: 600;
