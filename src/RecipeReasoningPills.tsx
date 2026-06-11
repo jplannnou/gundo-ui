@@ -56,6 +56,12 @@ const order: RecipeReasonCategory[] = ['test', 'gene', 'microbiota', 'goal'];
 
 /* ─── RecipeReasoningPills ───────────────────────────────────────────── */
 
+/**
+ * @deprecated For NEW surfaces use `WhyPanel` (src/learn/WhyPanel.tsx) — the
+ * unified cross-product "why" contract (per-signal evidence + action, i18n-
+ * agnostic). This component stays untouched for existing recipe screens
+ * (category-tab UX + Spanish labels baked in); no breaking change planned.
+ */
 export function RecipeReasoningPills({
   reasons,
   defaultOpen,

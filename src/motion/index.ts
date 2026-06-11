@@ -1,3 +1,13 @@
 export { AnimatedOverlay } from './AnimatedOverlay';
 export { PageTransition } from './PageTransition';
 export { FadeIn } from './FadeIn';
+export { RevealOnScroll } from './RevealOnScroll';
+export type { RevealOnScrollProps } from './RevealOnScroll';
+export { AnimatedCounter } from './AnimatedCounter';
+export type { AnimatedCounterProps } from './AnimatedCounter';
+export { TypeWriter } from './TypeWriter';
+export type { TypeWriterProps } from './TypeWriter';
+export { PulseGlow } from './PulseGlow';
+export type { PulseGlowProps } from './PulseGlow';
+export { FloatingElement } from './FloatingElement';
+export type { FloatingElementProps } from './FloatingElement';

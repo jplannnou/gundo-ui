@@ -41,6 +41,23 @@ const components = [
   'MealCard',
 ];
 
+// Tier 3 — GUNDO Learn education/onboarding system (2026-06-11).
+// These are motion-driven (motion/react): axe can sample mid-fade and blend
+// the text color with the backdrop (false contrast fails like 1.09:1 on a
+// card still at opacity 0.04). All Learn components honor
+// prefers-reduced-motion by rendering their final state instantly, so we
+// emulate it for deterministic results.
+const learnComponents = [
+  'GuidedTour',
+  'ExplainerFlow',
+  'WhyPanel',
+  'EmptyStateEducation',
+  'ProgressCelebration',
+  'UnlockRing',
+  'PersonalizedLoader',
+  'FeatureHighlight',
+];
+
 // Button: refactored — uses .ui-focus-ring CSS class (no Tailwind arbitrary
 // values). Plus .ui-btn-danger uses #b91c1c/#ffffff (5.83:1, real AA pass,
 // no longer excluded).
@@ -66,6 +83,32 @@ for (const name of components) {
     });
 
     test('light theme a11y', async ({ page }) => {
+      await page.goto(`/#/${name}?theme=light`);
+      let builder = new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']);
+      if (contrastExclusions.includes(name)) {
+        builder = builder.disableRules(['color-contrast']);
+      }
+      const results = await builder.analyze();
+      expect(results.violations).toEqual([]);
+    });
+  });
+}
+
+for (const name of learnComponents) {
+  test.describe(name, () => {
+    test('dark theme a11y', async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await page.goto(`/#/${name}`);
+      let builder = new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']);
+      if (contrastExclusions.includes(name)) {
+        builder = builder.disableRules(['color-contrast']);
+      }
+      const results = await builder.analyze();
+      expect(results.violations).toEqual([]);
+    });
+
+    test('light theme a11y', async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.goto(`/#/${name}?theme=light`);
       let builder = new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']);
       if (contrastExclusions.includes(name)) {

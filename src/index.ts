@@ -264,6 +264,65 @@ export * from './icons';
 export { AnimatedOverlay } from './motion/AnimatedOverlay';
 export { PageTransition } from './motion/PageTransition';
 export { FadeIn } from './motion/FadeIn';
+export { RevealOnScroll } from './motion/RevealOnScroll';
+export type { RevealOnScrollProps } from './motion/RevealOnScroll';
+export { AnimatedCounter } from './motion/AnimatedCounter';
+export type { AnimatedCounterProps } from './motion/AnimatedCounter';
+export { TypeWriter } from './motion/TypeWriter';
+export type { TypeWriterProps } from './motion/TypeWriter';
+export { PulseGlow } from './motion/PulseGlow';
+export type { PulseGlowProps } from './motion/PulseGlow';
+export { FloatingElement } from './motion/FloatingElement';
+export type { FloatingElementProps } from './motion/FloatingElement';
+
+// ─── GUNDO Learn — education/onboarding system (2026-06-11) ──────────
+// Philosophy: every data request explains what it unlocks; every result
+// explains where it comes from and leads to an action.
+export { TourProvider, TourStep, Spotlight, useTour } from './learn/GuidedTour';
+export type {
+  TourProviderProps,
+  TourStepProps,
+  TourStepDef,
+  TourTarget,
+  GuidedTourLabels,
+  SpotlightProps,
+} from './learn/GuidedTour';
+
+export { ExplainerFlow } from './learn/ExplainerFlow';
+export type { ExplainerFlowProps, ExplainerStep } from './learn/ExplainerFlow';
+
+export { WhyPanel } from './learn/WhyPanel';
+export type {
+  WhyPanelProps,
+  WhySignal,
+  WhySignalSource,
+  WhySignalImpact,
+  WhySignalAction,
+} from './learn/WhyPanel';
+
+export { EmptyStateEducation } from './learn/EmptyStateEducation';
+export type {
+  EmptyStateEducationProps,
+  EmptyStateEducationStepsProps,
+  EmptyStateEducationActionProps,
+  EmptyStateEducationLearnMoreProps,
+} from './learn/EmptyStateEducation';
+
+export { ProgressCelebration } from './learn/ProgressCelebration';
+export type {
+  ProgressCelebrationProps,
+  ProgressCelebrationCountUp,
+  CelebrationIntensity,
+} from './learn/ProgressCelebration';
+
+export { UnlockRing } from './learn/UnlockRing';
+export type { UnlockRingProps, UnlockRingSegment, UnlockRingSize } from './learn/UnlockRing';
+
+export { PersonalizedLoader } from './learn/PersonalizedLoader';
+export type { PersonalizedLoaderProps, LoaderPhase } from './learn/PersonalizedLoader';
+
+export { FeatureHighlight } from './learn/FeatureHighlight';
+export type { FeatureHighlightProps } from './learn/FeatureHighlight';
 export { useReducedMotion } from './utils/useReducedMotion';
 export { useMediaQuery, useIsMobile } from './utils/useMediaQuery';
 
