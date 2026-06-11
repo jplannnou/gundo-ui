@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/jplannnou/gundo-ui/compare/v1.18.0...v1.19.0) (2026-06-11)
+
+
+### Features
+
+* **learn:** sistema GUNDO Learn — fundación (8 componentes + motion port + tokens) ([#35](https://github.com/jplannnou/gundo-ui/issues/35)) ([b1c270e](https://github.com/jplannnou/gundo-ui/commit/b1c270eeb6db5f089b45802ec7d317bdb4b277cf))
+
 # [1.18.0](https://github.com/jplannnou/gundo-ui/compare/v1.17.0...v1.18.0) (2026-06-10)
 
 
