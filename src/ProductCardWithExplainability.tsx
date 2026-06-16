@@ -25,6 +25,14 @@ export interface ExplainabilityProduct {
   reasons?: ExplainabilityProductReason[];
   /** Optional tags chip list */
   tags?: string[];
+  /**
+   * Weighable (variable-measure) extras — DISPLAY-ONLY. Compute with
+   * `getWeighableDisplay()`. `price` stays the integer-unit price; these add
+   * the "≈weight" + derived "€/kg" line + a chip. No weight selector.
+   */
+  weighableLabel?: string;
+  approxWeight?: string;
+  pricePerKgLabel?: string;
 }
 
 export type ExplainabilityProductState =
@@ -195,6 +203,12 @@ export function ProductCardWithExplainability({
           {product.name}
         </h3>
 
+        {product.weighableLabel && (
+          <span className="inline-flex w-fit items-center rounded-full bg-[var(--ui-surface-hover)] px-2 py-0.5 text-[10px] font-medium text-[var(--ui-text-secondary)]">
+            {product.weighableLabel}
+          </span>
+        )}
+
         {(suitability?.label || (suitability?.extraProfilesCount ?? 0) > 0) && (
           <div className="flex flex-wrap items-center gap-1.5">
             {suitability?.label && (
@@ -267,8 +281,15 @@ export function ProductCardWithExplainability({
         {footer}
 
         <div className="mt-auto flex items-center justify-between gap-2 pt-2">
-          <span className="text-base font-bold tabular-nums text-[var(--ui-text)]">
-            {formatPrice(product.price, product.currency)}
+          <span className="flex flex-col">
+            <span className="text-base font-bold tabular-nums text-[var(--ui-text)]">
+              {formatPrice(product.price, product.currency)}
+            </span>
+            {(product.approxWeight || product.pricePerKgLabel) && (
+              <span className="text-[10px] leading-tight text-[var(--ui-text-muted)] tabular-nums">
+                {[product.approxWeight, product.pricePerKgLabel].filter(Boolean).join(' · ')}
+              </span>
+            )}
           </span>
           {action ?? (
             <button

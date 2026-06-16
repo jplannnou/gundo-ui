@@ -11,6 +11,15 @@ export interface ProductCardProps {
   price?: number | string;
   originalPrice?: number | string;
   currency?: string;
+  /**
+   * Weighable (variable-measure) extras — DISPLAY-ONLY. Compute with
+   * `getWeighableDisplay()`. The product is still bought as an integer unit
+   * (the storefront cart rounds weight to 1 unit); `price` is the unit price,
+   * these add the "≈weight" + derived "€/kg" transparency line + a chip.
+   */
+  weighableLabel?: string;
+  approxWeight?: string;
+  pricePerKgLabel?: string;
   score?: number;
   tags?: string[];
   description?: string;
@@ -61,6 +70,9 @@ export function ProductCard({
   price,
   originalPrice,
   currency,
+  weighableLabel,
+  approxWeight,
+  pricePerKgLabel,
   score,
   tags = [],
   description,
@@ -168,6 +180,12 @@ export function ProductCard({
           {name}
         </h3>
 
+        {weighableLabel && (
+          <span className="inline-flex w-fit items-center rounded-full bg-[var(--ui-surface-hover)] px-2 py-0.5 text-[10px] font-medium text-[var(--ui-text-secondary)]">
+            {weighableLabel}
+          </span>
+        )}
+
         {!isCompact && description && (
           <p className="line-clamp-2 text-xs text-[var(--ui-text-secondary)]">{description}</p>
         )}
@@ -198,6 +216,11 @@ export function ProductCard({
             {originalPrice !== undefined && price !== originalPrice && (
               <span className="ml-1.5 text-xs text-[var(--ui-text-muted)] line-through tabular-nums">
                 {formatPrice(originalPrice, currency)}
+              </span>
+            )}
+            {(approxWeight || pricePerKgLabel) && (
+              <span className="mt-0.5 block text-[10px] leading-tight text-[var(--ui-text-muted)] tabular-nums">
+                {[approxWeight, pricePerKgLabel].filter(Boolean).join(' · ')}
               </span>
             )}
           </div>
