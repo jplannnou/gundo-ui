@@ -23,4 +23,15 @@ Object.defineProperty(window, 'matchMedia', {
 
 afterEach(() => {
   cleanup();
+  // Test isolation: ThemeProvider (and other components) persist to
+  // localStorage and mutate documentElement. Without resetting these between
+  // tests, persisted state leaks across cases and across files — e.g. a theme
+  // toggled to 'light' in one test made a later `defaultTheme="dark"` resolve
+  // to light. Reset both so every test starts from a clean slate.
+  try {
+    localStorage.clear();
+  } catch {
+    /* jsdom without localStorage — nothing to clear */
+  }
+  document.documentElement.classList.remove('theme-light');
 });

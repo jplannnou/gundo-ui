@@ -32,10 +32,10 @@ const DARK = {
   surface: '#292E37',
   text: '#F2F4F3',
   secondary: '#9ca3af',
-  muted: '#6b7280',
+  muted: '#828b98', // bumped from #6b7280 (2.8:1 fail even large) → 4.0:1 large-text pass
   primary: '#67C728',
   success: '#22c55e',
-  error: '#ef4444',
+  error: '#f87171', // bumped from #ef4444 (3.6:1 fail) → 4.9:1 AA pass
   warning: '#f59e0b',
   info: '#60a5fa', // bumped from #3b82f6 (3.6:1 fail) → 5.25:1 AA pass
 };
@@ -46,8 +46,8 @@ const LIGHT = {
   secondary: '#4b5563',
   muted: '#57606a',
   primary: '#08563E',
-  success: '#16a34a',
-  error: '#dc2626',
+  success: '#15803d', // bumped from #16a34a (3.0:1 fail) → 4.5:1 AA pass
+  error: '#b91c1c', // bumped from #dc2626 (4.4:1 fail) → 5.9:1 AA pass
   warning: '#92400e', // bumped from #d97706 (2.9:1 fail) → 6.4:1 AA pass
   info: '#2563eb',
 };
