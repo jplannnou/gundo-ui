@@ -300,4 +300,6 @@ export {
   formatList,
 } from './utils/formatLocale';
 export type { Locale } from './utils/formatLocale';
+export { isWeighableCode, getWeighableDisplay } from './utils/weighable';
+export type { WeighableDisplay, WeighableInput } from './utils/weighable';
 
