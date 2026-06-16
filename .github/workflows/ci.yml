@@ -1,0 +1,42 @@
+name: CI
+
+# Unit suite gate. The vitest suite was previously not run anywhere in CI
+# (only build/visual/a11y were), so tests could bit-rot unnoticed — e.g.
+# contrast.test.ts stopped running after a config change and ThemeToggle
+# regressed, both invisible until a manual run. This workflow makes the
+# unit suite a required signal on every PR + main push.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Typecheck & unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # No `version:` input — package.json pins `packageManager: pnpm@x`, and
+      # passing an explicit version alongside it trips pnpm/action-setup
+      # ("Multiple versions of pnpm specified"). Let the action read the pin.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Unit tests
+        run: pnpm test
