@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/jplannnou/gundo-ui/compare/v1.19.0...v1.20.0) (2026-06-16)
+
+
+### Features
+
+* **product:** weighable display (€/kg + ≈weight) for product cards ([#36](https://github.com/jplannnou/gundo-ui/issues/36)) ([7fc9e44](https://github.com/jplannnou/gundo-ui/commit/7fc9e443cc755e2988952ecf4dd9d2a0e23c6288))
+
 # [1.19.0](https://github.com/jplannnou/gundo-ui/compare/v1.18.0...v1.19.0) (2026-06-11)
 
 
