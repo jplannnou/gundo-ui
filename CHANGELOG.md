@@ -1,3 +1,10 @@
+## [1.20.1](https://github.com/jplannnou/gundo-ui/compare/v1.20.0...v1.20.1) (2026-06-16)
+
+
+### Bug Fixes
+
+* **a11y,test:** enable dormant *.test.ts suite, fix theme test isolation, raise failing semantic-color contrast to WCAG AA ([#37](https://github.com/jplannnou/gundo-ui/issues/37)) ([42fdbfb](https://github.com/jplannnou/gundo-ui/commit/42fdbfbd14e3dd19480c926d365d3bc862949fbc)), closes [#ef4444](https://github.com/jplannnou/gundo-ui/issues/ef4444) [#f87171](https://github.com/jplannnou/gundo-ui/issues/f87171) [#6b7280](https://github.com/jplannnou/gundo-ui/issues/6b7280) [#828b98](https://github.com/jplannnou/gundo-ui/issues/828b98) [#16a34](https://github.com/jplannnou/gundo-ui/issues/16a34) [#15803](https://github.com/jplannnou/gundo-ui/issues/15803) [#dc2626](https://github.com/jplannnou/gundo-ui/issues/dc2626) [#b91c1](https://github.com/jplannnou/gundo-ui/issues/b91c1)
+
 # [1.20.0](https://github.com/jplannnou/gundo-ui/compare/v1.19.0...v1.20.0) (2026-06-16)
 
 
