@@ -4,7 +4,7 @@ export { Avatar } from './Avatar';
 export { Badge } from './Badge';
 export { BrandThemeProvider } from './BrandThemeProvider';
 export type { BrandColors, BrandThemeProviderProps } from './BrandThemeProvider';
-export { getContrastRatio, ensureContrast } from './utils/contrast';
+export { getContrastRatio, ensureContrast, readableInkOn } from './utils/contrast';
 export { Breadcrumbs } from './Breadcrumbs';
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
@@ -75,6 +75,12 @@ export { SidebarUserCard } from './SidebarUserCard';
 export type { SidebarUserCardProps, SidebarUserCardUser } from './SidebarUserCard';
 export { VisuallyHidden } from './VisuallyHidden';
 export { Sheet } from './Sheet';
+export { AccountSheet } from './AccountSheet';
+export type {
+  AccountSheetProps,
+  AccountSheetUser,
+  AccountSheetItem,
+} from './AccountSheet';
 export { NumberInput } from './NumberInput';
 export { DatePicker } from './DatePicker';
 export { DateRangePicker } from './DateRangePicker';
@@ -230,6 +236,12 @@ export type {
 
 export { DataChip } from './DataChip';
 export type { DataChipProps, DataChipStatus } from './DataChip';
+
+export { DataSourceRow } from './DataSourceRow';
+export type { DataSourceRowProps, DataSourceStatus } from './DataSourceRow';
+
+export { MetricRow } from './MetricRow';
+export type { MetricRowProps, MetricStatus, MetricRange } from './MetricRow';
 
 export { NotificationCard } from './NotificationCard';
 export type {

@@ -49,3 +49,27 @@ export function ensureContrast(fg: string, bg: string, minRatio = 4.5): string {
   const blackRatio = getContrastRatio('#000000', bg);
   return whiteRatio >= blackRatio ? '#FFFFFF' : '#000000';
 }
+
+/** Default dark ink (Tailwind gray-800) used on light backgrounds. */
+const DARK_INK = '#1f2937';
+/** Luminance crossover where white vs black contrast flips for ink selection. */
+const INK_CROSSOVER = 0.179;
+
+/**
+ * Pick a WCAG-AA-safe text ink (dark on light backgrounds, white on dark) for an
+ * arbitrary background — needed for white-label retailer brand colors that vary at
+ * runtime. GUNDO's own primary green (#67C728) fails 1.93:1 against white, so a naive
+ * "always white text on brand" is inaccessible; this flips to dark ink when the brand
+ * background is light enough.
+ *
+ * @param backgroundColor - Background hex color (#rgb or #rrggbb)
+ * @param darkInk - Override for the dark ink (default Tailwind gray-800 `#1f2937`)
+ * @param lightInk - Override for the light ink (default `#ffffff`)
+ */
+export function readableInkOn(
+  backgroundColor: string,
+  darkInk: string = DARK_INK,
+  lightInk = '#ffffff',
+): string {
+  return relativeLuminance(...hexToRgb(backgroundColor)) > INK_CROSSOVER ? darkInk : lightInk;
+}
