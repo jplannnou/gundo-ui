@@ -1,3 +1,10 @@
+# [1.21.0](https://github.com/jplannnou/gundo-ui/compare/v1.20.1...v1.21.0) (2026-06-18)
+
+
+### Features
+
+* **ui:** add MetricRow, DataSourceRow, AccountSheet + readableInkOn ([#39](https://github.com/jplannnou/gundo-ui/issues/39)) ([d9e6b1f](https://github.com/jplannnou/gundo-ui/commit/d9e6b1f1801c8897342f8bcec48c483e44ff9ac1))
+
 ## [1.20.1](https://github.com/jplannnou/gundo-ui/compare/v1.20.0...v1.20.1) (2026-06-16)
 
 
