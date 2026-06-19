@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/jplannnou/gundo-ui/compare/v1.22.0...v1.23.0) (2026-06-19)
+
+
+### Features
+
+* **widget:** conditionDetails + dietaryStyles in ChatHealthContext ([#41](https://github.com/jplannnou/gundo-ui/issues/41)) ([474bc4e](https://github.com/jplannnou/gundo-ui/commit/474bc4e0a3683149f6b3d9b9f6a306feea420be3))
+
 # [1.22.0](https://github.com/jplannnou/gundo-ui/compare/v1.21.0...v1.22.0) (2026-06-19)
 
 
