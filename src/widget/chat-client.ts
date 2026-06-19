@@ -85,6 +85,18 @@ export interface ChatHealthContext {
    * activePlanSummary; keep it under ~600 chars.
    */
   activeShoppingContext?: string;
+
+  // ── Relaunch dimensions (onboarding contract §6e) — NET-NEW ──
+  /** Functional goals: energy/sleep/focus/immunity/digestion/skin/mood/longevity. */
+  functionalGoals?: string[];
+  /** Foods disliked by TASTE (not allergy). The bot avoids them but never as a danger. */
+  foodDislikes?: string[];
+  /** Preferred cuisine (mediterranean/latin/asian/global). */
+  cuisinePreference?: string;
+  /** Cultural/religious dietary style, first-class (halal/kosher). */
+  dietaryStyle?: string;
+  /** Spice tolerance (none/mild/medium/hot). */
+  spiceLevel?: string;
 }
 
 export interface SendMessageParams extends ChatHealthContext {
@@ -122,6 +134,13 @@ export class ChatClient {
     if (params.sex) fd.append('sex', params.sex);
     if (params.age) fd.append('age', String(params.age));
     if (params.medications?.length) params.medications.forEach((m) => fd.append('medications', m));
+    if (params.functionalGoals?.length)
+      params.functionalGoals.forEach((g) => fd.append('functionalGoals', g));
+    if (params.foodDislikes?.length)
+      params.foodDislikes.forEach((d) => fd.append('foodDislikes', d));
+    if (params.cuisinePreference) fd.append('cuisinePreference', params.cuisinePreference);
+    if (params.dietaryStyle) fd.append('dietaryStyle', params.dietaryStyle);
+    if (params.spiceLevel) fd.append('spiceLevel', params.spiceLevel);
     if (params.activePlanSummary) fd.append('activePlanSummary', params.activePlanSummary);
     if (params.activeShoppingContext)
       fd.append('activeShoppingContext', params.activeShoppingContext);
