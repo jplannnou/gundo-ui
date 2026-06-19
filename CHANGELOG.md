@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/jplannnou/gundo-ui/compare/v1.21.0...v1.22.0) (2026-06-19)
+
+
+### Features
+
+* **widget:** relaunch dimensions in ChatHealthContext (H6) ([#40](https://github.com/jplannnou/gundo-ui/issues/40)) ([bc9cffb](https://github.com/jplannnou/gundo-ui/commit/bc9cffb32cd7d352526f04fe0b69f846b4005e24))
+
 # [1.21.0](https://github.com/jplannnou/gundo-ui/compare/v1.20.1...v1.21.0) (2026-06-18)
 
 
