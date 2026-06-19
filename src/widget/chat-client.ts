@@ -95,8 +95,18 @@ export interface ChatHealthContext {
   cuisinePreference?: string;
   /** Cultural/religious dietary style, first-class (halal/kosher). */
   dietaryStyle?: string;
+  /** Cultural/religious dietary styles (halal/kosher) — real restriction, plural. */
+  dietaryStyles?: string[];
   /** Spice tolerance (none/mild/medium/hot). */
   spiceLevel?: string;
+  /**
+   * Granular clinical state per condition (onboarding follow-ups, from the
+   * user doc additionalInfo.conditionDetails): e.g. { ibdPhase: 'flare',
+   * dyslipidemiaPattern: 'veryHighTG', glp1Phase: 'titration' }. Lets the bot
+   * answer "can I eat X" without contradicting the plan gates. Serialized as
+   * JSON over multipart.
+   */
+  conditionDetails?: Record<string, string | number | boolean>;
 }
 
 export interface SendMessageParams extends ChatHealthContext {
@@ -140,7 +150,13 @@ export class ChatClient {
       params.foodDislikes.forEach((d) => fd.append('foodDislikes', d));
     if (params.cuisinePreference) fd.append('cuisinePreference', params.cuisinePreference);
     if (params.dietaryStyle) fd.append('dietaryStyle', params.dietaryStyle);
+    if (params.dietaryStyles?.length)
+      params.dietaryStyles.forEach((s) => fd.append('dietaryStyles', s));
     if (params.spiceLevel) fd.append('spiceLevel', params.spiceLevel);
+    // Nested object → JSON string (multipart can't form-encode objects). The
+    // Engine DTO parses it back defensively (malformed → ignored, never 400).
+    if (params.conditionDetails && Object.keys(params.conditionDetails).length)
+      fd.append('conditionDetails', JSON.stringify(params.conditionDetails));
     if (params.activePlanSummary) fd.append('activePlanSummary', params.activePlanSummary);
     if (params.activeShoppingContext)
       fd.append('activeShoppingContext', params.activeShoppingContext);
