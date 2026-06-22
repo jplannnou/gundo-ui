@@ -117,6 +117,15 @@ export interface ChatHealthContext {
   hasFamilyGroup?: boolean;
   /** Number of members in the family group (incl. the holder), if known. */
   familyMemberCount?: number;
+
+  /**
+   * Compact summary of the user's recent wellness check-in TRENDS (the host
+   * builds it from genie-api /check-in/insights). Lets the assistant route on
+   * how the user has been feeling — suggest a plan review on a sustained
+   * negative trend, or a nutritionist appointment on a recurring symptom. Keep
+   * it under ~600 chars; the Engine renders a dedicated context block.
+   */
+  checkInInsightsSummary?: string;
 }
 
 export interface SendMessageParams extends ChatHealthContext {
@@ -173,6 +182,8 @@ export class ChatClient {
     if (params.hasFamilyGroup) fd.append('hasFamilyGroup', 'true');
     if (typeof params.familyMemberCount === 'number')
       fd.append('familyMemberCount', String(params.familyMemberCount));
+    if (params.checkInInsightsSummary)
+      fd.append('checkInInsightsSummary', params.checkInInsightsSummary);
     if (params.media?.length) params.media.forEach((file) => fd.append('media', file));
     return fd;
   }
