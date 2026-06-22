@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/jplannnou/gundo-ui/compare/v1.23.0...v1.24.0) (2026-06-22)
+
+
+### Features
+
+* **widget:** forward family-group context to the chat (hasFamilyGroup, familyMemberCount) ([#46](https://github.com/jplannnou/gundo-ui/issues/46)) ([a216e05](https://github.com/jplannnou/gundo-ui/commit/a216e05b3935fff7670f8190e1a443e1d9869850)), closes [Gundo_Engine#154](https://github.com/Gundo_Engine/issues/154)
+
 # [1.23.0](https://github.com/jplannnou/gundo-ui/compare/v1.22.0...v1.23.0) (2026-06-19)
 
 
