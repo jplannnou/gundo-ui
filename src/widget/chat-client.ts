@@ -107,6 +107,16 @@ export interface ChatHealthContext {
    * JSON over multipart.
    */
   conditionDetails?: Record<string, string | number | boolean>;
+
+  /**
+   * Family group: the user shops for a household with several profiles. Lets the
+   * assistant offer/use per-member personalization (the scanner, recommendations
+   * and plan all personalize per member). The host sets these from its family
+   * state; the Engine renders a dedicated context block when present.
+   */
+  hasFamilyGroup?: boolean;
+  /** Number of members in the family group (incl. the holder), if known. */
+  familyMemberCount?: number;
 }
 
 export interface SendMessageParams extends ChatHealthContext {
@@ -160,6 +170,9 @@ export class ChatClient {
     if (params.activePlanSummary) fd.append('activePlanSummary', params.activePlanSummary);
     if (params.activeShoppingContext)
       fd.append('activeShoppingContext', params.activeShoppingContext);
+    if (params.hasFamilyGroup) fd.append('hasFamilyGroup', 'true');
+    if (typeof params.familyMemberCount === 'number')
+      fd.append('familyMemberCount', String(params.familyMemberCount));
     if (params.media?.length) params.media.forEach((file) => fd.append('media', file));
     return fd;
   }
