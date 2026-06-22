@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/jplannnou/gundo-ui/compare/v1.24.0...v1.25.0) (2026-06-22)
+
+
+### Features
+
+* **widget:** forward wellness check-in summary to the chat ([#47](https://github.com/jplannnou/gundo-ui/issues/47)) ([809fd85](https://github.com/jplannnou/gundo-ui/commit/809fd856aecbdb988cebbc90a33f527b8e39cd39)), closes [Gundo_Engine#155](https://github.com/Gundo_Engine/issues/155)
+
 # [1.24.0](https://github.com/jplannnou/gundo-ui/compare/v1.23.0...v1.24.0) (2026-06-22)
 
 
