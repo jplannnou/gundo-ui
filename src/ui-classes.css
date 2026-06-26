@@ -73,6 +73,7 @@
 .gu-h-text-text:hover{color:var(--ui-text)}
 .gu-rounded-radius-lg{border-radius:var(--ui-radius-lg)}
 .gu-rounded-radius-md{border-radius:var(--ui-radius-md)}
+.gu-rounded-radius-sm{border-radius:var(--ui-radius-sm)}
 .gu-rounded-radius-xl{border-radius:var(--ui-radius-xl)}
 .gu-shadow-shadow-lg{box-shadow:var(--ui-shadow-lg)}
 .gu-shadow-shadow-md{box-shadow:var(--ui-shadow-md)}
