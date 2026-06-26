@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/jplannnou/gundo-ui/compare/v1.25.0...v1.26.0) (2026-06-26)
+
+
+### Features
+
+* **camera:** add CameraView, BarcodeScannerView and useCamera ([#48](https://github.com/jplannnou/gundo-ui/issues/48)) ([40fd881](https://github.com/jplannnou/gundo-ui/commit/40fd881a4afe35472aa983b4ed37cd1399e27a8f))
+
 # [1.25.0](https://github.com/jplannnou/gundo-ui/compare/v1.24.0...v1.25.0) (2026-06-22)
 
 
