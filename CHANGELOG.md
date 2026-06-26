@@ -1,3 +1,10 @@
+## [1.27.1](https://github.com/jplannnou/gundo-ui/compare/v1.27.0...v1.27.1) (2026-06-26)
+
+
+### Bug Fixes
+
+* **camera:** align CameraView & BarcodeScannerView to gu-* classes ([#52](https://github.com/jplannnou/gundo-ui/issues/52)) ([5a6a880](https://github.com/jplannnou/gundo-ui/commit/5a6a88051eaffd6a2b4bc840e302ff769346d401)), closes [post-#49](https://github.com/post-/issues/49) [#50](https://github.com/jplannnou/gundo-ui/issues/50) [#48](https://github.com/jplannnou/gundo-ui/issues/48)
+
 # [1.27.0](https://github.com/jplannnou/gundo-ui/compare/v1.26.2...v1.27.0) (2026-06-26)
 
 
