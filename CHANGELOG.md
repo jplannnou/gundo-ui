@@ -1,3 +1,10 @@
+## [1.26.1](https://github.com/jplannnou/gundo-ui/compare/v1.26.0...v1.26.1) (2026-06-26)
+
+
+### Bug Fixes
+
+* **ui:** migrate arbitrary [var(--ui-*)] utilities to static gu-* CSS classes (resolves TD-004) ([b3e9aed](https://github.com/jplannnou/gundo-ui/commit/b3e9aed8b063d90530e8744a83753f132ff0771d))
+
 # [1.26.0](https://github.com/jplannnou/gundo-ui/compare/v1.25.0...v1.26.0) (2026-06-26)
 
 
