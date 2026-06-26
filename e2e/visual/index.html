@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Visual Test Harness</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <!-- Mirror Tailwind preflight: native form controls carry no UA background.
+       Without this the harness (no Tailwind plugin — TD-004) renders <button>
+       with buttonface #efefef, which axe flags as false contrast on
+       SegmentedControl/Pagination/GuidedTour/CopyButton. Components set their
+       own bg via gu-* classes, which win on specificity. -->
+  <style>button,input,select,textarea{background-color:transparent;color:inherit;font:inherit}</style>
 </head>
 <body style="margin: 0">
   <div id="root"></div>

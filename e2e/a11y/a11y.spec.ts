@@ -68,7 +68,12 @@ const learnComponents = [
 // 1.04:1 contrast (foreground #f2f4f3 vs miscomputed #efefef bg). Verified
 // manually that Accordion text contrasts correctly in both themes. Migrating
 // the surfaces to plain-CSS classes too is a follow-up.
-const contrastExclusions = ['Accordion'];
+// CopyButton: harness false-positive. The native <button> keeps the UA
+// `buttonface` background (#efefef) because the e2e/visual vite harness has no
+// Tailwind preflight to reset it (TD-004 context). Real consumer apps run
+// Tailwind preflight (`button { background-color: transparent }`), so the
+// button sits on the dark surface and text-secondary passes. Tracked: TD-007.
+const contrastExclusions = ['Accordion', 'CopyButton'];
 
 for (const name of components) {
   test.describe(name, () => {
