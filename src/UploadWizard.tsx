@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { useCallback, useRef, useState, type DragEvent, type ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -138,7 +139,7 @@ export function UploadWizard({
 
   return (
     <section
-      className={`mx-auto flex w-full max-w-2xl flex-col gap-5 rounded-2xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-5 md:p-6 ${className}`}
+      className={`mx-auto flex w-full max-w-2xl flex-col gap-5 rounded-2xl border gu-border-border gu-bg-surface p-5 md:p-6 ${className}`}
       aria-label="Subir analítica"
     >
       {/* Stepper */}
@@ -150,10 +151,10 @@ export function UploadWizard({
               <span
                 className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
                   state === 'done'
-                    ? 'bg-[var(--ui-success)] text-white'
+                    ? 'gu-bg-success text-white'
                     : state === 'active'
-                      ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)]'
-                      : 'bg-[var(--ui-surface-hover)] text-[var(--ui-text-muted)]'
+                      ? 'gu-bg-primary gu-text-surface'
+                      : 'gu-bg-surface-hover gu-text-text-muted'
                 }`}
                 aria-current={state === 'active' ? 'step' : undefined}
               >
@@ -161,13 +162,13 @@ export function UploadWizard({
               </span>
               <span
                 className={`text-xs font-medium ${
-                  state === 'upcoming' ? 'text-[var(--ui-text-muted)]' : 'text-[var(--ui-text)]'
+                  state === 'upcoming' ? 'gu-text-text-muted' : 'gu-text-text'
                 }`}
               >
                 {s.label}
               </span>
               {idx < steps.length - 1 && (
-                <span className="mx-1 hidden h-px flex-1 bg-[var(--ui-border)] sm:block" aria-hidden="true" />
+                <span className="mx-1 hidden h-px flex-1 gu-bg-border sm:block" aria-hidden="true" />
               )}
             </li>
           );
@@ -175,8 +176,8 @@ export function UploadWizard({
       </ol>
 
       {privacyBanner ?? (
-        <div className="flex items-start gap-2 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-3 text-xs text-[var(--ui-text-secondary)]">
-          <span aria-hidden="true" className="mt-0.5 text-[var(--ui-info)]">🔒</span>
+        <div className="flex items-start gap-2 rounded-xl border gu-border-border gu-bg-surface-raised p-3 text-xs gu-text-text-secondary">
+          <span aria-hidden="true" className="mt-0.5 gu-text-info">🔒</span>
           <p>
             Tus datos clínicos se guardan cifrados y no se comparten con terceros. OCR se corre del
             lado del servidor y sólo vos ves los resultados.
@@ -195,20 +196,20 @@ export function UploadWizard({
                 type="button"
                 onClick={() => setTestType(t)}
                 aria-pressed={selected}
-                className={`flex items-start gap-3 rounded-xl border p-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
+                className={`flex items-start gap-3 rounded-xl border p-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                   selected
-                    ? 'border-[var(--ui-primary)] bg-[var(--ui-primary-soft)]'
-                    : 'border-[var(--ui-border)] hover:border-[var(--ui-border-hover)]'
+                    ? 'gu-border-primary gu-bg-primary-soft'
+                    : 'gu-border-border gu-h-border-border-hover'
                 }`}
               >
                 <span className="text-2xl" aria-hidden="true">
                   {t === 'blood' ? '🩸' : '💧'}
                 </span>
                 <div>
-                  <p className="font-semibold text-[var(--ui-text)]">
+                  <p className="font-semibold gu-text-text">
                     {t === 'blood' ? 'Analítica de sangre' : 'Analítica de orina'}
                   </p>
-                  <p className="text-xs text-[var(--ui-text-secondary)]">
+                  <p className="text-xs gu-text-text-secondary">
                     {t === 'blood'
                       ? 'Hemograma, perfil lipídico, glucosa, etc.'
                       : 'Sedimento, pH, densidad, etc.'}
@@ -229,8 +230,8 @@ export function UploadWizard({
             onDrop={onDrop}
             className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-8 text-center transition-colors ${
               dragging
-                ? 'border-[var(--ui-primary)] bg-[var(--ui-primary-soft)]'
-                : 'border-[var(--ui-border)] bg-[var(--ui-surface-raised)] hover:border-[var(--ui-border-hover)]'
+                ? 'gu-border-primary gu-bg-primary-soft'
+                : 'gu-border-border gu-bg-surface-raised gu-h-border-border-hover'
             }`}
           >
             <input
@@ -244,14 +245,14 @@ export function UploadWizard({
               }}
             />
             <span className="text-3xl" aria-hidden="true">📄</span>
-            <p className="text-sm font-semibold text-[var(--ui-text)]">
+            <p className="text-sm font-semibold gu-text-text">
               Arrastrá tu PDF o imagen aquí
             </p>
-            <p className="text-xs text-[var(--ui-text-secondary)]">
+            <p className="text-xs gu-text-text-secondary">
               o tocá para elegir · máx {maxSizeMB} MB · {accept.includes('pdf') ? 'PDF + JPG/PNG' : 'JPG/PNG'}
             </p>
             {processing && (
-              <p className="mt-2 inline-flex items-center gap-2 text-xs font-medium text-[var(--ui-primary)]">
+              <p className="mt-2 inline-flex items-center gap-2 text-xs font-medium gu-text-primary">
                 <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <circle cx="12" cy="12" r="10" stroke="currentColor" strokeOpacity="0.25" strokeWidth="3" />
                   <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
@@ -264,7 +265,7 @@ export function UploadWizard({
           <button
             type="button"
             onClick={() => inputRef.current?.click()}
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--ui-border)] px-4 py-2 text-sm font-medium text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border gu-border-border px-4 py-2 text-sm font-medium gu-text-text gu-h-bg-surface-hover"
           >
             📷 Usar cámara
           </button>
@@ -272,13 +273,13 @@ export function UploadWizard({
             <button
               type="button"
               onClick={onManualFallback}
-              className="self-center text-xs font-medium text-[var(--ui-primary)] underline-offset-2 hover:underline"
+              className="self-center text-xs font-medium gu-text-primary underline-offset-2 hover:underline"
             >
               O ingresar manualmente
             </button>
           )}
           {error && (
-            <p role="alert" className="text-xs text-[var(--ui-error)]">
+            <p role="alert" className="text-xs gu-text-error">
               {error}
             </p>
           )}
@@ -288,20 +289,20 @@ export function UploadWizard({
       {step === 'review' && result && (
         <div className="flex flex-col gap-3">
           {file && (
-            <p className="text-xs text-[var(--ui-text-muted)]">
+            <p className="text-xs gu-text-text-muted">
               {file.name} · {formatBytes(file.size)}
               {result.testDate ? ` · Fecha test: ${result.testDate}` : ''}
             </p>
           )}
-          <div className="flex flex-col divide-y divide-[var(--ui-border)] overflow-hidden rounded-xl border border-[var(--ui-border)]">
+          <div className="flex flex-col divide-y divide-[var(--ui-border)] overflow-hidden rounded-xl border gu-border-border">
             {metrics.map((m) => {
               const edited = String(m.value) !== String(m.originalValue);
               return (
                 <div key={m.id} className="flex items-center gap-3 p-3">
                   <div className="flex-1">
-                    <p className="text-sm font-semibold text-[var(--ui-text)]">{m.label}</p>
+                    <p className="text-sm font-semibold gu-text-text">{m.label}</p>
                     {m.referenceRange && (
-                      <p className="text-[11px] text-[var(--ui-text-muted)]">
+                      <p className="text-[11px] gu-text-text-muted">
                         Rango: {m.referenceRange}
                       </p>
                     )}
@@ -312,19 +313,19 @@ export function UploadWizard({
                     onChange={(e) => editMetric(m.id, { value: e.target.value })}
                     className={`w-28 rounded-lg border px-2 py-1.5 text-right text-sm tabular-nums ${
                       edited
-                        ? 'border-[var(--ui-warning)] bg-[var(--ui-warning-soft)]'
-                        : 'border-[var(--ui-border)] bg-[var(--ui-surface-raised)]'
-                    } focus-visible:border-[var(--ui-primary)] focus-visible:outline-none`}
+                        ? 'gu-border-warning gu-bg-warning-soft'
+                        : 'gu-border-border gu-bg-surface-raised'
+                    } gu-fv-border-primary focus-visible:outline-none`}
                   />
-                  <span className="w-10 text-xs text-[var(--ui-text-muted)]">{m.unit ?? ''}</span>
+                  <span className="w-10 text-xs gu-text-text-muted">{m.unit ?? ''}</span>
                   {typeof m.confidence === 'number' && (
                     <span
                       className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
                         m.confidence >= 80
-                          ? 'bg-[var(--ui-success-soft)] text-[var(--ui-success)]'
+                          ? 'gu-bg-success-soft gu-text-success'
                           : m.confidence >= 60
-                            ? 'bg-[var(--ui-warning-soft)] text-[var(--ui-warning)]'
-                            : 'bg-[var(--ui-error-soft)] text-[var(--ui-error)]'
+                            ? 'gu-bg-warning-soft gu-text-warning'
+                            : 'gu-bg-error-soft gu-text-error'
                       }`}
                       title="Confianza OCR"
                     >
@@ -335,7 +336,7 @@ export function UploadWizard({
               );
             })}
           </div>
-          <p className="text-xs text-[var(--ui-text-muted)]">
+          <p className="text-xs gu-text-text-muted">
             Los valores en amarillo se editaron manualmente.
           </p>
         </div>
@@ -344,8 +345,8 @@ export function UploadWizard({
       {step === 'done' && (
         <div className="flex flex-col items-center gap-2 py-6 text-center">
           <span className="text-4xl" aria-hidden="true">✅</span>
-          <p className="text-lg font-bold text-[var(--ui-text)]">Analítica guardada</p>
-          <p className="text-sm text-[var(--ui-text-secondary)]">
+          <p className="text-lg font-bold gu-text-text">Analítica guardada</p>
+          <p className="text-sm gu-text-text-secondary">
             Estamos actualizando tu plan. Te avisamos cuando esté listo.
           </p>
         </div>
@@ -361,7 +362,7 @@ export function UploadWizard({
               else if (step === 'upload') setStep(forcedType ? 'upload' : 'type');
               else if (step === 'review') setStep('upload');
             }}
-            className="rounded-xl px-4 py-2 text-sm font-medium text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)]"
+            className="rounded-xl px-4 py-2 text-sm font-medium gu-text-text-secondary gu-h-bg-surface-hover"
           >
             {step === 'type' ? 'Cancelar' : 'Atrás'}
           </button>
@@ -370,7 +371,7 @@ export function UploadWizard({
               type="button"
               onClick={() => testType && setStep('upload')}
               disabled={!testType}
-              className="rounded-xl bg-[var(--ui-primary)] px-5 py-2.5 text-sm font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)] disabled:opacity-50"
+              className="rounded-xl gu-bg-primary px-5 py-2.5 text-sm font-semibold gu-text-surface transition-colors gu-h-bg-primary-hover disabled:opacity-50"
             >
               Siguiente
             </button>
@@ -379,7 +380,7 @@ export function UploadWizard({
             <button
               type="button"
               onClick={confirmReview}
-              className="rounded-xl bg-[var(--ui-primary)] px-5 py-2.5 text-sm font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)]"
+              className="rounded-xl gu-bg-primary px-5 py-2.5 text-sm font-semibold gu-text-surface transition-colors gu-h-bg-primary-hover"
             >
               Confirmar y guardar
             </button>

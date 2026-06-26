@@ -1,3 +1,4 @@
+import './ui-classes.css';
 type StatusDotStatus = 'success' | 'warning' | 'error' | 'info' | 'neutral';
 
 export interface StatusDotProps {
@@ -9,11 +10,11 @@ export interface StatusDotProps {
 }
 
 const statusColors: Record<StatusDotStatus, string> = {
-  success: 'bg-[var(--ui-success)]',
-  warning: 'bg-[var(--ui-warning)]',
-  error: 'bg-[var(--ui-error)]',
-  info: 'bg-[var(--ui-info)]',
-  neutral: 'bg-[var(--ui-text-muted)]',
+  success: 'gu-bg-success',
+  warning: 'gu-bg-warning',
+  error: 'gu-bg-error',
+  info: 'gu-bg-info',
+  neutral: 'gu-bg-text-muted',
 };
 
 const sizeClasses: Record<string, string> = {
@@ -32,7 +33,7 @@ export function StatusDot({
   return (
     <span className={`inline-flex items-center gap-1.5 ${className}`} role="status" aria-label={label || status}>
       <span className={`${sizeClasses[size]} rounded-full ${statusColors[status]} ${pulse ? 'animate-pulse' : ''}`} />
-      {label && <span className="text-xs text-[var(--ui-text-secondary)]">{label}</span>}
+      {label && <span className="text-xs gu-text-text-secondary">{label}</span>}
     </span>
   );
 }

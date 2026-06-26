@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useId, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import { Loader2 } from 'lucide-react';
 
@@ -55,7 +56,7 @@ export function CommentThread({
       {/* Comment list */}
       <div className="flex flex-col gap-3">
         {comments.length === 0 ? (
-          <p className="text-sm text-[var(--ui-text-muted)]">{emptyMessage}</p>
+          <p className="text-sm gu-text-text-muted">{emptyMessage}</p>
         ) : (
           comments.map((comment) => (
             <CommentItem
@@ -116,7 +117,7 @@ function CommentItem({ comment, onReply, onDelete, depth, maxDepth }: CommentIte
       : new Date(comment.createdAt).toLocaleDateString('es', { day: '2-digit', month: 'short', year: 'numeric' });
 
   return (
-    <div className={depth > 0 ? 'ml-8 border-l border-[var(--ui-border)] pl-4' : ''}>
+    <div className={depth > 0 ? 'ml-8 border-l gu-border-border pl-4' : ''}>
       <div className="flex gap-3">
         <AuthorAvatar
           name={comment.author.name}
@@ -126,20 +127,20 @@ function CommentItem({ comment, onReply, onDelete, depth, maxDepth }: CommentIte
         />
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-baseline gap-2">
-            <span className="text-sm font-semibold text-[var(--ui-text)]">{comment.author.name}</span>
+            <span className="text-sm font-semibold gu-text-text">{comment.author.name}</span>
             {comment.badge && (
-              <span className="rounded-full bg-[var(--ui-primary-soft)] px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[var(--ui-primary)]">
+              <span className="rounded-full gu-bg-primary-soft px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide gu-text-primary">
                 {comment.badge}
               </span>
             )}
             <time
               dateTime={String(comment.createdAt)}
-              className="text-xs text-[var(--ui-text-muted)]"
+              className="text-xs gu-text-text-muted"
             >
               {dateStr}
             </time>
           </div>
-          <p className="mt-0.5 text-sm text-[var(--ui-text-secondary)] whitespace-pre-line">
+          <p className="mt-0.5 text-sm gu-text-text-secondary whitespace-pre-line">
             {comment.content}
           </p>
 
@@ -149,7 +150,7 @@ function CommentItem({ comment, onReply, onDelete, depth, maxDepth }: CommentIte
               <button
                 type="button"
                 onClick={() => setShowReply((v) => !v)}
-                className="text-xs text-[var(--ui-text-muted)] transition-colors hover:text-[var(--ui-primary)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ui-primary)] rounded"
+                className="text-xs gu-text-text-muted transition-colors gu-h-text-primary focus-visible:outline-none focus-visible:ring-1 gu-fv-ring-primary rounded"
               >
                 Responder
               </button>
@@ -159,7 +160,7 @@ function CommentItem({ comment, onReply, onDelete, depth, maxDepth }: CommentIte
                 type="button"
                 onClick={() => onDelete(comment.id)}
                 aria-label={`Eliminar comentario de ${comment.author.name}`}
-                className="text-xs text-[var(--ui-text-muted)] transition-colors hover:text-[var(--ui-error)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ui-error)] rounded"
+                className="text-xs gu-text-text-muted transition-colors gu-h-text-error focus-visible:outline-none focus-visible:ring-1 gu-fv-ring-error rounded"
               >
                 Eliminar
               </button>
@@ -240,7 +241,7 @@ function CommentComposer({
       )}
       <div className="flex-1 flex flex-col gap-2">
         {addon}
-        <div className="overflow-hidden rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-hover)] focus-within:border-[var(--ui-primary)] focus-within:ring-1 focus-within:ring-[var(--ui-primary)] transition-colors">
+        <div className="overflow-hidden rounded-lg border gu-border-border gu-bg-surface-hover gu-fw-border-primary focus-within:ring-1 gu-fw-ring-primary transition-colors">
           <label htmlFor={textareaId} className="sr-only">
             {placeholder}
           </label>
@@ -251,13 +252,13 @@ function CommentComposer({
             onChange={(e) => setValue(e.target.value)}
             placeholder={placeholder}
             rows={compact ? 2 : 3}
-            className="block w-full resize-none bg-transparent px-3 py-2 text-sm text-[var(--ui-text)] placeholder:text-[var(--ui-text-muted)] outline-none"
+            className="block w-full resize-none bg-transparent px-3 py-2 text-sm gu-text-text placeholder:text-[var(--ui-text-muted)] outline-none"
           />
-          <div className="flex items-center justify-end border-t border-[var(--ui-border)] px-3 py-2">
+          <div className="flex items-center justify-end border-t gu-border-border px-3 py-2">
             <button
               type="submit"
               disabled={!value.trim() || loading}
-              className="flex items-center gap-2 rounded-lg bg-[var(--ui-primary)] px-3 py-1.5 text-xs font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg gu-bg-primary px-3 py-1.5 text-xs font-semibold gu-text-surface transition-colors gu-h-bg-primary-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading && (
                 <Loader2 className="h-3 w-3 animate-spin" aria-hidden="true" />
@@ -295,7 +296,7 @@ function AuthorAvatar({ name, avatar, initials, size = 'md' }: AuthorAvatarProps
 
   return (
     <div
-      className={`${dim} shrink-0 rounded-full bg-[var(--ui-primary-soft)] text-[var(--ui-primary)] flex items-center justify-center overflow-hidden ${text} font-semibold`}
+      className={`${dim} shrink-0 rounded-full gu-bg-primary-soft gu-text-primary flex items-center justify-center overflow-hidden ${text} font-semibold`}
       aria-hidden="true"
     >
       {avatar ? (

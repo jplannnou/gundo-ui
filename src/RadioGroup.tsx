@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useRef, useCallback, type KeyboardEvent } from 'react';
 
 export interface RadioGroupOption {
@@ -94,25 +95,25 @@ export function RadioGroup({
             tabIndex={isSelected ? 0 : -1}
             onClick={() => !isDisabled && onChange(opt.value)}
             onKeyDown={e => handleKeyDown(e, index)}
-            className={`flex items-start gap-2.5 text-left rounded-lg px-1 py-0.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] disabled:opacity-40 disabled:cursor-not-allowed`}
+            className={`flex items-start gap-2.5 text-left rounded-lg px-1 py-0.5 transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface disabled:opacity-40 disabled:cursor-not-allowed`}
           >
             <span
               className={`${dotSize} shrink-0 mt-0.5 rounded-full border-2 flex items-center justify-center transition-colors ${
                 isSelected
-                  ? 'border-[var(--ui-primary)] bg-[var(--ui-primary)]'
-                  : 'border-[var(--ui-border-hover)] bg-transparent'
+                  ? 'gu-border-primary gu-bg-primary'
+                  : 'gu-border-border-hover bg-transparent'
               }`}
             >
               {isSelected && (
-                <span className={`${innerDot} rounded-full bg-[var(--ui-surface)]`} />
+                <span className={`${innerDot} rounded-full gu-bg-surface`} />
               )}
             </span>
             <span className="flex flex-col">
-              <span className={`${textSize} font-medium text-[var(--ui-text)]`}>
+              <span className={`${textSize} font-medium gu-text-text`}>
                 {opt.label}
               </span>
               {opt.description && (
-                <span className={`${size === 'sm' ? 'text-[0.65rem]' : 'text-xs'} text-[var(--ui-text-muted)] mt-0.5`}>
+                <span className={`${size === 'sm' ? 'text-[0.65rem]' : 'text-xs'} gu-text-text-muted mt-0.5`}>
                   {opt.description}
                 </span>
               )}

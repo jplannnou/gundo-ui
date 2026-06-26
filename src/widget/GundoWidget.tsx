@@ -1,3 +1,4 @@
+import '../ui-classes.css';
 import { useState, useRef, useEffect, useId, type ReactNode, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { MessageCircle, X, Clock, MessageSquarePlus, Maximize2 } from 'lucide-react';
@@ -220,13 +221,13 @@ export function GundoWidget({
           aria-expanded={open}
           aria-haspopup="dialog"
           style={bubbleBottomStyle}
-          className="fixed bottom-5 right-5 z-[9998] w-14 h-14 rounded-full bg-[var(--ui-primary)] text-[var(--ui-surface)] shadow-lg flex items-center justify-center active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2"
+          className="fixed bottom-5 right-5 z-[9998] w-14 h-14 rounded-full gu-bg-primary gu-text-surface shadow-lg flex items-center justify-center active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary focus-visible:ring-offset-2"
         >
           {open ? <X className="w-6 h-6" aria-hidden="true" /> : <MessageCircle className="w-6 h-6" aria-hidden="true" />}
           {!open && badgeCount > 0 && (
             <span
               aria-label={`${badgeCount} novedades`}
-              className="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-[var(--ui-error)] text-[var(--ui-surface)] text-[11px] font-bold flex items-center justify-center"
+              className="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full gu-bg-error gu-text-surface text-[11px] font-bold flex items-center justify-center"
             >
               {badgeCount > 9 ? '9+' : badgeCount}
             </span>
@@ -243,21 +244,21 @@ export function GundoWidget({
             exit={panelExit}
             transition={{ duration: panelDuration, ease: [0.16, 1, 0.3, 1] as const }}
             style={panelBottomStyle}
-            className="fixed bottom-24 right-5 z-[9998] w-[min(400px,calc(100vw-2.5rem))] h-[min(620px,calc(100vh-8rem))] supports-[height:100dvh]:h-[min(620px,calc(100dvh-8rem))] rounded-2xl overflow-hidden border border-[var(--ui-border)] bg-[var(--ui-surface)] shadow-2xl flex flex-col"
+            className="fixed bottom-24 right-5 z-[9998] w-[min(400px,calc(100vw-2.5rem))] h-[min(620px,calc(100vh-8rem))] supports-[height:100dvh]:h-[min(620px,calc(100dvh-8rem))] rounded-2xl overflow-hidden border gu-border-border gu-bg-surface shadow-2xl flex flex-col"
             role="dialog"
             aria-modal="true"
             aria-label={productName}
             lang={locale}
             data-gundo-widget="panel"
           >
-            <div className="px-4 pt-3 pb-2 shrink-0 border-b border-[var(--ui-border)] bg-[var(--ui-surface)]">
+            <div className="px-4 pt-3 pb-2 shrink-0 border-b gu-border-border gu-bg-surface">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <span
                     aria-hidden="true"
-                    className="w-2 h-2 rounded-full bg-[var(--ui-success)]"
+                    className="w-2 h-2 rounded-full gu-bg-success"
                   />
-                  <span className="text-sm font-bold text-[var(--ui-text)]">{productName}</span>
+                  <span className="text-sm font-bold gu-text-text">{productName}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   {onFullScreen && (
@@ -269,7 +270,7 @@ export function GundoWidget({
                       }}
                       aria-label={fullScreenLabel}
                       title={fullScreenLabel}
-                      className="min-w-11 min-h-11 flex items-center justify-center rounded text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+                      className="min-w-11 min-h-11 flex items-center justify-center rounded gu-text-text-muted gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
                     >
                       <Maximize2 className="w-4 h-4" aria-hidden="true" />
                     </button>
@@ -277,7 +278,7 @@ export function GundoWidget({
                   <button
                     onClick={toggle}
                     aria-label="Cerrar"
-                    className="min-w-11 min-h-11 flex items-center justify-center rounded text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+                    className="min-w-11 min-h-11 flex items-center justify-center rounded gu-text-text-muted gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
                   >
                     <X className="w-4 h-4" aria-hidden="true" />
                   </button>
@@ -300,10 +301,10 @@ export function GundoWidget({
                         onEvent?.('widget_section_changed', { section: s });
                       }}
                       onKeyDown={(e) => onTabKeyDown(e, idx)}
-                      className={`flex items-center gap-1.5 px-3 py-2 min-h-9 rounded-lg text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] ${
+                      className={`flex items-center gap-1.5 px-3 py-2 min-h-9 rounded-lg text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary ${
                         selected
-                          ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)]'
-                          : 'text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'
+                          ? 'gu-bg-primary gu-text-surface'
+                          : 'gu-text-text gu-h-bg-surface-hover'
                       }`}
                     >
                       {s === 'chat' && <MessageCircle className="w-3.5 h-3.5" aria-hidden="true" />}

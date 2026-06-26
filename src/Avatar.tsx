@@ -1,3 +1,4 @@
+import './ui-classes.css';
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 interface AvatarProps {
@@ -46,7 +47,7 @@ export function Avatar({ src, alt, initials, size = 'md', className = '' }: Avat
 
   return (
     <div
-      className={`${base} bg-[var(--ui-primary-soft)] text-[var(--ui-primary)]`}
+      className={`${base} gu-bg-primary-soft gu-text-primary`}
       aria-label={alt}
     >
       {letters}

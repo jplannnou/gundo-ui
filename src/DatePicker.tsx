@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useState, useRef, useEffect, useId, useCallback, type KeyboardEvent } from 'react';
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -130,23 +131,23 @@ export function DatePicker({
         disabled={disabled}
         aria-haspopup="dialog"
         aria-expanded={open}
-        className="flex items-center gap-2 h-10 px-3 rounded-[var(--ui-radius-md)] border border-[var(--ui-border)] bg-[var(--ui-surface)] text-sm text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] transition-colors"
+        className="flex items-center gap-2 h-10 px-3 gu-rounded-radius-md border gu-border-border gu-bg-surface text-sm gu-text-text gu-h-bg-surface-hover disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color transition-colors"
       >
-        <Calendar className="w-4 h-4 text-[var(--ui-text-muted)]" aria-hidden="true" />
-        <span className={value ? '' : 'text-[var(--ui-text-muted)]'}>
+        <Calendar className="w-4 h-4 gu-text-text-muted" aria-hidden="true" />
+        <span className={value ? '' : 'gu-text-text-muted'}>
           {value ? formatDate(value, locale) : placeholder}
         </span>
       </button>
 
       {open && (
-        <div className="absolute z-[var(--ui-z-dropdown)] mt-1 w-72 rounded-[var(--ui-radius-lg)] border border-[var(--ui-border)] bg-[var(--ui-surface)] shadow-lg p-3" role="dialog" aria-label="Date picker">
+        <div className="absolute gu-z-z-dropdown mt-1 w-72 gu-rounded-radius-lg border gu-border-border gu-bg-surface shadow-lg p-3" role="dialog" aria-label="Date picker">
           {/* Month nav */}
           <div className="flex items-center justify-between mb-2">
-            <button type="button" onClick={prevMonth} aria-label="Previous month" className="p-1 rounded hover:bg-[var(--ui-surface-hover)] text-[var(--ui-text-secondary)]">
+            <button type="button" onClick={prevMonth} aria-label="Previous month" className="p-1 rounded gu-h-bg-surface-hover gu-text-text-secondary">
               <ChevronLeft className="w-4 h-4" aria-hidden="true" />
             </button>
-            <span className="text-sm font-medium text-[var(--ui-text)]">{monthLabel}</span>
-            <button type="button" onClick={nextMonth} aria-label="Next month" className="p-1 rounded hover:bg-[var(--ui-surface-hover)] text-[var(--ui-text-secondary)]">
+            <span className="text-sm font-medium gu-text-text">{monthLabel}</span>
+            <button type="button" onClick={nextMonth} aria-label="Next month" className="p-1 rounded gu-h-bg-surface-hover gu-text-text-secondary">
               <ChevronRight className="w-4 h-4" aria-hidden="true" />
             </button>
           </div>
@@ -154,7 +155,7 @@ export function DatePicker({
           {/* Weekday headers */}
           <div className="grid grid-cols-7 mb-1" role="row">
             {weekdays.map(d => (
-              <div key={d} className="text-center text-xs text-[var(--ui-text-muted)] py-1" role="columnheader">{d}</div>
+              <div key={d} className="text-center text-xs gu-text-text-muted py-1" role="columnheader">{d}</div>
             ))}
           </div>
 
@@ -181,12 +182,12 @@ export function DatePicker({
                   tabIndex={focused ? 0 : -1}
                   onClick={() => selectDay(day)}
                   disabled={dis}
-                  className={`h-8 w-8 mx-auto rounded-full text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
+                  className={`h-8 w-8 mx-auto rounded-full text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                     selected
-                      ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)] font-semibold'
+                      ? 'gu-bg-primary gu-text-surface font-semibold'
                       : today
-                        ? 'border border-[var(--ui-primary)] text-[var(--ui-primary)] font-medium'
-                        : 'text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'
+                        ? 'border gu-border-primary gu-text-primary font-medium'
+                        : 'gu-text-text gu-h-bg-surface-hover'
                   } ${dis ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'}`}
                 >
                   {day}

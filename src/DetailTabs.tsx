@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { useState, useEffect, type ReactNode } from 'react';
 
 /**
@@ -94,7 +95,7 @@ export function DetailTabs<TId extends string = string>({
       return lockedContent;
     }
     return (
-      <p className="rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-6 text-center text-sm text-[var(--ui-text-secondary)]">
+      <p className="rounded-xl border gu-border-border gu-bg-surface-raised p-6 text-center text-sm gu-text-text-secondary">
         Esta sección es Premium.
       </p>
     );
@@ -105,7 +106,7 @@ export function DetailTabs<TId extends string = string>({
       <div
         role="tablist"
         aria-label={ariaLabel}
-        className="flex gap-1 overflow-x-auto rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-1"
+        className="flex gap-1 overflow-x-auto rounded-xl border gu-border-border gu-bg-surface-raised p-1"
       >
         {tabs.map((t) => {
           const selected = active === t.id;
@@ -119,10 +120,10 @@ export function DetailTabs<TId extends string = string>({
               id={`${idPrefix}-tab-${t.id}`}
               type="button"
               onClick={() => selectTab(t.id)}
-              className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
+              className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                 selected
-                  ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)]'
-                  : 'text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)]'
+                  ? 'gu-bg-primary gu-text-surface'
+                  : 'gu-text-text-secondary gu-h-bg-surface-hover gu-h-text-text'
               }`}
             >
               {t.icon && <span aria-hidden="true">{t.icon}</span>}
@@ -141,7 +142,7 @@ export function DetailTabs<TId extends string = string>({
         role="tabpanel"
         id={`${idPrefix}-panel-${active}`}
         aria-labelledby={`${idPrefix}-tab-${active}`}
-        className="rounded-2xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-4 md:p-5"
+        className="rounded-2xl border gu-border-border gu-bg-surface p-4 md:p-5"
       >
         {renderPanel()}
       </div>

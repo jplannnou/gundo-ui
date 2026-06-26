@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { InputHTMLAttributes } from 'react';
 import { Check, Minus } from 'lucide-react';
 
@@ -25,8 +26,8 @@ export function Checkbox({ label, checked = false, indeterminate = false, onChan
         />
         <span className={`flex items-center justify-center w-4 h-4 rounded border transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--ui-focus-ring-color)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--ui-surface)] ${
           checked || indeterminate
-            ? 'bg-[var(--ui-primary)] border-[var(--ui-primary)]'
-            : 'border-[var(--ui-border)] bg-transparent peer-hover:border-[var(--ui-border-hover)]'
+            ? 'gu-bg-primary gu-border-primary'
+            : 'gu-border-border bg-transparent peer-hover:border-[var(--ui-border-hover)]'
         }`}>
           {checked && !indeterminate && (
             <Check className="w-3 h-3 text-white" strokeWidth={2.5} aria-hidden="true" />
@@ -37,7 +38,7 @@ export function Checkbox({ label, checked = false, indeterminate = false, onChan
         </span>
       </span>
       {label && (
-        <span className="text-sm text-[var(--ui-text)]">{label}</span>
+        <span className="text-sm gu-text-text">{label}</span>
       )}
     </label>
   );

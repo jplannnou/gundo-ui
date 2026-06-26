@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 import { ChevronRight } from 'lucide-react';
 
@@ -63,7 +64,7 @@ export function DataSourceRow({
       onClick={onClick}
       disabled={isLocked}
       aria-disabled={isLocked}
-      className={`flex w-full items-center gap-3 rounded-2xl border px-3 py-3 text-left transition hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] disabled:cursor-not-allowed ${className}`}
+      className={`flex w-full items-center gap-3 rounded-2xl border px-3 py-3 text-left transition hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color disabled:cursor-not-allowed ${className}`}
       style={{ background: c.background, borderColor: c.borderColor, opacity: c.opacity }}
     >
       <span
@@ -74,8 +75,8 @@ export function DataSourceRow({
         {icon}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-sm font-semibold text-[var(--ui-text)]">{name}</span>
-        <span className="block truncate text-xs text-[var(--ui-text-muted)]">{sub}</span>
+        <span className="block truncate text-sm font-semibold gu-text-text">{name}</span>
+        <span className="block truncate text-xs gu-text-text-muted">{sub}</span>
       </span>
       {tag && (
         <span
@@ -85,7 +86,7 @@ export function DataSourceRow({
           {tag}
         </span>
       )}
-      <ChevronRight className="h-4 w-4 shrink-0 text-[var(--ui-text-muted)]" aria-hidden="true" />
+      <ChevronRight className="h-4 w-4 shrink-0 gu-text-text-muted" aria-hidden="true" />
     </button>
   );
 }

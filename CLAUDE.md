@@ -103,6 +103,7 @@ Light theme via `.theme-light` class (overrides shadows, colors).
 ## Rules for New Components
 
 1. **Use CSS Custom Properties** — always reference `var(--ui-*)` tokens, never hardcode colors
+   - **For colored utilities, use the static `gu-*` classes from `src/ui-classes.css`** (e.g. `gu-bg-primary`, `gu-text-secondary`, `gu-border-error`, `gu-h-bg-surface-hover` for hover, `gu-fv-ring-primary` for focus-visible) and `import './ui-classes.css'` at the top of the component. **Do NOT use Tailwind arbitrary values `bg-[var(--ui-*)]`** — they require the consumer to `@source`-scan gundo-ui (the "invisible component" bug class) and break axe-core contrast testing. See TD-004 in `TECH_DEBT.md`.
 2. **Dark-first** — default theme is dark; light is opt-in via `.theme-light`
 3. **Accessibility** — all components must have proper ARIA attributes
 4. **Peer dependency**: React 19 only

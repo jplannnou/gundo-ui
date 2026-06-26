@@ -1,4 +1,5 @@
 'use client';
+import '../ui-classes.css';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useReducedMotion } from '../utils/useReducedMotion';
@@ -124,28 +125,28 @@ export function PersonalizedLoader({
               {current.icon}
             </span>
           )}
-          <p className="text-base font-semibold text-[var(--ui-text)]">{current?.label}</p>
+          <p className="text-base font-semibold gu-text-text">{current?.label}</p>
         </motion.div>
       </AnimatePresence>
 
       {/* Progress bar */}
       <div
-        className="h-1.5 w-full overflow-hidden rounded-full bg-[var(--ui-surface-hover)]"
+        className="h-1.5 w-full overflow-hidden rounded-full gu-bg-surface-hover"
         aria-hidden="true"
       >
         {progress !== undefined ? (
           <div
-            className="h-full rounded-full bg-[var(--ui-primary)]"
+            className="h-full rounded-full gu-bg-primary"
             style={{
               width: `${Math.max(0, Math.min(100, progress))}%`,
               transition: reduced ? undefined : 'width var(--ui-duration-slow) var(--ui-easing-out)',
             }}
           />
         ) : reduced ? (
-          <div className="h-full w-1/2 rounded-full bg-[var(--ui-primary)] opacity-60" />
+          <div className="h-full w-1/2 rounded-full gu-bg-primary opacity-60" />
         ) : (
           <motion.div
-            className="h-full w-2/5 rounded-full bg-[var(--ui-primary)]"
+            className="h-full w-2/5 rounded-full gu-bg-primary"
             animate={{ x: ['-100%', '280%'], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           />
@@ -177,7 +178,7 @@ export function PersonalizedLoader({
               animate={{ opacity: 1 }}
               exit={reduced ? undefined : { opacity: 0 }}
               transition={swapTransition}
-              className="text-sm text-[var(--ui-text-secondary)]"
+              className="text-sm gu-text-text-secondary"
             >
               {messages[messageIndex % messages.length]}
             </motion.p>

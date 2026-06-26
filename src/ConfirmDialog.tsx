@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { Modal } from './Modal';
 
 interface ConfirmDialogProps {
@@ -25,20 +26,20 @@ export function ConfirmDialog({
 }: ConfirmDialogProps) {
   const confirmColor =
     variant === 'danger'
-      ? 'bg-[var(--ui-error)] hover:opacity-90'
-      : 'bg-[var(--ui-primary)] hover:bg-[var(--ui-primary-hover)]';
+      ? 'gu-bg-error hover:opacity-90'
+      : 'gu-bg-primary gu-h-bg-primary-hover';
 
   return (
     <Modal open={open} onClose={onClose} title={title} className="max-w-sm">
       {description && (
-        <p className="text-sm text-[var(--ui-text-secondary)] mb-6">{description}</p>
+        <p className="text-sm gu-text-text-secondary mb-6">{description}</p>
       )}
       <div className="flex justify-end gap-3">
         <button
           type="button"
           onClick={onClose}
           disabled={loading}
-          className="px-4 py-2 text-sm font-medium rounded-lg border border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] transition-colors disabled:opacity-50"
+          className="px-4 py-2 text-sm font-medium rounded-lg border gu-border-border gu-text-text-secondary gu-h-bg-surface-hover transition-colors disabled:opacity-50"
         >
           {cancelLabel}
         </button>

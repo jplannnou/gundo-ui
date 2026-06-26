@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 import { Loader2 } from 'lucide-react';
 
@@ -63,14 +64,14 @@ export function PricingCard({
       aria-label={`Plan ${name}`}
       className={`relative flex flex-col rounded-2xl border p-6 ${
         highlighted
-          ? 'border-[var(--ui-primary)] bg-[var(--ui-primary-soft)] shadow-[0_0_0_4px_var(--ui-primary-soft)]'
-          : 'border-[var(--ui-border)] bg-[var(--ui-surface)]'
+          ? 'gu-border-primary gu-bg-primary-soft shadow-[0_0_0_4px_var(--ui-primary-soft)]'
+          : 'gu-border-border gu-bg-surface'
       } ${className}`}
     >
       {/* Badge */}
       {badge && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <span className="rounded-full bg-[var(--ui-primary)] px-3 py-1 text-xs font-semibold text-[var(--ui-surface)]">
+          <span className="rounded-full gu-bg-primary px-3 py-1 text-xs font-semibold gu-text-surface">
             {badge}
           </span>
         </div>
@@ -78,21 +79,21 @@ export function PricingCard({
 
       {/* Header */}
       <div className="mb-4">
-        <h3 className="text-sm font-semibold text-[var(--ui-text-secondary)]">
+        <h3 className="text-sm font-semibold gu-text-text-secondary">
           {name}
         </h3>
         <div className="mt-2 flex items-end gap-1">
           <span
-            className={`text-4xl font-bold tabular-nums text-[var(--ui-text)] ${display ? 'font-[var(--ui-font-display)]' : ''}`}
+            className={`text-4xl font-bold tabular-nums gu-text-text ${display ? 'gu-font-font-display' : ''}`}
           >
             {priceStr}
           </span>
           {typeof price === 'number' && price > 0 && (
-            <span className="mb-1 text-sm text-[var(--ui-text-secondary)]">{period}</span>
+            <span className="mb-1 text-sm gu-text-text-secondary">{period}</span>
           )}
         </div>
         {description && (
-          <p className="mt-2 text-sm text-[var(--ui-text-secondary)]">{description}</p>
+          <p className="mt-2 text-sm gu-text-text-secondary">{description}</p>
         )}
       </div>
 
@@ -101,10 +102,10 @@ export function PricingCard({
         type="button"
         onClick={onSelect}
         disabled={ctaDisabled || ctaLoading}
-        className={`flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] disabled:cursor-not-allowed disabled:opacity-50 ${
+        className={`flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary focus-visible:ring-offset-2 gu-fv-ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50 ${
           highlighted
-            ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)] hover:bg-[var(--ui-primary-hover)]'
-            : 'border border-[var(--ui-border)] bg-transparent text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'
+            ? 'gu-bg-primary gu-text-surface gu-h-bg-primary-hover'
+            : 'border gu-border-border bg-transparent gu-text-text gu-h-bg-surface-hover'
         }`}
       >
         {ctaLoading && (
@@ -120,7 +121,7 @@ export function PricingCard({
             <li key={i} className="flex items-start gap-2.5">
               {feat.included ? (
                 <svg
-                  className="mt-0.5 h-4 w-4 shrink-0 text-[var(--ui-success)]"
+                  className="mt-0.5 h-4 w-4 shrink-0 gu-text-success"
                   viewBox="0 0 16 16"
                   fill="none"
                   aria-hidden="true"
@@ -130,7 +131,7 @@ export function PricingCard({
                 </svg>
               ) : (
                 <svg
-                  className="mt-0.5 h-4 w-4 shrink-0 text-[var(--ui-text-muted)]"
+                  className="mt-0.5 h-4 w-4 shrink-0 gu-text-text-muted"
                   viewBox="0 0 16 16"
                   fill="none"
                   aria-hidden="true"
@@ -141,7 +142,7 @@ export function PricingCard({
               )}
               <span
                 className={`text-sm ${
-                  feat.included ? 'text-[var(--ui-text-secondary)]' : 'text-[var(--ui-text-secondary)] line-through opacity-60'
+                  feat.included ? 'gu-text-text-secondary' : 'gu-text-text-secondary line-through opacity-60'
                 }`}
                 title={feat.tooltip}
               >
@@ -152,7 +153,7 @@ export function PricingCard({
         </ul>
       )}
 
-      {footer && <div className="mt-4 border-t border-[var(--ui-border)] pt-4">{footer}</div>}
+      {footer && <div className="mt-4 border-t gu-border-border pt-4">{footer}</div>}
     </article>
   );
 }

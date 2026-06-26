@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { Check } from 'lucide-react';
 
 interface Step {
@@ -24,10 +25,10 @@ export function StepIndicator({ steps, currentStep, className = '' }: StepIndica
               <div
                 className={`flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold shrink-0 transition-colors ${
                   status === 'complete'
-                    ? 'bg-[var(--ui-primary)] text-white'
+                    ? 'gu-bg-primary text-white'
                     : status === 'current'
-                      ? 'border-2 border-[var(--ui-primary)] text-[var(--ui-primary)]'
-                      : 'border-2 border-[var(--ui-border)] text-[var(--ui-text-muted)]'
+                      ? 'border-2 gu-border-primary gu-text-primary'
+                      : 'border-2 gu-border-border gu-text-text-muted'
                 }`}
               >
                 {status === 'complete' ? (
@@ -39,19 +40,19 @@ export function StepIndicator({ steps, currentStep, className = '' }: StepIndica
               {/* Label */}
               <div className="hidden sm:block">
                 <p className={`text-xs font-medium ${
-                  status === 'current' ? 'text-[var(--ui-primary)]' : status === 'complete' ? 'text-[var(--ui-text)]' : 'text-[var(--ui-text-muted)]'
+                  status === 'current' ? 'gu-text-primary' : status === 'complete' ? 'gu-text-text' : 'gu-text-text-muted'
                 }`}>
                   {step.label}
                 </p>
                 {step.description && (
-                  <p className="text-[10px] text-[var(--ui-text-muted)]">{step.description}</p>
+                  <p className="text-[10px] gu-text-text-muted">{step.description}</p>
                 )}
               </div>
             </div>
             {/* Connector line */}
             {i < steps.length - 1 && (
               <div className={`flex-1 h-px mx-3 ${
-                i < currentStep ? 'bg-[var(--ui-primary)]' : 'bg-[var(--ui-border)]'
+                i < currentStep ? 'gu-bg-primary' : 'gu-bg-border'
               }`} />
             )}
           </div>

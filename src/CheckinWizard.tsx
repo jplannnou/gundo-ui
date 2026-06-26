@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { useMemo, useState, type ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -116,26 +117,26 @@ export function CheckinWizard({
 
   return (
     <section
-      className={`mx-auto flex w-full max-w-lg flex-col gap-4 rounded-2xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-5 ${className}`}
+      className={`mx-auto flex w-full max-w-lg flex-col gap-4 rounded-2xl border gu-border-border gu-bg-surface p-5 ${className}`}
       aria-label="Check-in mensual"
     >
       {/* Progress */}
       <div className="flex flex-col gap-1">
-        <div className="flex items-center justify-between text-xs text-[var(--ui-text-muted)]">
+        <div className="flex items-center justify-between text-xs gu-text-text-muted">
           <span>
             Pregunta {index + 1} de {questions.length}
           </span>
           <span>{Math.round(progressPct)}%</span>
         </div>
         <div
-          className="h-1.5 overflow-hidden rounded-full bg-[var(--ui-surface-hover)]"
+          className="h-1.5 overflow-hidden rounded-full gu-bg-surface-hover"
           role="progressbar"
           aria-valuenow={progressPct}
           aria-valuemin={0}
           aria-valuemax={100}
         >
           <div
-            className="h-full rounded-full bg-[var(--ui-primary)] transition-[width] duration-300"
+            className="h-full rounded-full gu-bg-primary transition-[width] duration-300"
             style={{ width: `${progressPct}%` }}
           />
         </div>
@@ -143,9 +144,9 @@ export function CheckinWizard({
 
       {/* Question */}
       <header className="mt-1">
-        <h2 className="text-lg font-bold text-[var(--ui-text)]">{current.text}</h2>
+        <h2 className="text-lg font-bold gu-text-text">{current.text}</h2>
         {current.hint && (
-          <p className="mt-1 text-sm text-[var(--ui-text-secondary)]">{current.hint}</p>
+          <p className="mt-1 text-sm gu-text-text-secondary">{current.hint}</p>
         )}
       </header>
 
@@ -163,10 +164,10 @@ export function CheckinWizard({
                     type="button"
                     onClick={() => setAnswer(opt.value)}
                     aria-pressed={selected}
-                    className={`flex aspect-square flex-col items-center justify-center gap-1 rounded-xl border p-2 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
+                    className={`flex aspect-square flex-col items-center justify-center gap-1 rounded-xl border p-2 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                       selected
-                        ? 'border-[var(--ui-primary)] bg-[var(--ui-primary-soft)] text-[var(--ui-primary)]'
-                        : 'border-[var(--ui-border)] bg-[var(--ui-surface-raised)] text-[var(--ui-text-secondary)] hover:border-[var(--ui-border-hover)]'
+                        ? 'gu-border-primary gu-bg-primary-soft gu-text-primary'
+                        : 'gu-border-border gu-bg-surface-raised gu-text-text-secondary gu-h-border-border-hover'
                     }`}
                   >
                     <span className="text-2xl leading-none" aria-hidden="true">
@@ -189,10 +190,10 @@ export function CheckinWizard({
                   type="button"
                   onClick={() => toggleMulti(opt.value)}
                   aria-pressed={selected}
-                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                     selected
-                      ? 'border-[var(--ui-primary)] bg-[var(--ui-primary-soft)] text-[var(--ui-primary)]'
-                      : 'border-[var(--ui-border)] bg-[var(--ui-surface-raised)] text-[var(--ui-text-secondary)] hover:border-[var(--ui-border-hover)]'
+                      ? 'gu-border-primary gu-bg-primary-soft gu-text-primary'
+                      : 'gu-border-border gu-bg-surface-raised gu-text-text-secondary gu-h-border-border-hover'
                   }`}
                 >
                   {opt.emoji && <span aria-hidden="true">{opt.emoji}</span>}
@@ -219,10 +220,10 @@ export function CheckinWizard({
                       type="button"
                       onClick={() => setAnswer(v)}
                       aria-pressed={selected}
-                      className={`flex h-12 w-12 items-center justify-center rounded-full border-2 text-base font-bold transition-[transform,background-color,border-color,color] duration-[var(--ui-duration-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
+                      className={`flex h-12 w-12 items-center justify-center rounded-full border-2 text-base font-bold transition-[transform,background-color,border-color,color] gu-duration-duration-fast focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                         selected
-                          ? 'scale-110 border-[var(--ui-primary)] bg-[var(--ui-primary)] text-[var(--ui-surface)]'
-                          : 'border-[var(--ui-border)] bg-[var(--ui-surface-raised)] text-[var(--ui-text-secondary)] hover:border-[var(--ui-primary)]'
+                          ? 'scale-110 gu-border-primary gu-bg-primary gu-text-surface'
+                          : 'gu-border-border gu-bg-surface-raised gu-text-text-secondary gu-h-border-primary'
                       }`}
                     >
                       {v}
@@ -232,7 +233,7 @@ export function CheckinWizard({
               })()}
             </div>
             {current.scaleLabels && (
-              <div className="flex items-center justify-between text-[11px] text-[var(--ui-text-muted)]">
+              <div className="flex items-center justify-between text-[11px] gu-text-text-muted">
                 <span>{current.scaleLabels[0]}</span>
                 <span>{current.scaleLabels[1]}</span>
               </div>
@@ -243,7 +244,7 @@ export function CheckinWizard({
 
       {/* Impact preview */}
       {impactPreview && (
-        <div className="rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-3 text-xs text-[var(--ui-text-secondary)]">
+        <div className="rounded-xl border gu-border-border gu-bg-surface-raised p-3 text-xs gu-text-text-secondary">
           {impactPreview(answers, current.id)}
         </div>
       )}
@@ -253,7 +254,7 @@ export function CheckinWizard({
         <button
           type="button"
           onClick={back}
-          className="rounded-xl px-4 py-2 text-sm font-medium text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+          className="rounded-xl px-4 py-2 text-sm font-medium gu-text-text-secondary gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
         >
           {isFirst ? 'Salir' : 'Atrás'}
         </button>
@@ -261,7 +262,7 @@ export function CheckinWizard({
           type="button"
           onClick={next}
           disabled={!canAdvance}
-          className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--ui-primary)] px-5 py-2.5 text-sm font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 rounded-xl gu-bg-primary px-5 py-2.5 text-sm font-semibold gu-text-surface transition-colors gu-h-bg-primary-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isLast ? completeLabel : 'Siguiente'}
         </button>

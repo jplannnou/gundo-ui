@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { useState } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -93,10 +94,10 @@ export function RecipeReasoningPills({
               type="button"
               onClick={() => setActive(cat)}
               aria-pressed={selected}
-              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors duration-[var(--ui-duration-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
+              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors gu-duration-duration-fast focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                 selected
-                  ? 'text-[var(--ui-surface)] shadow-[var(--ui-shadow-sm)]'
-                  : 'text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'
+                  ? 'gu-text-surface gu-shadow-shadow-sm'
+                  : 'gu-text-text gu-h-bg-surface-hover'
               }`}
               style={{
                 background: selected ? meta.color : meta.soft,
@@ -123,16 +124,16 @@ export function RecipeReasoningPills({
 
       {/* Breakdown */}
       <div
-        className={`flex-1 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-4`}
+        className={`flex-1 rounded-xl border gu-border-border gu-bg-surface-raised p-4`}
         style={{ borderLeftColor: catalog[active].color, borderLeftWidth: 4 }}
       >
-        <p className="mb-2 flex items-center gap-2 text-xs font-semibold text-[var(--ui-text-secondary)]">
+        <p className="mb-2 flex items-center gap-2 text-xs font-semibold gu-text-text-secondary">
           <span aria-hidden="true">{catalog[active].emoji}</span>
           Por qué según {catalog[active].label.toLowerCase()}
         </p>
         <ul className="flex flex-col gap-1.5">
           {activeList.map((item, idx) => (
-            <li key={`${active}-${idx}`} className="flex items-start gap-2 text-sm text-[var(--ui-text)]">
+            <li key={`${active}-${idx}`} className="flex items-start gap-2 text-sm gu-text-text">
               <span
                 className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
                 style={{ background: catalog[active].color }}

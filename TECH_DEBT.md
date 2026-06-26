@@ -10,13 +10,15 @@ Items spotted during development that should be fixed but don't block current wo
 | TD-001 | `--ui-text-muted` dark theme: 3.5:1 contrast ratio fails WCAG AA normal text. Accepted risk — documented as large text (>=18px/14px bold) or decorative only. 57 components affected. | a11y | 🟡 Medium | 2026-03-23 |
 | TD-002 | axe-core `color-contrast` rule disabled in tests — CSS custom properties not resolvable in jsdom. Programmatic contrast test added as mitigation (`contrast.test.ts`). | testing | 🟢 Low | 2026-03-23 |
 | TD-003 | `e2e/visual/harness.tsx` only has showcases for ~46/84 components — the full a11y sweep (`a11y-full.spec.ts`) skips the other ~38 (they render the "not found" fallback). The observatory's "color-contrast ×61 DS components" was this false positive, not real defects. Add showcases for the remaining components so the sweep gives real coverage, then gate CI on it. | testing/a11y | 🟠 High | 2026-06-04 |
-| TD-004 | `e2e/visual/vite.config.ts` has no `@tailwindcss/vite` plugin → components whose colors come from Tailwind utility classes (MarkdownRenderer link `text-[var(--ui-primary)]` falls back to browser-default `#0000ee`; Accordion surfaces) render unstyled and false-positive in the a11y sweep. Either add the Tailwind plugin to the harness or migrate those components to plain-CSS classes (Button.css pattern). | testing/a11y | 🟡 Medium | 2026-06-04 |
+| TD-007 | CopyButton renders on the browser's native `<button>` UA background `#efefef` → `--ui-text-secondary` on it = 2.2:1 (axe sweep). Set an explicit `background` on the button. (Separate from the token contrast pass.) `--ui-text-muted` (#828b98 on surface = 3.95) failures are the **accepted TD-001** large-text-only exception — exclude from the sweep rather than "fix". | a11y | 🟡 Medium | 2026-06-26 |
+| TD-005 | ~43 rare-variant arbitrary values remain after the TD-004 migration (`placeholder:`/`peer-*`/`group-hover`/`before:` + gradient `from`/`to`/`divide`) — no regression (still consumer-scanned) but worth finishing + adding an ESLint rule banning `*-[var(--ui-…)]` color utilities to prevent future drift. | architecture | 🟢 Low | 2026-06-25 |
 
 ## Done
 
 | ID | Description | Fixed |
 |----|-------------|-------|
-| — | *(none yet)* | — |
+| TD-004 | (Was: harness without `@tailwindcss/vite` → colors fall back to browser defaults.) **Resolved by migrating colored arbitrary values** `*-[var(--ui-*)]` (1482 across 104 components, variant-aware) to static classes in `src/ui-classes.css`. Components now get colors from plain CSS imported per-file — independent of any consumer/harness Tailwind scan (also fixes the "invisible component" bug class + unblocks contrast testing). | 2026-06-25 (PR `ds/css-classes-and-lint`) |
+| TD-006 | Card-as-button vs `CardButton` split — **keep the split.** `CardButton` (accessible native `<button>`) stays the dedicated interactive component; `Card` remains a non-interactive container, not polymorphic. | 2026-06-25 (decision) |
 
 ---
 **Priority levels**: 🔴 Critical (security/data) · 🟠 High (perf/UX) · 🟡 Medium (code quality) · 🟢 Low (nice to have)

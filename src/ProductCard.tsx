@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -40,11 +41,11 @@ export interface ProductCardProps {
 /* ─── Helpers ────────────────────────────────────────────────────────── */
 
 const badgeColors: Record<string, string> = {
-  primary: 'bg-[var(--ui-primary-soft)] text-[var(--ui-primary)]',
-  success: 'bg-[color-mix(in_srgb,var(--ui-success)_15%,transparent)] text-[var(--ui-success)]',
-  warning: 'bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] text-[var(--ui-warning)]',
-  danger: 'bg-[color-mix(in_srgb,var(--ui-error)_15%,transparent)] text-[var(--ui-error)]',
-  info: 'bg-[color-mix(in_srgb,var(--ui-info)_15%,transparent)] text-[var(--ui-info)]',
+  primary: 'gu-bg-primary-soft gu-text-primary',
+  success: 'bg-[color-mix(in_srgb,var(--ui-success)_15%,transparent)] gu-text-success',
+  warning: 'bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] gu-text-warning',
+  danger: 'bg-[color-mix(in_srgb,var(--ui-error)_15%,transparent)] gu-text-error',
+  info: 'bg-[color-mix(in_srgb,var(--ui-info)_15%,transparent)] gu-text-info',
 };
 
 function scoreColor(score: number): string {
@@ -91,7 +92,7 @@ export function ProductCard({
 
   return (
     <article
-      className={`group relative flex flex-col overflow-hidden rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] transition-shadow hover:shadow-[var(--ui-shadow-md)] ${
+      className={`group relative flex flex-col overflow-hidden rounded-xl border gu-border-border gu-bg-surface transition-shadow gu-h-shadow-shadow-md ${
         onCardClick && !disabled ? 'cursor-pointer' : ''
       } ${disabled ? 'opacity-50' : ''} ${className}`}
       onClick={!disabled && onCardClick ? onCardClick : undefined}
@@ -100,7 +101,7 @@ export function ProductCard({
       {/* Image */}
       {image ? (
         <div
-          className={`relative overflow-hidden bg-[var(--ui-surface-raised)] ${isCompact ? 'h-32' : 'h-44'}`}
+          className={`relative overflow-hidden gu-bg-surface-raised ${isCompact ? 'h-32' : 'h-44'}`}
         >
           <img
             src={image}
@@ -116,7 +117,7 @@ export function ProductCard({
           )}
           {score !== undefined && (
             <span
-              className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full border-2 bg-[var(--ui-surface)] text-xs font-bold tabular-nums"
+              className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full border-2 gu-bg-surface text-xs font-bold tabular-nums"
               style={{ borderColor: scoreColor(score), color: scoreColor(score) }}
               aria-label={`Puntuación: ${score}`}
             >
@@ -126,7 +127,7 @@ export function ProductCard({
         </div>
       ) : (
         <div
-          className={`flex items-center justify-center bg-[var(--ui-surface-raised)] ${isCompact ? 'h-32' : 'h-44'}`}
+          className={`flex items-center justify-center gu-bg-surface-raised ${isCompact ? 'h-32' : 'h-44'}`}
         >
           <svg
             width="40"
@@ -134,7 +135,7 @@ export function ProductCard({
             viewBox="0 0 40 40"
             fill="none"
             aria-hidden="true"
-            className="text-[var(--ui-text-muted)]"
+            className="gu-text-text-muted"
           >
             <rect
               x="8"
@@ -157,7 +158,7 @@ export function ProductCard({
           )}
           {score !== undefined && (
             <span
-              className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full border-2 bg-[var(--ui-surface)] text-xs font-bold tabular-nums"
+              className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full border-2 gu-bg-surface text-xs font-bold tabular-nums"
               style={{ borderColor: scoreColor(score), color: scoreColor(score) }}
               aria-label={`Puntuación: ${score}`}
             >
@@ -170,24 +171,24 @@ export function ProductCard({
       {/* Content */}
       <div className={`flex flex-1 flex-col gap-2 ${isCompact ? 'p-3' : 'p-4'}`}>
         {brand && (
-          <p className="text-xs font-medium text-[var(--ui-text-secondary)]">
+          <p className="text-xs font-medium gu-text-text-secondary">
             {brand}
           </p>
         )}
         <h3
-          className={`font-semibold leading-snug text-[var(--ui-text)] ${isCompact ? 'text-sm' : 'text-base'} line-clamp-2`}
+          className={`font-semibold leading-snug gu-text-text ${isCompact ? 'text-sm' : 'text-base'} line-clamp-2`}
         >
           {name}
         </h3>
 
         {weighableLabel && (
-          <span className="inline-flex w-fit items-center rounded-full bg-[var(--ui-surface-hover)] px-2 py-0.5 text-[10px] font-medium text-[var(--ui-text-secondary)]">
+          <span className="inline-flex w-fit items-center rounded-full gu-bg-surface-hover px-2 py-0.5 text-[10px] font-medium gu-text-text-secondary">
             {weighableLabel}
           </span>
         )}
 
         {!isCompact && description && (
-          <p className="line-clamp-2 text-xs text-[var(--ui-text-secondary)]">{description}</p>
+          <p className="line-clamp-2 text-xs gu-text-text-secondary">{description}</p>
         )}
 
         {!isCompact && tags.length > 0 && (
@@ -195,7 +196,7 @@ export function ProductCard({
             {tags.slice(0, 4).map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-[var(--ui-surface-hover)] px-2 py-0.5 text-xs text-[var(--ui-text-secondary)]"
+                className="rounded-full gu-bg-surface-hover px-2 py-0.5 text-xs gu-text-text-secondary"
               >
                 {tag}
               </span>
@@ -208,18 +209,18 @@ export function ProductCard({
           <div>
             {price !== undefined && (
               <span
-                className={`font-bold tabular-nums text-[var(--ui-text)] ${isCompact ? 'text-sm' : 'text-base'}`}
+                className={`font-bold tabular-nums gu-text-text ${isCompact ? 'text-sm' : 'text-base'}`}
               >
                 {formatPrice(price, currency)}
               </span>
             )}
             {originalPrice !== undefined && price !== originalPrice && (
-              <span className="ml-1.5 text-xs text-[var(--ui-text-muted)] line-through tabular-nums">
+              <span className="ml-1.5 text-xs gu-text-text-muted line-through tabular-nums">
                 {formatPrice(originalPrice, currency)}
               </span>
             )}
             {(approxWeight || pricePerKgLabel) && (
-              <span className="mt-0.5 block text-[10px] leading-tight text-[var(--ui-text-muted)] tabular-nums">
+              <span className="mt-0.5 block text-[10px] leading-tight gu-text-text-muted tabular-nums">
                 {[approxWeight, pricePerKgLabel].filter(Boolean).join(' · ')}
               </span>
             )}
@@ -235,10 +236,10 @@ export function ProductCard({
                 }}
                 disabled={disabled}
                 aria-label={isInCart ? 'En el carrito' : `${addToCartLabel} ${name}`}
-                className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] disabled:cursor-not-allowed disabled:opacity-50 ${
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary disabled:cursor-not-allowed disabled:opacity-50 ${
                   isInCart
-                    ? 'bg-[var(--ui-primary-soft)] text-[var(--ui-primary)]'
-                    : 'bg-[var(--ui-primary)] text-[var(--ui-surface)] hover:bg-[var(--ui-primary-hover)]'
+                    ? 'gu-bg-primary-soft gu-text-primary'
+                    : 'gu-bg-primary gu-text-surface gu-h-bg-primary-hover'
                 }`}
               >
                 {isInCart ? (

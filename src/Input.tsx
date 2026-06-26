@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { forwardRef, useId, type InputHTMLAttributes, type SelectHTMLAttributes } from 'react';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -17,7 +18,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       {label && (
         <label
           htmlFor={inputId}
-          className="block text-sm font-medium text-[var(--ui-text-secondary)] mb-1.5"
+          className="block text-sm font-medium gu-text-text-secondary mb-1.5"
         >
           {label}
         </label>
@@ -27,10 +28,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         id={inputId}
         aria-invalid={error ? 'true' : undefined}
         aria-describedby={errorId}
-        className={`w-full rounded-lg border bg-[var(--ui-surface-hover)] px-3 py-2 text-base text-[var(--ui-text)] outline-none transition-colors placeholder:text-[var(--ui-text-muted)] focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
+        className={`w-full rounded-lg border gu-bg-surface-hover px-3 py-2 text-base gu-text-text outline-none transition-colors placeholder:text-[var(--ui-text-muted)] focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface ${
           error
-            ? 'border-[var(--ui-error)] focus:border-[var(--ui-error)]'
-            : 'border-[var(--ui-border)] focus:border-[var(--ui-primary)]'
+            ? 'gu-border-error gu-f-border-error'
+            : 'gu-border-border gu-f-border-primary'
         } ${className}`}
         style={{
           color: 'var(--ui-text, #F2F4F3)',
@@ -41,7 +42,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         {...props}
       />
       {error && (
-        <p id={errorId} className="mt-1 text-xs text-[var(--ui-error)]">
+        <p id={errorId} className="mt-1 text-xs gu-text-error">
           {error}
         </p>
       )}
@@ -64,7 +65,7 @@ export function Select({ label, error, options, className = '', id, ...props }: 
       {label && (
         <label
           htmlFor={selectId}
-          className="block text-sm font-medium text-[var(--ui-text-secondary)] mb-1.5"
+          className="block text-sm font-medium gu-text-text-secondary mb-1.5"
         >
           {label}
         </label>
@@ -73,10 +74,10 @@ export function Select({ label, error, options, className = '', id, ...props }: 
         id={selectId}
         aria-invalid={error ? 'true' : undefined}
         aria-describedby={errorId}
-        className={`w-full rounded-lg border bg-[var(--ui-surface-hover)] px-3 py-2 text-base text-[var(--ui-text)] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
+        className={`w-full rounded-lg border gu-bg-surface-hover px-3 py-2 text-base gu-text-text outline-none transition-colors focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface ${
           error
-            ? 'border-[var(--ui-error)] focus:border-[var(--ui-error)]'
-            : 'border-[var(--ui-border)] focus:border-[var(--ui-primary)]'
+            ? 'gu-border-error gu-f-border-error'
+            : 'gu-border-border gu-f-border-primary'
         } ${className}`}
         style={{
           color: 'var(--ui-text, #F2F4F3)',
@@ -91,7 +92,7 @@ export function Select({ label, error, options, className = '', id, ...props }: 
         ))}
       </select>
       {error && (
-        <p id={errorId} className="mt-1 text-xs text-[var(--ui-error)]">
+        <p id={errorId} className="mt-1 text-xs gu-text-error">
           {error}
         </p>
       )}

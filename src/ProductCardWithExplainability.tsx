@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 import { MatchScoreRing } from './MatchScoreRing';
 import { ExplainabilityBadge, type ExplainabilityTag, type ExplainabilityTone } from './ExplainabilityBadge';
@@ -105,26 +106,26 @@ const stateStyles: Record<
 > = {
   match: {
     ring: 'var(--ui-success)',
-    badge: 'bg-[var(--ui-success-soft)] text-[var(--ui-success)]',
-    border: 'border-[var(--ui-border)]',
+    badge: 'gu-bg-success-soft gu-text-success',
+    border: 'gu-border-border',
     label: 'Compatible con vos',
   },
   'low-match': {
     ring: 'var(--ui-warning)',
-    badge: 'bg-[var(--ui-warning-soft)] text-[var(--ui-warning)]',
-    border: 'border-[var(--ui-border)]',
+    badge: 'gu-bg-warning-soft gu-text-warning',
+    border: 'gu-border-border',
     label: 'Match medio',
   },
   incompatible: {
     ring: 'var(--ui-error)',
-    badge: 'bg-[var(--ui-error-soft)] text-[var(--ui-error)]',
+    badge: 'gu-bg-error-soft gu-text-error',
     border: 'border-[color-mix(in_srgb,var(--ui-error)_30%,transparent)]',
     label: 'No recomendado',
   },
   neutral: {
     ring: 'var(--ui-primary)',
-    badge: 'bg-[var(--ui-surface-hover)] text-[var(--ui-text-secondary)]',
-    border: 'border-[var(--ui-border)]',
+    badge: 'gu-bg-surface-hover gu-text-text-secondary',
+    border: 'gu-border-border',
   },
 };
 
@@ -149,14 +150,14 @@ export function ProductCardWithExplainability({
 
   return (
     <article
-      className={`group relative flex flex-col overflow-hidden rounded-xl border bg-[var(--ui-surface)] transition-shadow hover:shadow-[var(--ui-shadow-md)] ${styles.border} ${
+      className={`group relative flex flex-col overflow-hidden rounded-xl border gu-bg-surface transition-shadow gu-h-shadow-shadow-md ${styles.border} ${
         onOpen ? 'cursor-pointer' : ''
       } ${className}`}
       onClick={onOpen ? () => onOpen(product.ean) : undefined}
       aria-label={product.name}
     >
       {/* Image */}
-      <div className="relative h-44 overflow-hidden bg-[var(--ui-surface-raised)]">
+      <div className="relative h-44 overflow-hidden gu-bg-surface-raised">
         {product.image ? (
           <img
             src={product.image}
@@ -166,7 +167,7 @@ export function ProductCardWithExplainability({
             }`}
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-[var(--ui-text-muted)]" aria-hidden="true">
+          <div className="flex h-full w-full items-center justify-center gu-text-text-muted" aria-hidden="true">
             🛒
           </div>
         )}
@@ -180,7 +181,7 @@ export function ProductCardWithExplainability({
         )}
         {/* Match ring */}
         {typeof product.matchScore === 'number' && (
-          <div className="absolute right-2 top-2 rounded-full bg-[var(--ui-surface)] p-1 shadow-[var(--ui-shadow-sm)]">
+          <div className="absolute right-2 top-2 rounded-full gu-bg-surface p-1 gu-shadow-shadow-sm">
             <MatchScoreRing
               score={product.matchScore}
               size="sm"
@@ -195,16 +196,16 @@ export function ProductCardWithExplainability({
       {/* Content */}
       <div className="flex flex-1 flex-col gap-2 p-3">
         {product.brand && (
-          <p className="text-xs font-medium text-[var(--ui-text-secondary)]">
+          <p className="text-xs font-medium gu-text-text-secondary">
             {product.brand}
           </p>
         )}
-        <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-[var(--ui-text)]">
+        <h3 className="line-clamp-2 text-sm font-semibold leading-snug gu-text-text">
           {product.name}
         </h3>
 
         {product.weighableLabel && (
-          <span className="inline-flex w-fit items-center rounded-full bg-[var(--ui-surface-hover)] px-2 py-0.5 text-[10px] font-medium text-[var(--ui-text-secondary)]">
+          <span className="inline-flex w-fit items-center rounded-full gu-bg-surface-hover px-2 py-0.5 text-[10px] font-medium gu-text-text-secondary">
             {product.weighableLabel}
           </span>
         )}
@@ -225,10 +226,10 @@ export function ProductCardWithExplainability({
                 disabled={!suitability.onPillClick}
                 className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium leading-tight transition-colors ${
                   suitability.tone === 'alert'
-                    ? 'bg-[color-mix(in_srgb,var(--ui-error)_15%,transparent)] text-[var(--ui-error)] ring-1 ring-[color-mix(in_srgb,var(--ui-error)_30%,transparent)]'
+                    ? 'bg-[color-mix(in_srgb,var(--ui-error)_15%,transparent)] gu-text-error ring-1 ring-[color-mix(in_srgb,var(--ui-error)_30%,transparent)]'
                     : suitability.tone === 'review'
-                      ? 'bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] text-[var(--ui-warning)] ring-1 ring-[color-mix(in_srgb,var(--ui-warning)_30%,transparent)]'
-                      : 'bg-[color-mix(in_srgb,var(--ui-success)_15%,transparent)] text-[var(--ui-success)] ring-1 ring-[color-mix(in_srgb,var(--ui-success)_30%,transparent)]'
+                      ? 'bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] gu-text-warning ring-1 ring-[color-mix(in_srgb,var(--ui-warning)_30%,transparent)]'
+                      : 'bg-[color-mix(in_srgb,var(--ui-success)_15%,transparent)] gu-text-success ring-1 ring-[color-mix(in_srgb,var(--ui-success)_30%,transparent)]'
                 } ${suitability.onPillClick ? 'cursor-pointer hover:brightness-110' : 'cursor-default'}`}
               >
                 {suitability.label}
@@ -247,7 +248,7 @@ export function ProductCardWithExplainability({
                 }
                 disabled={!suitability?.onShowMore}
                 aria-label={`Ver ${suitability?.extraProfilesCount} perfiles más`}
-                className="inline-flex items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] px-2 py-0.5 text-[11px] font-semibold text-[var(--ui-warning)] ring-1 ring-[color-mix(in_srgb,var(--ui-warning)_30%,transparent)] transition-colors hover:brightness-110 disabled:cursor-default"
+                className="inline-flex items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] px-2 py-0.5 text-[11px] font-semibold gu-text-warning ring-1 ring-[color-mix(in_srgb,var(--ui-warning)_30%,transparent)] transition-colors hover:brightness-110 disabled:cursor-default"
               >
                 +{suitability?.extraProfilesCount}
               </button>
@@ -270,7 +271,7 @@ export function ProductCardWithExplainability({
             {product.tags.slice(0, 3).map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-[var(--ui-surface-hover)] px-2 py-0.5 text-[10px] text-[var(--ui-text-secondary)]"
+                className="rounded-full gu-bg-surface-hover px-2 py-0.5 text-[10px] gu-text-text-secondary"
               >
                 {tag}
               </span>
@@ -282,11 +283,11 @@ export function ProductCardWithExplainability({
 
         <div className="mt-auto flex items-center justify-between gap-2 pt-2">
           <span className="flex flex-col">
-            <span className="text-base font-bold tabular-nums text-[var(--ui-text)]">
+            <span className="text-base font-bold tabular-nums gu-text-text">
               {formatPrice(product.price, product.currency)}
             </span>
             {(product.approxWeight || product.pricePerKgLabel) && (
-              <span className="text-[10px] leading-tight text-[var(--ui-text-muted)] tabular-nums">
+              <span className="text-[10px] leading-tight gu-text-text-muted tabular-nums">
                 {[product.approxWeight, product.pricePerKgLabel].filter(Boolean).join(' · ')}
               </span>
             )}
@@ -299,12 +300,12 @@ export function ProductCardWithExplainability({
                 e.stopPropagation();
                 if (!isIncompatible) onAddToCart?.(product.ean);
               }}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
+              className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                 isInCart
-                  ? 'bg-[var(--ui-primary-soft)] text-[var(--ui-primary)]'
+                  ? 'gu-bg-primary-soft gu-text-primary'
                   : isIncompatible
-                    ? 'cursor-not-allowed bg-[var(--ui-surface-hover)] text-[var(--ui-text-muted)]'
-                    : 'bg-[var(--ui-primary)] text-[var(--ui-surface)] hover:bg-[var(--ui-primary-hover)]'
+                    ? 'cursor-not-allowed gu-bg-surface-hover gu-text-text-muted'
+                    : 'gu-bg-primary gu-text-surface gu-h-bg-primary-hover'
               }`}
               aria-label={
                 isIncompatible

@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { HTMLAttributes, ReactNode } from 'react';
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
@@ -18,10 +19,10 @@ export function Card({
 
   return (
     <div
-      className={`rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] ${
+      className={`rounded-xl border gu-border-border gu-bg-surface-raised ${
         padding ? 'p-6' : ''
       } ${
-        isInteractive ? 'hover:bg-[var(--ui-surface-hover)] hover:-translate-y-0.5 cursor-pointer transition-[transform,background-color] duration-[var(--ui-duration-normal)]' : ''
+        isInteractive ? 'gu-h-bg-surface-hover hover:-translate-y-0.5 cursor-pointer transition-[transform,background-color] gu-duration-duration-normal' : ''
       } ${className}`}
       onClick={onClick}
       role={onClick ? 'button' : undefined}

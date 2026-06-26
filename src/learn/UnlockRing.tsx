@@ -1,4 +1,5 @@
 'use client';
+import '../ui-classes.css';
 import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'motion/react';
 import { useReducedMotion } from '../utils/useReducedMotion';
@@ -153,9 +154,9 @@ export function UnlockRing({
           className="absolute inset-0 flex flex-col items-center justify-center leading-none"
           aria-hidden="true"
         >
-          <span className="font-bold tabular-nums text-[var(--ui-text)]" style={{ fontSize: font }}>
+          <span className="font-bold tabular-nums gu-text-text" style={{ fontSize: font }}>
             {value}
-            <span className="font-medium text-[var(--ui-text-secondary)]" style={{ fontSize: font * 0.6 }}>
+            <span className="font-medium gu-text-text-secondary" style={{ fontSize: font * 0.6 }}>
               /{safeMax}
             </span>
           </span>
@@ -163,7 +164,7 @@ export function UnlockRing({
       </div>
 
       {label && (
-        <span className="text-xs font-medium text-[var(--ui-text-secondary)]">{label}</span>
+        <span className="text-xs font-medium gu-text-text-secondary">{label}</span>
       )}
 
       {segments && segments.length > 0 && (
@@ -175,7 +176,7 @@ export function UnlockRing({
                 style={{ background: seg.done ? 'var(--ui-primary)' : 'var(--ui-border)' }}
                 aria-hidden="true"
               />
-              <span className={seg.done ? 'text-[var(--ui-text)]' : 'text-[var(--ui-text-secondary)]'}>
+              <span className={seg.done ? 'gu-text-text' : 'gu-text-text-secondary'}>
                 {seg.label}
               </span>
             </li>

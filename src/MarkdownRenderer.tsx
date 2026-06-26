@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { HTMLAttributes, ReactElement } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -123,12 +124,12 @@ function parseInline(text: string): (string | ReactElement)[] {
     }
     const full = match[1];
     if (full.startsWith('**')) {
-      result.push(<strong key={match.index} className="font-semibold text-[var(--ui-text)]">{match[2]}</strong>);
+      result.push(<strong key={match.index} className="font-semibold gu-text-text">{match[2]}</strong>);
     } else if (full.startsWith('*')) {
       result.push(<em key={match.index} className="italic">{match[3]}</em>);
     } else if (full.startsWith('`')) {
       result.push(
-        <code key={match.index} className="rounded bg-[var(--ui-surface-hover)] px-1 py-0.5 font-mono text-[0.85em] text-[var(--ui-primary)]">
+        <code key={match.index} className="rounded gu-bg-surface-hover px-1 py-0.5 font-mono text-[0.85em] gu-text-primary">
           {match[4]}
         </code>,
       );
@@ -139,7 +140,7 @@ function parseInline(text: string): (string | ReactElement)[] {
           href={match[6]}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[var(--ui-primary)] underline underline-offset-2 hover:text-[var(--ui-primary-hover)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ui-primary)] rounded"
+          className="gu-text-primary underline underline-offset-2 gu-h-text-primary-hover focus-visible:outline-none focus-visible:ring-1 gu-fv-ring-primary rounded"
         >
           {match[5]}
         </a>,
@@ -170,35 +171,35 @@ export function MarkdownRenderer({
       switch (token.type) {
         case 'h1':
           return (
-            <h1 key={i} className="text-2xl font-bold text-[var(--ui-text)] mb-3 mt-6 first:mt-0">
+            <h1 key={i} className="text-2xl font-bold gu-text-text mb-3 mt-6 first:mt-0">
               {parseInline(token.text)}
             </h1>
           );
         case 'h2':
           return (
-            <h2 key={i} className="text-xl font-bold text-[var(--ui-text)] mb-2 mt-5 first:mt-0">
+            <h2 key={i} className="text-xl font-bold gu-text-text mb-2 mt-5 first:mt-0">
               {parseInline(token.text)}
             </h2>
           );
         case 'h3':
           return (
-            <h3 key={i} className="text-base font-semibold text-[var(--ui-text)] mb-2 mt-4 first:mt-0">
+            <h3 key={i} className="text-base font-semibold gu-text-text mb-2 mt-4 first:mt-0">
               {parseInline(token.text)}
             </h3>
           );
         case 'h4':
           return (
-            <h4 key={i} className="text-sm font-semibold text-[var(--ui-text)] mb-1.5 mt-3 first:mt-0">
+            <h4 key={i} className="text-sm font-semibold gu-text-text mb-1.5 mt-3 first:mt-0">
               {parseInline(token.text)}
             </h4>
           );
         case 'hr':
-          return <hr key={i} className="my-4 border-[var(--ui-border)]" />;
+          return <hr key={i} className="my-4 gu-border-border" />;
         case 'codeblock':
           return (
             <pre
               key={i}
-              className="my-3 overflow-x-auto rounded-lg bg-[var(--ui-surface-raised)] p-4 font-mono text-sm text-[var(--ui-text-secondary)]"
+              className="my-3 overflow-x-auto rounded-lg gu-bg-surface-raised p-4 font-mono text-sm gu-text-text-secondary"
               data-language={token.lang || undefined}
             >
               <code>{token.text}</code>
@@ -208,14 +209,14 @@ export function MarkdownRenderer({
           return (
             <blockquote
               key={i}
-              className="my-3 border-l-4 border-[var(--ui-primary)] pl-4 text-sm italic text-[var(--ui-text-secondary)]"
+              className="my-3 border-l-4 gu-border-primary pl-4 text-sm italic gu-text-text-secondary"
             >
               {parseInline(token.text)}
             </blockquote>
           );
         case 'ul':
           return (
-            <ul key={i} className="my-2 ml-4 list-disc space-y-1 text-sm text-[var(--ui-text-secondary)]">
+            <ul key={i} className="my-2 ml-4 list-disc space-y-1 text-sm gu-text-text-secondary">
               {token.items.map((item, j) => (
                 <li key={j}>{parseInline(item)}</li>
               ))}
@@ -223,7 +224,7 @@ export function MarkdownRenderer({
           );
         case 'ol':
           return (
-            <ol key={i} className="my-2 ml-4 list-decimal space-y-1 text-sm text-[var(--ui-text-secondary)]">
+            <ol key={i} className="my-2 ml-4 list-decimal space-y-1 text-sm gu-text-text-secondary">
               {token.items.map((item, j) => (
                 <li key={j}>{parseInline(item)}</li>
               ))}
@@ -231,7 +232,7 @@ export function MarkdownRenderer({
           );
         case 'p':
           return (
-            <p key={i} className="my-2 text-sm leading-relaxed text-[var(--ui-text-secondary)]">
+            <p key={i} className="my-2 text-sm leading-relaxed gu-text-text-secondary">
               {parseInline(token.text)}
             </p>
           );
@@ -242,7 +243,7 @@ export function MarkdownRenderer({
 
   return (
     <div
-      className={`prose-gundo text-[var(--ui-text-secondary)] ${className}`}
+      className={`prose-gundo gu-text-text-secondary ${className}`}
       {...props}
     >
       {rendered}

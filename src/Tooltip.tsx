@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useState, useId, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useReducedMotion } from './utils/useReducedMotion';
@@ -22,10 +23,10 @@ export function Tooltip({ text, children, position = 'top' }: TooltipProps) {
   };
 
   const arrowClasses: Record<string, string> = {
-    top: 'top-full left-1/2 -translate-x-1/2 border-t-[var(--ui-tooltip-bg)] border-x-transparent border-b-transparent',
-    bottom: 'bottom-full left-1/2 -translate-x-1/2 border-b-[var(--ui-tooltip-bg)] border-x-transparent border-t-transparent',
-    left: 'left-full top-1/2 -translate-y-1/2 border-l-[var(--ui-tooltip-bg)] border-y-transparent border-r-transparent',
-    right: 'right-full top-1/2 -translate-y-1/2 border-r-[var(--ui-tooltip-bg)] border-y-transparent border-l-transparent',
+    top: 'top-full left-1/2 -translate-x-1/2 gu-border-t-tooltip-bg border-x-transparent border-b-transparent',
+    bottom: 'bottom-full left-1/2 -translate-x-1/2 gu-border-b-tooltip-bg border-x-transparent border-t-transparent',
+    left: 'left-full top-1/2 -translate-y-1/2 gu-border-l-tooltip-bg border-y-transparent border-r-transparent',
+    right: 'right-full top-1/2 -translate-y-1/2 gu-border-r-tooltip-bg border-y-transparent border-l-transparent',
   };
 
   const show = () => setVisible(true);
@@ -56,7 +57,7 @@ export function Tooltip({ text, children, position = 'top' }: TooltipProps) {
             }}
             className={`absolute z-50 ${positionClasses[position]} pointer-events-none whitespace-nowrap max-w-xs`}
           >
-            <span className="block bg-[var(--ui-tooltip-bg)] text-[var(--ui-tooltip-text)] text-xs rounded-lg px-3 py-2 shadow-lg whitespace-normal">
+            <span className="block gu-bg-tooltip-bg gu-text-tooltip-text text-xs rounded-lg px-3 py-2 shadow-lg whitespace-normal">
               {text}
             </span>
             <span className={`absolute w-0 h-0 border-4 ${arrowClasses[position]}`} />

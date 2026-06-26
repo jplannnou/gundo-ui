@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { type HTMLAttributes } from 'react';
 import { Avatar } from './Avatar';
 
@@ -29,14 +30,14 @@ export function SidebarUserCard({
     >
       <Avatar src={user.avatar} alt={user.name} size="sm" />
       <div className="flex-1 min-w-0">
-        <p className="text-xs font-medium text-[var(--ui-text)] truncate leading-tight">
+        <p className="text-xs font-medium gu-text-text truncate leading-tight">
           {user.name}
         </p>
         {onLogout && (
           <button
             type="button"
             onClick={onLogout}
-            className="text-[11px] text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] transition-colors focus-visible:outline-none focus-visible:underline"
+            className="text-[11px] gu-text-text-muted gu-h-text-text transition-colors focus-visible:outline-none focus-visible:underline"
           >
             Sign out
           </button>

@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 /**
@@ -67,7 +68,7 @@ interface ChartTooltipProps {
 export function ChartTooltip({ children, className = '' }: ChartTooltipProps) {
   return (
     <div
-      className={`rounded-[var(--ui-radius-md)] border border-[var(--ui-border)] bg-[var(--ui-surface)] px-3 py-2 text-sm text-[var(--ui-text)] shadow-[var(--ui-shadow-md)] font-[var(--ui-font-family)] ${className}`}
+      className={`gu-rounded-radius-md border gu-border-border gu-bg-surface px-3 py-2 text-sm gu-text-text gu-shadow-shadow-md gu-font-font-family ${className}`}
     >
       {children}
     </div>

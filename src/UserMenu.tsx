@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { type ReactNode } from 'react';
 import { Settings, LogOut } from 'lucide-react';
 import { Avatar } from './Avatar';
@@ -43,9 +44,9 @@ export function UserMenu({ user, onLogout, onSettings, menuItems = [], align = '
     <div className="flex items-center gap-2 cursor-pointer" aria-label={`User menu for ${user.name}`}>
       <Avatar src={user.avatar} alt={user.name} size="sm" />
       <div className="hidden sm:block text-left">
-        <p className="text-sm font-medium text-[var(--ui-text)] leading-tight">{user.name}</p>
+        <p className="text-sm font-medium gu-text-text leading-tight">{user.name}</p>
         {user.email && (
-          <p className="text-xs text-[var(--ui-text-muted)] leading-tight">{user.email}</p>
+          <p className="text-xs gu-text-text-muted leading-tight">{user.email}</p>
         )}
       </div>
     </div>

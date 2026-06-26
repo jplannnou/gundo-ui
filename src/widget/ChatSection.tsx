@@ -1,3 +1,4 @@
+import '../ui-classes.css';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Camera, FileText, Paperclip, Send, X as XIcon } from 'lucide-react';
@@ -269,7 +270,7 @@ export function ChatSection({
     : { initial: { opacity: 0, y: 8 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.2, ease: easing } };
 
   return (
-    <div className="flex flex-col h-full bg-[var(--ui-surface)]">
+    <div className="flex flex-col h-full gu-bg-surface">
       <div
         role="log"
         aria-live="polite"
@@ -293,15 +294,15 @@ export function ChatSection({
                         key={i}
                         src={m.preview}
                         alt={`Imagen adjunta: ${m.name}`}
-                        className="w-48 h-48 object-cover rounded-xl mb-2 border border-[var(--ui-border)]"
+                        className="w-48 h-48 object-cover rounded-xl mb-2 border gu-border-border"
                       />
                     ),
                 )}
                 <div
                   className={`rounded-2xl px-4 py-3 ${
                     msg.role === 'user'
-                      ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)] rounded-br-sm'
-                      : 'bg-[var(--ui-surface)] border border-[var(--ui-border)] text-[var(--ui-text)] rounded-bl-sm'
+                      ? 'gu-bg-primary gu-text-surface rounded-br-sm'
+                      : 'gu-bg-surface border gu-border-border gu-text-text rounded-bl-sm'
                   }`}
                 >
                   {/* User messages are plain text (typed by the user, no markdown).
@@ -318,22 +319,22 @@ export function ChatSection({
                         <span
                           key={d}
                           aria-hidden="true"
-                          className="w-1.5 h-1.5 rounded-full bg-[var(--ui-text-muted)] animate-bounce"
+                          className="w-1.5 h-1.5 rounded-full gu-bg-text-muted animate-bounce"
                           style={{ animationDelay: `${d}ms` }}
                         />
                       ))}
                     </div>
                   )}
                   {msg.sources && msg.sources.length > 0 && (
-                    <div className="mt-2 pt-2 border-t border-[var(--ui-border)]">
-                      <p className="text-[10px] text-[var(--ui-text-secondary)] uppercase font-bold mb-1">{labels.sources}</p>
+                    <div className="mt-2 pt-2 border-t gu-border-border">
+                      <p className="text-[10px] gu-text-text-secondary uppercase font-bold mb-1">{labels.sources}</p>
                       {msg.sources.map((s, j) => (
                         <a
                           key={j}
                           href={s.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-[var(--ui-primary)] hover:underline block truncate focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+                          className="text-xs gu-text-primary hover:underline block truncate focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
                         >
                           {s.title}
                           <span className="sr-only"> (abre en nueva pestaña)</span>
@@ -351,7 +352,7 @@ export function ChatSection({
                 ))}
                 {msg.foodAnalysis && <FoodAnalysisCard analysis={msg.foodAnalysis} labels={labels} />}
                 {msg.disclaimer && (
-                  <p className="mt-2 text-[11px] text-[var(--ui-text-secondary)] italic px-1">{msg.disclaimer}</p>
+                  <p className="mt-2 text-[11px] gu-text-text-secondary italic px-1">{msg.disclaimer}</p>
                 )}
                 {msg.suggestedFollowUps && msg.suggestedFollowUps.length > 0 && !msg.isStreaming && (
                   <div className="mt-2 flex flex-wrap gap-1.5">
@@ -359,7 +360,7 @@ export function ChatSection({
                       <button
                         key={q}
                         onClick={() => handleSend(q)}
-                        className="px-3 py-1.5 min-h-6 rounded-full bg-[var(--ui-surface)] border border-[var(--ui-border)] text-[11px] text-[var(--ui-text)] hover:border-[var(--ui-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+                        className="px-3 py-1.5 min-h-6 rounded-full gu-bg-surface border gu-border-border text-[11px] gu-text-text gu-h-border-primary transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
                       >
                         {q}
                       </button>
@@ -373,13 +374,13 @@ export function ChatSection({
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="px-3 py-3 shrink-0 border-t border-[var(--ui-border)] bg-[var(--ui-surface)]">
+      <div className="px-3 py-3 shrink-0 border-t gu-border-border gu-bg-surface">
         {pendingFiles.length > 0 && (
           <div className="flex gap-2 mb-2">
             {pendingFiles.map((f, i) => (
               <div
                 key={i}
-                className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-[var(--ui-surface)] border border-[var(--ui-border)] text-xs text-[var(--ui-text)]"
+                className="flex items-center gap-1.5 px-2 py-1 rounded-lg gu-bg-surface border gu-border-border text-xs gu-text-text"
               >
                 {f.type.startsWith('image/') ? (
                   <Camera className="w-3.5 h-3.5" aria-hidden="true" />
@@ -391,7 +392,7 @@ export function ChatSection({
                   type="button"
                   aria-label={`${labels.removeAttachment}: ${f.name}`}
                   onClick={() => setPendingFiles((prev) => prev.filter((_, j) => j !== i))}
-                  className="min-w-6 min-h-6 flex items-center justify-center rounded text-[var(--ui-text-muted)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+                  className="min-w-6 min-h-6 flex items-center justify-center rounded gu-text-text-muted gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
                 >
                   <XIcon className="w-3 h-3" aria-hidden="true" />
                 </button>
@@ -410,7 +411,7 @@ export function ChatSection({
             type="button"
             onClick={() => fileInputRef.current?.click()}
             aria-label={labels.attach}
-            className="w-11 h-11 rounded-xl bg-[var(--ui-surface)] border border-[var(--ui-border)] flex items-center justify-center text-[var(--ui-text-muted)] active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+            className="w-11 h-11 rounded-xl gu-bg-surface border gu-border-border flex items-center justify-center gu-text-text-muted active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
           >
             <Paperclip className="w-5 h-5" aria-hidden="true" />
           </button>
@@ -418,7 +419,7 @@ export function ChatSection({
             type="button"
             onClick={() => cameraInputRef.current?.click()}
             aria-label={labels.capture}
-            className="w-11 h-11 rounded-xl bg-[var(--ui-surface)] border border-[var(--ui-border)] flex items-center justify-center text-[var(--ui-text-muted)] active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+            className="w-11 h-11 rounded-xl gu-bg-surface border gu-border-border flex items-center justify-center gu-text-text-muted active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
           >
             <Camera className="w-5 h-5" aria-hidden="true" />
           </button>
@@ -429,13 +430,13 @@ export function ChatSection({
             placeholder={labels.inputPlaceholder}
             aria-label={labels.inputPlaceholder}
             disabled={isStreaming}
-            className="flex-1 px-3 py-2.5 rounded-xl bg-[var(--ui-surface)] border border-[var(--ui-border)] text-[var(--ui-text)] text-sm placeholder:text-[var(--ui-text-muted)] focus:ring-2 focus:ring-[var(--ui-primary)] outline-none disabled:opacity-60"
+            className="flex-1 px-3 py-2.5 rounded-xl gu-bg-surface border gu-border-border gu-text-text text-sm placeholder:text-[var(--ui-text-muted)] focus:ring-2 gu-f-ring-primary outline-none disabled:opacity-60"
           />
           <button
             type="submit"
             aria-label={labels.send}
             disabled={(!input.trim() && !pendingFiles.length) || isStreaming}
-            className="w-11 h-11 rounded-xl bg-[var(--ui-primary)] text-[var(--ui-surface)] flex items-center justify-center disabled:opacity-50 active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2"
+            className="w-11 h-11 rounded-xl gu-bg-primary gu-text-surface flex items-center justify-center disabled:opacity-50 active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary focus-visible:ring-offset-2"
           >
             <Send className="w-4 h-4" aria-hidden="true" />
           </button>
@@ -456,12 +457,12 @@ export function ChatSection({
 
 function compatibilityTokens(score: number) {
   if (score >= 70) {
-    return { text: 'text-[var(--ui-range-optimal)]', bg: 'bg-[var(--ui-range-optimal)]', soft: 'bg-[var(--ui-range-optimal-soft)]' };
+    return { text: 'gu-text-range-optimal', bg: 'gu-bg-range-optimal', soft: 'gu-bg-range-optimal-soft' };
   }
   if (score >= 40) {
-    return { text: 'text-[var(--ui-range-attention)]', bg: 'bg-[var(--ui-range-attention)]', soft: 'bg-[var(--ui-range-attention-soft)]' };
+    return { text: 'gu-text-range-attention', bg: 'gu-bg-range-attention', soft: 'gu-bg-range-attention-soft' };
   }
-  return { text: 'text-[var(--ui-range-critical)]', bg: 'bg-[var(--ui-range-critical)]', soft: 'bg-[var(--ui-range-critical-soft)]' };
+  return { text: 'gu-text-range-critical', bg: 'gu-bg-range-critical', soft: 'gu-bg-range-critical-soft' };
 }
 
 function formatPrice(price: NonNullable<ChatProductCard['price']>, locale: string): string {
@@ -485,20 +486,20 @@ function ProductCardInline({
   const score = product.compatibilityScore ?? 0;
   const tokens = compatibilityTokens(score);
   return (
-    <div className="mt-2 bg-[var(--ui-surface)] border border-[var(--ui-border)] rounded-xl p-3">
+    <div className="mt-2 gu-bg-surface border gu-border-border rounded-xl p-3">
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-[var(--ui-text)] truncate">{product.name}</p>
-          {product.brand && <p className="text-xs text-[var(--ui-text-secondary)]">{product.brand}</p>}
+          <p className="text-sm font-semibold gu-text-text truncate">{product.name}</p>
+          {product.brand && <p className="text-xs gu-text-text-secondary">{product.brand}</p>}
           {product.price && typeof product.price.value === 'number' && (
-            <p className="text-xs font-semibold text-[var(--ui-text)] mt-0.5">
+            <p className="text-xs font-semibold gu-text-text mt-0.5">
               {formatPrice(product.price, locale)}
             </p>
           )}
         </div>
         <div className="text-right shrink-0">
           <span className={`text-lg font-bold ${tokens.text}`}>{score}</span>
-          <span className="text-[10px] text-[var(--ui-text-secondary)]">/100</span>
+          <span className="text-[10px] gu-text-text-secondary">/100</span>
         </div>
       </div>
       <div
@@ -507,7 +508,7 @@ function ProductCardInline({
         aria-valuenow={score}
         aria-valuemin={0}
         aria-valuemax={100}
-        className="mt-2 h-1.5 rounded-full bg-[var(--ui-surface-hover)] overflow-hidden"
+        className="mt-2 h-1.5 rounded-full gu-bg-surface-hover overflow-hidden"
       >
         <div className={`h-full rounded-full ${tokens.bg}`} style={{ width: `${score}%` }} />
       </div>
@@ -515,8 +516,8 @@ function ProductCardInline({
         <span
           className={`px-1.5 py-0.5 rounded ${
             product.compatible
-              ? 'bg-[var(--ui-range-optimal-soft)] text-[var(--ui-range-optimal)]'
-              : 'bg-[var(--ui-range-critical-soft)] text-[var(--ui-range-critical)]'
+              ? 'gu-bg-range-optimal-soft gu-text-range-optimal'
+              : 'gu-bg-range-critical-soft gu-text-range-critical'
           }`}
         >
           {product.compatible ? labels.compatible : labels.notCompatible}
@@ -530,9 +531,9 @@ function FoodAnalysisCard({ analysis, labels }: { analysis: FoodAnalysis; labels
   const score = analysis.compatibilityScore;
   const tokens = compatibilityTokens(score);
   return (
-    <div className="mt-2 bg-[var(--ui-surface)] border border-[var(--ui-border)] rounded-xl p-3">
+    <div className="mt-2 gu-bg-surface border gu-border-border rounded-xl p-3">
       <div className="flex items-center justify-between mb-2">
-        <p className="text-xs font-bold text-[var(--ui-text)] uppercase tracking-wider">{labels.foodAnalysisTitle}</p>
+        <p className="text-xs font-bold gu-text-text uppercase tracking-wider">{labels.foodAnalysisTitle}</p>
         <span className={`text-lg font-bold ${tokens.text}`} aria-label={`${labels.compatibilityScoreLabel} ${score} de 100`}>
           {score}/100
         </span>
@@ -545,25 +546,25 @@ function FoodAnalysisCard({ analysis, labels }: { analysis: FoodAnalysis; labels
           { label: 'Gras', value: `${analysis.nutritionalInfo.fats}g` },
         ].map((m) => (
           <div key={m.label} className="text-center">
-            <p className="text-sm font-bold text-[var(--ui-text)]">{m.value}</p>
-            <p className="text-[10px] text-[var(--ui-text-secondary)]">{m.label}</p>
+            <p className="text-sm font-bold gu-text-text">{m.value}</p>
+            <p className="text-[10px] gu-text-text-secondary">{m.label}</p>
           </div>
         ))}
       </div>
       {analysis.allergenWarnings.length > 0 && (
         <div
           role="alert"
-          className="p-2 rounded-lg bg-[var(--ui-error-soft)] border border-[var(--ui-error)]"
+          className="p-2 rounded-lg gu-bg-error-soft border gu-border-error"
         >
-          <p className="text-xs text-[var(--ui-error)] font-bold">{labels.allergenWarning}</p>
+          <p className="text-xs gu-text-error font-bold">{labels.allergenWarning}</p>
           {analysis.allergenWarnings.map((w, i) => (
-            <p key={i} className="text-xs text-[var(--ui-error)]">
+            <p key={i} className="text-xs gu-text-error">
               {w}
             </p>
           ))}
         </div>
       )}
-      <p className="mt-2 text-[10px] text-[var(--ui-text-muted)] italic">{labels.estimateNote}</p>
+      <p className="mt-2 text-[10px] gu-text-text-muted italic">{labels.estimateNote}</p>
     </div>
   );
 }

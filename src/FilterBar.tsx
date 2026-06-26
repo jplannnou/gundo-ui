@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useCallback, useId, useState, type ReactNode } from 'react';
 import { Check, X } from 'lucide-react';
 
@@ -61,7 +62,7 @@ export function FilterBar({
             {searchPlaceholder}
           </label>
           <svg
-            className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--ui-text-muted)]"
+            className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 gu-text-text-muted"
             width="14"
             height="14"
             viewBox="0 0 14 14"
@@ -77,7 +78,7 @@ export function FilterBar({
             value={searchValue}
             onChange={(e) => onSearchChange?.(e.target.value)}
             placeholder={searchPlaceholder}
-            className="h-8 w-48 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-hover)] pl-8 pr-3 text-sm text-[var(--ui-text)] placeholder:text-[var(--ui-text-muted)] outline-none transition-colors focus-visible:border-[var(--ui-primary)] focus-visible:ring-1 focus-visible:ring-[var(--ui-primary)]"
+            className="h-8 w-48 rounded-lg border gu-border-border gu-bg-surface-hover pl-8 pr-3 text-sm gu-text-text placeholder:text-[var(--ui-text-muted)] outline-none transition-colors gu-fv-border-primary focus-visible:ring-1 gu-fv-ring-primary"
           />
         </div>
       )}
@@ -113,7 +114,7 @@ export function FilterBar({
         <button
           type="button"
           onClick={onClearAll}
-          className="text-xs text-[var(--ui-text-muted)] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] rounded"
+          className="text-xs gu-text-text-muted underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary rounded"
         >
           Limpiar todo
         </button>
@@ -158,15 +159,15 @@ function FilterDropdown({ group, active, onChange }: FilterDropdownProps) {
         aria-expanded={open}
         aria-controls={listId}
         onClick={() => setOpen((v) => !v)}
-        className={`flex h-8 items-center gap-1.5 rounded-lg border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] ${
+        className={`flex h-8 items-center gap-1.5 rounded-lg border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary ${
           hasActive
-            ? 'border-[var(--ui-primary)] bg-[var(--ui-primary-soft)] text-[var(--ui-primary)]'
-            : 'border-[var(--ui-border)] bg-[var(--ui-surface-hover)] text-[var(--ui-text)]'
+            ? 'gu-border-primary gu-bg-primary-soft gu-text-primary'
+            : 'gu-border-border gu-bg-surface-hover gu-text-text'
         }`}
       >
         {group.label}
         {hasActive && (
-          <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--ui-primary)] text-[10px] font-bold text-[var(--ui-surface)]">
+          <span className="flex h-4 w-4 items-center justify-center rounded-full gu-bg-primary text-[10px] font-bold gu-text-surface">
             {active.length}
           </span>
         )}
@@ -190,7 +191,7 @@ function FilterDropdown({ group, active, onChange }: FilterDropdownProps) {
             role="listbox"
             aria-multiselectable={group.mode !== 'single'}
             aria-label={group.label}
-            className="absolute left-0 top-full z-50 mt-1 min-w-40 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface)] py-1 shadow-[var(--ui-shadow-md)]"
+            className="absolute left-0 top-full z-50 mt-1 min-w-40 rounded-lg border gu-border-border gu-bg-surface py-1 gu-shadow-shadow-md"
           >
             {group.options.map((opt) => {
               const isSelected = active.includes(opt.value);
@@ -200,16 +201,16 @@ function FilterDropdown({ group, active, onChange }: FilterDropdownProps) {
                   role="option"
                   aria-selected={isSelected}
                   onClick={() => toggle(opt.value)}
-                  className={`flex cursor-pointer items-center justify-between gap-3 px-3 py-1.5 text-sm transition-colors hover:bg-[var(--ui-surface-hover)] ${
-                    isSelected ? 'text-[var(--ui-primary)]' : 'text-[var(--ui-text)]'
+                  className={`flex cursor-pointer items-center justify-between gap-3 px-3 py-1.5 text-sm transition-colors gu-h-bg-surface-hover ${
+                    isSelected ? 'gu-text-primary' : 'gu-text-text'
                   }`}
                 >
                   <span className="flex items-center gap-2">
                     <span
                       className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors ${
                         isSelected
-                          ? 'border-[var(--ui-primary)] bg-[var(--ui-primary)]'
-                          : 'border-[var(--ui-border)]'
+                          ? 'gu-border-primary gu-bg-primary'
+                          : 'gu-border-border'
                       }`}
                       aria-hidden="true"
                     >
@@ -220,7 +221,7 @@ function FilterDropdown({ group, active, onChange }: FilterDropdownProps) {
                     {opt.label}
                   </span>
                   {opt.count !== undefined && (
-                    <span className="text-xs text-[var(--ui-text-muted)]">{opt.count}</span>
+                    <span className="text-xs gu-text-text-muted">{opt.count}</span>
                   )}
                 </li>
               );
@@ -241,13 +242,13 @@ interface FilterPillProps {
 
 function FilterPill({ label, onRemove }: FilterPillProps) {
   return (
-    <span className="flex items-center gap-1 rounded-full bg-[var(--ui-primary-soft)] pl-2.5 pr-1 py-0.5 text-xs font-medium text-[var(--ui-primary)]">
+    <span className="flex items-center gap-1 rounded-full gu-bg-primary-soft pl-2.5 pr-1 py-0.5 text-xs font-medium gu-text-primary">
       {label}
       <button
         type="button"
         onClick={onRemove}
         aria-label={`Quitar filtro: ${label}`}
-        className="flex h-4 w-4 items-center justify-center rounded-full transition-colors hover:bg-[var(--ui-primary)] hover:text-[var(--ui-surface)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ui-primary)]"
+        className="flex h-4 w-4 items-center justify-center rounded-full transition-colors gu-h-bg-primary gu-h-text-surface focus-visible:outline-none focus-visible:ring-1 gu-fv-ring-primary"
       >
         <X className="w-2 h-2" strokeWidth={2} aria-hidden="true" />
       </button>

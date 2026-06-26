@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 type TimelineStatus = 'success' | 'warning' | 'error' | 'info' | 'neutral';
@@ -18,11 +19,11 @@ interface TimelineProps {
 }
 
 const statusColors: Record<TimelineStatus, string> = {
-  success: 'bg-[var(--ui-success)]',
-  warning: 'bg-[var(--ui-warning)]',
-  error: 'bg-[var(--ui-error)]',
-  info: 'bg-[var(--ui-info)]',
-  neutral: 'bg-[var(--ui-text-muted)]',
+  success: 'gu-bg-success',
+  warning: 'gu-bg-warning',
+  error: 'gu-bg-error',
+  info: 'gu-bg-info',
+  neutral: 'gu-bg-text-muted',
 };
 
 const dotSize: Record<string, string> = {
@@ -54,20 +55,20 @@ export function Timeline({ items, size = 'md', className = '' }: TimelineProps) 
                 <div className={`${dotSize[size]} rounded-full ${color} shrink-0 mt-1.5`} />
               )}
               {!isLast && (
-                <div className="w-px flex-1 bg-[var(--ui-border)] mt-1" />
+                <div className="w-px flex-1 gu-bg-border mt-1" />
               )}
             </div>
 
             {/* Content */}
             <div className="flex-1 min-w-0 pt-0.5">
               <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-medium text-[var(--ui-text)] truncate">{item.title}</p>
+                <p className="text-sm font-medium gu-text-text truncate">{item.title}</p>
                 {item.time && (
-                  <time className="text-xs text-[var(--ui-text-muted)] shrink-0 whitespace-nowrap">{item.time}</time>
+                  <time className="text-xs gu-text-text-muted shrink-0 whitespace-nowrap">{item.time}</time>
                 )}
               </div>
               {item.description && (
-                <p className="mt-0.5 text-sm text-[var(--ui-text-secondary)]">{item.description}</p>
+                <p className="mt-0.5 text-sm gu-text-text-secondary">{item.description}</p>
               )}
             </div>
           </div>

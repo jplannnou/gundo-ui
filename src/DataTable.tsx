@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode, KeyboardEvent } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 
@@ -39,7 +40,7 @@ export interface DataTableProps<T> {
 
 function SortIcon({ active, direction }: { active: boolean; direction?: 'asc' | 'desc' }) {
   return (
-    <span className={`inline-flex flex-col items-center ml-1 -space-y-1.5 ${active ? 'text-[var(--ui-primary)]' : 'text-[var(--ui-text-muted)]'}`} aria-hidden="true">
+    <span className={`inline-flex flex-col items-center ml-1 -space-y-1.5 ${active ? 'gu-text-primary' : 'gu-text-text-muted'}`} aria-hidden="true">
       <ChevronUp className="w-3.5 h-3.5" style={{ opacity: !active || direction === 'asc' ? 1 : 0.3 }} />
       <ChevronDown className="w-3.5 h-3.5" style={{ opacity: !active || direction === 'desc' ? 1 : 0.3 }} />
     </span>
@@ -107,10 +108,10 @@ export function DataTable<T>({
   const alignClass = { left: 'text-left', center: 'text-center', right: 'text-right' };
 
   return (
-    <div className={`overflow-x-auto rounded-lg border border-[var(--ui-border)] ${className}`}>
+    <div className={`overflow-x-auto rounded-lg border gu-border-border ${className}`}>
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-[var(--ui-border)]">
+          <tr className="border-b gu-border-border">
             {selectable && (
               <th className="w-10 px-3 py-2.5">
                 <input
@@ -119,15 +120,15 @@ export function DataTable<T>({
                   ref={el => { if (el) el.indeterminate = someSelected; }}
                   onChange={handleSelectAll}
                   aria-label="Select all"
-                  className="accent-[var(--ui-primary)]"
+                  className="gu-accent-primary"
                 />
               </th>
             )}
             {columns.map(col => (
               <th
                 key={col.key}
-                className={`px-4 py-2.5 font-medium text-[var(--ui-text-secondary)] ${alignClass[col.align || 'left']} ${
-                  col.sortable ? 'cursor-pointer select-none hover:text-[var(--ui-text)]' : ''
+                className={`px-4 py-2.5 font-medium gu-text-text-secondary ${alignClass[col.align || 'left']} ${
+                  col.sortable ? 'cursor-pointer select-none gu-h-text-text' : ''
                 }`}
                 style={col.width ? { width: col.width } : undefined}
                 onClick={col.sortable ? () => handleSort(col) : undefined}
@@ -146,7 +147,7 @@ export function DataTable<T>({
         <tbody>
           {data.length === 0 ? (
             <tr>
-              <td colSpan={columns.length + (selectable ? 1 : 0)} className="px-4 py-12 text-center text-[var(--ui-text-secondary)]">
+              <td colSpan={columns.length + (selectable ? 1 : 0)} className="px-4 py-12 text-center gu-text-text-secondary">
                 {emptyMessage}
               </td>
             </tr>
@@ -157,9 +158,9 @@ export function DataTable<T>({
               return (
                 <tr
                   key={key}
-                  className={`border-b border-[var(--ui-border)]/50 transition-colors ${
-                    selected ? 'bg-[var(--ui-primary-soft)]' : ''
-                  } ${onRowClick ? 'cursor-pointer hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--ui-focus-ring-color)]' : ''}`}
+                  className={`border-b gu-border-border/50 transition-colors ${
+                    selected ? 'gu-bg-primary-soft' : ''
+                  } ${onRowClick ? 'cursor-pointer gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset gu-fv-ring-focus-ring-color' : ''}`}
                   onClick={onRowClick ? () => onRowClick(row) : undefined}
                   tabIndex={onRowClick ? 0 : undefined}
                   role={onRowClick ? 'button' : undefined}
@@ -181,12 +182,12 @@ export function DataTable<T>({
                         checked={selected}
                         onChange={() => handleSelectRow(key)}
                         aria-label="Select row"
-                        className="accent-[var(--ui-primary)]"
+                        className="gu-accent-primary"
                       />
                     </td>
                   )}
                   {columns.map(col => (
-                    <td key={col.key} className={`px-4 py-2 text-[var(--ui-text)] ${alignClass[col.align || 'left']}`}>
+                    <td key={col.key} className={`px-4 py-2 gu-text-text ${alignClass[col.align || 'left']}`}>
                       {col.render(row)}
                     </td>
                   ))}
@@ -197,10 +198,10 @@ export function DataTable<T>({
         </tbody>
         {footerRow && (
           <tfoot>
-            <tr className="border-t border-[var(--ui-border)] font-semibold bg-[var(--ui-surface-raised)]">
+            <tr className="border-t gu-border-border font-semibold gu-bg-surface-raised">
               {selectable && <td />}
               {columns.map(col => (
-                <td key={col.key} className={`px-4 py-2.5 text-[var(--ui-text)] ${alignClass[col.align || 'left']}`}>
+                <td key={col.key} className={`px-4 py-2.5 gu-text-text ${alignClass[col.align || 'left']}`}>
                   {col.render(footerRow)}
                 </td>
               ))}

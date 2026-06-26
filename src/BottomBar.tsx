@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -40,13 +41,13 @@ export function BottomBar({ items, renderLink, className = '' }: BottomBarProps)
   return (
     <nav
       aria-label="Navegación principal"
-      className={`md:hidden fixed inset-x-0 bottom-0 z-[var(--ui-z-sticky)] border-t border-[var(--ui-border)] bg-[var(--ui-surface)] pb-[env(safe-area-inset-bottom)] shadow-[var(--ui-shadow-lg)] ${className}`}
+      className={`md:hidden fixed inset-x-0 bottom-0 gu-z-z-sticky border-t gu-border-border gu-bg-surface pb-[env(safe-area-inset-bottom)] gu-shadow-shadow-lg ${className}`}
     >
       <ul className="mx-auto flex max-w-lg items-stretch justify-around">
         {items.map((item) => {
           const isActive = item.active === true;
           const activeColor = isActive ? 'var(--ui-primary)' : 'var(--ui-text-secondary)';
-          const baseClass = `relative flex flex-1 flex-col items-center justify-center gap-1 py-2 text-[10px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--ui-focus-ring-color)]`;
+          const baseClass = `relative flex flex-1 flex-col items-center justify-center gap-1 py-2 text-[10px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset gu-fv-ring-focus-ring-color`;
           const children = (
             <>
               <span
@@ -57,7 +58,7 @@ export function BottomBar({ items, renderLink, className = '' }: BottomBarProps)
                 {item.icon}
                 {item.badge !== undefined && item.badge !== 0 && item.badge !== '0' && (
                   <span
-                    className="absolute -right-1.5 -top-1.5 inline-flex min-w-[16px] items-center justify-center rounded-full bg-[var(--ui-error)] px-1 text-[9px] font-bold leading-none text-white"
+                    className="absolute -right-1.5 -top-1.5 inline-flex min-w-[16px] items-center justify-center rounded-full gu-bg-error px-1 text-[9px] font-bold leading-none text-white"
                     aria-hidden="true"
                   >
                     {item.badge}
@@ -67,7 +68,7 @@ export function BottomBar({ items, renderLink, className = '' }: BottomBarProps)
               <span style={{ color: activeColor }}>{item.label}</span>
               {isActive && (
                 <span
-                  className="absolute inset-x-6 top-0 h-0.5 rounded-full bg-[var(--ui-primary)]"
+                  className="absolute inset-x-6 top-0 h-0.5 rounded-full gu-bg-primary"
                   aria-hidden="true"
                 />
               )}

@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useCallback, useId, useRef, useState, type HTMLAttributes } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -109,7 +110,7 @@ function DropdownVariant({
         aria-controls={listId}
         aria-label={`Idioma actual: ${current.label}`}
         onClick={() => setOpen((v) => !v)}
-        className="flex h-8 items-center gap-1.5 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-hover)] px-2.5 text-sm font-medium text-[var(--ui-text)] transition-colors hover:bg-[var(--ui-surface-raised)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+        className="flex h-8 items-center gap-1.5 rounded-lg border gu-border-border gu-bg-surface-hover px-2.5 text-sm font-medium gu-text-text transition-colors gu-h-bg-surface-raised focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
       >
         {showFlag && current.flag && <span aria-hidden="true">{current.flag}</span>}
         <span>{showLabel ? current.label : (current.short ?? current.code.toUpperCase())}</span>
@@ -132,7 +133,7 @@ function DropdownVariant({
             id={listId}
             role="listbox"
             aria-label="Seleccionar idioma"
-            className="absolute right-0 top-full z-50 mt-1 min-w-36 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface)] py-1 shadow-[var(--ui-shadow-md)]"
+            className="absolute right-0 top-full z-50 mt-1 min-w-36 rounded-lg border gu-border-border gu-bg-surface py-1 gu-shadow-shadow-md"
           >
             {languages.map((lang) => {
               const isSelected = lang.code === currentLanguage;
@@ -142,8 +143,8 @@ function DropdownVariant({
                   role="option"
                   aria-selected={isSelected}
                   onClick={() => handleSelect(lang.code)}
-                  className={`flex cursor-pointer items-center gap-2 px-3 py-1.5 text-sm transition-colors hover:bg-[var(--ui-surface-hover)] ${
-                    isSelected ? 'text-[var(--ui-primary)] font-medium' : 'text-[var(--ui-text)]'
+                  className={`flex cursor-pointer items-center gap-2 px-3 py-1.5 text-sm transition-colors gu-h-bg-surface-hover ${
+                    isSelected ? 'gu-text-primary font-medium' : 'gu-text-text'
                   }`}
                 >
                   {showFlag && lang.flag && <span aria-hidden="true">{lang.flag}</span>}
@@ -197,10 +198,10 @@ function PillsVariant({
             role="radio"
             aria-checked={isSelected}
             onClick={() => onChange(lang.code)}
-            className={`flex h-7 items-center gap-1 rounded-full px-3 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] ${
+            className={`flex h-7 items-center gap-1 rounded-full px-3 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary ${
               isSelected
-                ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)]'
-                : 'bg-[var(--ui-surface-hover)] text-[var(--ui-text-muted)] hover:text-[var(--ui-text)]'
+                ? 'gu-bg-primary gu-text-surface'
+                : 'gu-bg-surface-hover gu-text-text-muted gu-h-text-text'
             }`}
           >
             {showFlag && lang.flag && <span aria-hidden="true">{lang.flag}</span>}
@@ -231,7 +232,7 @@ function SelectVariant({
         id={selectId}
         value={currentLanguage}
         onChange={(e) => onChange(e.target.value)}
-        className="h-8 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-hover)] px-2 text-sm text-[var(--ui-text)] outline-none transition-colors focus-visible:border-[var(--ui-primary)] focus-visible:ring-1 focus-visible:ring-[var(--ui-primary)]"
+        className="h-8 rounded-lg border gu-border-border gu-bg-surface-hover px-2 text-sm gu-text-text outline-none transition-colors gu-fv-border-primary focus-visible:ring-1 gu-fv-ring-primary"
       >
         {languages.map((lang) => (
           <option key={lang.code} value={lang.code}>

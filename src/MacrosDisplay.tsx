@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { HTMLAttributes } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -83,10 +84,10 @@ function RadialMacro({
           <span className="text-[10px] font-bold tabular-nums leading-none" style={{ color }}>
             {value}
           </span>
-          <span className="text-[9px] text-[var(--ui-text-muted)]">{unit}</span>
+          <span className="text-[9px] gu-text-text-muted">{unit}</span>
         </div>
       </div>
-      <span className="text-[10px] font-medium text-[var(--ui-text-muted)]">{label}</span>
+      <span className="text-[10px] font-medium gu-text-text-muted">{label}</span>
     </div>
   );
 }
@@ -133,8 +134,8 @@ export function MacrosDisplay({
         {macros.map((m) => (
           <span key={m.key} className="flex items-center gap-1 text-xs tabular-nums">
             <span className="h-2 w-2 rounded-full shrink-0" style={{ background: m.color }} aria-hidden="true" />
-            <strong className="font-semibold text-[var(--ui-text)]">{m.value}{m.unit}</strong>
-            <span className="text-[var(--ui-text-muted)]">{m.label}</span>
+            <strong className="font-semibold gu-text-text">{m.value}{m.unit}</strong>
+            <span className="gu-text-text-muted">{m.label}</span>
           </span>
         ))}
       </div>
@@ -154,7 +155,7 @@ export function MacrosDisplay({
             <span className="text-sm font-bold tabular-nums" style={{ color: m.color }}>
               {m.value}<span className="text-xs font-normal">{m.unit}</span>
             </span>
-            <span className="text-[10px] text-[var(--ui-text-muted)]">{m.label}</span>
+            <span className="text-[10px] gu-text-text-muted">{m.label}</span>
           </div>
         ))}
       </div>
@@ -178,17 +179,17 @@ export function MacrosDisplay({
       {macros.map((m) => (
         <div key={m.key} className="flex flex-col gap-0.5">
           <div className="flex items-baseline justify-between">
-            <span className="text-xs text-[var(--ui-text-muted)]">{m.label}</span>
+            <span className="text-xs gu-text-text-muted">{m.label}</span>
             <span className="text-xs font-semibold tabular-nums" style={{ color: m.color }}>
               {m.value} {m.unit}
               {m.pct > 0 && (
-                <span className="ml-1 font-normal text-[var(--ui-text-muted)]">
+                <span className="ml-1 font-normal gu-text-text-muted">
                   ({Math.round(m.pct)}%)
                 </span>
               )}
             </span>
           </div>
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-[var(--ui-surface-hover)]">
+          <div className="h-1.5 w-full overflow-hidden rounded-full gu-bg-surface-hover">
             <div
               className="h-full rounded-full transition-[width] duration-500"
               style={{ width: `${Math.min(m.pct, 100)}%`, background: m.color }}

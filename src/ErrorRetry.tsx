@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { AlertCircle } from 'lucide-react';
 
 interface ErrorRetryProps {
@@ -26,7 +27,7 @@ export function ErrorRetry({ message, detail, onRetry }: ErrorRetryProps) {
         <button
           type="button"
           onClick={onRetry}
-          className="px-4 py-2 rounded-lg text-sm font-medium transition-colors border hover:border-[var(--ui-primary)]"
+          className="px-4 py-2 rounded-lg text-sm font-medium transition-colors border gu-h-border-primary"
           style={{
             backgroundColor: 'var(--ui-surface)',
             borderColor: 'var(--ui-border)',

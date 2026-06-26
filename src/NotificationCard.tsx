@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -100,8 +101,8 @@ export function NotificationCard({
   return (
     <article
       className={`relative flex items-start gap-3 rounded-xl border p-3 transition-colors ${
-        read ? 'border-[var(--ui-border)] bg-[var(--ui-surface)] opacity-70' : 'border-[var(--ui-border)] bg-[var(--ui-surface)]'
-      } ${onClick ? 'cursor-pointer hover:bg-[var(--ui-surface-hover)]' : ''} ${className}`}
+        read ? 'gu-border-border gu-bg-surface opacity-70' : 'gu-border-border gu-bg-surface'
+      } ${onClick ? 'cursor-pointer gu-h-bg-surface-hover' : ''} ${className}`}
       onClick={onClick}
       role={onClick ? 'button' : 'article'}
       aria-label={`Notificación ${meta.label}: ${title}`}
@@ -125,12 +126,12 @@ export function NotificationCard({
 
       <div className="flex-1">
         <div className="flex items-start justify-between gap-2">
-          <p className="text-sm font-semibold text-[var(--ui-text)]">{title}</p>
-          <span className="shrink-0 text-[11px] text-[var(--ui-text-muted)]">
+          <p className="text-sm font-semibold gu-text-text">{title}</p>
+          <span className="shrink-0 text-[11px] gu-text-text-muted">
             {formatRelative(timestamp)}
           </span>
         </div>
-        <p className="mt-0.5 text-xs text-[var(--ui-text-secondary)]">{body}</p>
+        <p className="mt-0.5 text-xs gu-text-text-secondary">{body}</p>
         {cta && (
           <button
             type="button"
@@ -138,7 +139,7 @@ export function NotificationCard({
               e.stopPropagation();
               cta.onClick();
             }}
-            className="mt-2 rounded-lg px-3 py-1 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+            className="mt-2 rounded-lg px-3 py-1 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
             style={{ background: meta.color, color: 'var(--ui-surface)' }}
           >
             {cta.label}
@@ -154,7 +155,7 @@ export function NotificationCard({
             onDismiss();
           }}
           aria-label="Descartar notificación"
-          className="self-start rounded-full p-1 text-[var(--ui-text-muted)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)]"
+          className="self-start rounded-full p-1 gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

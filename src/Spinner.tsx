@@ -1,3 +1,4 @@
+import './ui-classes.css';
 type Size = 'xs' | 'sm' | 'md' | 'lg';
 
 interface SpinnerProps {
@@ -20,7 +21,7 @@ export function Spinner({ size = 'md', label = 'Loading', className = '' }: Spin
       role="status"
       aria-label={label}
       aria-live="polite"
-      className={`animate-spin rounded-full border-[var(--ui-primary)] border-t-transparent ${sizeStyles[size]} ${className}`}
+      className={`animate-spin rounded-full gu-border-primary border-t-transparent ${sizeStyles[size]} ${className}`}
     />
   );
 }

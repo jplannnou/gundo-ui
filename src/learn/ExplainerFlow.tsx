@@ -1,4 +1,5 @@
 'use client';
+import '../ui-classes.css';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { motion, useInView } from 'motion/react';
 import { useReducedMotion } from '../utils/useReducedMotion';
@@ -65,24 +66,24 @@ function ExplainerStepItem({
     >
       {/* Number bubble + connector */}
       <div className="flex flex-col items-center" aria-hidden="true">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-[var(--ui-primary)] bg-[var(--ui-primary-soft)] text-sm font-bold text-[var(--ui-primary)]">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 gu-border-primary gu-bg-primary-soft text-sm font-bold gu-text-primary">
           {step.icon ?? index + 1}
         </span>
-        {!isLast && <span className="mt-1 w-0.5 flex-1 bg-[var(--ui-border)]" />}
+        {!isLast && <span className="mt-1 w-0.5 flex-1 gu-bg-border" />}
       </div>
 
       {/* Content */}
       <div className={`flex-1 ${isLast ? '' : 'pb-8'}`}>
         {step.kicker && (
-          <p className="mb-0.5 text-xs font-semibold uppercase tracking-wide text-[var(--ui-text-secondary)]">
+          <p className="mb-0.5 text-xs font-semibold uppercase tracking-wide gu-text-text-secondary">
             {step.kicker}
           </p>
         )}
-        <h3 className="text-base font-semibold text-[var(--ui-text)]">
+        <h3 className="text-base font-semibold gu-text-text">
           <span className="sr-only">{index + 1}. </span>
           {step.title}
         </h3>
-        <div className="mt-1 text-sm leading-relaxed text-[var(--ui-text-secondary)]">
+        <div className="mt-1 text-sm leading-relaxed gu-text-text-secondary">
           {step.body}
         </div>
         {step.chips && step.chips.length > 0 && (
@@ -97,7 +98,7 @@ function ExplainerStepItem({
                   delay: reduced ? 0 : 0.2 + ci * 0.06,
                   ease: [0, 0, 0.2, 1],
                 }}
-                className="inline-flex items-center rounded-full border border-[var(--ui-primary)] bg-[var(--ui-primary-soft)] px-2.5 py-1 text-xs font-medium text-[var(--ui-text)]"
+                className="inline-flex items-center rounded-full border gu-border-primary gu-bg-primary-soft px-2.5 py-1 text-xs font-medium gu-text-text"
               >
                 {chip}
               </motion.li>
@@ -134,7 +135,7 @@ export function ExplainerFlow({ steps, footer, onStepView, className = '' }: Exp
         ))}
       </ol>
       {footer && (
-        <div className="mt-6 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-4">
+        <div className="mt-6 rounded-xl border gu-border-border gu-bg-surface-raised p-4">
           {footer}
         </div>
       )}

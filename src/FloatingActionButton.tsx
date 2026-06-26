@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 export type FABPosition = 'bottom-right' | 'bottom-left' | 'bottom-center';
@@ -44,7 +45,7 @@ export function FloatingActionButton({
     <button
       type="button"
       aria-label={label}
-      className={`${fixed ? 'fixed' : 'absolute'} ${positionStyles[position]} z-[var(--ui-z-toast,600)] flex ${sizeStyles[size]} items-center justify-center rounded-full bg-[var(--ui-primary)] text-[var(--ui-surface)] shadow-[var(--ui-shadow-lg)] transition-[transform,background-color] duration-[var(--ui-duration-fast)] hover:bg-[var(--ui-primary-hover)] hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      className={`${fixed ? 'fixed' : 'absolute'} ${positionStyles[position]} z-[var(--ui-z-toast,600)] flex ${sizeStyles[size]} items-center justify-center rounded-full gu-bg-primary gu-text-surface gu-shadow-shadow-lg transition-[transform,background-color] gu-duration-duration-fast gu-h-bg-primary-hover hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-4 gu-fv-ring-primary focus-visible:ring-offset-2 gu-fv-ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
       {...props}
     >
       <span
@@ -58,7 +59,7 @@ export function FloatingActionButton({
       {badgeStr && (
         <span
           aria-label={`${badgeStr} notificaciones`}
-          className="absolute -right-1 -top-1 flex min-w-[18px] items-center justify-center rounded-full bg-[var(--ui-error)] px-1 py-0.5 text-[10px] font-bold leading-none text-white"
+          className="absolute -right-1 -top-1 flex min-w-[18px] items-center justify-center rounded-full gu-bg-error px-1 py-0.5 text-[10px] font-bold leading-none text-white"
         >
           {typeof badge === 'number' && badge > 99 ? '99+' : badgeStr}
         </span>

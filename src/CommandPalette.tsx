@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useState, useEffect, useRef, useCallback, useId, type ReactNode, type KeyboardEvent } from 'react';
 import { Search } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
@@ -141,7 +142,7 @@ export function CommandPalette({
           exit={{ opacity: 0 }}
           transition={{ duration: reducedMotion ? 0 : 0.2 }}
         >
-          <div className="absolute inset-0 bg-[var(--ui-overlay)] backdrop-blur-sm" onClick={() => onOpenChange(false)} />
+          <div className="absolute inset-0 gu-bg-overlay backdrop-blur-sm" onClick={() => onOpenChange(false)} />
           <motion.div
             ref={panelRef}
             role="dialog"
@@ -153,12 +154,12 @@ export function CommandPalette({
               duration: reducedMotion ? 0 : 0.15,
               ease: 'easeOut',
             }}
-            className={`relative w-full max-w-lg rounded-[var(--ui-radius-xl)] border border-[var(--ui-border)] bg-[var(--ui-surface)] shadow-2xl overflow-hidden ${className}`}
+            className={`relative w-full max-w-lg gu-rounded-radius-xl border gu-border-border gu-bg-surface shadow-2xl overflow-hidden ${className}`}
             onKeyDown={handleKeyDown}
           >
             {/* Search input */}
-            <div className="flex items-center gap-2 border-b border-[var(--ui-border)] px-4">
-              <Search className="w-5 h-5 text-[var(--ui-text-muted)] shrink-0" aria-hidden="true" />
+            <div className="flex items-center gap-2 border-b gu-border-border px-4">
+              <Search className="w-5 h-5 gu-text-text-muted shrink-0" aria-hidden="true" />
               <input
                 ref={inputRef}
                 id={inputId}
@@ -170,9 +171,9 @@ export function CommandPalette({
                 value={query}
                 onChange={e => setQuery(e.target.value)}
                 placeholder={placeholder}
-                className="flex-1 bg-transparent py-3 text-sm text-[var(--ui-text)] placeholder:text-[var(--ui-text-muted)] outline-none"
+                className="flex-1 bg-transparent py-3 text-sm gu-text-text placeholder:text-[var(--ui-text-muted)] outline-none"
               />
-              <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border border-[var(--ui-border)] text-[10px] text-[var(--ui-text-muted)] font-mono">
+              <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border gu-border-border text-[10px] gu-text-text-muted font-mono">
                 ESC
               </kbd>
             </div>
@@ -180,12 +181,12 @@ export function CommandPalette({
             {/* Results */}
             <div ref={listRef} id={listId} role="listbox" className="max-h-72 overflow-y-auto p-2">
               {filtered.length === 0 && (
-                <div className="py-6 text-center text-sm text-[var(--ui-text-muted)]">No results found</div>
+                <div className="py-6 text-center text-sm gu-text-text-muted">No results found</div>
               )}
               {Array.from(grouped.entries()).map(([group, cmds]) => (
                 <div key={group}>
                   {group && (
-                    <div className="px-2 py-1.5 text-xs font-medium text-[var(--ui-text-secondary)]">{group}</div>
+                    <div className="px-2 py-1.5 text-xs font-medium gu-text-text-secondary">{group}</div>
                   )}
                   {cmds.map(cmd => {
                     const isEnabled = !cmd.disabled;
@@ -200,14 +201,14 @@ export function CommandPalette({
                         aria-selected={isFocused}
                         aria-disabled={cmd.disabled || undefined}
                         onClick={() => isEnabled && selectCommand(cmd)}
-                        className={`flex items-center gap-3 px-3 py-2 rounded-[var(--ui-radius-md)] cursor-pointer text-sm transition-colors ${
-                          isFocused ? 'bg-[var(--ui-primary-soft)] text-[var(--ui-text)]' : 'text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)]'
+                        className={`flex items-center gap-3 px-3 py-2 gu-rounded-radius-md cursor-pointer text-sm transition-colors ${
+                          isFocused ? 'gu-bg-primary-soft gu-text-text' : 'gu-text-text-secondary gu-h-bg-surface-hover'
                         } ${cmd.disabled ? 'opacity-40 cursor-not-allowed' : ''}`}
                       >
                         {cmd.icon && <span className="w-5 h-5 shrink-0 flex items-center justify-center">{cmd.icon}</span>}
                         <div className="flex-1 min-w-0">
                           <div className="truncate">{cmd.label}</div>
-                          {cmd.description && <div className="text-xs text-[var(--ui-text-muted)] truncate">{cmd.description}</div>}
+                          {cmd.description && <div className="text-xs gu-text-text-muted truncate">{cmd.description}</div>}
                         </div>
                       </div>
                     );

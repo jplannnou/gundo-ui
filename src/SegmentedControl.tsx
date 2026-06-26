@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useRef, useCallback, type KeyboardEvent } from 'react';
 
 interface SegmentedControlOption {
@@ -65,7 +66,7 @@ export function SegmentedControl({
   return (
     <div
       role="radiogroup"
-      className={`inline-flex rounded-lg bg-[var(--ui-surface)] border border-[var(--ui-border)] p-0.5 ${className}`}
+      className={`inline-flex rounded-lg gu-bg-surface border gu-border-border p-0.5 ${className}`}
     >
       {options.map((opt, index) => {
         const isActive = opt.value === value;
@@ -80,10 +81,10 @@ export function SegmentedControl({
             tabIndex={isActive ? 0 : -1}
             onClick={() => onChange(opt.value)}
             onKeyDown={e => handleKeyDown(e, index)}
-            className={`${sizeClass} rounded-md font-medium transition-colors duration-[var(--ui-duration-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
+            className={`${sizeClass} rounded-md font-medium transition-colors gu-duration-duration-fast focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface ${
               isActive
-                ? `${opt.color ? '' : 'bg-[var(--ui-primary)]'} text-[var(--ui-surface)] shadow-sm`
-                : 'text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)]'
+                ? `${opt.color ? '' : 'gu-bg-primary'} gu-text-surface shadow-sm`
+                : 'gu-text-text-secondary gu-h-text-text'
             } disabled:opacity-40 disabled:cursor-not-allowed`}
             style={isActive && opt.color ? { backgroundColor: opt.color } : undefined}
           >

@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 import { Loader2 } from 'lucide-react';
 
@@ -31,11 +32,11 @@ export function SaveBar({
     <div
       role="status"
       aria-live="polite"
-      className={`fixed bottom-0 inset-x-0 z-[var(--ui-z-dropdown,50)] flex items-center justify-between gap-4 border-t border-[var(--ui-border)] bg-[var(--ui-surface)] px-6 py-3 shadow-[var(--ui-shadow-lg)] ${className}`}
+      className={`fixed bottom-0 inset-x-0 z-[var(--ui-z-dropdown,50)] flex items-center justify-between gap-4 border-t gu-border-border gu-bg-surface px-6 py-3 gu-shadow-shadow-lg ${className}`}
     >
       <div className="flex items-center gap-3 min-w-0">
-        <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--ui-warning)]" aria-hidden="true" />
-        <p className="truncate text-sm text-[var(--ui-text-secondary)]">{message}</p>
+        <span className="h-2 w-2 shrink-0 rounded-full gu-bg-warning" aria-hidden="true" />
+        <p className="truncate text-sm gu-text-text-secondary">{message}</p>
         {children}
       </div>
       <div className="flex shrink-0 items-center gap-2">
@@ -44,7 +45,7 @@ export function SaveBar({
             type="button"
             onClick={onDiscard}
             disabled={loading}
-            className="rounded-lg px-4 py-1.5 text-sm font-medium text-[var(--ui-text-muted)] transition-colors hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] disabled:opacity-50"
+            className="rounded-lg px-4 py-1.5 text-sm font-medium gu-text-text-muted transition-colors gu-h-bg-surface-hover gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary disabled:opacity-50"
           >
             {discardLabel}
           </button>
@@ -53,7 +54,7 @@ export function SaveBar({
           type="button"
           onClick={onSave}
           disabled={loading}
-          className="flex items-center gap-2 rounded-lg bg-[var(--ui-primary)] px-4 py-1.5 text-sm font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex items-center gap-2 rounded-lg gu-bg-primary px-4 py-1.5 text-sm font-semibold gu-text-surface transition-colors gu-h-bg-primary-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary focus-visible:ring-offset-2 gu-fv-ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading && (
             <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />

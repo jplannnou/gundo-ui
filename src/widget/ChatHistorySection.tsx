@@ -1,3 +1,4 @@
+import '../ui-classes.css';
 import { useEffect, useState } from 'react';
 import { MessageCircle, ChevronRight } from 'lucide-react';
 import { ChatClient, type ChatHistoryMessage } from './chat-client';
@@ -37,7 +38,7 @@ export function ChatHistorySection({ client, locale = 'es', onResume, labels }: 
       <div
         role="status"
         aria-live="polite"
-        className="p-6 text-sm text-[var(--ui-text-muted)]"
+        className="p-6 text-sm gu-text-text-muted"
       >
         {labels?.loading ?? 'Cargando…'}
       </div>
@@ -47,8 +48,8 @@ export function ChatHistorySection({ client, locale = 'es', onResume, labels }: 
   if (messages.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full p-6 text-center">
-        <MessageCircle className="w-10 h-10 text-[var(--ui-text-muted)] mb-3" aria-hidden="true" />
-        <p className="text-sm text-[var(--ui-text-muted)]">
+        <MessageCircle className="w-10 h-10 gu-text-text-muted mb-3" aria-hidden="true" />
+        <p className="text-sm gu-text-text-muted">
           {labels?.empty ?? 'Todavía no tenés charlas. Empezá una desde el Asistente.'}
         </p>
       </div>
@@ -62,25 +63,25 @@ export function ChatHistorySection({ client, locale = 'es', onResume, labels }: 
       <button
         type="button"
         onClick={onResume}
-        className="w-full flex items-center justify-between gap-3 px-3 py-3 rounded-xl bg-[var(--ui-surface)] border border-[var(--ui-border)] hover:border-[var(--ui-primary)] transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+        className="w-full flex items-center justify-between gap-3 px-3 py-3 rounded-xl gu-bg-surface border gu-border-border gu-h-border-primary transition-colors text-left focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
       >
         <div className="min-w-0">
-          <p className="text-sm font-medium text-[var(--ui-text)]">
+          <p className="text-sm font-medium gu-text-text">
             {labels?.resume ?? 'Continuar mi conversación'}
           </p>
-          <p className="text-xs text-[var(--ui-text-muted)]">
+          <p className="text-xs gu-text-text-muted">
             {messages.length} mensajes · último{' '}
             {new Date(messages[messages.length - 1]?.timestamp ?? Date.now()).toLocaleDateString(locale)}
           </p>
         </div>
-        <ChevronRight className="w-4 h-4 text-[var(--ui-text-muted)] shrink-0" aria-hidden="true" />
+        <ChevronRight className="w-4 h-4 gu-text-text-muted shrink-0" aria-hidden="true" />
       </button>
 
       <ul className="pt-1 list-none p-0 m-0">
         {userTurns.slice(0, 30).map((m) => (
-          <li key={m.id} className="px-3 py-2 border-b border-[var(--ui-border)] last:border-0">
-            <p className="text-sm text-[var(--ui-text)] truncate">{m.content}</p>
-            <p className="text-[11px] text-[var(--ui-text-secondary)]">
+          <li key={m.id} className="px-3 py-2 border-b gu-border-border last:border-0">
+            <p className="text-sm gu-text-text truncate">{m.content}</p>
+            <p className="text-[11px] gu-text-text-secondary">
               {new Date(m.timestamp).toLocaleString(locale, {
                 day: '2-digit',
                 month: '2-digit',

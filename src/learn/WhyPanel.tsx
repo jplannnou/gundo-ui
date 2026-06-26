@@ -1,4 +1,5 @@
 'use client';
+import '../ui-classes.css';
 import { useId, useState, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ChevronDown } from 'lucide-react';
@@ -97,14 +98,14 @@ function WhySignalRow({
   const pillInner = (
     <>
       <span className="shrink-0 text-base leading-none">{icon}</span>
-      <span className="flex-1 text-left text-sm font-medium text-[var(--ui-text)]">
+      <span className="flex-1 text-left text-sm font-medium gu-text-text">
         {signal.label}
       </span>
       {expandable && (
         <ChevronDown
           aria-hidden="true"
-          className={`h-4 w-4 shrink-0 text-[var(--ui-text-secondary)] transition-transform ${
-            reduced ? '' : 'duration-[var(--ui-duration-normal)]'
+          className={`h-4 w-4 shrink-0 gu-text-text-secondary transition-transform ${
+            reduced ? '' : 'gu-duration-duration-normal'
           } ${expanded ? 'rotate-180' : ''}`}
         />
       )}
@@ -122,7 +123,7 @@ function WhySignalRow({
           onClick={() => setExpanded((v) => !v)}
           aria-expanded={expanded}
           aria-controls={detailId}
-          className={`${pillClass} transition-colors hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]`}
+          className={`${pillClass} transition-colors gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color`}
           /* color inline too: native <button> doesn't inherit text color, and
              the -soft backgrounds are alpha over the page surface — this keeps
              contrast correct even where Tailwind isn't processed */
@@ -151,11 +152,11 @@ function WhySignalRow({
               className="overflow-hidden"
             >
               <div
-                className="mx-3 mt-1.5 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-3"
+                className="mx-3 mt-1.5 rounded-xl border gu-border-border gu-bg-surface-raised p-3"
                 style={{ borderLeftColor: tone.color, borderLeftWidth: 3 }}
               >
                 {signal.evidence && (
-                  <p className="text-sm leading-relaxed text-[var(--ui-text)]">
+                  <p className="text-sm leading-relaxed gu-text-text">
                     {signal.evidence}
                   </p>
                 )}
@@ -164,7 +165,7 @@ function WhySignalRow({
                     <a
                       href={signal.action.href}
                       onClick={signal.action.onClick}
-                      className="mt-2 inline-flex min-h-[44px] items-center rounded-lg px-3 py-2 text-sm font-semibold text-[var(--ui-primary)] underline-offset-2 transition-colors hover:bg-[var(--ui-surface-hover)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+                      className="mt-2 inline-flex min-h-[44px] items-center rounded-lg px-3 py-2 text-sm font-semibold gu-text-primary underline-offset-2 transition-colors gu-h-bg-surface-hover hover:underline focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
                     >
                       {signal.action.label} →
                     </a>
@@ -172,7 +173,7 @@ function WhySignalRow({
                     <button
                       type="button"
                       onClick={signal.action.onClick}
-                      className="mt-2 inline-flex min-h-[44px] items-center rounded-lg px-3 py-2 text-sm font-semibold text-[var(--ui-primary)] underline-offset-2 transition-colors hover:bg-[var(--ui-surface-hover)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+                      className="mt-2 inline-flex min-h-[44px] items-center rounded-lg px-3 py-2 text-sm font-semibold gu-text-primary underline-offset-2 transition-colors gu-h-bg-surface-hover hover:underline focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
                     >
                       {signal.action.label} →
                     </button>

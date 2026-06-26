@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { TextareaHTMLAttributes } from 'react';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -9,15 +10,15 @@ export function Textarea({ label, error, className = '', ...props }: TextareaPro
   return (
     <div>
       {label && (
-        <label className="block text-sm font-medium text-[var(--ui-text-secondary)] mb-1.5">
+        <label className="block text-sm font-medium gu-text-text-secondary mb-1.5">
           {label}
         </label>
       )}
       <textarea
-        className={`w-full rounded-lg border bg-[var(--ui-surface-hover)] px-3 py-2 text-base text-[var(--ui-text)] outline-none transition-colors placeholder:text-[var(--ui-text-muted)] resize-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
+        className={`w-full rounded-lg border gu-bg-surface-hover px-3 py-2 text-base gu-text-text outline-none transition-colors placeholder:text-[var(--ui-text-muted)] resize-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface ${
           error
-            ? 'border-[var(--ui-error)] focus:border-[var(--ui-error)]'
-            : 'border-[var(--ui-border)] focus:border-[var(--ui-primary)]'
+            ? 'gu-border-error gu-f-border-error'
+            : 'gu-border-border gu-f-border-primary'
         } ${className}`}
         style={{
           color: 'var(--ui-text, #F2F4F3)',
@@ -28,7 +29,7 @@ export function Textarea({ label, error, className = '', ...props }: TextareaPro
         {...props}
       />
       {error && (
-        <p className="mt-1 text-xs text-[var(--ui-error)]">{error}</p>
+        <p className="mt-1 text-xs gu-text-error">{error}</p>
       )}
     </div>
   );

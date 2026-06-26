@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useState, useRef, useId, type KeyboardEvent } from 'react';
 import { X } from 'lucide-react';
 
@@ -49,7 +50,7 @@ export function TagsInput({
 
   return (
     <div
-      className={`flex flex-wrap items-center gap-1.5 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-hover)] px-2 py-1.5 focus-within:border-[var(--ui-primary)] transition-colors ${
+      className={`flex flex-wrap items-center gap-1.5 rounded-lg border gu-border-border gu-bg-surface-hover px-2 py-1.5 gu-fw-border-primary transition-colors ${
         disabled ? 'opacity-50 cursor-not-allowed' : ''
       } ${className}`}
       onClick={() => inputRef.current?.focus()}
@@ -57,7 +58,7 @@ export function TagsInput({
       {value.map((tag, i) => (
         <span
           key={`${tag}-${i}`}
-          className="inline-flex items-center gap-1 rounded-md bg-[var(--ui-primary-soft)] px-2 py-0.5 text-xs font-medium text-[var(--ui-primary)]"
+          className="inline-flex items-center gap-1 rounded-md gu-bg-primary-soft px-2 py-0.5 text-xs font-medium gu-text-primary"
         >
           {tag}
           {!disabled && (
@@ -65,7 +66,7 @@ export function TagsInput({
               type="button"
               onClick={(e) => { e.stopPropagation(); removeTag(i); }}
               aria-label={`Remove ${tag}`}
-              className="ml-0.5 hover:text-[var(--ui-error)] transition-colors"
+              className="ml-0.5 gu-h-text-error transition-colors"
             >
               <X className="w-3 h-3" strokeWidth={2.5} aria-hidden="true" />
             </button>
@@ -83,7 +84,7 @@ export function TagsInput({
           onBlur={() => { if (input) addTag(input); }}
           placeholder={value.length === 0 ? placeholder : ''}
           disabled={disabled}
-          className="flex-1 min-w-[80px] bg-transparent text-sm text-[var(--ui-text)] outline-none placeholder:text-[var(--ui-text-muted)] py-0.5"
+          className="flex-1 min-w-[80px] bg-transparent text-sm gu-text-text outline-none placeholder:text-[var(--ui-text-muted)] py-0.5"
         />
       )}
     </div>

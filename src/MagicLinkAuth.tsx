@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { useState, type FormEvent, type ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -92,7 +93,7 @@ export function MagicLinkAuth({
 
   return (
     <div
-      className={`mx-auto flex w-full max-w-md flex-col items-stretch gap-5 rounded-2xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-6 shadow-[var(--ui-shadow-md)] md:p-8 ${className}`}
+      className={`mx-auto flex w-full max-w-md flex-col items-stretch gap-5 rounded-2xl border gu-border-border gu-bg-surface p-6 gu-shadow-shadow-md md:p-8 ${className}`}
     >
       <header className="flex flex-col items-center gap-1 text-center">
         <div
@@ -102,8 +103,8 @@ export function MagicLinkAuth({
         >
           <span className="text-white">G</span>
         </div>
-        <h1 className="text-xl font-bold text-[var(--ui-text)]">{title}</h1>
-        <p className="text-sm text-[var(--ui-text-secondary)]">{subtitle}</p>
+        <h1 className="text-xl font-bold gu-text-text">{title}</h1>
+        <p className="text-sm gu-text-text-secondary">{subtitle}</p>
       </header>
 
       {/* Social providers */}
@@ -111,7 +112,7 @@ export function MagicLinkAuth({
         <button
           type="button"
           onClick={onGoogle}
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] px-4 py-3 text-sm font-semibold text-[var(--ui-text)] transition-colors hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+          className="inline-flex items-center justify-center gap-2 rounded-xl border gu-border-border gu-bg-surface px-4 py-3 text-sm font-semibold gu-text-text transition-colors gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
         >
           <GoogleIcon />
           Continuar con Google
@@ -120,7 +121,7 @@ export function MagicLinkAuth({
           <button
             type="button"
             onClick={onApple}
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] px-4 py-3 text-sm font-semibold text-[var(--ui-text)] transition-colors hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border gu-border-border gu-bg-surface px-4 py-3 text-sm font-semibold gu-text-text transition-colors gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
           >
             <AppleIcon />
             Continuar con Apple
@@ -129,28 +130,28 @@ export function MagicLinkAuth({
       </div>
 
       <div className="relative flex items-center gap-3" aria-hidden="true">
-        <span className="h-px flex-1 bg-[var(--ui-border)]" />
-        <span className="text-xs font-medium text-[var(--ui-text-secondary)]">
+        <span className="h-px flex-1 gu-bg-border" />
+        <span className="text-xs font-medium gu-text-text-secondary">
           o con magic link
         </span>
-        <span className="h-px flex-1 bg-[var(--ui-border)]" />
+        <span className="h-px flex-1 gu-bg-border" />
       </div>
 
       {currentState === 'sent' ? (
         <div
           role="status"
           aria-live="polite"
-          className="flex flex-col items-center gap-2 rounded-xl border border-[color-mix(in_srgb,var(--ui-success)_40%,transparent)] bg-[var(--ui-success-soft)] p-4 text-center text-sm text-[var(--ui-success)]"
+          className="flex flex-col items-center gap-2 rounded-xl border border-[color-mix(in_srgb,var(--ui-success)_40%,transparent)] gu-bg-success-soft p-4 text-center text-sm gu-text-success"
         >
           <span className="text-2xl" aria-hidden="true">📬</span>
           <p className="font-semibold">Te enviamos un link a {email || 'tu email'}</p>
-          <p className="text-xs text-[var(--ui-text-secondary)]">
+          <p className="text-xs gu-text-text-secondary">
             Abrí el email y tocá el botón para entrar. Expira en 15 min.
           </p>
           <button
             type="button"
             onClick={() => setState('idle')}
-            className="mt-1 text-xs font-semibold text-[var(--ui-primary)] underline-offset-2 hover:underline"
+            className="mt-1 text-xs font-semibold gu-text-primary underline-offset-2 hover:underline"
           >
             Usar otro email
           </button>
@@ -169,17 +170,17 @@ export function MagicLinkAuth({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={currentState === 'sending'}
-            className="w-full rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] px-4 py-3 text-sm text-[var(--ui-text)] placeholder:text-[var(--ui-text-muted)] focus-visible:border-[var(--ui-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] disabled:opacity-50"
+            className="w-full rounded-xl border gu-border-border gu-bg-surface-raised px-4 py-3 text-sm gu-text-text placeholder:text-[var(--ui-text-muted)] gu-fv-border-primary focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color disabled:opacity-50"
           />
           {error && (
-            <p role="alert" className="text-xs text-[var(--ui-error)]">
+            <p role="alert" className="text-xs gu-text-error">
               {error}
             </p>
           )}
           <button
             type="submit"
             disabled={currentState === 'sending'}
-            className="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface disabled:cursor-not-allowed disabled:opacity-60"
             style={{ background: 'var(--ui-gradient)' }}
           >
             {currentState === 'sending' ? (
@@ -203,7 +204,7 @@ export function MagicLinkAuth({
       )}
 
       {disclaimer && (
-        <p className="text-center text-[11px] text-[var(--ui-text-muted)]">{disclaimer}</p>
+        <p className="text-center text-[11px] gu-text-text-muted">{disclaimer}</p>
       )}
     </div>
   );

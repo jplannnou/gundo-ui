@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { type ReactNode } from 'react';
 import { DetailTabs, type DetailTabDefinition } from './DetailTabs';
 import { PaywallUnified, type PaywallPricing } from './PaywallUnified';
@@ -94,37 +95,37 @@ export interface MealDetailTabsProps {
 function RecipePanel({ recipe }: { recipe: MealRecipe }) {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap gap-2 text-xs text-[var(--ui-text-secondary)]">
+      <div className="flex flex-wrap gap-2 text-xs gu-text-text-secondary">
         {recipe.servings && <Stat label="Porciones" value={`${recipe.servings}`} />}
         {recipe.prepTimeMin && <Stat label="Prep" value={`${recipe.prepTimeMin} min`} />}
         {recipe.cookTimeMin && <Stat label="Cocción" value={`${recipe.cookTimeMin} min`} />}
       </div>
       <section>
-        <h4 className="mb-2 text-sm font-bold text-[var(--ui-text)]">Ingredientes</h4>
+        <h4 className="mb-2 text-sm font-bold gu-text-text">Ingredientes</h4>
         <ul className="grid grid-cols-1 gap-1 sm:grid-cols-2">
           {recipe.ingredients.map((i, idx) => (
-            <li key={idx} className="flex items-center gap-2 text-sm text-[var(--ui-text)]">
-              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ui-primary)]" aria-hidden="true" />
+            <li key={idx} className="flex items-center gap-2 text-sm gu-text-text">
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full gu-bg-primary" aria-hidden="true" />
               <span className="flex-1">{i.name}</span>
               {i.amount && (
-                <span className="text-xs text-[var(--ui-text-muted)]">{i.amount}</span>
+                <span className="text-xs gu-text-text-muted">{i.amount}</span>
               )}
             </li>
           ))}
         </ul>
       </section>
       <section>
-        <h4 className="mb-2 text-sm font-bold text-[var(--ui-text)]">Pasos</h4>
+        <h4 className="mb-2 text-sm font-bold gu-text-text">Pasos</h4>
         <ol className="flex flex-col gap-2">
           {recipe.steps.map((s) => (
-            <li key={s.order} className="flex gap-3 rounded-lg bg-[var(--ui-surface-raised)] p-3">
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--ui-primary)] text-xs font-bold text-[var(--ui-surface)]">
+            <li key={s.order} className="flex gap-3 rounded-lg gu-bg-surface-raised p-3">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full gu-bg-primary text-xs font-bold gu-text-surface">
                 {s.order}
               </span>
-              <div className="flex-1 text-sm text-[var(--ui-text)]">
+              <div className="flex-1 text-sm gu-text-text">
                 <p>{s.text}</p>
                 {s.durationMin && (
-                  <p className="mt-1 text-xs text-[var(--ui-text-muted)]">≈ {s.durationMin} min</p>
+                  <p className="mt-1 text-xs gu-text-text-muted">≈ {s.durationMin} min</p>
                 )}
               </div>
             </li>
@@ -132,7 +133,7 @@ function RecipePanel({ recipe }: { recipe: MealRecipe }) {
         </ol>
       </section>
       {recipe.notes && (
-        <p className="rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-3 text-xs text-[var(--ui-text-secondary)]">
+        <p className="rounded-lg border gu-border-border gu-bg-surface-raised p-3 text-xs gu-text-text-secondary">
           💡 {recipe.notes}
         </p>
       )}
@@ -142,35 +143,35 @@ function RecipePanel({ recipe }: { recipe: MealRecipe }) {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <span className="rounded-full border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] px-3 py-1">
-      <span className="text-[var(--ui-text-muted)]">{label}: </span>
-      <span className="font-semibold text-[var(--ui-text)]">{value}</span>
+    <span className="rounded-full border gu-border-border gu-bg-surface-raised px-3 py-1">
+      <span className="gu-text-text-muted">{label}: </span>
+      <span className="font-semibold gu-text-text">{value}</span>
     </span>
   );
 }
 
 function AlternativesPanel({ alternatives }: { alternatives: MealAlternative[] }) {
   if (alternatives.length === 0) {
-    return <p className="text-sm text-[var(--ui-text-secondary)]">No hay alternativas sugeridas.</p>;
+    return <p className="text-sm gu-text-text-secondary">No hay alternativas sugeridas.</p>;
   }
   return (
     <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
       {alternatives.map((a) => (
         <li
           key={a.id}
-          className="flex items-center gap-3 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-3"
+          className="flex items-center gap-3 rounded-xl border gu-border-border gu-bg-surface-raised p-3"
         >
           {a.image && (
             <img src={a.image} alt="" className="h-12 w-12 rounded-lg object-cover" />
           )}
           <div className="flex-1">
-            <p className="text-sm font-semibold text-[var(--ui-text)]">{a.name}</p>
+            <p className="text-sm font-semibold gu-text-text">{a.name}</p>
             {a.reason && (
-              <p className="text-xs text-[var(--ui-text-secondary)]">{a.reason}</p>
+              <p className="text-xs gu-text-text-secondary">{a.reason}</p>
             )}
           </div>
           {typeof a.matchScore === 'number' && (
-            <span className="rounded-full bg-[var(--ui-primary-soft)] px-2 py-0.5 text-[11px] font-bold text-[var(--ui-primary)]">
+            <span className="rounded-full gu-bg-primary-soft px-2 py-0.5 text-[11px] font-bold gu-text-primary">
               {a.matchScore}%
             </span>
           )}
@@ -178,7 +179,7 @@ function AlternativesPanel({ alternatives }: { alternatives: MealAlternative[] }
             <button
               type="button"
               onClick={() => a.onSwap?.(a.id)}
-              className="rounded-lg bg-[var(--ui-primary)] px-3 py-1.5 text-xs font-semibold text-[var(--ui-surface)] hover:bg-[var(--ui-primary-hover)]"
+              className="rounded-lg gu-bg-primary px-3 py-1.5 text-xs font-semibold gu-text-surface gu-h-bg-primary-hover"
             >
               Intercambiar
             </button>
@@ -197,22 +198,22 @@ function HintsPanel({
   emoji: string;
 }) {
   if (items.length === 0) {
-    return <p className="text-sm text-[var(--ui-text-secondary)]">Sin recomendaciones específicas.</p>;
+    return <p className="text-sm gu-text-text-secondary">Sin recomendaciones específicas.</p>;
   }
   return (
     <ul className="flex flex-col gap-2">
       {items.map((h, idx) => (
         <li
           key={idx}
-          className="flex items-start gap-3 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-3"
+          className="flex items-start gap-3 rounded-xl border gu-border-border gu-bg-surface-raised p-3"
         >
           <span className="text-xl" aria-hidden="true">{emoji}</span>
           <div className="flex-1">
-            <p className="text-sm font-semibold text-[var(--ui-text)]">{h.label}</p>
-            <p className="text-xs text-[var(--ui-text-secondary)]">{h.detail}</p>
+            <p className="text-sm font-semibold gu-text-text">{h.label}</p>
+            <p className="text-xs gu-text-text-secondary">{h.detail}</p>
           </div>
           {h.volumeMl && (
-            <span className="rounded-full bg-[var(--ui-info-soft)] px-2 py-0.5 text-[11px] font-bold text-[var(--ui-info)]">
+            <span className="rounded-full gu-bg-info-soft px-2 py-0.5 text-[11px] font-bold gu-text-info">
               {h.volumeMl} ml
             </span>
           )}
@@ -226,13 +227,13 @@ function EducationPanel({ items }: { items: MealEducation[] }) {
   return (
     <ul className="flex flex-col gap-3">
       {items.map((e, idx) => (
-        <li key={idx} className="rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-4">
-          <h4 className="mb-1 text-sm font-bold text-[var(--ui-text)]">{e.title}</h4>
-          <p className="text-sm text-[var(--ui-text-secondary)]">{e.body}</p>
+        <li key={idx} className="rounded-xl border gu-border-border gu-bg-surface-raised p-4">
+          <h4 className="mb-1 text-sm font-bold gu-text-text">{e.title}</h4>
+          <p className="text-sm gu-text-text-secondary">{e.body}</p>
           {e.readMoreHref && (
             <a
               href={e.readMoreHref}
-              className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-[var(--ui-primary)] hover:underline"
+              className="mt-2 inline-flex items-center gap-1 text-xs font-semibold gu-text-primary hover:underline"
             >
               Leer más →
             </a>
@@ -246,7 +247,7 @@ function EducationPanel({ items }: { items: MealEducation[] }) {
 function SafetyPanel({ items }: { items: MealSafetyNote[] }) {
   if (items.length === 0) {
     return (
-      <p className="rounded-xl bg-[var(--ui-success-soft)] p-4 text-sm text-[var(--ui-success)]">
+      <p className="rounded-xl gu-bg-success-soft p-4 text-sm gu-text-success">
         ✅ Sin alertas conocidas para tu perfil.
       </p>
     );
@@ -264,8 +265,8 @@ function SafetyPanel({ items }: { items: MealSafetyNote[] }) {
         >
           <span aria-hidden="true">⚠️</span>
           <div>
-            <p className="font-semibold text-[var(--ui-warning)]">{s.label}</p>
-            <p className="text-xs text-[var(--ui-text-secondary)]">{s.detail}</p>
+            <p className="font-semibold gu-text-warning">{s.label}</p>
+            <p className="text-xs gu-text-text-secondary">{s.detail}</p>
           </div>
         </li>
       ))}
@@ -333,7 +334,7 @@ export function MealDetailTabs({
   function lockedContent(tab: DetailTabDefinition<MealDetailTabId>): ReactNode {
     if (!paywallPricing) {
       return (
-        <p className="rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-6 text-center text-sm text-[var(--ui-text-secondary)]">
+        <p className="rounded-xl border gu-border-border gu-bg-surface-raised p-6 text-center text-sm gu-text-text-secondary">
           Esta sección es Premium. Hacete Premium para verla.
         </p>
       );

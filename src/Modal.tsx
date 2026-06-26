@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useEffect, useRef, useId, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { X } from 'lucide-react';
@@ -63,7 +64,7 @@ export function Modal({ open, onClose, title, children, size = 'md', className =
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration }}
-          className="fixed inset-0 flex items-center justify-center bg-[var(--ui-overlay)] backdrop-blur-sm"
+          className="fixed inset-0 flex items-center justify-center gu-bg-overlay backdrop-blur-sm"
           style={{ zIndex: 'var(--ui-z-modal)' }}
           onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
           role="presentation"
@@ -79,17 +80,17 @@ export function Modal({ open, onClose, title, children, size = 'md', className =
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={reduced ? undefined : { opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration, ease: [0, 0, 0.2, 1] }}
-            className={`w-full ${sizeClasses[size]} mx-4 max-h-[90dvh] overflow-y-auto rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-4 sm:p-6 shadow-2xl outline-none ${className}`}
+            className={`w-full ${sizeClasses[size]} mx-4 max-h-[90dvh] overflow-y-auto rounded-xl border gu-border-border gu-bg-surface p-4 sm:p-6 shadow-2xl outline-none ${className}`}
             style={{ maxHeight: '90dvh' }}
           >
             {title && (
               <div className="mb-4 flex items-center justify-between">
-                <h3 id={titleId} className="text-lg font-semibold text-[var(--ui-text)]">{title}</h3>
+                <h3 id={titleId} className="text-lg font-semibold gu-text-text">{title}</h3>
                 <button
                   type="button"
                   onClick={onClose}
                   aria-label="Close"
-                  className="rounded-md p-2 text-[var(--ui-text-muted)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
+                  className="rounded-md p-2 gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
                 >
                   <X className="h-5 w-5" aria-hidden="true" />
                 </button>

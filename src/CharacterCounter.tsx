@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { HTMLAttributes } from 'react';
 
 export interface CharacterCounterProps extends HTMLAttributes<HTMLSpanElement> {
@@ -22,10 +23,10 @@ export function CharacterCounter({
   const isWarning = !isOver && ratio >= warnAt;
 
   const color = isOver
-    ? 'text-[var(--ui-error)]'
+    ? 'gu-text-error'
     : isWarning
-      ? 'text-[var(--ui-warning)]'
-      : 'text-[var(--ui-text-muted)]';
+      ? 'gu-text-warning'
+      : 'gu-text-text-muted';
 
   return (
     <span

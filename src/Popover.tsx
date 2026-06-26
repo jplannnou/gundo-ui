@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useState, useRef, useEffect, useId, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useReducedMotion } from './utils/useReducedMotion';
@@ -76,7 +77,7 @@ export function Popover({
         role="button"
         aria-expanded={isOpen}
         aria-controls={contentId}
-        className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] rounded-md"
+        className="focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface rounded-md"
       >
         {trigger}
       </div>
@@ -92,7 +93,7 @@ export function Popover({
               duration: reducedMotion ? 0 : 0.15,
               ease: 'easeOut',
             }}
-            className={`absolute z-50 ${positionClass} ${alignClass} min-w-[200px] rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-4 shadow-xl`}
+            className={`absolute z-50 ${positionClass} ${alignClass} min-w-[200px] rounded-xl border gu-border-border gu-bg-surface p-4 shadow-xl`}
           >
             {children}
           </motion.div>

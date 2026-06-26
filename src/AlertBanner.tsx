@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 import { X } from 'lucide-react';
 
@@ -12,10 +13,10 @@ interface AlertBannerProps {
 }
 
 const typeStyles: Record<AlertType, string> = {
-  error: 'border-[var(--ui-error)] bg-[var(--ui-error-soft)] text-[var(--ui-error)]',
-  warning: 'border-[var(--ui-warning)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)]',
-  info: 'border-[var(--ui-info)] bg-[var(--ui-info-soft)] text-[var(--ui-info)]',
-  success: 'border-[var(--ui-success)] bg-[var(--ui-success-soft)] text-[var(--ui-success)]',
+  error: 'gu-border-error gu-bg-error-soft gu-text-error',
+  warning: 'gu-border-warning gu-bg-warning-soft gu-text-warning',
+  info: 'gu-border-info gu-bg-info-soft gu-text-info',
+  success: 'gu-border-success gu-bg-success-soft gu-text-success',
 };
 
 export function AlertBanner({ type = 'info', title, children, onDismiss, className = '' }: AlertBannerProps) {

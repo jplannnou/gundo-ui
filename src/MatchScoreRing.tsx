@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from './utils/useReducedMotion';
 
@@ -146,7 +147,7 @@ export function MatchScoreRing({
         )}
       </div>
       {label && (
-        <span className="text-xs font-medium text-[var(--ui-text-secondary)]">{label}</span>
+        <span className="text-xs font-medium gu-text-text-secondary">{label}</span>
       )}
     </div>
   );
