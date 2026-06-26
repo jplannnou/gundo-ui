@@ -56,7 +56,15 @@ export interface ChatHistoryResponse {
 }
 
 export interface ChatStreamEvent {
-  type: 'token' | 'product_cards' | 'food_analysis' | 'disclaimer' | 'follow_ups' | 'done' | 'error';
+  type:
+    | 'token'
+    | 'product_cards'
+    | 'food_analysis'
+    | 'disclaimer'
+    | 'follow_ups'
+    | 'nps_prompt'
+    | 'done'
+    | 'error';
   data: string;
   metadata?: {
     tokensUsed: { input: number; output: number; cached: number };
@@ -240,6 +248,20 @@ export class ChatClient {
     if (!response.ok) return '';
     const data = await response.json();
     return data.disclaimer ?? '';
+  }
+
+  /**
+   * Submit a conversational NPS answer (0–10). The Engine persists it to the
+   * Feedback Hub attributed to the real user and closes the loop on the user's
+   * NPS cycle state.
+   */
+  async submitNps(score: number, retailerId?: string): Promise<void> {
+    const headers = await this.headers();
+    await fetch(`${this.config.apiBaseUrl}/api/chat/nps`, {
+      method: 'POST',
+      headers: { ...headers, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ score, ...(retailerId ? { retailerId } : {}) }),
+    });
   }
 
   async deleteHistory(): Promise<void> {

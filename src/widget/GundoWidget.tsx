@@ -19,6 +19,14 @@ export interface GundoWidgetProps {
   feedbackSlot?: ReactNode;
   badgeCount?: number;
   onEvent?: (event: string, payload?: Record<string, unknown>) => void;
+  /**
+   * Fired when the user answers the in-chat NPS prompt (0–10). The host emits
+   * its own analytics event from here (e.g. trackNpsSubmitted). The score is
+   * also persisted server-side by the chat client.
+   */
+  onNpsSubmit?: (score: number) => void;
+  /** Optional retailer id forwarded with the NPS answer (per-retailer segmentation). */
+  retailerId?: string;
   defaultOpen?: boolean;
   /**
    * If provided, renders a "↗ pantalla completa" button in the panel header that
@@ -78,6 +86,8 @@ export function GundoWidget({
   feedbackSlot,
   badgeCount = 0,
   onEvent,
+  onNpsSubmit,
+  retailerId,
   defaultOpen = false,
   onFullScreen,
   fullScreenLabel = 'Pantalla completa',
@@ -333,6 +343,8 @@ export function GundoWidget({
                   labels={chatLabels}
                   locale={locale}
                   onEvent={onEvent}
+                  onNpsSubmit={onNpsSubmit}
+                  retailerId={retailerId}
                   queuedMessage={queuedMessage}
                   onQueuedMessageConsumed={() => setQueuedMessage(null)}
                 />
