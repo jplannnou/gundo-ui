@@ -1,3 +1,10 @@
+## [1.26.2](https://github.com/jplannnou/gundo-ui/compare/v1.26.1...v1.26.2) (2026-06-26)
+
+
+### Bug Fixes
+
+* **a11y:** green the contrast sweep (text-muted AA, error chip, CopyButton harness) ([dc22c3e](https://github.com/jplannnou/gundo-ui/commit/dc22c3e17926e255539a0e639d721572cc872bdd))
+
 ## [1.26.1](https://github.com/jplannnou/gundo-ui/compare/v1.26.0...v1.26.1) (2026-06-26)
 
 
