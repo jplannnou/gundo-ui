@@ -27,6 +27,7 @@ export interface ChatLabels {
   typing: string;
   removeAttachment: string;
   compatibilityScoreLabel: string;
+  npsThanks: string;
 }
 
 const DEFAULT_LABELS: ChatLabels = {
@@ -45,7 +46,16 @@ const DEFAULT_LABELS: ChatLabels = {
   typing: 'Escribiendo respuesta',
   removeAttachment: 'Quitar adjunto',
   compatibilityScoreLabel: 'Compatibilidad',
+  npsThanks: '¡Gracias por tu respuesta! 🙌',
 };
+
+interface NpsPrompt {
+  question: string;
+  min: number;
+  max: number;
+  lowLabel?: string;
+  highLabel?: string;
+}
 
 interface DisplayMessage {
   id: string;
@@ -59,6 +69,9 @@ interface DisplayMessage {
   disclaimer?: string;
   media?: Array<{ type: string; name: string; preview?: string }>;
   isStreaming?: boolean;
+  /** Conversational NPS prompt emitted by the Engine after a successful turn. */
+  npsPrompt?: NpsPrompt;
+  npsAnswered?: boolean;
 }
 
 export interface ChatSectionProps {
@@ -69,6 +82,14 @@ export interface ChatSectionProps {
   labels?: Partial<ChatLabels>;
   locale?: string;
   onEvent?: (event: string, payload?: Record<string, unknown>) => void;
+  /**
+   * Fired when the user answers the conversational NPS prompt (0–10). The host
+   * uses this to emit its own analytics event (e.g. trackNpsSubmitted). The
+   * score is also persisted server-side by the client (POST /api/chat/nps).
+   */
+  onNpsSubmit?: (score: number) => void;
+  /** Optional retailer id forwarded with the NPS answer for per-retailer segmentation. */
+  retailerId?: string;
   /**
    * Message queued by the host (GundoWidget's `gundo-widget:open` event).
    * Sent as the user's message once the history load settles, so the
@@ -87,6 +108,8 @@ export function ChatSection({
   labels: labelsProp,
   locale = 'es',
   onEvent,
+  onNpsSubmit,
+  retailerId,
   queuedMessage = null,
   onQueuedMessageConsumed,
 }: ChatSectionProps) {
@@ -198,6 +221,7 @@ export function ChatSection({
         let disclaimer: string | undefined;
         let suggestedFollowUps: string[] | undefined;
         let foodAnalysis: FoodAnalysis | undefined;
+        let npsPrompt: NpsPrompt | undefined;
 
         for await (const event of client.stream(params)) {
           switch (event.type) {
@@ -219,6 +243,13 @@ export function ChatSection({
             case 'follow_ups':
               suggestedFollowUps = JSON.parse(event.data);
               break;
+            case 'nps_prompt':
+              try {
+                npsPrompt = JSON.parse(event.data) as NpsPrompt;
+              } catch {
+                // ignore a malformed NPS payload — never break the reply
+              }
+              break;
             case 'error':
               fullContent = event.data;
               break;
@@ -230,7 +261,7 @@ export function ChatSection({
         setMessages((prev) =>
           prev.map((m) =>
             m.id === assistantId
-              ? { ...m, content: fullContent, productCards, foodAnalysis, disclaimer, suggestedFollowUps, isStreaming: false }
+              ? { ...m, content: fullContent, productCards, foodAnalysis, disclaimer, suggestedFollowUps, npsPrompt, isStreaming: false }
               : m,
           ),
         );
@@ -243,6 +274,21 @@ export function ChatSection({
       }
     },
     [isStreaming, healthContext, client, labels.errorMessage, onEvent],
+  );
+
+  const handleNps = useCallback(
+    (msgId: string, score: number) => {
+      // Optimistic: mark answered immediately so the scale is replaced by the
+      // thank-you and can't be double-submitted.
+      setMessages((prev) =>
+        prev.map((m) => (m.id === msgId ? { ...m, npsAnswered: true } : m)),
+      );
+      onEvent?.('nps_submitted', { score });
+      onNpsSubmit?.(score);
+      // Fire-and-forget persistence — a failed write never blocks the UX.
+      void client.submitNps(score, retailerId).catch(() => {});
+    },
+    [client, retailerId, onNpsSubmit, onEvent],
   );
 
   // Consume a host-queued message (PDP chip etc.) once the history load
@@ -354,7 +400,7 @@ export function ChatSection({
                 {msg.disclaimer && (
                   <p className="mt-2 text-[11px] gu-text-text-secondary italic px-1">{msg.disclaimer}</p>
                 )}
-                {msg.suggestedFollowUps && msg.suggestedFollowUps.length > 0 && !msg.isStreaming && (
+                {msg.suggestedFollowUps && msg.suggestedFollowUps.length > 0 && !msg.isStreaming && !msg.npsPrompt && (
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     {msg.suggestedFollowUps.map((q) => (
                       <button
@@ -366,6 +412,14 @@ export function ChatSection({
                       </button>
                     ))}
                   </div>
+                )}
+                {msg.npsPrompt && !msg.isStreaming && (
+                  <NpsScaleInline
+                    prompt={msg.npsPrompt}
+                    answered={!!msg.npsAnswered}
+                    thanksLabel={labels.npsThanks}
+                    onSelect={(score) => handleNps(msg.id, score)}
+                  />
                 )}
               </div>
             </motion.div>
@@ -451,6 +505,58 @@ export function ChatSection({
           onChange={handleFileSelect}
         />
       </div>
+    </div>
+  );
+}
+
+function NpsScaleInline({
+  prompt,
+  answered,
+  thanksLabel,
+  onSelect,
+}: {
+  prompt: NpsPrompt;
+  answered: boolean;
+  thanksLabel: string;
+  onSelect: (score: number) => void;
+}) {
+  const min = Number.isFinite(prompt.min) ? prompt.min : 0;
+  const max = Number.isFinite(prompt.max) ? prompt.max : 10;
+  const values: number[] = [];
+  for (let v = min; v <= max; v++) values.push(v);
+
+  if (answered) {
+    return (
+      <div className="mt-2 gu-bg-surface border gu-border-border rounded-xl p-3" role="status">
+        <p className="text-xs gu-text-text">{thanksLabel}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-2 gu-bg-surface border gu-border-border rounded-xl p-3">
+      <p className="text-xs gu-text-text mb-2">{prompt.question}</p>
+      <div role="radiogroup" aria-label={prompt.question} className="flex flex-wrap gap-1">
+        {values.map((v) => (
+          <button
+            key={v}
+            type="button"
+            role="radio"
+            aria-checked={false}
+            aria-label={String(v)}
+            onClick={() => onSelect(v)}
+            className="min-w-7 h-7 px-1.5 rounded-md gu-bg-surface border gu-border-border text-[11px] font-semibold gu-text-text gu-h-bg-primary gu-h-text-surface gu-h-border-primary transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
+          >
+            {v}
+          </button>
+        ))}
+      </div>
+      {(prompt.lowLabel || prompt.highLabel) && (
+        <div className="flex justify-between mt-1">
+          <span className="text-[10px] gu-text-text-secondary">{prompt.lowLabel}</span>
+          <span className="text-[10px] gu-text-text-secondary">{prompt.highLabel}</span>
+        </div>
+      )}
     </div>
   );
 }
