@@ -1,3 +1,10 @@
+## [1.27.2](https://github.com/jplannnou/gundo-ui/compare/v1.27.1...v1.27.2) (2026-06-26)
+
+
+### Bug Fixes
+
+* **a11y:** reflect NPS radio selection and add radiogroup keyboard nav ([#53](https://github.com/jplannnou/gundo-ui/issues/53)) ([593f5e9](https://github.com/jplannnou/gundo-ui/commit/593f5e990f191dd6cc2754353517d165df528995))
+
 ## [1.27.1](https://github.com/jplannnou/gundo-ui/compare/v1.27.0...v1.27.1) (2026-06-26)
 
 
