@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/jplannnou/gundo-ui/compare/v1.26.2...v1.27.0) (2026-06-26)
+
+
+### Features
+
+* **widget:** render conversational NPS scale (0-10) in GundoWidget (WS2-03) ([#51](https://github.com/jplannnou/gundo-ui/issues/51)) ([b84c203](https://github.com/jplannnou/gundo-ui/commit/b84c20327970a2d941d8d49cd10d9244c3a765ef))
+
 ## [1.26.2](https://github.com/jplannnou/gundo-ui/compare/v1.26.1...v1.26.2) (2026-06-26)
 
 
