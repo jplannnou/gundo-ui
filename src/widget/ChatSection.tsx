@@ -1,5 +1,5 @@
 import '../ui-classes.css';
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useId, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Camera, FileText, Paperclip, Send, X as XIcon } from 'lucide-react';
 import { ChatMarkdown } from './ChatMarkdown';
@@ -525,6 +525,44 @@ function NpsScaleInline({
   const values: number[] = [];
   for (let v = min; v <= max; v++) values.push(v);
 
+  const baseId = useId();
+  const [selected, setSelected] = useState<number | null>(null);
+
+  // The first radio (or the selected one) is the single tab-stop; the rest are
+  // reachable only via arrow keys (WAI-ARIA radiogroup roving tabindex pattern).
+  const focusedValue = selected ?? values[0];
+
+  const select = (v: number) => {
+    setSelected(v);
+    onSelect(v);
+  };
+
+  // Arrow-key navigation across the radios (same approach as the tab pattern in
+  // GundoWidget). Moving focus also selects, per the radiogroup interaction model.
+  const onRadioKeyDown = (e: ReactKeyboardEvent<HTMLButtonElement>, idx: number) => {
+    if (
+      e.key !== 'ArrowRight' &&
+      e.key !== 'ArrowDown' &&
+      e.key !== 'ArrowLeft' &&
+      e.key !== 'ArrowUp' &&
+      e.key !== 'Home' &&
+      e.key !== 'End'
+    ) {
+      return;
+    }
+    e.preventDefault();
+    let nextIdx = idx;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextIdx = (idx + 1) % values.length;
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') nextIdx = (idx - 1 + values.length) % values.length;
+    else if (e.key === 'Home') nextIdx = 0;
+    else if (e.key === 'End') nextIdx = values.length - 1;
+    const next = values[nextIdx];
+    select(next);
+    requestAnimationFrame(() => {
+      document.getElementById(`${baseId}-nps-${next}`)?.focus();
+    });
+  };
+
   if (answered) {
     return (
       <div className="mt-2 gu-bg-surface border gu-border-border rounded-xl p-3" role="status">
@@ -537,14 +575,17 @@ function NpsScaleInline({
     <div className="mt-2 gu-bg-surface border gu-border-border rounded-xl p-3">
       <p className="text-xs gu-text-text mb-2">{prompt.question}</p>
       <div role="radiogroup" aria-label={prompt.question} className="flex flex-wrap gap-1">
-        {values.map((v) => (
+        {values.map((v, idx) => (
           <button
             key={v}
+            id={`${baseId}-nps-${v}`}
             type="button"
             role="radio"
-            aria-checked={false}
+            aria-checked={selected === v}
             aria-label={String(v)}
-            onClick={() => onSelect(v)}
+            tabIndex={v === focusedValue ? 0 : -1}
+            onClick={() => select(v)}
+            onKeyDown={(e) => onRadioKeyDown(e, idx)}
             className="min-w-7 h-7 px-1.5 rounded-md gu-bg-surface border gu-border-border text-[11px] font-semibold gu-text-text gu-h-bg-primary gu-h-text-surface gu-h-border-primary transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
           >
             {v}
