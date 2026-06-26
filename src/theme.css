@@ -15,7 +15,7 @@
   /* Primary action color — GUNDO green (buttons, links, focus rings) */
   --ui-primary: #67C728;
   --ui-primary-hover: #5ab322;
-  --ui-primary-soft: rgb(103 199 40 / 0.15);
+  --ui-primary-soft: rgb(103 199 40 / 0.11);
 
   /* Secondary — deep dark green */
   --ui-secondary: #08563E;
@@ -41,7 +41,7 @@
 
   /* Text colors — brandbook warm off-white */
   --ui-text: #F2F4F3;
-  --ui-text-secondary: #9ca3af;
+  --ui-text-secondary: #b0b8c4;
   /* ⚠ Contrast: 4.0:1 on dark surface — use only for large text (>=18px/14px bold) or decorative */
   --ui-text-muted: #828b98;
 
@@ -49,11 +49,11 @@
   --ui-success: #22c55e;
   --ui-success-soft: rgb(34 197 94 / 0.15);
   --ui-error: #f87171;
-  --ui-error-soft: rgb(248 113 113 / 0.15);
+  --ui-error-soft: rgb(248 113 113 / 0.11);
   --ui-warning: #f59e0b;
   --ui-warning-soft: rgb(245 158 11 / 0.15);
   --ui-info: #60a5fa;
-  --ui-info-soft: rgb(96 165 250 / 0.15);
+  --ui-info-soft: rgb(96 165 250 / 0.11);
 
   /* Overlay */
   --ui-overlay: rgb(0 0 0 / 0.6);
@@ -223,13 +223,13 @@
   /* Muted text — 5.0:1 on light surface (passes AA normal) */
   --ui-text-muted: #57606a;
 
-  --ui-success: #15803d;
+  --ui-success: #166534;
   --ui-success-soft: rgb(21 128 61 / 0.1);
   --ui-error: #b91c1c;
   --ui-error-soft: rgb(185 28 28 / 0.1);
   --ui-warning: #92400e;
   --ui-warning-soft: rgb(146 64 14 / 0.1);
-  --ui-info: #2563eb;
+  --ui-info: #1d4ed8;
   --ui-info-soft: rgb(37 99 235 / 0.1);
 
   --ui-overlay: rgb(0 0 0 / 0.3);
