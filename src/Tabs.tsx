@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useCallback, useRef, useId, type KeyboardEvent } from 'react';
 import { motion } from 'motion/react';
 
@@ -63,8 +64,8 @@ export function Tabs({
   // pills → tinted track that contains the active solid pill
   // underline → no track, just bottom border + sliding indicator
   const containerClass = isUnderline
-    ? 'relative flex gap-1 border-b border-[var(--ui-border)] overflow-x-auto'
-    : 'flex gap-1 bg-[var(--ui-surface)] rounded-lg p-1 overflow-x-auto';
+    ? 'relative flex gap-1 border-b gu-border-border overflow-x-auto'
+    : 'flex gap-1 gu-bg-surface rounded-lg p-1 overflow-x-auto';
 
   return (
     <div
@@ -76,15 +77,15 @@ export function Tabs({
         const isActive = activeTab === tab.id;
 
         const buttonClass = isUnderline
-          ? `relative px-4 py-2.5 transition-colors duration-[var(--ui-duration-fast)] text-sm font-medium whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
+          ? `relative px-4 py-2.5 transition-colors gu-duration-duration-fast text-sm font-medium whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface ${
               isActive
-                ? 'text-[var(--ui-text)] font-semibold'
-                : 'text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)]'
+                ? 'gu-text-text font-semibold'
+                : 'gu-text-text-secondary gu-h-text-text'
             }`
-          : `px-4 py-2 rounded-md transition-colors duration-[var(--ui-duration-fast)] text-sm font-medium whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
+          : `px-4 py-2 rounded-md transition-colors gu-duration-duration-fast text-sm font-medium whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface ${
               isActive
-                ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)] font-semibold'
-                : 'text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'
+                ? 'gu-bg-primary gu-text-surface font-semibold'
+                : 'gu-text-text-secondary gu-h-text-text gu-h-bg-surface-hover'
             }`;
 
         return (
@@ -104,7 +105,7 @@ export function Tabs({
             {isUnderline && isActive && (
               <motion.span
                 layoutId={indicatorId}
-                className="absolute left-0 right-0 bottom-[-1px] h-[2px] bg-[var(--ui-primary)]"
+                className="absolute left-0 right-0 bottom-[-1px] h-[2px] gu-bg-primary"
                 transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 aria-hidden="true"
               />

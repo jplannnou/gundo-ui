@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -170,7 +171,7 @@ export function ScoreGauge({
         <div className="text-center">
           {label && (
             <p
-              className={`font-medium text-[var(--ui-text)] ${
+              className={`font-medium gu-text-text ${
                 variant === 'minimal' ? 'text-xs' : 'text-sm'
               }`}
             >
@@ -178,7 +179,7 @@ export function ScoreGauge({
             </p>
           )}
           {sublabel && (
-            <p className="mt-0.5 text-xs text-[var(--ui-text-muted)]">{sublabel}</p>
+            <p className="mt-0.5 text-xs gu-text-text-muted">{sublabel}</p>
           )}
         </div>
       )}

@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useRef, useState, useCallback, useId, type DragEvent } from 'react';
 import { Upload } from 'lucide-react';
 
@@ -73,23 +74,23 @@ export function FileUpload({
         tabIndex={disabled ? -1 : 0}
         aria-disabled={disabled}
         onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inputRef.current?.click(); } }}
-        className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-8 text-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
+        className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-8 text-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface ${
           dragging
-            ? 'border-[var(--ui-primary)] bg-[var(--ui-primary-soft)]'
-            : 'border-[var(--ui-border)] hover:border-[var(--ui-border-hover)] bg-[var(--ui-surface-raised)]'
+            ? 'gu-border-primary gu-bg-primary-soft'
+            : 'gu-border-border gu-h-border-border-hover gu-bg-surface-raised'
         } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
         {children ?? (
           <>
-            <Upload className="w-8 h-8 text-[var(--ui-text-muted)] mb-3" strokeWidth={1.5} aria-hidden="true" />
-            <p className="text-sm text-[var(--ui-text-secondary)]">
-              <span className="font-medium text-[var(--ui-primary)]">Click to upload</span> or drag and drop
+            <Upload className="w-8 h-8 gu-text-text-muted mb-3" strokeWidth={1.5} aria-hidden="true" />
+            <p className="text-sm gu-text-text-secondary">
+              <span className="font-medium gu-text-primary">Click to upload</span> or drag and drop
             </p>
             {accept && (
-              <p className="mt-1 text-xs text-[var(--ui-text-muted)]">{accept}</p>
+              <p className="mt-1 text-xs gu-text-text-muted">{accept}</p>
             )}
             {maxSizeMB && (
-              <p className="mt-0.5 text-xs text-[var(--ui-text-muted)]">Max {maxSizeMB}MB</p>
+              <p className="mt-0.5 text-xs gu-text-text-muted">Max {maxSizeMB}MB</p>
             )}
           </>
         )}
@@ -106,7 +107,7 @@ export function FileUpload({
         aria-label="File upload"
       />
       {error && (
-        <p className="mt-1.5 text-xs text-[var(--ui-error)]" role="alert">{error}</p>
+        <p className="mt-1.5 text-xs gu-text-error" role="alert">{error}</p>
       )}
     </div>
   );

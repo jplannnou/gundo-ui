@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -72,7 +73,7 @@ export function MetricRow({
   const t = statusTokens[status];
 
   return (
-    <div className={`border-b border-[var(--ui-border)] py-3 last:border-b-0 ${className}`}>
+    <div className={`border-b gu-border-border py-3 last:border-b-0 ${className}`}>
       <div className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
           {icon && (
@@ -81,12 +82,12 @@ export function MetricRow({
             </span>
           )}
           <div className="min-w-0">
-            <div className="truncate text-sm font-semibold text-[var(--ui-text)]">{name}</div>
-            {sub && <div className="truncate text-xs text-[var(--ui-text-muted)]">{sub}</div>}
+            <div className="truncate text-sm font-semibold gu-text-text">{name}</div>
+            {sub && <div className="truncate text-xs gu-text-text-muted">{sub}</div>}
           </div>
         </div>
         <div className="flex shrink-0 flex-col items-end">
-          <span className="text-sm font-bold text-[var(--ui-text)]">{value}</span>
+          <span className="text-sm font-bold gu-text-text">{value}</span>
           <span
             className="mt-0.5 rounded-md px-2 py-0.5 text-[10px] font-bold tracking-wide"
             style={{ background: t.soft, color: t.color }}
@@ -116,7 +117,7 @@ export function MetricRow({
               style={{ background: 'var(--ui-text)', left: `${pct(range.current, range.min, range.max)}%` }}
             />
           </div>
-          <div className="mt-1 flex justify-between text-[10px] text-[var(--ui-text-muted)]">
+          <div className="mt-1 flex justify-between text-[10px] gu-text-text-muted">
             <span>{fmtBound(range.min)}</span>
             {range.optimalLabel && (
               <span style={{ color: 'var(--ui-range-optimal)' }}>

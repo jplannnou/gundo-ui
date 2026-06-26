@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useState, useRef, useEffect, useId, useCallback, type KeyboardEvent } from 'react';
 import { ChevronDown } from 'lucide-react';
 
@@ -112,10 +113,10 @@ export function Combobox({
           onChange={e => handleInputChange(e.target.value)}
           onFocus={() => { setOpen(true); setQuery(''); }}
           onKeyDown={handleKeyDown}
-          className="w-full rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface-hover)] px-3 py-2 text-sm text-[var(--ui-text)] outline-none focus:border-[var(--ui-primary)] focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] transition-colors placeholder:text-[var(--ui-text-muted)] disabled:opacity-50"
+          className="w-full rounded-lg border gu-border-border gu-bg-surface-hover px-3 py-2 text-sm gu-text-text outline-none gu-f-border-primary focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface transition-colors placeholder:text-[var(--ui-text-muted)] disabled:opacity-50"
         />
         <ChevronDown
-          className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--ui-text-muted)] pointer-events-none"
+          className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 gu-text-text-muted pointer-events-none"
           aria-hidden="true"
         />
       </div>
@@ -125,10 +126,10 @@ export function Combobox({
           ref={listRef}
           id={listboxId}
           role="listbox"
-          className="absolute z-50 mt-1 w-full max-h-60 overflow-auto rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface)] py-1 shadow-xl"
+          className="absolute z-50 mt-1 w-full max-h-60 overflow-auto rounded-lg border gu-border-border gu-bg-surface py-1 shadow-xl"
         >
           {filtered.length === 0 ? (
-            <li className="px-3 py-2 text-sm text-[var(--ui-text-muted)]">{emptyMessage}</li>
+            <li className="px-3 py-2 text-sm gu-text-text-muted">{emptyMessage}</li>
           ) : (
             filtered.map((opt, i) => (
               <li
@@ -140,12 +141,12 @@ export function Combobox({
                 onClick={() => selectOption(opt)}
                 className={`px-3 py-2 text-sm cursor-pointer transition-colors ${
                   opt.disabled
-                    ? 'text-[var(--ui-text-muted)] opacity-50 cursor-not-allowed'
+                    ? 'gu-text-text-muted opacity-50 cursor-not-allowed'
                     : i === highlightIndex
-                      ? 'bg-[var(--ui-primary-soft)] text-[var(--ui-text)]'
+                      ? 'gu-bg-primary-soft gu-text-text'
                       : opt.value === value
-                        ? 'text-[var(--ui-primary)]'
-                        : 'text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'
+                        ? 'gu-text-primary'
+                        : 'gu-text-text gu-h-bg-surface-hover'
                 }`}
               >
                 {opt.label}

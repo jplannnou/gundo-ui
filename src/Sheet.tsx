@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useEffect, useRef, useId, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { X } from 'lucide-react';
@@ -71,14 +72,14 @@ export function Sheet({
   return (
     <AnimatePresence>
       {open && (
-        <div className="fixed inset-0 z-[var(--ui-z-modal)] flex" role="presentation">
+        <div className="fixed inset-0 gu-z-z-modal flex" role="presentation">
           <motion.div
             key="sheet-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration }}
-            className="absolute inset-0 bg-[var(--ui-overlay)] backdrop-blur-sm"
+            className="absolute inset-0 gu-bg-overlay backdrop-blur-sm"
             onClick={onClose}
             role="presentation"
           />
@@ -94,22 +95,22 @@ export function Sheet({
             animate={{ x: 0 }}
             exit={reduced ? undefined : { x: slideX }}
             transition={{ duration, ease: [0.32, 0.72, 0, 1] }}
-            className={`relative flex h-full w-full ${sizeStyles[size]} flex-col border-[var(--ui-border)] bg-[var(--ui-surface)] shadow-2xl outline-none ${
+            className={`relative flex h-full w-full ${sizeStyles[size]} flex-col gu-border-border gu-bg-surface shadow-2xl outline-none ${
               isLeft ? 'mr-auto border-r' : 'ml-auto border-l'
             } ${className}`}
           >
             {(title || description) && (
-              <div className="shrink-0 border-b border-[var(--ui-border)] px-6 py-5">
+              <div className="shrink-0 border-b gu-border-border px-6 py-5">
                 <div className="flex items-start justify-between">
                   <div>
-                    {title && <h2 id={titleId} className="text-lg font-semibold text-[var(--ui-text)]">{title}</h2>}
-                    {description && <p id={descId} className="mt-1 text-sm text-[var(--ui-text-secondary)]">{description}</p>}
+                    {title && <h2 id={titleId} className="text-lg font-semibold gu-text-text">{title}</h2>}
+                    {description && <p id={descId} className="mt-1 text-sm gu-text-text-secondary">{description}</p>}
                   </div>
                   <button
                     type="button"
                     onClick={onClose}
                     aria-label="Close"
-                    className="rounded-md p-1 text-[var(--ui-text-muted)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+                    className="rounded-md p-1 gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
                   >
                     <X className="h-5 w-5" aria-hidden="true" />
                   </button>

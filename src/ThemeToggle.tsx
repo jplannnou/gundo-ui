@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { Sun, Moon } from 'lucide-react';
 import { useTheme } from './utils/useTheme';
 
@@ -32,7 +33,7 @@ export function ThemeToggle({ size = 'md', variant = 'icon', className = '' }: T
         type="button"
         onClick={toggle}
         aria-label={isLight ? 'Switch to dark mode' : 'Switch to light mode'}
-        className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-[var(--ui-radius-md)] text-sm font-medium text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${className}`}
+        className={`flex items-center gap-3 w-full px-3 py-2.5 gu-rounded-radius-md text-sm font-medium gu-text-text-secondary gu-h-text-text gu-h-bg-surface-hover transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${className}`}
       >
         <span className="w-5 h-5 flex items-center justify-center text-base" aria-hidden="true">
           {isLight ? '☀️' : '🌙'}
@@ -47,7 +48,7 @@ export function ThemeToggle({ size = 'md', variant = 'icon', className = '' }: T
       type="button"
       onClick={toggle}
       aria-label={isLight ? 'Switch to dark mode' : 'Switch to light mode'}
-      className={`${sizeStyles[size]} rounded-[var(--ui-radius-md)] border border-[var(--ui-border)] bg-[var(--ui-surface)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${className}`}
+      className={`${sizeStyles[size]} gu-rounded-radius-md border gu-border-border gu-bg-surface gu-text-text-secondary gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${className}`}
     >
       {isLight ? <Moon className={iconSize[size]} aria-hidden="true" /> : <Sun className={iconSize[size]} aria-hidden="true" />}
     </button>

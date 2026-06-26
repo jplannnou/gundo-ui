@@ -1,4 +1,5 @@
 'use client';
+import '../ui-classes.css';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useReducedMotion } from '../utils/useReducedMotion';
@@ -96,7 +97,7 @@ function CountUpValue({ countUp, animate }: { countUp: ProgressCelebrationCountU
   }, [countUp.to, animate]);
 
   return (
-    <span className="font-semibold tabular-nums text-[var(--ui-primary)]">
+    <span className="font-semibold tabular-nums gu-text-primary">
       {countUp.prefix ?? ''}
       {value.toLocaleString(countUp.locale)}
       {countUp.suffix ?? ''}
@@ -151,7 +152,7 @@ export function ProgressCelebration({
               ? { duration: 0.15 }
               : { type: 'spring', stiffness: 320, damping: 24 }
           }
-          className={`relative inline-flex flex-col items-center gap-1 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] px-6 py-5 text-center shadow-[var(--ui-shadow-md)] ${className}`}
+          className={`relative inline-flex flex-col items-center gap-1 rounded-xl border gu-border-border gu-bg-surface px-6 py-5 text-center gu-shadow-shadow-md ${className}`}
         >
           {/* Particle burst — decorative, contained to the card's center */}
           {particles.length > 0 && (
@@ -182,13 +183,13 @@ export function ProgressCelebration({
               {icon}
             </span>
           )}
-          <p className="text-base font-semibold text-[var(--ui-text)]">{message}</p>
+          <p className="text-base font-semibold gu-text-text">{message}</p>
           {countUp && (
-            <p className="text-sm text-[var(--ui-text-secondary)]">
+            <p className="text-sm gu-text-text-secondary">
               <CountUpValue countUp={countUp} animate={!reduced} />
             </p>
           )}
-          {detail && <p className="text-sm text-[var(--ui-text-secondary)]">{detail}</p>}
+          {detail && <p className="text-sm gu-text-text-secondary">{detail}</p>}
         </motion.div>
       )}
     </AnimatePresence>

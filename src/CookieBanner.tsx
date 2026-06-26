@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useState } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -77,13 +78,13 @@ export function CookieBanner({
       role="dialog"
       aria-modal="false"
       aria-label={title}
-      className={`fixed z-[var(--ui-z-toast,600)] rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-5 shadow-[var(--ui-shadow-lg)] ${positionClasses[position]} ${className}`}
+      className={`fixed z-[var(--ui-z-toast,600)] rounded-xl border gu-border-border gu-bg-surface p-5 gu-shadow-shadow-lg ${positionClasses[position]} ${className}`}
     >
       <div className="flex flex-col gap-4">
         {/* Header */}
         <div>
-          <h2 className="text-sm font-semibold text-[var(--ui-text)]">{title}</h2>
-          <p className="mt-1 text-xs text-[var(--ui-text-secondary)]">
+          <h2 className="text-sm font-semibold gu-text-text">{title}</h2>
+          <p className="mt-1 text-xs gu-text-text-secondary">
             {description}
             {privacyPolicyUrl && (
               <>
@@ -92,7 +93,7 @@ export function CookieBanner({
                   href={privacyPolicyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[var(--ui-primary)] underline underline-offset-1 hover:text-[var(--ui-primary-hover)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ui-primary)] rounded"
+                  className="gu-text-primary underline underline-offset-1 gu-h-text-primary-hover focus-visible:outline-none focus-visible:ring-1 gu-fv-ring-primary rounded"
                 >
                   {privacyPolicyLabel}
                 </a>
@@ -103,7 +104,7 @@ export function CookieBanner({
 
         {/* Detailed preferences */}
         {variant === 'detailed' && showDetails && (
-          <ul className="flex flex-col gap-2 border-t border-[var(--ui-border)] pt-3">
+          <ul className="flex flex-col gap-2 border-t gu-border-border pt-3">
             {categories.map((cat) => (
               <li key={cat.id} className="flex items-start gap-3">
                 <input
@@ -112,16 +113,16 @@ export function CookieBanner({
                   checked={prefs[cat.id] ?? false}
                   disabled={cat.required}
                   onChange={() => togglePref(cat.id)}
-                  className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--ui-primary)]"
+                  className="mt-0.5 h-4 w-4 shrink-0 gu-accent-primary"
                 />
                 <label htmlFor={`cookie-${cat.id}`} className="flex flex-col gap-0.5 cursor-pointer">
-                  <span className="text-xs font-medium text-[var(--ui-text)]">
+                  <span className="text-xs font-medium gu-text-text">
                     {cat.label}
                     {cat.required && (
-                      <span className="ml-1 text-[10px] text-[var(--ui-text-muted)]">(requerida)</span>
+                      <span className="ml-1 text-[10px] gu-text-text-muted">(requerida)</span>
                     )}
                   </span>
-                  <span className="text-[11px] text-[var(--ui-text-muted)]">{cat.description}</span>
+                  <span className="text-[11px] gu-text-text-muted">{cat.description}</span>
                 </label>
               </li>
             ))}
@@ -133,14 +134,14 @@ export function CookieBanner({
           <button
             type="button"
             onClick={onAcceptAll}
-            className="flex-1 rounded-lg bg-[var(--ui-primary)] px-4 py-2 text-xs font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+            className="flex-1 rounded-lg gu-bg-primary px-4 py-2 text-xs font-semibold gu-text-surface transition-colors gu-h-bg-primary-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
           >
             Aceptar todas
           </button>
           <button
             type="button"
             onClick={onRejectAll}
-            className="flex-1 rounded-lg border border-[var(--ui-border)] px-4 py-2 text-xs font-semibold text-[var(--ui-text)] transition-colors hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+            className="flex-1 rounded-lg border gu-border-border px-4 py-2 text-xs font-semibold gu-text-text transition-colors gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
           >
             Solo necesarias
           </button>
@@ -150,7 +151,7 @@ export function CookieBanner({
                 <button
                   type="button"
                   onClick={() => onSavePreferences?.(prefs)}
-                  className="w-full rounded-lg border border-[var(--ui-primary)] px-4 py-2 text-xs font-semibold text-[var(--ui-primary)] transition-colors hover:bg-[var(--ui-primary-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+                  className="w-full rounded-lg border gu-border-primary px-4 py-2 text-xs font-semibold gu-text-primary transition-colors gu-h-bg-primary-soft focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
                 >
                   Guardar preferencias
                 </button>
@@ -158,7 +159,7 @@ export function CookieBanner({
                 <button
                   type="button"
                   onClick={() => setShowDetails(true)}
-                  className="w-full text-xs text-[var(--ui-text-muted)] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] rounded"
+                  className="w-full text-xs gu-text-text-muted underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary rounded"
                 >
                   Personalizar
                 </button>

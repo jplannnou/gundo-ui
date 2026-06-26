@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 /**
@@ -109,7 +110,7 @@ export function SenderIdentity({
         aria-label={ariaLabel}
       >
         <Avatar actor={onBehalfOf ?? sender} size={20} />
-        <span className="text-[var(--ui-text)]">
+        <span className="gu-text-text">
           {showOnBehalf ? onBehalfOf.name : sender.name}
         </span>
         {channel && (
@@ -133,22 +134,22 @@ export function SenderIdentity({
         <div className="flex items-center gap-2">
           <Avatar actor={onBehalfOf ?? sender} size={32} />
           <div className="flex flex-col min-w-0">
-            <span className="text-sm font-medium text-[var(--ui-text)] truncate">
+            <span className="text-sm font-medium gu-text-text truncate">
               {showOnBehalf ? onBehalfOf.name : sender.name}
             </span>
             {showOnBehalf && (
-              <span className="text-xs text-[var(--ui-text-muted)] truncate">
+              <span className="text-xs gu-text-text-muted truncate">
                 vía {sender.name}
                 {sender.role && ` · ${sender.role}`}
               </span>
             )}
             {!showOnBehalf && sender.role && (
-              <span className="text-xs text-[var(--ui-text-muted)]">{sender.role}</span>
+              <span className="text-xs gu-text-text-muted">{sender.role}</span>
             )}
           </div>
         </div>
         {(context || channel) && (
-          <div className="flex items-center gap-2 ml-10 text-xs text-[var(--ui-text-muted)]">
+          <div className="flex items-center gap-2 ml-10 text-xs gu-text-text-muted">
             {channel && (
               <span
                 className="inline-flex items-center rounded-full px-2 py-0.5 font-medium"
@@ -175,11 +176,11 @@ export function SenderIdentity({
     >
       <Avatar actor={onBehalfOf ?? sender} size={28} />
       <div className="flex items-baseline gap-1.5 flex-wrap min-w-0">
-        <span className="font-medium text-[var(--ui-text)]">
+        <span className="font-medium gu-text-text">
           {showOnBehalf ? onBehalfOf.name : sender.name}
         </span>
         {showOnBehalf && (
-          <span className="text-xs text-[var(--ui-text-muted)]">
+          <span className="text-xs gu-text-text-muted">
             (vía {sender.name})
           </span>
         )}
@@ -195,7 +196,7 @@ export function SenderIdentity({
           </span>
         )}
         {context && (
-          <span className="text-xs text-[var(--ui-text-muted)]">{context}</span>
+          <span className="text-xs gu-text-text-muted">{context}</span>
         )}
       </div>
     </div>

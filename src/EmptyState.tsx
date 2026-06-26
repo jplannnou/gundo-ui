@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 interface EmptyStateProps {
@@ -14,7 +15,7 @@ export function EmptyState({ icon, title, description, action, actionLabel, onAc
     <button
       type="button"
       onClick={onAction}
-      className="rounded-lg bg-[var(--ui-primary)] px-4 py-2 text-sm font-medium text-[var(--ui-surface)] hover:bg-[var(--ui-primary-hover)] transition-colors"
+      className="rounded-lg gu-bg-primary px-4 py-2 text-sm font-medium gu-text-surface gu-h-bg-primary-hover transition-colors"
     >
       {actionLabel}
     </button>
@@ -22,9 +23,9 @@ export function EmptyState({ icon, title, description, action, actionLabel, onAc
 
   return (
     <div className="flex flex-col items-center justify-center py-16 text-center">
-      {icon && <div className="mb-4 text-[var(--ui-text-secondary)]">{icon}</div>}
-      <p className="text-lg font-medium text-[var(--ui-text)]">{title}</p>
-      {description && <p className="mt-1 text-sm text-[var(--ui-text-secondary)]">{description}</p>}
+      {icon && <div className="mb-4 gu-text-text-secondary">{icon}</div>}
+      <p className="text-lg font-medium gu-text-text">{title}</p>
+      {description && <p className="mt-1 text-sm gu-text-text-secondary">{description}</p>}
       {actionContent && <div className="mt-4">{actionContent}</div>}
     </div>
   );

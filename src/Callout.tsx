@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 import { Info, AlertTriangle, XCircle, CheckCircle, Lightbulb } from 'lucide-react';
 
@@ -13,11 +14,11 @@ export interface CalloutProps {
 }
 
 const variantStyles: Record<CalloutVariant, string> = {
-  info: 'border-[var(--ui-info)] bg-[var(--ui-info-soft)]',
-  warning: 'border-[var(--ui-warning)] bg-[var(--ui-warning-soft)]',
-  error: 'border-[var(--ui-error)] bg-[var(--ui-error-soft)]',
-  success: 'border-[var(--ui-success)] bg-[var(--ui-success-soft)]',
-  tip: 'border-[var(--ui-primary)] bg-[var(--ui-primary-soft)]',
+  info: 'gu-border-info gu-bg-info-soft',
+  warning: 'gu-border-warning gu-bg-warning-soft',
+  error: 'gu-border-error gu-bg-error-soft',
+  success: 'gu-border-success gu-bg-success-soft',
+  tip: 'gu-border-primary gu-bg-primary-soft',
 };
 
 const variantIconColor: Record<CalloutVariant, string> = {
@@ -61,14 +62,14 @@ export function Callout({
       </span>
       <div className="flex-1 min-w-0">
         {title && (
-          <p className="text-sm font-semibold text-[var(--ui-text)] mb-1">{title}</p>
+          <p className="text-sm font-semibold gu-text-text mb-1">{title}</p>
         )}
-        <div className="text-sm text-[var(--ui-text-secondary)]">{children}</div>
+        <div className="text-sm gu-text-text-secondary">{children}</div>
         {action && (
           <button
             type="button"
             onClick={action.onClick}
-            className="mt-2 text-xs font-medium text-[var(--ui-text)] underline underline-offset-2 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] rounded"
+            className="mt-2 text-xs font-medium gu-text-text underline underline-offset-2 hover:no-underline focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color rounded"
           >
             {action.label}
           </button>

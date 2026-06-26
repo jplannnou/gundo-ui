@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { useState, type ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -117,7 +118,7 @@ function Cell({ value }: { value: string | boolean }) {
   if (value === true) {
     return (
       <span
-        className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--ui-success-soft)] text-[var(--ui-success)]"
+        className="inline-flex h-5 w-5 items-center justify-center rounded-full gu-bg-success-soft gu-text-success"
         aria-label="Incluido"
       >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -129,7 +130,7 @@ function Cell({ value }: { value: string | boolean }) {
   if (value === false) {
     return (
       <span
-        className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--ui-surface-hover)] text-[var(--ui-text-muted)]"
+        className="inline-flex h-5 w-5 items-center justify-center rounded-full gu-bg-surface-hover gu-text-text-muted"
         aria-label="No incluido"
       >
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
@@ -138,7 +139,7 @@ function Cell({ value }: { value: string | boolean }) {
       </span>
     );
   }
-  return <span className="text-sm font-medium text-[var(--ui-text)]">{value}</span>;
+  return <span className="text-sm font-medium gu-text-text">{value}</span>;
 }
 
 /* ─── PaywallUnified ─────────────────────────────────────────────────── */
@@ -165,7 +166,7 @@ export function PaywallUnified({
 
   return (
     <section
-      className={`relative w-full max-w-3xl overflow-hidden rounded-2xl border border-[var(--ui-border)] bg-[var(--ui-surface)] text-[var(--ui-text)] shadow-[var(--ui-shadow-lg)] ${className}`}
+      className={`relative w-full max-w-3xl overflow-hidden rounded-2xl border gu-border-border gu-bg-surface gu-text-text gu-shadow-shadow-lg ${className}`}
       aria-labelledby="paywall-title"
     >
       {/* Premium ribbon */}
@@ -180,7 +181,7 @@ export function PaywallUnified({
           type="button"
           onClick={onDismiss}
           aria-label="Cerrar"
-          className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+          className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full gu-text-text-secondary gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
@@ -203,13 +204,13 @@ export function PaywallUnified({
             <span className="mr-2" aria-hidden="true">{copy.emoji}</span>
             {title ?? copy.title}
           </h2>
-          <p className="text-sm text-[var(--ui-text-secondary)]">
+          <p className="text-sm gu-text-text-secondary">
             {subtitle ?? copy.subtitle}
           </p>
         </header>
 
         {/* Billing toggle */}
-        <div className="mt-6 inline-flex items-center rounded-full border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-1">
+        <div className="mt-6 inline-flex items-center rounded-full border gu-border-border gu-bg-surface-raised p-1">
           {(['monthly', 'yearly'] as PaywallBillingCycle[]).map((c) => (
             <button
               key={c}
@@ -218,8 +219,8 @@ export function PaywallUnified({
               aria-pressed={cycle === c}
               className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-colors ${
                 cycle === c
-                  ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)]'
-                  : 'text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)]'
+                  ? 'gu-bg-primary gu-text-surface'
+                  : 'gu-text-text-secondary gu-h-text-text'
               }`}
             >
               {c === 'monthly' ? 'Mensual' : `Anual${savings > 0 ? ` · -${savings}%` : ''}`}
@@ -230,10 +231,10 @@ export function PaywallUnified({
         {/* Pricing */}
         <div className="mt-6 flex items-end gap-2">
           <span className="text-5xl font-bold tabular-nums">{formatEUR(displayPrice)}</span>
-          <span className="pb-1.5 text-sm text-[var(--ui-text-secondary)]">
+          <span className="pb-1.5 text-sm gu-text-text-secondary">
             /mes
             {cycle === 'yearly' && (
-              <span className="ml-1 text-[var(--ui-text-muted)]">
+              <span className="ml-1 gu-text-text-muted">
                 (facturado {formatEUR(pricing.yearly)}/año)
               </span>
             )}
@@ -246,12 +247,12 @@ export function PaywallUnified({
             {roi.map((item) => (
               <div
                 key={item.label}
-                className="rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-3"
+                className="rounded-xl border gu-border-border gu-bg-surface-raised p-3"
               >
-                <p className="text-xs text-[var(--ui-text-muted)]">{item.label}</p>
-                <p className="mt-1 text-lg font-bold text-[var(--ui-primary)]">{item.value}</p>
+                <p className="text-xs gu-text-text-muted">{item.label}</p>
+                <p className="mt-1 text-lg font-bold gu-text-primary">{item.value}</p>
                 {item.description && (
-                  <p className="mt-0.5 text-[11px] text-[var(--ui-text-secondary)]">
+                  <p className="mt-0.5 text-[11px] gu-text-text-secondary">
                     {item.description}
                   </p>
                 )}
@@ -261,17 +262,17 @@ export function PaywallUnified({
         )}
 
         {/* Comparison matrix */}
-        <div className="mt-6 overflow-hidden rounded-xl border border-[var(--ui-border)]">
+        <div className="mt-6 overflow-hidden rounded-xl border gu-border-border">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-[var(--ui-surface-raised)] text-[var(--ui-text-secondary)]">
+              <tr className="gu-bg-surface-raised gu-text-text-secondary">
                 <th className="px-3 py-2 text-left text-xs font-semibold">
                   Feature
                 </th>
                 <th className="px-3 py-2 text-xs font-semibold">
                   Free
                 </th>
-                <th className="px-3 py-2 text-xs font-semibold text-[var(--ui-primary)]">
+                <th className="px-3 py-2 text-xs font-semibold gu-text-primary">
                   Premium{plan === 'plus' ? '+' : ''}
                 </th>
               </tr>
@@ -280,11 +281,11 @@ export function PaywallUnified({
               {featureMatrix.map((row, idx) => (
                 <tr
                   key={row.feature}
-                  className={`border-t border-[var(--ui-border)] ${
-                    row.highlight ? 'bg-[var(--ui-primary-soft)]' : idx % 2 === 1 ? 'bg-[var(--ui-surface-raised)]' : ''
+                  className={`border-t gu-border-border ${
+                    row.highlight ? 'gu-bg-primary-soft' : idx % 2 === 1 ? 'gu-bg-surface-raised' : ''
                   }`}
                 >
-                  <td className="px-3 py-2 text-[var(--ui-text)]">{row.feature}</td>
+                  <td className="px-3 py-2 gu-text-text">{row.feature}</td>
                   <td className="px-3 py-2 text-center">
                     <Cell value={row.free} />
                   </td>
@@ -303,10 +304,10 @@ export function PaywallUnified({
             {testimonials.map((t) => (
               <blockquote
                 key={t.name}
-                className="rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] p-4 text-sm"
+                className="rounded-xl border gu-border-border gu-bg-surface-raised p-4 text-sm"
               >
-                <p className="italic text-[var(--ui-text)]">“{t.quote}”</p>
-                <footer className="mt-2 text-xs text-[var(--ui-text-muted)]">
+                <p className="italic gu-text-text">“{t.quote}”</p>
+                <footer className="mt-2 text-xs gu-text-text-muted">
                   — {t.name}
                   {t.role ? ` · ${t.role}` : ''}
                 </footer>
@@ -320,7 +321,7 @@ export function PaywallUnified({
           <button
             type="button"
             onClick={() => onUpgrade(cycle)}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-[var(--ui-shadow-md)] transition-transform hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white gu-shadow-shadow-md transition-transform hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
             style={{ background: 'var(--ui-gradient)' }}
           >
             Hacerme Premium{plan === 'plus' ? '+' : ''}
@@ -329,14 +330,14 @@ export function PaywallUnified({
             <button
               type="button"
               onClick={onDismiss}
-              className="rounded-xl px-5 py-3 text-sm font-medium text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+              className="rounded-xl px-5 py-3 text-sm font-medium gu-text-text-secondary gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
             >
               Ahora no
             </button>
           )}
         </div>
 
-        {footer && <div className="mt-4 text-xs text-[var(--ui-text-muted)]">{footer}</div>}
+        {footer && <div className="mt-4 text-xs gu-text-text-muted">{footer}</div>}
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
 'use client';
+import '../ui-classes.css';
 import {
   Children,
   createContext,
@@ -72,7 +73,7 @@ export interface EmptyStateEducationIllustrationProps {
 
 function Illustration({ children, className = '' }: EmptyStateEducationIllustrationProps) {
   return (
-    <div className={`mb-4 text-[var(--ui-text-secondary)] ${className}`} aria-hidden="true">
+    <div className={`mb-4 gu-text-text-secondary ${className}`} aria-hidden="true">
       {children}
     </div>
   );
@@ -87,13 +88,13 @@ export interface EmptyStateEducationTextProps {
 
 function Title({ children, className = '' }: EmptyStateEducationTextProps) {
   return (
-    <h2 className={`text-lg font-semibold text-[var(--ui-text)] ${className}`}>{children}</h2>
+    <h2 className={`text-lg font-semibold gu-text-text ${className}`}>{children}</h2>
   );
 }
 
 function Body({ children, className = '' }: EmptyStateEducationTextProps) {
   return (
-    <p className={`mt-1.5 max-w-md text-sm leading-relaxed text-[var(--ui-text-secondary)] ${className}`}>
+    <p className={`mt-1.5 max-w-md text-sm leading-relaxed gu-text-text-secondary ${className}`}>
       {children}
     </p>
   );
@@ -123,15 +124,15 @@ function Steps({ children, className = '' }: EmptyStateEducationStepsProps) {
             delay: reduced ? 0 : 0.1 + i * 0.08,
             ease: [0, 0, 0.2, 1],
           }}
-          className="flex items-start gap-3 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] px-3.5 py-3"
+          className="flex items-start gap-3 rounded-xl border gu-border-border gu-bg-surface-raised px-3.5 py-3"
         >
           <span
-            className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--ui-primary-soft)] text-xs font-bold text-[var(--ui-primary)]"
+            className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full gu-bg-primary-soft text-xs font-bold gu-text-primary"
             aria-hidden="true"
           >
             {i + 1}
           </span>
-          <span className="text-sm leading-relaxed text-[var(--ui-text)]">{child}</span>
+          <span className="text-sm leading-relaxed gu-text-text">{child}</span>
         </motion.li>
       ))}
     </ol>
@@ -156,7 +157,7 @@ function Action({ children, onClick, href, className = '' }: EmptyStateEducation
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const cls = `mt-6 inline-flex min-h-[44px] items-center justify-center rounded-lg bg-[var(--ui-primary)] px-5 py-2.5 text-sm font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${className}`;
+  const cls = `mt-6 inline-flex min-h-[44px] items-center justify-center rounded-lg gu-bg-primary px-5 py-2.5 text-sm font-semibold gu-text-surface transition-colors gu-h-bg-primary-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface ${className}`;
 
   return href ? (
     <a href={href} onClick={onClick} className={cls}>
@@ -179,7 +180,7 @@ export interface EmptyStateEducationLearnMoreProps {
 }
 
 function LearnMore({ children, onClick, href, className = '' }: EmptyStateEducationLearnMoreProps) {
-  const cls = `mt-2 inline-flex min-h-[44px] items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-[var(--ui-text-secondary)] underline-offset-2 transition-colors hover:text-[var(--ui-text)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${className}`;
+  const cls = `mt-2 inline-flex min-h-[44px] items-center justify-center rounded-lg px-3 py-2 text-sm font-medium gu-text-text-secondary underline-offset-2 transition-colors gu-h-text-text hover:underline focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${className}`;
 
   return href ? (
     <a href={href} onClick={onClick} className={cls}>

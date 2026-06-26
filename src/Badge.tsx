@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode, HTMLAttributes } from 'react';
 
 type Variant = 'default' | 'success' | 'error' | 'warning' | 'info' | 'purple' | 'secondary' | 'destructive' | 'outline';
@@ -12,15 +13,15 @@ interface BadgeProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
 }
 
 const variantStyles: Record<Variant, string> = {
-  default: 'bg-[var(--ui-surface-hover)] text-[var(--ui-text-secondary)]',
-  success: 'bg-[var(--ui-success-soft)] text-[var(--ui-success)]',
-  error: 'bg-[var(--ui-error-soft)] text-[var(--ui-error)]',
-  warning: 'bg-[var(--ui-warning-soft)] text-[var(--ui-warning)]',
-  info: 'bg-[var(--ui-info-soft)] text-[var(--ui-info)]',
-  purple: 'bg-[var(--ui-tertiary-soft)] text-[var(--ui-tertiary)]',
-  secondary: 'bg-[var(--ui-secondary-soft)] text-[var(--ui-secondary)]',
-  destructive: 'bg-[var(--ui-error-soft)] text-[var(--ui-error)]',
-  outline: 'bg-transparent border border-[var(--ui-border)] text-[var(--ui-text)]',
+  default: 'gu-bg-surface-hover gu-text-text-secondary',
+  success: 'gu-bg-success-soft gu-text-success',
+  error: 'gu-bg-error-soft gu-text-error',
+  warning: 'gu-bg-warning-soft gu-text-warning',
+  info: 'gu-bg-info-soft gu-text-info',
+  purple: 'gu-bg-tertiary-soft gu-text-tertiary',
+  secondary: 'gu-bg-secondary-soft gu-text-secondary',
+  destructive: 'gu-bg-error-soft gu-text-error',
+  outline: 'bg-transparent border gu-border-border gu-text-text',
 };
 
 const sizeStyles: Record<Size, string> = {

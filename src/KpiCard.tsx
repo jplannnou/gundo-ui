@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 interface KpiCardProps {
@@ -86,17 +87,17 @@ export function KpiCard({
     : null;
 
   // Resolve value color: valueClassName > color > default
-  const valClass = valueClassName || color || 'text-[var(--ui-text)]';
+  const valClass = valueClassName || color || 'gu-text-text';
 
   return (
-    <div className={`relative overflow-hidden rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-5 ${className}`}>
+    <div className={`relative overflow-hidden rounded-xl border gu-border-border gu-bg-surface p-5 ${className}`}>
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-[var(--ui-text-secondary)]">
+          <p className="text-sm font-medium gu-text-text-secondary">
             {heading}
           </p>
           <p
-            className={`mt-2 text-2xl font-bold tabular-nums ${valClass} ${display ? 'font-[var(--ui-font-display)]' : ''}`}
+            className={`mt-2 text-2xl font-bold tabular-nums ${valClass} ${display ? 'gu-font-font-display' : ''}`}
           >
             {value}
           </p>
@@ -116,13 +117,13 @@ export function KpiCard({
                 </span>
               )}
               {subtitle && (
-                <span className="text-xs text-[var(--ui-text-secondary)]">{subtitle}</span>
+                <span className="text-xs gu-text-text-secondary">{subtitle}</span>
               )}
             </div>
           )}
         </div>
         {icon && (
-          <div className={`ml-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${iconClassName || 'bg-[var(--ui-primary-soft)] text-[var(--ui-primary)]'}`}>
+          <div className={`ml-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${iconClassName || 'gu-bg-primary-soft gu-text-primary'}`}>
             {icon}
           </div>
         )}

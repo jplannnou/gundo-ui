@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -34,12 +35,12 @@ export interface DetailHeaderProps {
 /* ─── Badge config ───────────────────────────────────────────────────── */
 
 const badgeStyles: Record<string, string> = {
-  primary: 'bg-[var(--ui-primary-soft)] text-[var(--ui-primary)]',
-  success: 'bg-[color-mix(in_srgb,var(--ui-success)_15%,transparent)] text-[var(--ui-success)]',
-  warning: 'bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] text-[var(--ui-warning)]',
-  danger: 'bg-[color-mix(in_srgb,var(--ui-error)_15%,transparent)] text-[var(--ui-error)]',
-  info: 'bg-[color-mix(in_srgb,var(--ui-info)_15%,transparent)] text-[var(--ui-info)]',
-  neutral: 'bg-[var(--ui-surface-hover)] text-[var(--ui-text-muted)]',
+  primary: 'gu-bg-primary-soft gu-text-primary',
+  success: 'bg-[color-mix(in_srgb,var(--ui-success)_15%,transparent)] gu-text-success',
+  warning: 'bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] gu-text-warning',
+  danger: 'bg-[color-mix(in_srgb,var(--ui-error)_15%,transparent)] gu-text-error',
+  info: 'bg-[color-mix(in_srgb,var(--ui-info)_15%,transparent)] gu-text-info',
+  neutral: 'gu-bg-surface-hover gu-text-text-muted',
 };
 
 /* ─── DetailHeader ────────────────────────────────────────────────────── */
@@ -68,7 +69,7 @@ export function DetailHeader({
     <div className={`flex flex-col gap-3 ${className}`}>
       {/* Breadcrumbs */}
       {breadcrumbs.length > 0 && (
-        <nav aria-label="Navegación" className="flex items-center gap-1.5 text-xs text-[var(--ui-text-muted)]">
+        <nav aria-label="Navegación" className="flex items-center gap-1.5 text-xs gu-text-text-muted">
           {breadcrumbs.map((crumb, i) => (
             <span key={i} className="flex items-center gap-1.5">
               {i > 0 && (
@@ -80,12 +81,12 @@ export function DetailHeader({
                 <a
                   href={crumb.href}
                   onClick={crumb.onClick}
-                  className="transition-colors hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ui-primary)] rounded"
+                  className="transition-colors gu-h-text-text focus-visible:outline-none focus-visible:ring-1 gu-fv-ring-primary rounded"
                 >
                   {crumb.label}
                 </a>
               ) : (
-                <span className={i === breadcrumbs.length - 1 ? 'text-[var(--ui-text-secondary)]' : ''}>
+                <span className={i === breadcrumbs.length - 1 ? 'gu-text-text-secondary' : ''}>
                   {crumb.label}
                 </span>
               )}
@@ -98,7 +99,7 @@ export function DetailHeader({
       <div className="flex items-start gap-4">
         {/* Icon */}
         {icon && (
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)]">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border gu-border-border gu-bg-surface-raised">
             {icon}
           </div>
         )}
@@ -106,7 +107,7 @@ export function DetailHeader({
         {/* Title block */}
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-xl font-bold text-[var(--ui-text)] leading-tight">{title}</h1>
+            <h1 className="text-xl font-bold gu-text-text leading-tight">{title}</h1>
             {badges.map((b, i) => (
               <span
                 key={i}
@@ -117,10 +118,10 @@ export function DetailHeader({
             ))}
           </div>
           {subtitle && (
-            <p className="mt-0.5 text-sm text-[var(--ui-text-secondary)]">{subtitle}</p>
+            <p className="mt-0.5 text-sm gu-text-text-secondary">{subtitle}</p>
           )}
           {description && (
-            <p className="mt-1.5 text-sm text-[var(--ui-text-muted)] leading-relaxed line-clamp-2">
+            <p className="mt-1.5 text-sm gu-text-text-muted leading-relaxed line-clamp-2">
               {description}
             </p>
           )}
@@ -138,7 +139,7 @@ export function DetailHeader({
               <span className="text-base font-bold tabular-nums leading-none" style={{ color: scoreColor }}>
                 {score}
               </span>
-              <span className="text-[9px] text-[var(--ui-text-muted)]">score</span>
+              <span className="text-[9px] gu-text-text-muted">score</span>
             </div>
           )}
           {actions && <div className="flex items-center gap-2">{actions}</div>}

@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { HTMLAttributes } from 'react';
 import { Skeleton } from './Skeleton';
 
@@ -15,7 +16,7 @@ export function ProductCardSkeleton({ className = '', ...rest }: HTMLAttributes<
     <div
       aria-busy="true"
       aria-label="Cargando producto"
-      className={`flex flex-col gap-2 overflow-hidden rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-3 ${className}`}
+      className={`flex flex-col gap-2 overflow-hidden rounded-xl border gu-border-border gu-bg-surface p-3 ${className}`}
       {...rest}
     >
       <Skeleton className="h-36 w-full" rounded="md" />
@@ -37,7 +38,7 @@ export function MealCardSkeleton({ className = '', ...rest }: HTMLAttributes<HTM
     <div
       aria-busy="true"
       aria-label="Cargando comida"
-      className={`flex items-center gap-3 rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-3 ${className}`}
+      className={`flex items-center gap-3 rounded-xl border gu-border-border gu-bg-surface p-3 ${className}`}
       {...rest}
     >
       <Skeleton className="h-16 w-16 shrink-0" rounded="md" />
@@ -62,7 +63,7 @@ export function ResultRowSkeleton({ className = '', ...rest }: HTMLAttributes<HT
     <div
       aria-busy="true"
       aria-label="Cargando resultado"
-      className={`flex items-center gap-3 border-b border-[var(--ui-border)] px-3 py-3 last:border-b-0 ${className}`}
+      className={`flex items-center gap-3 border-b gu-border-border px-3 py-3 last:border-b-0 ${className}`}
       {...rest}
     >
       <Skeleton className="h-8 w-8 shrink-0" rounded="full" />

@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 
 /**
@@ -33,13 +34,13 @@ export const CardButton = forwardRef<HTMLButtonElement, CardButtonProps>(
       <button
         ref={ref}
         type={type}
-        className={`group block w-full text-left rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface-raised)] ${
+        className={`group block w-full text-left rounded-xl border gu-border-border gu-bg-surface-raised ${
           padding ? 'p-6' : ''
         } ${
           hover
-            ? 'hover:bg-[var(--ui-surface-hover)] hover:-translate-y-0.5 transition-[transform,background-color] duration-[var(--ui-duration-normal)]'
+            ? 'gu-h-bg-surface-hover hover:-translate-y-0.5 transition-[transform,background-color] gu-duration-duration-normal'
             : ''
-        } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 ${className}`}
+        } focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 ${className}`}
         {...rest}
       >
         {children}

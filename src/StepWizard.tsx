@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import {
   createContext,
   useCallback,
@@ -180,18 +181,18 @@ export function StepWizardModal({
         aria-modal="true"
         aria-labelledby={title ? titleId : undefined}
         tabIndex={-1}
-        className={`w-full ${sizeStyles[size]} rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] shadow-[var(--ui-shadow-lg)] outline-none`}
+        className={`w-full ${sizeStyles[size]} rounded-xl border gu-border-border gu-bg-surface gu-shadow-shadow-lg outline-none`}
       >
         {title && (
-          <div className="flex items-center justify-between border-b border-[var(--ui-border)] px-6 py-4">
-            <h2 id={titleId} className="text-base font-semibold text-[var(--ui-text)]">
+          <div className="flex items-center justify-between border-b gu-border-border px-6 py-4">
+            <h2 id={titleId} className="text-base font-semibold gu-text-text">
               {title}
             </h2>
             <button
               type="button"
               onClick={onClose}
               aria-label="Cerrar"
-              className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--ui-text-muted)] transition-colors hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+              className="flex h-8 w-8 items-center justify-center rounded-lg gu-text-text-muted transition-colors gu-h-bg-surface-hover gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path
@@ -241,10 +242,10 @@ export function StepWizardProgress({ className = '' }: StepWizardProgressProps) 
                 <span
                   className={`flex h-8 w-8 items-center justify-center rounded-full border-2 text-xs font-semibold transition-colors ${
                     isCompleted
-                      ? 'border-[var(--ui-primary)] bg-[var(--ui-primary)] text-[var(--ui-surface)] group-hover:bg-[var(--ui-primary-hover)]'
+                      ? 'gu-border-primary gu-bg-primary gu-text-surface group-hover:bg-[var(--ui-primary-hover)]'
                       : isCurrent
-                        ? 'border-[var(--ui-primary)] bg-transparent text-[var(--ui-primary)]'
-                        : 'border-[var(--ui-border)] bg-transparent text-[var(--ui-text-muted)]'
+                        ? 'gu-border-primary bg-transparent gu-text-primary'
+                        : 'gu-border-border bg-transparent gu-text-text-muted'
                   }`}
                 >
                   {isCompleted ? (
@@ -264,10 +265,10 @@ export function StepWizardProgress({ className = '' }: StepWizardProgressProps) 
                 <span
                   className={`hidden text-xs font-medium sm:block ${
                     isCurrent
-                      ? 'text-[var(--ui-text)]'
+                      ? 'gu-text-text'
                       : isCompleted
-                        ? 'text-[var(--ui-text-secondary)]'
-                        : 'text-[var(--ui-text-muted)]'
+                        ? 'gu-text-text-secondary'
+                        : 'gu-text-text-muted'
                   }`}
                 >
                   {step.label}
@@ -276,7 +277,7 @@ export function StepWizardProgress({ className = '' }: StepWizardProgressProps) 
               {i < steps.length - 1 && (
                 <div
                   className={`mx-2 h-0.5 flex-1 transition-colors ${
-                    i < currentIndex ? 'bg-[var(--ui-primary)]' : 'bg-[var(--ui-border)]'
+                    i < currentIndex ? 'gu-bg-primary' : 'gu-bg-border'
                   }`}
                   aria-hidden="true"
                 />
@@ -323,12 +324,12 @@ export function StepWizardActions({
 
   return (
     <div
-      className={`mt-6 flex items-center justify-between border-t border-[var(--ui-border)] pt-4 ${className}`}
+      className={`mt-6 flex items-center justify-between border-t gu-border-border pt-4 ${className}`}
     >
       <button
         type="button"
         onClick={goPrev}
-        className="rounded-lg px-4 py-2 text-sm font-medium text-[var(--ui-text-muted)] transition-colors hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+        className="rounded-lg px-4 py-2 text-sm font-medium gu-text-text-muted transition-colors gu-h-bg-surface-hover gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
       >
         {isFirst ? cancelLabel : prevLabel}
       </button>
@@ -336,7 +337,7 @@ export function StepWizardActions({
         type="button"
         onClick={goNext}
         disabled={!canGoNext || loading}
-        className="flex items-center gap-2 rounded-lg bg-[var(--ui-primary)] px-5 py-2 text-sm font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex items-center gap-2 rounded-lg gu-bg-primary px-5 py-2 text-sm font-semibold gu-text-surface transition-colors gu-h-bg-primary-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary focus-visible:ring-offset-2 gu-fv-ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50"
       >
         {loading && (
           <svg

@@ -23,18 +23,18 @@ describe('CharacterCounter', () => {
   it('applies error color when over max', () => {
     render(<CharacterCounter current={110} max={100} />);
     const el = screen.getByRole('status');
-    expect(el.className).toContain('text-[var(--ui-error)]');
+    expect(el.className).toContain('gu-text-error');
   });
 
   it('applies warning color when near max', () => {
     render(<CharacterCounter current={95} max={100} warnAt={0.9} />);
     const el = screen.getByRole('status');
-    expect(el.className).toContain('text-[var(--ui-warning)]');
+    expect(el.className).toContain('gu-text-warning');
   });
 
   it('applies muted color when well below max', () => {
     render(<CharacterCounter current={10} max={100} />);
     const el = screen.getByRole('status');
-    expect(el.className).toContain('text-[var(--ui-text-muted)]');
+    expect(el.className).toContain('gu-text-text-muted');
   });
 });

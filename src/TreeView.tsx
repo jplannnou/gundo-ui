@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import {
   createContext,
   useCallback,
@@ -131,10 +132,10 @@ function TreeNodeItem({ node, depth }: { node: TreeNode; depth: number }) {
             select(node);
           }
         }}
-        className={`group flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] ${
+        className={`group flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary ${
           isSelected
-            ? 'bg-[var(--ui-primary-soft)] text-[var(--ui-primary)]'
-            : 'text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)]'
+            ? 'gu-bg-primary-soft gu-text-primary'
+            : 'gu-text-text-secondary gu-h-bg-surface-hover gu-h-text-text'
         } ${node.disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
         style={{ paddingLeft: `${depth * 16 + 8}px` }}
       >
@@ -154,7 +155,7 @@ function TreeNodeItem({ node, depth }: { node: TreeNode; depth: number }) {
 
         {/* Icon */}
         {node.icon && (
-          <span className="shrink-0 text-[var(--ui-text-muted)]" aria-hidden="true">
+          <span className="shrink-0 gu-text-text-muted" aria-hidden="true">
             {node.icon}
           </span>
         )}
@@ -164,7 +165,7 @@ function TreeNodeItem({ node, depth }: { node: TreeNode; depth: number }) {
 
         {/* Badge */}
         {node.badge !== undefined && (
-          <span className="shrink-0 rounded-full bg-[var(--ui-surface-hover)] px-1.5 py-0.5 text-[10px] font-semibold tabular-nums text-[var(--ui-text-muted)]">
+          <span className="shrink-0 rounded-full gu-bg-surface-hover px-1.5 py-0.5 text-[10px] font-semibold tabular-nums gu-text-text-muted">
             {node.badge}
           </span>
         )}

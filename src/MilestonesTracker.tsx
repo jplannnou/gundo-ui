@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -31,32 +32,32 @@ const statusConfig: Record<
   { ring: string; bg: string; text: string; iconColor: string; lineColor: string }
 > = {
   completed: {
-    ring: 'border-[var(--ui-success)]',
-    bg: 'bg-[var(--ui-success)]',
-    text: 'text-[var(--ui-success)]',
+    ring: 'gu-border-success',
+    bg: 'gu-bg-success',
+    text: 'gu-text-success',
     iconColor: 'text-white',
-    lineColor: 'bg-[var(--ui-success)]',
+    lineColor: 'gu-bg-success',
   },
   current: {
-    ring: 'border-[var(--ui-primary)]',
-    bg: 'bg-[var(--ui-primary)]',
-    text: 'text-[var(--ui-primary)]',
-    iconColor: 'text-[var(--ui-surface)]',
-    lineColor: 'bg-[var(--ui-border)]',
+    ring: 'gu-border-primary',
+    bg: 'gu-bg-primary',
+    text: 'gu-text-primary',
+    iconColor: 'gu-text-surface',
+    lineColor: 'gu-bg-border',
   },
   upcoming: {
-    ring: 'border-[var(--ui-border)]',
+    ring: 'gu-border-border',
     bg: 'bg-transparent',
-    text: 'text-[var(--ui-text-muted)]',
-    iconColor: 'text-[var(--ui-text-muted)]',
-    lineColor: 'bg-[var(--ui-border)]',
+    text: 'gu-text-text-muted',
+    iconColor: 'gu-text-text-muted',
+    lineColor: 'gu-bg-border',
   },
   blocked: {
-    ring: 'border-[var(--ui-error)]',
+    ring: 'gu-border-error',
     bg: 'bg-[color-mix(in_srgb,var(--ui-error)_15%,transparent)]',
-    text: 'text-[var(--ui-error)]',
-    iconColor: 'text-[var(--ui-error)]',
-    lineColor: 'bg-[var(--ui-border)]',
+    text: 'gu-text-error',
+    iconColor: 'gu-text-error',
+    lineColor: 'gu-bg-border',
   },
 };
 
@@ -80,7 +81,7 @@ function DefaultIcon({ status }: { status: MilestoneStatus }) {
   if (status === 'current') {
     return <span className="h-2 w-2 rounded-full bg-current" aria-hidden="true" />;
   }
-  return <span className="h-2 w-2 rounded-full bg-[var(--ui-border)]" aria-hidden="true" />;
+  return <span className="h-2 w-2 rounded-full gu-bg-border" aria-hidden="true" />;
 }
 
 /* ─── MilestonesTracker ───────────────────────────────────────────────── */
@@ -111,7 +112,7 @@ export function MilestonesTracker({
                   onClick={() => onMilestoneClick?.(m)}
                   disabled={!onMilestoneClick}
                   aria-label={`${m.label} — ${m.status}`}
-                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 ${cfg.ring} ${cfg.bg} ${cfg.iconColor} transition-transform ${onMilestoneClick ? 'hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2' : ''}`}
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 ${cfg.ring} ${cfg.bg} ${cfg.iconColor} transition-transform ${onMilestoneClick ? 'hover:scale-110 focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary focus-visible:ring-offset-2' : ''}`}
                 >
                   {m.icon ?? <DefaultIcon status={m.status} />}
                 </button>
@@ -122,7 +123,7 @@ export function MilestonesTracker({
               <div className="mt-2 max-w-[80px] text-center">
                 <p className={`text-xs font-medium ${cfg.text}`}>{m.label}</p>
                 {showDates && m.date && (
-                  <p className="mt-0.5 text-[10px] text-[var(--ui-text-muted)]">{m.date}</p>
+                  <p className="mt-0.5 text-[10px] gu-text-text-muted">{m.date}</p>
                 )}
               </div>
             </div>
@@ -148,7 +149,7 @@ export function MilestonesTracker({
                 onClick={() => onMilestoneClick?.(m)}
                 disabled={!onMilestoneClick}
                 aria-label={`${m.label} — ${m.status}`}
-                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 ${cfg.ring} ${cfg.bg} ${cfg.iconColor} transition-transform ${onMilestoneClick ? 'hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]' : ''}`}
+                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 ${cfg.ring} ${cfg.bg} ${cfg.iconColor} transition-transform ${onMilestoneClick ? 'hover:scale-110 focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary focus-visible:ring-offset-2 gu-fv-ring-offset-surface' : ''}`}
               >
                 {m.icon ?? <DefaultIcon status={m.status} />}
               </button>
@@ -162,11 +163,11 @@ export function MilestonesTracker({
               <div className="flex items-baseline gap-2">
                 <p className={`text-sm font-semibold ${cfg.text}`}>{m.label}</p>
                 {showDates && m.date && (
-                  <time className="text-xs text-[var(--ui-text-muted)]">{m.date}</time>
+                  <time className="text-xs gu-text-text-muted">{m.date}</time>
                 )}
               </div>
               {m.description && (
-                <p className="mt-0.5 text-xs text-[var(--ui-text-muted)]">{m.description}</p>
+                <p className="mt-0.5 text-xs gu-text-text-muted">{m.description}</p>
               )}
             </div>
           </li>

@@ -1,3 +1,4 @@
+import './ui-classes.css';
 interface PaginationProps {
   page: number;
   totalPages: number;
@@ -34,8 +35,8 @@ export function Pagination({ page, totalPages, onPageChange, total, pageSize, cl
   return (
     <nav aria-label="Pagination" className={`flex items-center justify-between ${className}`}>
       {total !== undefined && from !== undefined && to !== undefined ? (
-        <p className="text-sm text-[var(--ui-text-muted)]" aria-live="polite">
-          <span className="text-[var(--ui-text)]">{from}</span>–<span className="text-[var(--ui-text)]">{to}</span> of {total}
+        <p className="text-sm gu-text-text-muted" aria-live="polite">
+          <span className="gu-text-text">{from}</span>–<span className="gu-text-text">{to}</span> of {total}
         </p>
       ) : (
         <div />
@@ -46,13 +47,13 @@ export function Pagination({ page, totalPages, onPageChange, total, pageSize, cl
           disabled={page <= 1}
           onClick={() => onPageChange(page - 1)}
           aria-label="Previous page"
-          className="px-3 py-2 text-sm rounded-md border border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
+          className="px-3 py-2 text-sm rounded-md border gu-border-border gu-text-text-secondary gu-h-bg-surface-hover disabled:opacity-40 transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
         >
           ‹
         </button>
         {pages.map((p, i) =>
           p === '...' ? (
-            <span key={`ellipsis-${i}`} className="px-1 text-[var(--ui-text-muted)]" aria-hidden="true">…</span>
+            <span key={`ellipsis-${i}`} className="px-1 gu-text-text-muted" aria-hidden="true">…</span>
           ) : (
             <button
               key={p}
@@ -60,10 +61,10 @@ export function Pagination({ page, totalPages, onPageChange, total, pageSize, cl
               onClick={() => onPageChange(p)}
               aria-label={`Page ${p}`}
               aria-current={p === page ? 'page' : undefined}
-              className={`min-w-[36px] py-2 text-sm rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${
+              className={`min-w-[36px] py-2 text-sm rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface ${
                 p === page
-                  ? 'bg-[var(--ui-primary)] text-white font-medium'
-                  : 'text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)]'
+                  ? 'gu-bg-primary text-white font-medium'
+                  : 'gu-text-text-secondary gu-h-bg-surface-hover'
               }`}
             >
               {p}
@@ -75,7 +76,7 @@ export function Pagination({ page, totalPages, onPageChange, total, pageSize, cl
           disabled={page >= totalPages}
           onClick={() => onPageChange(page + 1)}
           aria-label="Next page"
-          className="px-3 py-2 text-sm rounded-md border border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
+          className="px-3 py-2 text-sm rounded-md border gu-border-border gu-text-text-secondary gu-h-bg-surface-hover disabled:opacity-40 transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
         >
           ›
         </button>

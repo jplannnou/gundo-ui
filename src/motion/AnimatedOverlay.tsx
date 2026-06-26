@@ -1,4 +1,5 @@
 'use client';
+import '../ui-classes.css';
 import { type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { useReducedMotion } from '../utils/useReducedMotion';
@@ -22,7 +23,7 @@ export function AnimatedOverlay({ children, onClick, className = '' }: AnimatedO
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={reduced ? { duration: 0 } : { duration: 0.2, ease: 'easeOut' }}
-      className={`fixed inset-0 bg-[var(--ui-overlay)] backdrop-blur-sm ${className}`}
+      className={`fixed inset-0 gu-bg-overlay backdrop-blur-sm ${className}`}
       onClick={onClick}
       role="presentation"
     >

@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useRef, useId, type KeyboardEvent } from 'react';
 import { Minus, Plus } from 'lucide-react';
 
@@ -86,20 +87,20 @@ export function NumberInput({
   return (
     <div className={`inline-flex ${className}`}>
       {label && <label htmlFor={id} className="sr-only">{label}</label>}
-      <div className="flex items-center rounded-[var(--ui-radius-md)] border border-[var(--ui-border)] bg-[var(--ui-surface)] focus-within:ring-2 focus-within:ring-[var(--ui-focus-ring-color)]">
+      <div className="flex items-center gu-rounded-radius-md border gu-border-border gu-bg-surface focus-within:ring-2 gu-fw-ring-focus-ring-color">
         <button
           type="button"
           onClick={decrement}
           disabled={disabled || (min !== undefined && typeof value === 'number' && value <= min)}
           tabIndex={-1}
           aria-label="Decrease"
-          className={`${btnSize[size]} flex items-center justify-center border-r border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors`}
+          className={`${btnSize[size]} flex items-center justify-center border-r gu-border-border gu-text-text-secondary gu-h-bg-surface-hover disabled:opacity-40 disabled:cursor-not-allowed transition-colors`}
         >
           <Minus className="w-4 h-4" aria-hidden="true" />
         </button>
 
         <div className={`flex items-center gap-1 ${sizeStyles[size]}`}>
-          {prefix && <span className="text-[var(--ui-text-muted)] select-none">{prefix}</span>}
+          {prefix && <span className="gu-text-text-muted select-none">{prefix}</span>}
           <input
             ref={inputRef}
             id={id}
@@ -115,9 +116,9 @@ export function NumberInput({
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             disabled={disabled}
-            className="w-full min-w-[3ch] text-center bg-transparent text-[var(--ui-text)] outline-none disabled:opacity-40"
+            className="w-full min-w-[3ch] text-center bg-transparent gu-text-text outline-none disabled:opacity-40"
           />
-          {suffix && <span className="text-[var(--ui-text-muted)] select-none">{suffix}</span>}
+          {suffix && <span className="gu-text-text-muted select-none">{suffix}</span>}
         </div>
 
         <button
@@ -126,7 +127,7 @@ export function NumberInput({
           disabled={disabled || (max !== undefined && typeof value === 'number' && value >= max)}
           tabIndex={-1}
           aria-label="Increase"
-          className={`${btnSize[size]} flex items-center justify-center border-l border-[var(--ui-border)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors`}
+          className={`${btnSize[size]} flex items-center justify-center border-l gu-border-border gu-text-text-secondary gu-h-bg-surface-hover disabled:opacity-40 disabled:cursor-not-allowed transition-colors`}
         >
           <Plus className="w-4 h-4" aria-hidden="true" />
         </button>

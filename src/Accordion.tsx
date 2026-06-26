@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useState, type ReactNode } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
@@ -40,8 +41,8 @@ export function AccordionItem({
     <div
       className={`rounded-lg border transition-colors ${
         isOpen
-          ? 'bg-[var(--ui-surface)] border-[var(--ui-border)]'
-          : 'bg-[var(--ui-surface)] border-transparent hover:border-[var(--ui-border)]'
+          ? 'gu-bg-surface gu-border-border'
+          : 'gu-bg-surface border-transparent gu-h-border-border'
       } ${className}`}
     >
       <button
@@ -52,7 +53,7 @@ export function AccordionItem({
         className="ui-focus-ring w-full flex items-center gap-3 p-4 text-left rounded-lg"
       >
         <ChevronDown
-          className={`w-4 h-4 shrink-0 text-[var(--ui-text-muted)] transition-transform duration-300 ${
+          className={`w-4 h-4 shrink-0 gu-text-text-muted transition-transform duration-300 ${
             isOpen ? 'rotate-180' : ''
           }`}
           aria-hidden="true"
@@ -61,7 +62,7 @@ export function AccordionItem({
         <div className="flex-1 min-w-0">
           {header}
           {!isOpen && preview && (
-            <p className="text-xs text-[var(--ui-text-muted)] mt-1 line-clamp-2">{preview}</p>
+            <p className="text-xs gu-text-text-muted mt-1 line-clamp-2">{preview}</p>
           )}
         </div>
       </button>

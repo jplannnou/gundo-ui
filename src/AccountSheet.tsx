@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { Sheet } from './Sheet';
@@ -87,10 +88,10 @@ export function AccountSheet({
           )}
           <div className="min-w-0">
             {user.name && (
-              <div className="truncate text-sm font-semibold text-[var(--ui-text)]">{user.name}</div>
+              <div className="truncate text-sm font-semibold gu-text-text">{user.name}</div>
             )}
             {user.email && (
-              <div className="truncate text-xs text-[var(--ui-text-muted)]">{user.email}</div>
+              <div className="truncate text-xs gu-text-text-muted">{user.email}</div>
             )}
           </div>
         </div>
@@ -104,7 +105,7 @@ export function AccountSheet({
                 key={item.id}
                 type="button"
                 onClick={item.onClick}
-                className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+                className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
                 style={{ color: isDanger ? 'var(--ui-error)' : 'var(--ui-text)' }}
               >
                 {item.icon && (
@@ -115,7 +116,7 @@ export function AccountSheet({
                 <span className="flex-1 truncate font-medium">{item.label}</span>
                 {!isDanger && (
                   <ChevronRight
-                    className="h-4 w-4 shrink-0 text-[var(--ui-text-muted)]"
+                    className="h-4 w-4 shrink-0 gu-text-text-muted"
                     aria-hidden="true"
                   />
                 )}
@@ -125,7 +126,7 @@ export function AccountSheet({
         </nav>
 
         {footer && (
-          <div className="mt-auto border-t border-[var(--ui-border)] pt-4">{footer}</div>
+          <div className="mt-auto border-t gu-border-border pt-4">{footer}</div>
         )}
       </div>
     </Sheet>

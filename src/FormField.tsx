@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { useId, type ReactNode } from 'react';
 
 interface FormFieldProps {
@@ -20,17 +21,17 @@ export function FormField({ label, required, error, hint, children, className = 
     <div className={className}>
       <label
         htmlFor={fieldId}
-        className="block text-sm font-medium text-[var(--ui-text-secondary)] mb-1.5"
+        className="block text-sm font-medium gu-text-text-secondary mb-1.5"
       >
         {label}
-        {required && <span className="text-[var(--ui-error)] ml-0.5" aria-hidden="true">*</span>}
+        {required && <span className="gu-text-error ml-0.5" aria-hidden="true">*</span>}
       </label>
       {children}
       {error && (
-        <p id={errorId} className="mt-1 text-xs text-[var(--ui-error)]" role="alert">{error}</p>
+        <p id={errorId} className="mt-1 text-xs gu-text-error" role="alert">{error}</p>
       )}
       {hint && !error && (
-        <p id={hintId} className="mt-1 text-xs text-[var(--ui-text-muted)]">{hint}</p>
+        <p id={hintId} className="mt-1 text-xs gu-text-text-muted">{hint}</p>
       )}
     </div>
   );

@@ -1,4 +1,5 @@
 'use client';
+import '../ui-classes.css';
 import type { ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { useReducedMotion } from '../utils/useReducedMotion';
@@ -58,7 +59,7 @@ export function FeatureHighlight({
         {!reduced && (
           <motion.span
             aria-hidden="true"
-            className="absolute inset-0 rounded-full bg-[var(--ui-primary)]"
+            className="absolute inset-0 rounded-full gu-bg-primary"
             initial={{ scale: 1, opacity: 0.5 }}
             animate={{ scale: 1.7, opacity: 0 }}
             transition={{
@@ -75,13 +76,13 @@ export function FeatureHighlight({
           type="button"
           onClick={onSeen}
           aria-label={dismissLabel}
-          className="relative -m-[12px] inline-flex cursor-pointer rounded-full border-0 bg-transparent p-[12px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+          className="relative -m-[12px] inline-flex cursor-pointer rounded-full border-0 bg-transparent p-[12px] focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
         >
           <motion.span
             initial={false}
             animate={reduced ? { scale: 1 } : { scale: [1, 1.12, 1, 1.12, 1] }}
             transition={{ duration: 2, ease: 'easeInOut' }}
-            className="inline-flex items-center rounded-full bg-[var(--ui-primary)] px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-[var(--ui-surface)] shadow-[var(--ui-shadow-sm)]"
+            className="inline-flex items-center rounded-full gu-bg-primary px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide gu-text-surface gu-shadow-shadow-sm"
           >
             {badge}
           </motion.span>

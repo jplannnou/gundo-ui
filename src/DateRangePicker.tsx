@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useState, useRef, useEffect, useCallback, type KeyboardEvent } from 'react';
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -61,9 +62,9 @@ function CalendarGrid({ year, month, locale, selecting, value, onSelect, onHover
 
   return (
     <div>
-      <div className="text-center text-sm font-medium text-[var(--ui-text)] mb-2">{monthLabel}</div>
+      <div className="text-center text-sm font-medium gu-text-text mb-2">{monthLabel}</div>
       <div className="grid grid-cols-7 mb-1">
-        {weekdays.map(d => <div key={d} className="text-center text-xs text-[var(--ui-text-muted)] py-1">{d}</div>)}
+        {weekdays.map(d => <div key={d} className="text-center text-xs gu-text-text-muted py-1">{d}</div>)}
       </div>
       <div className="grid grid-cols-7" role="grid" aria-label={monthLabel}>
         {Array.from({ length: firstDay }, (_, i) => <div key={`e-${i}`} className="h-8" />)}
@@ -95,14 +96,14 @@ function CalendarGrid({ year, month, locale, selecting, value, onSelect, onHover
               onClick={() => !dis && onSelect(d)}
               onMouseEnter={() => onHover(d)}
               onMouseLeave={() => onHover(null)}
-              className={`h-8 w-8 mx-auto text-sm transition-colors rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] ${
+              className={`h-8 w-8 mx-auto text-sm transition-colors rounded-full focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                 selected
-                  ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)] font-semibold'
+                  ? 'gu-bg-primary gu-text-surface font-semibold'
                   : inRange
-                    ? 'bg-[var(--ui-primary-soft)] text-[var(--ui-text)]'
+                    ? 'gu-bg-primary-soft gu-text-text'
                     : isToday(d)
-                      ? 'border border-[var(--ui-primary)] text-[var(--ui-primary)]'
-                      : 'text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'
+                      ? 'border gu-border-primary gu-text-primary'
+                      : 'gu-text-text gu-h-bg-surface-hover'
               } ${dis ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'}`}
             >
               {day}
@@ -195,24 +196,24 @@ export function DateRangePicker({
         disabled={disabled}
         aria-haspopup="dialog"
         aria-expanded={open}
-        className="flex items-center gap-2 h-10 px-3 rounded-[var(--ui-radius-md)] border border-[var(--ui-border)] bg-[var(--ui-surface)] text-sm text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)] disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] transition-colors"
+        className="flex items-center gap-2 h-10 px-3 gu-rounded-radius-md border gu-border-border gu-bg-surface text-sm gu-text-text gu-h-bg-surface-hover disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color transition-colors"
       >
-        <Calendar className="w-4 h-4 text-[var(--ui-text-muted)]" aria-hidden="true" />
-        <span className={value.from ? '' : 'text-[var(--ui-text-muted)]'}>{displayText}</span>
+        <Calendar className="w-4 h-4 gu-text-text-muted" aria-hidden="true" />
+        <span className={value.from ? '' : 'gu-text-text-muted'}>{displayText}</span>
       </button>
 
       {open && (
-        <div className="absolute z-[var(--ui-z-dropdown)] mt-1 rounded-[var(--ui-radius-lg)] border border-[var(--ui-border)] bg-[var(--ui-surface)] shadow-lg flex" role="dialog" aria-label="Date range picker">
+        <div className="absolute gu-z-z-dropdown mt-1 gu-rounded-radius-lg border gu-border-border gu-bg-surface shadow-lg flex" role="dialog" aria-label="Date range picker">
           {/* Presets */}
           {presets.length > 0 && (
-            <div className="border-r border-[var(--ui-border)] p-3 min-w-[140px]">
-              <div className="text-xs font-medium text-[var(--ui-text-secondary)] mb-2">Presets</div>
+            <div className="border-r gu-border-border p-3 min-w-[140px]">
+              <div className="text-xs font-medium gu-text-text-secondary mb-2">Presets</div>
               {presets.map((p, i) => (
                 <button
                   key={i}
                   type="button"
                   onClick={() => handlePreset(p)}
-                  className="block w-full text-left text-sm px-2 py-1.5 rounded text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] transition-colors"
+                  className="block w-full text-left text-sm px-2 py-1.5 rounded gu-text-text-secondary gu-h-bg-surface-hover gu-h-text-text transition-colors"
                 >
                   {p.label}
                 </button>
@@ -223,10 +224,10 @@ export function DateRangePicker({
           {/* Calendars */}
           <div className="p-3">
             <div className="flex items-center justify-between mb-2 px-1">
-              <button type="button" onClick={prevMonth} aria-label="Previous month" className="p-1 rounded hover:bg-[var(--ui-surface-hover)] text-[var(--ui-text-secondary)]">
+              <button type="button" onClick={prevMonth} aria-label="Previous month" className="p-1 rounded gu-h-bg-surface-hover gu-text-text-secondary">
                 <ChevronLeft className="w-4 h-4" aria-hidden="true" />
               </button>
-              <button type="button" onClick={nextMonth} aria-label="Next month" className="p-1 rounded hover:bg-[var(--ui-surface-hover)] text-[var(--ui-text-secondary)]">
+              <button type="button" onClick={nextMonth} aria-label="Next month" className="p-1 rounded gu-h-bg-surface-hover gu-text-text-secondary">
                 <ChevronRight className="w-4 h-4" aria-hidden="true" />
               </button>
             </div>

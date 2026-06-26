@@ -1,4 +1,5 @@
 'use client';
+import '../ui-classes.css';
 import {
   createContext,
   useCallback,
@@ -206,7 +207,7 @@ export function Spotlight({
           ) : (
             /* Target not found/measured yet: dim everything evenly */
             <div
-              className="absolute inset-0 bg-[var(--ui-overlay)]"
+              className="absolute inset-0 gu-bg-overlay"
               aria-hidden="true"
             />
           )}
@@ -348,13 +349,13 @@ function TourCard({
       animate={{ opacity: 1, y: 0 }}
       exit={reduced ? undefined : { opacity: 0, y: placement === 'bottom' ? 8 : -8 }}
       transition={{ duration: reduced ? 0 : 0.2, ease: [0, 0, 0.2, 1] }}
-      className="absolute rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] p-4 shadow-[var(--ui-shadow-lg)] outline-none"
+      className="absolute rounded-xl border gu-border-border gu-bg-surface p-4 gu-shadow-shadow-lg outline-none"
       style={style}
     >
       {arrowStyle && (
         <span
           aria-hidden="true"
-          className="absolute h-3 w-3 rotate-45 border-[var(--ui-border)] bg-[var(--ui-surface)]"
+          className="absolute h-3 w-3 rotate-45 gu-border-border gu-bg-surface"
           style={{
             ...arrowStyle,
             borderTopWidth: placement === 'bottom' ? 1 : 0,
@@ -365,14 +366,14 @@ function TourCard({
         />
       )}
 
-      <p className="mb-1 text-xs font-medium tabular-nums text-[var(--ui-text-secondary)]">
+      <p className="mb-1 text-xs font-medium tabular-nums gu-text-text-secondary">
         {labels.progress(index + 1, total)}
       </p>
-      <h3 id={titleId} className="text-base font-semibold text-[var(--ui-text)]">
+      <h3 id={titleId} className="text-base font-semibold gu-text-text">
         {step.title}
       </h3>
       {step.body && (
-        <div id={bodyId} className="mt-1.5 text-sm leading-relaxed text-[var(--ui-text-secondary)]">
+        <div id={bodyId} className="mt-1.5 text-sm leading-relaxed gu-text-text-secondary">
           {step.body}
         </div>
       )}
@@ -382,7 +383,7 @@ function TourCard({
         <button
           type="button"
           onClick={onSkip}
-          className="min-h-[44px] rounded-lg px-3 py-2 text-sm font-medium text-[var(--ui-text-secondary)] transition-colors hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+          className="min-h-[44px] rounded-lg px-3 py-2 text-sm font-medium gu-text-text-secondary transition-colors gu-h-bg-surface-hover gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
         >
           {labels.skip}
         </button>
@@ -391,7 +392,7 @@ function TourCard({
             <button
               type="button"
               onClick={onPrev}
-              className="min-h-[44px] rounded-lg px-3 py-2 text-sm font-medium text-[var(--ui-text-secondary)] transition-colors hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+              className="min-h-[44px] rounded-lg px-3 py-2 text-sm font-medium gu-text-text-secondary transition-colors gu-h-bg-surface-hover gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
             >
               {labels.back}
             </button>
@@ -399,7 +400,7 @@ function TourCard({
           <button
             type="button"
             onClick={onNext}
-            className="min-h-[44px] rounded-lg bg-[var(--ui-primary)] px-4 py-2 text-sm font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
+            className="min-h-[44px] rounded-lg gu-bg-primary px-4 py-2 text-sm font-semibold gu-text-surface transition-colors gu-h-bg-primary-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
           >
             {index === total - 1 ? labels.done : labels.next}
           </button>

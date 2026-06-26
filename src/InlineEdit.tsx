@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import {
   useCallback,
   useEffect,
@@ -105,8 +106,8 @@ export function InlineEdit({
         className={`cursor-pointer rounded outline-none transition-colors ${
           disabled
             ? 'cursor-default opacity-60'
-            : 'hover:bg-[var(--ui-surface-hover)] focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]'
-        } ${!value ? 'italic text-[var(--ui-text-muted)]' : ''} ${className}`}
+            : 'gu-h-bg-surface-hover focus-visible:ring-2 gu-fv-ring-primary'
+        } ${!value ? 'italic gu-text-text-muted' : ''} ${className}`}
         {...(props as HTMLAttributes<HTMLElement>)}
       >
         {value || placeholder}
@@ -136,17 +137,17 @@ export function InlineEdit({
           onBlur={saveOnBlur ? commit : cancel}
           aria-describedby={error ? errorId : undefined}
           aria-invalid={!!error}
-          className={`rounded border bg-[var(--ui-surface-hover)] px-2 py-0.5 text-[var(--ui-text)] outline-none transition-colors ${
+          className={`rounded border gu-bg-surface-hover px-2 py-0.5 gu-text-text outline-none transition-colors ${
             error
-              ? 'border-[var(--ui-error)] focus-visible:ring-1 focus-visible:ring-[var(--ui-error)]'
-              : 'border-[var(--ui-primary)] focus-visible:ring-1 focus-visible:ring-[var(--ui-primary)]'
+              ? 'gu-border-error focus-visible:ring-1 gu-fv-ring-error'
+              : 'gu-border-primary focus-visible:ring-1 gu-fv-ring-primary'
           } ${inputClassName}`}
         />
         <button
           type="button"
           onMouseDown={(e) => { e.preventDefault(); commit(); }}
           aria-label="Confirmar"
-          className="flex h-6 w-6 items-center justify-center rounded text-[var(--ui-success)] transition-colors hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+          className="flex h-6 w-6 items-center justify-center rounded gu-text-success transition-colors gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
         >
           <Check className="w-3 h-3" strokeWidth={2} aria-hidden="true" />
         </button>
@@ -154,13 +155,13 @@ export function InlineEdit({
           type="button"
           onMouseDown={(e) => { e.preventDefault(); cancel(); }}
           aria-label="Cancelar"
-          className="flex h-6 w-6 items-center justify-center rounded text-[var(--ui-text-muted)] transition-colors hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+          className="flex h-6 w-6 items-center justify-center rounded gu-text-text-muted transition-colors gu-h-bg-surface-hover gu-h-text-error focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
         >
           <X className="w-2.5 h-2.5" strokeWidth={2} aria-hidden="true" />
         </button>
       </div>
       {error && (
-        <p id={errorId} role="alert" className="text-xs text-[var(--ui-error)]">
+        <p id={errorId} role="alert" className="text-xs gu-text-error">
           {error}
         </p>
       )}

@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { Check, Copy } from 'lucide-react';
 import { useCopyToClipboard } from './utils/useCopyToClipboard';
 
@@ -16,8 +17,8 @@ const sizeClasses = {
 };
 
 const variantClasses = {
-  default: 'bg-[var(--ui-surface-hover)] hover:bg-[var(--ui-border)] border border-[var(--ui-border)]',
-  ghost: 'hover:bg-[var(--ui-surface-hover)]',
+  default: 'gu-bg-surface-hover gu-h-bg-border border gu-border-border',
+  ghost: 'gu-h-bg-surface-hover',
 };
 
 const iconSize = { sm: 14, md: 16 };
@@ -36,7 +37,7 @@ export function CopyButton({
       type="button"
       onClick={() => copy(text)}
       aria-label={copied ? 'Copied' : label || 'Copy to clipboard'}
-      className={`inline-flex items-center gap-1.5 rounded-md transition-colors text-[var(--ui-text-secondary)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-md transition-colors gu-text-text-secondary gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
     >
       {copied ? (
         <Check width={iconSize[size]} height={iconSize[size]} style={{ color: 'var(--ui-success)' }} aria-hidden="true" />

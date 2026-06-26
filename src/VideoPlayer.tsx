@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import {
   useCallback,
   useEffect,
@@ -231,7 +232,7 @@ export function VideoPlayer({
             value={currentTime}
             onChange={handleSeek}
             aria-label="Posición de reproducción"
-            className="absolute inset-0 w-full cursor-pointer appearance-none bg-transparent accent-[var(--ui-primary)] [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-white/20 [&::-webkit-slider-runnable-track]:h-1"
+            className="absolute inset-0 w-full cursor-pointer appearance-none bg-transparent gu-accent-primary [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-white/20 [&::-webkit-slider-runnable-track]:h-1"
           />
         </div>
 
@@ -288,7 +289,7 @@ export function VideoPlayer({
                 value={mutedState ? 0 : volume}
                 onChange={handleVolumeChange}
                 aria-label="Volumen"
-                className="w-16 cursor-pointer accent-[var(--ui-primary)]"
+                className="w-16 cursor-pointer gu-accent-primary"
               />
             </div>
 

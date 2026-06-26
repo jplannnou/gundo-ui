@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { createContext, useContext, useEffect, useRef, useState, useCallback, type ReactNode } from 'react';
 import { Menu } from 'lucide-react';
 import { useFocusTrap } from './utils/useFocusTrap';
@@ -29,7 +30,7 @@ export function AppShell({ children, className = '' }: AppShellProps) {
 
   return (
     <AppShellContext.Provider value={{ mobileOpen, toggleMobile, closeMobile }}>
-      <div className={`flex h-screen overflow-hidden bg-[var(--ui-surface)] ${className}`}>
+      <div className={`flex h-screen overflow-hidden gu-bg-surface ${className}`}>
         {children}
       </div>
     </AppShellContext.Provider>
@@ -45,12 +46,12 @@ export function AppShellHeader({ children, className = '' }: AppShellHeaderProps
   const { toggleMobile } = useAppShell();
 
   return (
-    <header className={`flex items-center gap-3 px-4 h-14 border-b border-[var(--ui-border)] bg-[var(--ui-surface)] shrink-0 ${className}`}>
+    <header className={`flex items-center gap-3 px-4 h-14 border-b gu-border-border gu-bg-surface shrink-0 ${className}`}>
       <button
         type="button"
         onClick={toggleMobile}
         aria-label="Toggle navigation"
-        className="lg:hidden p-1.5 rounded-[var(--ui-radius-md)] text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)]"
+        className="lg:hidden p-1.5 gu-rounded-radius-md gu-text-text-secondary gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
       >
         <Menu className="w-5 h-5" aria-hidden="true" />
       </button>
@@ -116,7 +117,7 @@ export function AppShellMain({
       {sidebar && mobileOpen && (
         <>
           <div
-            className="fixed inset-0 z-[var(--ui-z-overlay)] bg-[var(--ui-overlay)] lg:hidden"
+            className="fixed inset-0 gu-z-z-overlay gu-bg-overlay lg:hidden"
             onClick={closeMobile}
             aria-hidden="true"
           />
@@ -126,7 +127,7 @@ export function AppShellMain({
             aria-modal="true"
             aria-label={mobileSidebarLabel}
             tabIndex={-1}
-            className="fixed inset-y-0 left-0 z-[var(--ui-z-modal)] w-64 lg:hidden outline-none"
+            className="fixed inset-y-0 left-0 gu-z-z-modal w-64 lg:hidden outline-none"
           >
             {sidebar}
           </aside>

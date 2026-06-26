@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -59,12 +60,12 @@ function MacroBar({
   return (
     <div className="flex flex-col gap-0.5">
       <div className="flex items-baseline justify-between">
-        <span className="text-[10px] text-[var(--ui-text-muted)]">{label}</span>
-        <span className="text-[10px] font-semibold tabular-nums text-[var(--ui-text-secondary)]">
+        <span className="text-[10px] gu-text-text-muted">{label}</span>
+        <span className="text-[10px] font-semibold tabular-nums gu-text-text-secondary">
           {value}{unit}
         </span>
       </div>
-      <div className="h-1 w-full overflow-hidden rounded-full bg-[var(--ui-surface-hover)]">
+      <div className="h-1 w-full overflow-hidden rounded-full gu-bg-surface-hover">
         <div
           className="h-full rounded-full transition-[width] duration-500"
           style={{ width: `${Math.min(pct, 100)}%`, background: color }}
@@ -115,11 +116,11 @@ export function MealCard({
     <article
       aria-label={name}
       onClick={onCardClick}
-      className={`overflow-hidden rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] transition-shadow hover:shadow-[var(--ui-shadow-md)] ${onCardClick ? 'cursor-pointer' : ''} ${isHorizontal ? 'flex' : 'flex flex-col'} ${className}`}
+      className={`overflow-hidden rounded-xl border gu-border-border gu-bg-surface transition-shadow gu-h-shadow-shadow-md ${onCardClick ? 'cursor-pointer' : ''} ${isHorizontal ? 'flex' : 'flex flex-col'} ${className}`}
     >
       {/* Image */}
       {image && (
-        <div className={`shrink-0 overflow-hidden bg-[var(--ui-surface-raised)] ${isHorizontal ? 'w-28' : isCompact ? 'h-28' : 'h-40'}`}>
+        <div className={`shrink-0 overflow-hidden gu-bg-surface-raised ${isHorizontal ? 'w-28' : isCompact ? 'h-28' : 'h-40'}`}>
           <img
             src={image}
             alt={imageAlt ?? name}
@@ -134,15 +135,15 @@ export function MealCard({
         <div className="flex items-start justify-between gap-2">
           <div>
             {mealType && (
-              <span className="text-xs font-medium text-[var(--ui-text-secondary)]">
+              <span className="text-xs font-medium gu-text-text-secondary">
                 {MEAL_LABELS[mealType]}
               </span>
             )}
-            <h3 className="text-sm font-semibold leading-snug text-[var(--ui-text)] line-clamp-2">
+            <h3 className="text-sm font-semibold leading-snug gu-text-text line-clamp-2">
               {name}
             </h3>
             {portion && (
-              <p className="mt-0.5 text-xs text-[var(--ui-text-muted)]">{portion}</p>
+              <p className="mt-0.5 text-xs gu-text-text-muted">{portion}</p>
             )}
           </div>
           {healthScore !== undefined && (
@@ -160,8 +161,8 @@ export function MealCard({
         {macros && !isCompact && (
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-[var(--ui-text-muted)]">Calorías</span>
-              <span className="text-xs font-bold tabular-nums text-[var(--ui-text)]">
+              <span className="text-xs gu-text-text-muted">Calorías</span>
+              <span className="text-xs font-bold tabular-nums gu-text-text">
                 {macros.calories} kcal
               </span>
             </div>
@@ -173,17 +174,17 @@ export function MealCard({
 
         {/* Compact macros (inline) */}
         {macros && isCompact && (
-          <div className="flex gap-3 text-[10px] tabular-nums text-[var(--ui-text-muted)]">
-            <span><strong className="text-[var(--ui-text)]">{macros.calories}</strong> kcal</span>
-            <span><strong className="text-[var(--ui-primary)]">{macros.protein}g</strong> prot</span>
-            <span><strong className="text-[var(--ui-warning)]">{macros.carbs}g</strong> carbs</span>
-            <span><strong className="text-[var(--ui-info)]">{macros.fat}g</strong> grasa</span>
+          <div className="flex gap-3 text-[10px] tabular-nums gu-text-text-muted">
+            <span><strong className="gu-text-text">{macros.calories}</strong> kcal</span>
+            <span><strong className="gu-text-primary">{macros.protein}g</strong> prot</span>
+            <span><strong className="gu-text-warning">{macros.carbs}g</strong> carbs</span>
+            <span><strong className="gu-text-info">{macros.fat}g</strong> grasa</span>
           </div>
         )}
 
         {/* Ingredients */}
         {ingredients && ingredients.length > 0 && !isCompact && (
-          <p className="text-xs text-[var(--ui-text-muted)] line-clamp-2">
+          <p className="text-xs gu-text-text-muted line-clamp-2">
             {ingredients.slice(0, 5).join(', ')}
             {ingredients.length > 5 && ` +${ingredients.length - 5} más`}
           </p>
@@ -197,7 +198,7 @@ export function MealCard({
             type="button"
             onClick={(e) => { e.stopPropagation(); onAddToCart(); }}
             aria-label={`${addToCartLabel} ${name}`}
-            className="mt-auto flex items-center justify-center gap-1.5 rounded-lg bg-[var(--ui-primary)] px-3 py-1.5 text-xs font-semibold text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+            className="mt-auto flex items-center justify-center gap-1.5 rounded-lg gu-bg-primary px-3 py-1.5 text-xs font-semibold gu-text-surface transition-colors gu-h-bg-primary-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
               <path d="M6 2v8M2 6h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import { useId } from 'react';
 
 interface ProgressBarProps {
@@ -30,7 +31,7 @@ export function ProgressBar({
   return (
     <div className={className}>
       {(label || showPercentage) && (
-        <div className="mb-1 flex items-center justify-between text-xs text-[var(--ui-text-secondary)]">
+        <div className="mb-1 flex items-center justify-between text-xs gu-text-text-secondary">
           {label && <span id={labelId}>{label}</span>}
           {showPercentage && <span>{Math.round(pct)}%</span>}
         </div>
@@ -42,10 +43,10 @@ export function ProgressBar({
         aria-valuemax={max}
         aria-labelledby={label ? labelId : undefined}
         aria-label={!label ? (ariaLabel ?? 'Progress') : undefined}
-        className="h-2 w-full overflow-hidden rounded-full bg-[var(--ui-surface-hover)]"
+        className="h-2 w-full overflow-hidden rounded-full gu-bg-surface-hover"
       >
         <div
-          className="h-full rounded-full transition-[width] duration-[var(--ui-duration-slow)]"
+          className="h-full rounded-full transition-[width] gu-duration-duration-slow"
           style={{ width: `${pct}%`, backgroundColor: color || 'var(--ui-primary)' }}
         />
       </div>

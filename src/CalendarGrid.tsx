@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useCallback, useState, type ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -152,18 +153,18 @@ export function CalendarGrid({
           type="button"
           onClick={() => navigate(-1)}
           aria-label="Semana/mes anterior"
-          className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--ui-text-muted)] transition-colors hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+          className="flex h-8 w-8 items-center justify-center rounded-lg gu-text-text-muted transition-colors gu-h-bg-surface-hover gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M9 11L5 7l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        <h3 className="text-sm font-semibold text-[var(--ui-text)]">{headerLabel}</h3>
+        <h3 className="text-sm font-semibold gu-text-text">{headerLabel}</h3>
         <button
           type="button"
           onClick={() => navigate(1)}
           aria-label="Semana/mes siguiente"
-          className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--ui-text-muted)] transition-colors hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)]"
+          className="flex h-8 w-8 items-center justify-center rounded-lg gu-text-text-muted transition-colors gu-h-bg-surface-hover gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -173,7 +174,7 @@ export function CalendarGrid({
 
       {/* Grid */}
       <div
-        className="grid grid-cols-7 overflow-hidden rounded-xl border border-[var(--ui-border)]"
+        className="grid grid-cols-7 overflow-hidden rounded-xl border gu-border-border"
         role="grid"
         aria-label={`Calendario — ${headerLabel}`}
       >
@@ -182,7 +183,7 @@ export function CalendarGrid({
           <div
             key={name}
             role="columnheader"
-            className="border-b border-[var(--ui-border)] bg-[var(--ui-surface-raised)] px-1 py-2 text-center text-xs font-medium text-[var(--ui-text-secondary)]"
+            className="border-b gu-border-border gu-bg-surface-raised px-1 py-2 text-center text-xs font-medium gu-text-text-secondary"
           >
             {name}
           </div>
@@ -201,9 +202,9 @@ export function CalendarGrid({
               key={dateStr}
               role="gridcell"
               aria-label={`${day.getDate()} de ${MONTH_NAMES_ES[day.getMonth()]}${dayEvents.length > 0 ? `, ${dayEvents.length} eventos` : ''}`}
-              className={`relative min-h-[60px] cursor-pointer border-b border-r border-[var(--ui-border)] p-1.5 last:border-r-0 transition-colors hover:bg-[var(--ui-surface-hover)] [&:nth-child(7n)]:border-r-0 ${
+              className={`relative min-h-[60px] cursor-pointer border-b border-r gu-border-border p-1.5 last:border-r-0 transition-colors gu-h-bg-surface-hover [&:nth-child(7n)]:border-r-0 ${
                 isOtherMonth ? 'opacity-40' : ''
-              } ${isSelected ? 'bg-[var(--ui-primary-soft)]' : ''}`}
+              } ${isSelected ? 'gu-bg-primary-soft' : ''}`}
               onClick={() => onDateClick?.(dateStr)}
               tabIndex={0}
               onKeyDown={(e) => {
@@ -217,10 +218,10 @@ export function CalendarGrid({
               <span
                 className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium ${
                   isToday
-                    ? 'bg-[var(--ui-primary)] text-[var(--ui-surface)]'
+                    ? 'gu-bg-primary gu-text-surface'
                     : isSelected
-                      ? 'text-[var(--ui-primary)] font-semibold'
-                      : 'text-[var(--ui-text-secondary)]'
+                      ? 'gu-text-primary font-semibold'
+                      : 'gu-text-text-secondary'
                 }`}
               >
                 {day.getDate()}
@@ -237,7 +238,7 @@ export function CalendarGrid({
                       onEventClick?.(ev);
                     }}
                     aria-label={ev.title}
-                    className="w-full truncate rounded px-1 text-left text-[10px] font-medium leading-4 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ui-primary)]"
+                    className="w-full truncate rounded px-1 text-left text-[10px] font-medium leading-4 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-1 gu-fv-ring-primary"
                     style={{
                       background: ev.color ?? 'var(--ui-primary-soft)',
                       color: ev.color ? 'white' : 'var(--ui-primary)',
@@ -247,7 +248,7 @@ export function CalendarGrid({
                   </button>
                 ))}
                 {dayEvents.length > 3 && (
-                  <span className="text-[10px] text-[var(--ui-text-muted)]">
+                  <span className="text-[10px] gu-text-text-muted">
                     +{dayEvents.length - 3} más
                   </span>
                 )}

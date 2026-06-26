@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -50,21 +51,21 @@ export function LeaderboardTable({
   className = '',
 }: LeaderboardTableProps) {
   if (entries.length === 0) {
-    return <p className={`text-sm text-[var(--ui-text-muted)] ${className}`}>{emptyMessage}</p>;
+    return <p className={`text-sm gu-text-text-muted ${className}`}>{emptyMessage}</p>;
   }
 
   const maxScore = Math.max(...entries.map((e) => e.maxScore ?? e.score));
 
   return (
     <div
-      className={`overflow-hidden rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] ${className}`}
+      className={`overflow-hidden rounded-xl border gu-border-border gu-bg-surface ${className}`}
       role="region"
       aria-label="Tabla de clasificación"
     >
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-[var(--ui-border)] px-4 py-2.5">
-        <span className="text-xs font-medium text-[var(--ui-text-secondary)]">Participante</span>
-        <span className="text-xs font-medium text-[var(--ui-text-secondary)]">{scoreLabel}</span>
+      <div className="flex items-center justify-between border-b gu-border-border px-4 py-2.5">
+        <span className="text-xs font-medium gu-text-text-secondary">Participante</span>
+        <span className="text-xs font-medium gu-text-text-secondary">{scoreLabel}</span>
       </div>
 
       {/* Entries */}
@@ -88,7 +89,7 @@ export function LeaderboardTable({
             <li
               key={entry.id}
               onClick={() => onEntryClick?.(entry)}
-              className={`flex items-center gap-3 border-b border-[var(--ui-border)] px-4 py-3 last:border-b-0 transition-colors ${onEntryClick ? 'cursor-pointer hover:bg-[var(--ui-surface-hover)]' : ''} ${isTop ? 'bg-[var(--ui-surface-raised)]' : ''}`}
+              className={`flex items-center gap-3 border-b gu-border-border px-4 py-3 last:border-b-0 transition-colors ${onEntryClick ? 'cursor-pointer gu-h-bg-surface-hover' : ''} ${isTop ? 'gu-bg-surface-raised' : ''}`}
               aria-label={`${rank}. ${entry.name}: ${entry.score} puntos`}
             >
               {/* Rank */}
@@ -96,14 +97,14 @@ export function LeaderboardTable({
                 className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-bold tabular-nums ${
                   medal
                     ? `${medal.bg} ${medal.text} ${medal.border}`
-                    : 'border-[var(--ui-border)] text-[var(--ui-text-muted)]'
+                    : 'gu-border-border gu-text-text-muted'
                 }`}
               >
                 {rank}
               </span>
 
               {/* Avatar */}
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[var(--ui-primary-soft)] text-xs font-semibold text-[var(--ui-primary)]">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full gu-bg-primary-soft text-xs font-semibold gu-text-primary">
                 {entry.avatar ? (
                   <img src={entry.avatar} alt={entry.name} className="h-full w-full object-cover" />
                 ) : (
@@ -114,20 +115,20 @@ export function LeaderboardTable({
               {/* Name */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <p className="truncate text-sm font-medium text-[var(--ui-text)]">{entry.name}</p>
+                  <p className="truncate text-sm font-medium gu-text-text">{entry.name}</p>
                   {entry.badge && (
-                    <span className="rounded-full bg-[var(--ui-primary-soft)] px-1.5 py-0.5 text-[10px] font-semibold text-[var(--ui-primary)]">
+                    <span className="rounded-full gu-bg-primary-soft px-1.5 py-0.5 text-[10px] font-semibold gu-text-primary">
                       {entry.badge}
                     </span>
                   )}
                 </div>
                 {entry.subtitle && (
-                  <p className="truncate text-xs text-[var(--ui-text-muted)]">{entry.subtitle}</p>
+                  <p className="truncate text-xs gu-text-text-muted">{entry.subtitle}</p>
                 )}
                 {showBars && (
-                  <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-[var(--ui-surface-hover)]">
+                  <div className="mt-1 h-1 w-full overflow-hidden rounded-full gu-bg-surface-hover">
                     <div
-                      className="h-full rounded-full bg-[var(--ui-primary)] transition-[width] duration-500"
+                      className="h-full rounded-full gu-bg-primary transition-[width] duration-500"
                       style={{ width: `${pct}%` }}
                       role="progressbar"
                       aria-valuenow={entry.score}
@@ -140,12 +141,12 @@ export function LeaderboardTable({
 
               {/* Score + delta */}
               <div className="shrink-0 flex flex-col items-end">
-                <span className="text-sm font-bold tabular-nums text-[var(--ui-text)]">
+                <span className="text-sm font-bold tabular-nums gu-text-text">
                   {entry.score.toLocaleString('es')}
                 </span>
                 {entry.delta !== undefined && entry.delta !== 0 && (
                   <span
-                    className={`text-[10px] font-medium tabular-nums ${entry.delta > 0 ? 'text-[var(--ui-success)]' : 'text-[var(--ui-error)]'}`}
+                    className={`text-[10px] font-medium tabular-nums ${entry.delta > 0 ? 'gu-text-success' : 'gu-text-error'}`}
                   >
                     {entry.delta > 0 ? '↑' : '↓'} {Math.abs(entry.delta)}
                   </span>

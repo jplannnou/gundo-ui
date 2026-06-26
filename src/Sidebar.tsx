@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
 import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 
@@ -58,7 +59,7 @@ export function Sidebar({
   return (
     <SidebarContext.Provider value={{ collapsed: isCollapsed, toggle, setCollapsed }}>
       <aside
-        className={`flex flex-col h-full border-r border-[var(--ui-border)] bg-[var(--ui-surface)] transition-[width] duration-[var(--ui-duration-normal)] overflow-hidden shrink-0 ${className}`}
+        className={`flex flex-col h-full border-r gu-border-border gu-bg-surface transition-[width] gu-duration-duration-normal overflow-hidden shrink-0 ${className}`}
         style={{ width: isCollapsed ? collapsedWidth : width }}
       >
         {children}
@@ -76,7 +77,7 @@ interface SidebarHeaderProps {
 
 export function SidebarHeader({ children, className = '' }: SidebarHeaderProps) {
   return (
-    <div className={`px-4 py-4 border-b border-[var(--ui-border)] shrink-0 ${className}`}>
+    <div className={`px-4 py-4 border-b gu-border-border shrink-0 ${className}`}>
       {children}
     </div>
   );
@@ -102,7 +103,7 @@ interface SidebarFooterProps {
 
 export function SidebarFooter({ children, className = '' }: SidebarFooterProps) {
   return (
-    <div className={`px-4 py-3 border-t border-[var(--ui-border)] shrink-0 ${className}`}>
+    <div className={`px-4 py-3 border-t gu-border-border shrink-0 ${className}`}>
       {children}
     </div>
   );
@@ -119,7 +120,7 @@ export function SidebarGroup({ label, children, className = '' }: SidebarGroupPr
   return (
     <div className={`px-2 py-1 ${className}`}>
       {label && !collapsed && (
-        <p className="px-2 py-1.5 text-xs font-semibold text-[var(--ui-text-secondary)]">
+        <p className="px-2 py-1.5 text-xs font-semibold gu-text-text-secondary">
           {label}
         </p>
       )}
@@ -144,8 +145,8 @@ export function SidebarItem({ icon, label, active = false, onClick, href, classN
 
   const itemClass = `flex items-center gap-3 w-full rounded-lg px-3 py-2 text-sm transition-colors ${
     active
-      ? 'bg-[var(--ui-primary-soft)] text-[var(--ui-primary)] font-medium'
-      : 'text-[var(--ui-text-secondary)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)]'
+      ? 'gu-bg-primary-soft gu-text-primary font-medium'
+      : 'gu-text-text-secondary gu-h-bg-surface-hover gu-h-text-text'
   } ${collapsed ? 'justify-center px-0' : ''} ${className}`;
 
   const content = (
@@ -181,7 +182,7 @@ export function SidebarToggle({ className = '' }: { className?: string }) {
       type="button"
       onClick={toggle}
       aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-      className={`p-1.5 rounded-md text-[var(--ui-text-muted)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] transition-colors ${className}`}
+      className={`p-1.5 rounded-md gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors ${className}`}
     >
       {collapsed ? (
         <PanelLeftOpen className="w-5 h-5" aria-hidden="true" />

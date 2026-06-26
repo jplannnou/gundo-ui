@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { HTMLAttributes, ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -25,11 +26,11 @@ export interface ExplainabilityBadgeProps
 
 const toneClassName: Record<ExplainabilityTone, string> = {
   success:
-    'bg-[var(--ui-success-soft)] text-[var(--ui-success)] border-[color-mix(in_srgb,var(--ui-success)_30%,transparent)]',
+    'gu-bg-success-soft gu-text-success border-[color-mix(in_srgb,var(--ui-success)_30%,transparent)]',
   warning:
-    'bg-[var(--ui-warning-soft)] text-[var(--ui-warning)] border-[color-mix(in_srgb,var(--ui-warning)_30%,transparent)]',
+    'gu-bg-warning-soft gu-text-warning border-[color-mix(in_srgb,var(--ui-warning)_30%,transparent)]',
   info:
-    'bg-[var(--ui-info-soft)] text-[var(--ui-info)] border-[color-mix(in_srgb,var(--ui-info)_30%,transparent)]',
+    'gu-bg-info-soft gu-text-info border-[color-mix(in_srgb,var(--ui-info)_30%,transparent)]',
 };
 
 const tagMeta: Record<ExplainabilityTag, { label: string; emoji: string }> = {
@@ -71,7 +72,7 @@ export function ExplainabilityBadge({
         <div className="flex items-center gap-1.5">
           <span className="font-semibold">{reason}</span>
           {typeof score === 'number' && (
-            <span className="rounded-full bg-[var(--ui-surface)] px-1.5 py-0.5 text-[10px] font-bold tabular-nums opacity-90">
+            <span className="rounded-full gu-bg-surface px-1.5 py-0.5 text-[10px] font-bold tabular-nums opacity-90">
               {Math.max(0, Math.min(100, Math.round(score)))}%
             </span>
           )}
@@ -81,7 +82,7 @@ export function ExplainabilityBadge({
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center gap-1 rounded-full bg-[var(--ui-surface)] px-2 py-0.5 text-[10px] font-medium"
+                className="inline-flex items-center gap-1 rounded-full gu-bg-surface px-2 py-0.5 text-[10px] font-medium"
                 title={tagMeta[tag].label}
               >
                 <span aria-hidden="true">{tagMeta[tag].emoji}</span>

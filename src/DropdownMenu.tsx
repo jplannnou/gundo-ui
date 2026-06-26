@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useState, useRef, useEffect, useId, useCallback, type ReactNode, type KeyboardEvent } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useReducedMotion } from './utils/useReducedMotion';
@@ -123,7 +124,7 @@ export function DropdownMenu({ trigger, items, align = 'right', className = '' }
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={open ? menuId : undefined}
-        className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)] rounded-md"
+        className="focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface rounded-md"
       >
         {trigger}
       </div>
@@ -138,7 +139,7 @@ export function DropdownMenu({ trigger, items, align = 'right', className = '' }
               duration: reducedMotion ? 0 : 0.15,
               ease: 'easeOut',
             }}
-            className={`absolute z-50 mt-1 min-w-[160px] rounded-lg border border-[var(--ui-border)] bg-[var(--ui-surface)] shadow-xl py-1 ${
+            className={`absolute z-50 mt-1 min-w-[160px] rounded-lg border gu-border-border gu-bg-surface shadow-xl py-1 ${
               align === 'right' ? 'right-0' : 'left-0'
             }`}
             role="menu"
@@ -158,9 +159,9 @@ export function DropdownMenu({ trigger, items, align = 'right', className = '' }
                 }}
                 className={`w-full flex items-center gap-2 px-3 py-2 text-sm text-left transition-colors disabled:opacity-40 ${
                   item.danger
-                    ? 'text-[var(--ui-error)] hover:bg-[var(--ui-error-soft)]'
-                    : 'text-[var(--ui-text)] hover:bg-[var(--ui-surface-hover)]'
-                } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--ui-focus-ring-color)]`}
+                    ? 'gu-text-error gu-h-bg-error-soft'
+                    : 'gu-text-text gu-h-bg-surface-hover'
+                } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset gu-fv-ring-focus-ring-color`}
               >
                 {item.icon && <span className="w-4 h-4 shrink-0">{item.icon}</span>}
                 {item.label}

@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useEffect, useRef, useId, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { X } from 'lucide-react';
@@ -67,7 +68,7 @@ export function Drawer({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration }}
-            className="absolute inset-0 bg-[var(--ui-overlay)] backdrop-blur-sm"
+            className="absolute inset-0 gu-bg-overlay backdrop-blur-sm"
             onClick={onClose}
             role="presentation"
           />
@@ -83,18 +84,18 @@ export function Drawer({
             animate={{ x: 0 }}
             exit={reduced ? undefined : { x: slideX }}
             transition={{ duration, ease: [0.32, 0.72, 0, 1] }}
-            className={`relative flex h-full w-full max-w-full ${width} flex-col border-[var(--ui-border)] bg-[var(--ui-surface)] shadow-2xl outline-none ${
+            className={`relative flex h-full w-full max-w-full ${width} flex-col gu-border-border gu-bg-surface shadow-2xl outline-none ${
               side === 'left' ? 'mr-auto border-r' : 'ml-auto border-l'
             } ${className}`}
           >
             {title && (
-              <div className="flex items-center justify-between border-b border-[var(--ui-border)] px-6 py-4">
-                <h2 id={titleId} className="text-lg font-semibold text-[var(--ui-text)]">{title}</h2>
+              <div className="flex items-center justify-between border-b gu-border-border px-6 py-4">
+                <h2 id={titleId} className="text-lg font-semibold gu-text-text">{title}</h2>
                 <button
                   type="button"
                   onClick={onClose}
                   aria-label="Close"
-                  className="rounded-md p-1 text-[var(--ui-text-muted)] hover:bg-[var(--ui-surface-hover)] hover:text-[var(--ui-text)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
+                  className="rounded-md p-1 gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
                 >
                   <X className="h-5 w-5" aria-hidden="true" />
                 </button>

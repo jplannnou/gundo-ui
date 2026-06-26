@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { ReactNode } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -24,10 +25,10 @@ export interface ContactCardProps {
 /* ─── Badge colors ───────────────────────────────────────────────────── */
 
 const badgeColors: Record<string, string> = {
-  primary: 'bg-[var(--ui-primary-soft)] text-[var(--ui-primary)]',
-  success: 'bg-[color-mix(in_srgb,var(--ui-success)_15%,transparent)] text-[var(--ui-success)]',
-  warning: 'bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] text-[var(--ui-warning)]',
-  danger: 'bg-[color-mix(in_srgb,var(--ui-error)_15%,transparent)] text-[var(--ui-error)]',
+  primary: 'gu-bg-primary-soft gu-text-primary',
+  success: 'bg-[color-mix(in_srgb,var(--ui-success)_15%,transparent)] gu-text-success',
+  warning: 'bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] gu-text-warning',
+  danger: 'bg-[color-mix(in_srgb,var(--ui-error)_15%,transparent)] gu-text-error',
 };
 
 /* ─── ContactCard ─────────────────────────────────────────────────────── */
@@ -65,21 +66,21 @@ export function ContactCard({
     <article
       aria-label={name}
       onClick={onCardClick}
-      className={`overflow-hidden rounded-xl border border-[var(--ui-border)] bg-[var(--ui-surface)] transition-shadow hover:shadow-[var(--ui-shadow-md)] ${onCardClick ? 'cursor-pointer' : ''} ${isHorizontal ? 'flex items-center gap-4 p-4' : 'flex flex-col'} ${className}`}
+      className={`overflow-hidden rounded-xl border gu-border-border gu-bg-surface transition-shadow gu-h-shadow-shadow-md ${onCardClick ? 'cursor-pointer' : ''} ${isHorizontal ? 'flex items-center gap-4 p-4' : 'flex flex-col'} ${className}`}
     >
       {/* Avatar section */}
       <div className={`flex shrink-0 ${isHorizontal ? '' : isCompact ? 'flex-row items-center gap-3 p-3' : 'flex-col items-center pt-5 pb-3 px-4 text-center'}`}>
-        <div className={`relative overflow-hidden rounded-full bg-[var(--ui-primary-soft)] ${isCompact || isHorizontal ? 'h-10 w-10' : 'h-16 w-16'} flex items-center justify-center`}>
+        <div className={`relative overflow-hidden rounded-full gu-bg-primary-soft ${isCompact || isHorizontal ? 'h-10 w-10' : 'h-16 w-16'} flex items-center justify-center`}>
           {avatar ? (
             <img src={avatar} alt={name} className="h-full w-full object-cover" />
           ) : (
-            <span className={`font-semibold text-[var(--ui-primary)] ${isCompact || isHorizontal ? 'text-sm' : 'text-lg'}`}>
+            <span className={`font-semibold gu-text-primary ${isCompact || isHorizontal ? 'text-sm' : 'text-lg'}`}>
               {fallback}
             </span>
           )}
           {score !== undefined && !isCompact && !isHorizontal && (
             <span
-              className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[var(--ui-surface)] text-[9px] font-bold"
+              className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 gu-border-surface text-[9px] font-bold"
               style={{
                 background: score >= 75 ? 'var(--ui-success)' : score >= 50 ? 'var(--ui-primary)' : 'var(--ui-warning)',
                 color: 'white',
@@ -95,7 +96,7 @@ export function ContactCard({
         {(isCompact || isHorizontal) && (
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
-              <p className="truncate text-sm font-semibold text-[var(--ui-text)]">{name}</p>
+              <p className="truncate text-sm font-semibold gu-text-text">{name}</p>
               {badge && (
                 <span className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${badgeColors[badgeVariant]}`}>
                   {badge}
@@ -103,7 +104,7 @@ export function ContactCard({
               )}
             </div>
             {(title || company) && (
-              <p className="truncate text-xs text-[var(--ui-text-muted)]">
+              <p className="truncate text-xs gu-text-text-muted">
                 {[title, company].filter(Boolean).join(' · ')}
               </p>
             )}
@@ -115,28 +116,28 @@ export function ContactCard({
       {!isCompact && !isHorizontal && (
         <div className="flex flex-col items-center gap-1 px-4 pb-4">
           <div className="flex items-center gap-1.5">
-            <p className="text-base font-semibold text-[var(--ui-text)]">{name}</p>
+            <p className="text-base font-semibold gu-text-text">{name}</p>
             {badge && (
               <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${badgeColors[badgeVariant]}`}>
                 {badge}
               </span>
             )}
           </div>
-          {title && <p className="text-sm text-[var(--ui-text-muted)]">{title}</p>}
+          {title && <p className="text-sm gu-text-text-muted">{title}</p>}
           {company && (
-            <p className="text-xs font-medium text-[var(--ui-primary)]">{company}</p>
+            <p className="text-xs font-medium gu-text-primary">{company}</p>
           )}
         </div>
       )}
 
       {/* Contact info */}
       {(email || phone) && !isCompact && (
-        <div className={`flex flex-col gap-1 border-t border-[var(--ui-border)] ${isHorizontal ? 'ml-auto' : 'px-4 pb-3 pt-2'}`}>
+        <div className={`flex flex-col gap-1 border-t gu-border-border ${isHorizontal ? 'ml-auto' : 'px-4 pb-3 pt-2'}`}>
           {email && (
             <a
               href={`mailto:${email}`}
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-1.5 text-xs text-[var(--ui-text-muted)] transition-colors hover:text-[var(--ui-primary)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ui-primary)] rounded"
+              className="flex items-center gap-1.5 text-xs gu-text-text-muted transition-colors gu-h-text-primary focus-visible:outline-none focus-visible:ring-1 gu-fv-ring-primary rounded"
             >
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                 <rect x="1" y="2.5" width="10" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
@@ -149,7 +150,7 @@ export function ContactCard({
             <a
               href={`tel:${phone}`}
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-1.5 text-xs text-[var(--ui-text-muted)] transition-colors hover:text-[var(--ui-primary)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--ui-primary)] rounded"
+              className="flex items-center gap-1.5 text-xs gu-text-text-muted transition-colors gu-h-text-primary focus-visible:outline-none focus-visible:ring-1 gu-fv-ring-primary rounded"
             >
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                 <path d="M2 2h2.5l1 3L4 6.5c.8 1.5 1.5 2.2 3 3l1.5-1.5 3 1V11a1 1 0 01-1 1C4.3 12 0 7.7 0 3a1 1 0 011-1h1z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" />
@@ -166,7 +167,7 @@ export function ContactCard({
           {tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-[var(--ui-surface-hover)] px-2 py-0.5 text-xs text-[var(--ui-text-secondary)]"
+              className="rounded-full gu-bg-surface-hover px-2 py-0.5 text-xs gu-text-text-secondary"
             >
               {tag}
             </span>
@@ -177,7 +178,7 @@ export function ContactCard({
       {/* Actions */}
       {actions && (
         <div
-          className={`flex items-center gap-2 ${isHorizontal ? 'ml-auto shrink-0' : 'border-t border-[var(--ui-border)] px-4 py-2.5'}`}
+          className={`flex items-center gap-2 ${isHorizontal ? 'ml-auto shrink-0' : 'border-t gu-border-border px-4 py-2.5'}`}
           onClick={(e) => e.stopPropagation()}
         >
           {actions}

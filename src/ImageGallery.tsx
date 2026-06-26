@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import {
   useCallback,
   useEffect,
@@ -52,7 +53,7 @@ export function ImageGallery({
 
   if (images.length === 0) {
     return (
-      <>{emptyState ?? <p className="text-sm text-[var(--ui-text-muted)]">No hay imágenes.</p>}</>
+      <>{emptyState ?? <p className="text-sm gu-text-text-muted">No hay imágenes.</p>}</>
     );
   }
 
@@ -69,7 +70,7 @@ export function ImageGallery({
               type="button"
               onClick={() => setLightboxIndex(i)}
               aria-label={`Ver imagen: ${img.alt}`}
-              className="group relative overflow-hidden rounded-lg bg-[var(--ui-surface-raised)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ui-surface)]"
+              className="group relative overflow-hidden rounded-lg gu-bg-surface-raised focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
             >
               <img
                 src={img.thumbnail ?? img.src}
@@ -98,7 +99,7 @@ export function ImageGallery({
               </div>
             </button>
             {showCaptions && img.caption && (
-              <p className="text-xs text-[var(--ui-text-muted)] text-center">{img.caption}</p>
+              <p className="text-xs gu-text-text-muted text-center">{img.caption}</p>
             )}
           </div>
         ))}
