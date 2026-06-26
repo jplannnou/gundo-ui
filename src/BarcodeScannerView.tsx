@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useEffect, useRef, useState } from 'react';
 import { CameraOff, Keyboard, RefreshCw } from 'lucide-react';
 import { useCamera, captureVideoFrame } from './utils/useCamera';
@@ -74,30 +75,30 @@ export function BarcodeScannerView({
   }, [ready, detected, decode, onDetected, intervalMs, maxDimension, videoRef]);
 
   return (
-    <div className={`relative flex h-full w-full flex-col overflow-hidden rounded-[var(--ui-radius-lg)] bg-black ${className}`}>
+    <div className={`relative flex h-full w-full flex-col overflow-hidden gu-rounded-radius-lg bg-black ${className}`}>
       <video ref={videoRef} playsInline muted autoPlay className="h-full w-full flex-1 object-cover" aria-label="Barcode scanner camera feed" />
 
       {/* Reticle */}
       {ready && (
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-4">
-          <div className="relative h-32 w-72 max-w-[80%] rounded-[var(--ui-radius-md)] border-2 border-[var(--ui-primary)] shadow-[0_0_0_9999px_rgba(0,0,0,0.45)]">
-            <span className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 animate-pulse bg-[var(--ui-primary)]" />
+          <div className="relative h-32 w-72 max-w-[80%] gu-rounded-radius-md border-2 gu-border-primary shadow-[0_0_0_9999px_rgba(0,0,0,0.45)]">
+            <span className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 animate-pulse gu-bg-primary" />
           </div>
-          {hint && <p className="rounded-[var(--ui-radius-sm)] bg-black/50 px-3 py-1 text-sm text-white">{hint}</p>}
+          {hint && <p className="gu-rounded-radius-sm bg-black/50 px-3 py-1 text-sm text-white">{hint}</p>}
         </div>
       )}
 
       {/* Permission / error */}
       {!ready && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[var(--ui-surface)] p-6 text-center">
-          <CameraOff className="h-10 w-10 text-[var(--ui-text-muted)]" aria-hidden="true" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 gu-bg-surface p-6 text-center">
+          <CameraOff className="h-10 w-10 gu-text-text-muted" aria-hidden="true" />
           {(error || permissionHint) && (
-            <p className="text-sm text-[var(--ui-text-secondary)]">{error ?? permissionHint}</p>
+            <p className="text-sm gu-text-text-secondary">{error ?? permissionHint}</p>
           )}
           <button
             type="button"
             onClick={() => void start()}
-            className="ui-focus-ring inline-flex items-center gap-2 rounded-[var(--ui-radius-md)] bg-[var(--ui-primary)] px-4 py-2 text-sm font-medium text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)]"
+            className="ui-focus-ring inline-flex items-center gap-2 gu-rounded-radius-md gu-bg-primary px-4 py-2 text-sm font-medium gu-text-surface transition-colors gu-h-bg-primary-hover"
           >
             <RefreshCw className="h-4 w-4" aria-hidden="true" />
             {startLabel}
@@ -111,7 +112,7 @@ export function BarcodeScannerView({
           <button
             type="button"
             onClick={onManualEntry}
-            className="ui-focus-ring inline-flex items-center gap-2 rounded-[var(--ui-radius-md)] bg-black/55 px-4 py-2 text-sm font-medium text-white backdrop-blur transition-colors hover:bg-black/70"
+            className="ui-focus-ring inline-flex items-center gap-2 gu-rounded-radius-md bg-black/55 px-4 py-2 text-sm font-medium text-white backdrop-blur transition-colors hover:bg-black/70"
           >
             <Keyboard className="h-4 w-4" aria-hidden="true" />
             {manualLabel}

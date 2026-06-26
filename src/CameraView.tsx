@@ -1,4 +1,5 @@
 'use client';
+import './ui-classes.css';
 import { useEffect, type ReactNode } from 'react';
 import { Camera, CameraOff, RefreshCw } from 'lucide-react';
 import { useCamera, captureVideoFrame, type CameraFacing } from './utils/useCamera';
@@ -55,7 +56,7 @@ export function CameraView({
 
   return (
     <div
-      className={`relative flex h-full w-full flex-col overflow-hidden rounded-[var(--ui-radius-lg)] bg-black ${className}`}
+      className={`relative flex h-full w-full flex-col overflow-hidden gu-rounded-radius-lg bg-black ${className}`}
     >
       <video
         ref={videoRef}
@@ -71,15 +72,15 @@ export function CameraView({
 
       {/* Permission / error state */}
       {!ready && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[var(--ui-surface)] p-6 text-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 gu-bg-surface p-6 text-center">
           {error ? (
             <>
-              <CameraOff className="h-10 w-10 text-[var(--ui-error)]" aria-hidden="true" />
-              <p className="text-sm text-[var(--ui-text-secondary)]">{error}</p>
+              <CameraOff className="h-10 w-10 gu-text-error" aria-hidden="true" />
+              <p className="text-sm gu-text-text-secondary">{error}</p>
               <button
                 type="button"
                 onClick={() => void start()}
-                className="ui-focus-ring inline-flex items-center gap-2 rounded-[var(--ui-radius-md)] bg-[var(--ui-primary)] px-4 py-2 text-sm font-medium text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)]"
+                className="ui-focus-ring inline-flex items-center gap-2 gu-rounded-radius-md gu-bg-primary px-4 py-2 text-sm font-medium gu-text-surface transition-colors gu-h-bg-primary-hover"
               >
                 <RefreshCw className="h-4 w-4" aria-hidden="true" />
                 {startLabel}
@@ -87,12 +88,12 @@ export function CameraView({
             </>
           ) : (
             <>
-              <Camera className="h-10 w-10 text-[var(--ui-text-muted)]" aria-hidden="true" />
-              {permissionHint && <p className="text-sm text-[var(--ui-text-secondary)]">{permissionHint}</p>}
+              <Camera className="h-10 w-10 gu-text-text-muted" aria-hidden="true" />
+              {permissionHint && <p className="text-sm gu-text-text-secondary">{permissionHint}</p>}
               <button
                 type="button"
                 onClick={() => void start()}
-                className="ui-focus-ring inline-flex items-center gap-2 rounded-[var(--ui-radius-md)] bg-[var(--ui-primary)] px-4 py-2 text-sm font-medium text-[var(--ui-surface)] transition-colors hover:bg-[var(--ui-primary-hover)]"
+                className="ui-focus-ring inline-flex items-center gap-2 gu-rounded-radius-md gu-bg-primary px-4 py-2 text-sm font-medium gu-text-surface transition-colors gu-h-bg-primary-hover"
               >
                 <Camera className="h-4 w-4" aria-hidden="true" />
                 {startLabel}
@@ -109,7 +110,7 @@ export function CameraView({
             type="button"
             onClick={handleCapture}
             aria-label={captureLabel}
-            className="ui-focus-ring flex h-16 w-16 items-center justify-center rounded-full border-4 border-white/80 bg-[var(--ui-primary)] text-[var(--ui-surface)] shadow-lg transition-transform active:scale-95"
+            className="ui-focus-ring flex h-16 w-16 items-center justify-center rounded-full border-4 border-white/80 gu-bg-primary gu-text-surface shadow-lg transition-transform active:scale-95"
           >
             <Camera className="h-7 w-7" aria-hidden="true" />
           </button>
