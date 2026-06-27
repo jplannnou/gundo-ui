@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/jplannnou/gundo-ui/compare/v1.27.2...v1.28.0) (2026-06-27)
+
+
+### Features
+
+* **motion:** centralize motion tokens + animate Toast/Skeleton + display scale ([#54](https://github.com/jplannnou/gundo-ui/issues/54)) ([5be7620](https://github.com/jplannnou/gundo-ui/commit/5be7620f07abfe6c5eda3a722608e6b453891f3d))
+
 ## [1.27.2](https://github.com/jplannnou/gundo-ui/compare/v1.27.1...v1.27.2) (2026-06-26)
 
 
