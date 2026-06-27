@@ -36,6 +36,25 @@ describe('Modal', () => {
     expect(onClose).toHaveBeenCalled();
   });
 
+  it('renders as a bottom-sheet on mobile when placement="bottom-sheet"', () => {
+    render(
+      <Modal open onClose={() => {}} title="Sheet" placement="bottom-sheet">
+        Content
+      </Modal>,
+    );
+    const dialog = screen.getByRole('dialog');
+    // bottom-sheet: rounded top on mobile, full focus-trap/a11y preserved
+    expect(dialog.className).toContain('rounded-t-2xl');
+    expect(dialog).toHaveAttribute('aria-modal', 'true');
+  });
+
+  it('stays centered by default (placement="center")', () => {
+    render(<Modal open onClose={() => {}} title="Centered">Content</Modal>);
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.className).toContain('rounded-xl');
+    expect(dialog.className).not.toContain('rounded-t-2xl');
+  });
+
   it('traps focus within modal', async () => {
     render(
       <Modal open onClose={() => {}} title="Focus Trap">
