@@ -1,3 +1,10 @@
+# [1.29.0](https://github.com/jplannnou/gundo-ui/compare/v1.28.0...v1.29.0) (2026-06-27)
+
+
+### Features
+
+* **Modal:** add placement="bottom-sheet" (mobile sheet, desktop centered) ([#55](https://github.com/jplannnou/gundo-ui/issues/55)) ([f22ccc4](https://github.com/jplannnou/gundo-ui/commit/f22ccc4d0c6291e8a5c6cce47623e84ee84750fe))
+
 # [1.28.0](https://github.com/jplannnou/gundo-ui/compare/v1.27.2...v1.28.0) (2026-06-27)
 
 
