@@ -11,3 +11,4 @@ export { PulseGlow } from './PulseGlow';
 export type { PulseGlowProps } from './PulseGlow';
 export { FloatingElement } from './FloatingElement';
 export type { FloatingElementProps } from './FloatingElement';
+export { easing, durations, spring, transitions, variants } from './tokens';

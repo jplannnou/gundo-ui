@@ -1,3 +1,4 @@
+import './animations.css';
 import type { HTMLAttributes } from 'react';
 
 interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
@@ -14,7 +15,7 @@ const radiusMap = {
 export function Skeleton({ className = '', rounded = 'md', style, ...rest }: SkeletonProps) {
   return (
     <div
-      className={`animate-pulse ${radiusMap[rounded]} ${className}`}
+      className={`gu-shimmer ${radiusMap[rounded]} ${className}`}
       style={{ backgroundColor: 'var(--ui-surface-hover)', ...style }}
       {...rest}
     />

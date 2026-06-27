@@ -2,6 +2,7 @@
 import { type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { useReducedMotion } from '../utils/useReducedMotion';
+import { transitions } from './tokens';
 
 interface PageTransitionProps {
   children: ReactNode;
@@ -24,7 +25,7 @@ export function PageTransition({ children, className = '' }: PageTransitionProps
     <motion.div
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, ease: [0, 0, 0.2, 1] }}
+      transition={transitions.enter}
       className={className}
     >
       {children}

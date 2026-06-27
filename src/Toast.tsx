@@ -1,6 +1,8 @@
 'use client';
+import './animations.css';
 import { useEffect, useState, type ReactNode } from 'react';
 import { Check, X, AlertTriangle, Info } from 'lucide-react';
+import { useReducedMotion } from './utils/useReducedMotion';
 
 type ToastType = 'success' | 'error' | 'info' | 'warning';
 
@@ -28,6 +30,7 @@ const typeIcons: Record<ToastType, ReactNode> = {
 
 export function Toast({ type = 'info', children, onClose, duration = 4000, className = '' }: ToastProps) {
   const [paused, setPaused] = useState(false);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     if (!onClose || duration <= 0 || paused) return;
@@ -36,13 +39,14 @@ export function Toast({ type = 'info', children, onClose, duration = 4000, class
   }, [onClose, duration, paused]);
 
   const s = typeStyles[type];
+  const showProgress = !!onClose && duration > 0 && !reduced;
 
   return (
     <div
       role="alert"
       aria-live="polite"
       aria-atomic="true"
-      className={`flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg text-sm font-medium ${className}`}
+      className={`relative overflow-hidden flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg text-sm font-medium ${className}`}
       style={{ backgroundColor: s.bg, borderColor: s.border, color: s.color, border: '1px solid' }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -63,6 +67,17 @@ export function Toast({ type = 'info', children, onClose, duration = 4000, class
         >
           <X className="w-4 h-4" aria-hidden="true" />
         </button>
+      )}
+      {showProgress && (
+        <span
+          aria-hidden="true"
+          className="gu-toast-progress absolute bottom-0 left-0 h-0.5 w-full opacity-50"
+          style={{
+            backgroundColor: s.color,
+            animationDuration: `${duration}ms`,
+            animationPlayState: paused ? 'paused' : 'running',
+          }}
+        />
       )}
     </div>
   );

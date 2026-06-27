@@ -2,6 +2,7 @@
 import { useRef, type ReactNode } from 'react';
 import { motion, useInView } from 'motion/react';
 import { useReducedMotion } from '../utils/useReducedMotion';
+import { easing, durations } from './tokens';
 
 export interface RevealOnScrollProps {
   children: ReactNode;
@@ -35,7 +36,7 @@ export function RevealOnScroll({
   className = '',
   direction = 'up',
   delay = 0,
-  duration = 0.4,
+  duration = durations.reveal,
 }: RevealOnScrollProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
@@ -61,7 +62,7 @@ export function RevealOnScroll({
       transition={{
         duration,
         delay,
-        ease: [0.22, 1, 0.36, 1],
+        ease: easing.reveal,
       }}
     >
       {children}

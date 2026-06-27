@@ -2,6 +2,7 @@
 import { createContext, useContext, useRef, useState, useCallback, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Toast } from './Toast';
+import { transitions } from './motion/tokens';
 
 /* ─── Types ────────────────────────────────────────────────────────── */
 
@@ -107,8 +108,17 @@ export function ToastProvider({
               initial={{ opacity: 0, y: slideY, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.15 } }}
-              transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
-              style={{ pointerEvents: 'auto' }}
+              transition={transitions.content}
+              drag="x"
+              dragSnapToOrigin
+              dragElastic={0.6}
+              dragConstraints={{ left: 0, right: 0 }}
+              onDragEnd={(_, info) => {
+                if (Math.abs(info.offset.x) > 80 || Math.abs(info.velocity.x) > 500) {
+                  dismiss(t.id);
+                }
+              }}
+              style={{ pointerEvents: 'auto', touchAction: 'pan-y' }}
             >
               <Toast
                 type={t.type}

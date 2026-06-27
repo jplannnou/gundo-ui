@@ -292,6 +292,7 @@ export { PulseGlow } from './motion/PulseGlow';
 export type { PulseGlowProps } from './motion/PulseGlow';
 export { FloatingElement } from './motion/FloatingElement';
 export type { FloatingElementProps } from './motion/FloatingElement';
+export { easing, durations, spring, transitions, variants } from './motion/tokens';
 
 // ─── GUNDO Learn — education/onboarding system (2026-06-11) ──────────
 // Philosophy: every data request explains what it unlocks; every result
