@@ -2,6 +2,7 @@
 import { type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { useReducedMotion } from '../utils/useReducedMotion';
+import { easing, variants } from './tokens';
 
 interface FadeInProps {
   children: ReactNode;
@@ -32,9 +33,10 @@ export function FadeIn({ children, delay = 0, duration = 0.3, y = 12, className 
 
   return (
     <motion.div
-      initial={{ opacity: 0, y }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration, delay, ease: [0, 0, 0.2, 1] }}
+      variants={variants.fadeInUp(y)}
+      initial="hidden"
+      animate="visible"
+      transition={{ duration, delay, ease: easing.out }}
       className={className}
     >
       {children}

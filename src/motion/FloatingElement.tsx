@@ -2,6 +2,7 @@
 import type { ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { useReducedMotion } from '../utils/useReducedMotion';
+import { easing, durations } from './tokens';
 
 export interface FloatingElementProps {
   children: ReactNode;
@@ -24,7 +25,7 @@ export interface FloatingElementProps {
 export function FloatingElement({
   children,
   amplitude = 8,
-  duration = 3,
+  duration = durations.float,
   delay = 0,
   className = '',
 }: FloatingElementProps) {
@@ -45,7 +46,7 @@ export function FloatingElement({
         duration,
         delay,
         repeat: Infinity,
-        ease: 'easeInOut',
+        ease: easing.inOut,
       }}
     >
       {children}

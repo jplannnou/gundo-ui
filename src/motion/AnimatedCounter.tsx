@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { useSpring, useTransform, motion, useInView } from 'motion/react';
 import { useReducedMotion } from '../utils/useReducedMotion';
+import { spring as springPresets, durations } from './tokens';
 
 export interface AnimatedCounterProps {
   /** Target value to count up to */
@@ -31,7 +32,7 @@ export function AnimatedCounter({
   prefix = '',
   suffix = '',
   className = '',
-  duration = 1.5,
+  duration = durations.count,
   locale,
   formatValue,
 }: AnimatedCounterProps) {
@@ -44,8 +45,7 @@ export function AnimatedCounter({
     formatValue ? formatValue(value) : value.toLocaleString(locale);
 
   const spring = useSpring(0, {
-    stiffness: 50,
-    damping: 30,
+    ...springPresets.count,
     duration: duration * 1000,
   });
 
