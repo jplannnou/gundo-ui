@@ -1,3 +1,10 @@
+## [1.29.1](https://github.com/jplannnou/gundo-ui/compare/v1.29.0...v1.29.1) (2026-06-30)
+
+
+### Bug Fixes
+
+* **widget:** hacer clickables los turnos del historial del chat ([#58](https://github.com/jplannnou/gundo-ui/issues/58)) ([c39f66f](https://github.com/jplannnou/gundo-ui/commit/c39f66fd08d0d428705004a89de8f0dee714088c))
+
 # [1.29.0](https://github.com/jplannnou/gundo-ui/compare/v1.28.0...v1.29.0) (2026-06-27)
 
 
