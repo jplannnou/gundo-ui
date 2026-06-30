@@ -79,16 +79,26 @@ export function ChatHistorySection({ client, locale = 'es', onResume, labels }: 
 
       <ul className="pt-1 list-none p-0 m-0">
         {userTurns.slice(0, 30).map((m) => (
-          <li key={m.id} className="px-3 py-2 border-b gu-border-border last:border-0">
-            <p className="text-sm gu-text-text truncate">{m.content}</p>
-            <p className="text-[11px] gu-text-text-secondary">
-              {new Date(m.timestamp).toLocaleString(locale, {
-                day: '2-digit',
-                month: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-              })}
-            </p>
+          <li key={m.id} className="border-b gu-border-border last:border-0">
+            {/* La conversación es una sola sesión por usuario: tocar cualquier
+                turno previo reabre esa conversación (onResume). Antes los ítems
+                eran <p> inertes y parecían clickables sin serlo (feedback JP:
+                "no se puede entrar a las conversaciones pasadas"). */}
+            <button
+              type="button"
+              onClick={onResume}
+              className="w-full text-left px-3 py-2 rounded-lg gu-h-bg-surface-hover transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
+            >
+              <p className="text-sm gu-text-text truncate">{m.content}</p>
+              <p className="text-[11px] gu-text-text-secondary">
+                {new Date(m.timestamp).toLocaleString(locale, {
+                  day: '2-digit',
+                  month: '2-digit',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })}
+              </p>
+            </button>
           </li>
         ))}
       </ul>
