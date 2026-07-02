@@ -10,6 +10,7 @@ Items spotted during development that should be fixed but don't block current wo
 | TD-002 | axe-core `color-contrast` rule disabled in tests — CSS custom properties not resolvable in jsdom. Programmatic contrast test added as mitigation (`contrast.test.ts`). | testing | 🟢 Low | 2026-03-23 |
 | TD-003 | `e2e/visual/harness.tsx` only has showcases for ~46/84 components — the full a11y sweep (`a11y-full.spec.ts`) skips the other ~38 (they render the "not found" fallback). The observatory's "color-contrast ×61 DS components" was this false positive, not real defects. Add showcases for the remaining components so the sweep gives real coverage, then gate CI on it. | testing/a11y | 🟠 High | 2026-06-04 |
 | TD-005 | ~43 rare-variant arbitrary values remain after the TD-004 migration (`placeholder:`/`peer-*`/`group-hover`/`before:` + gradient `from`/`to`/`divide`) — no regression (still consumer-scanned) but worth finishing + adding an ESLint rule banning `*-[var(--ui-…)]` color utilities to prevent future drift. | architecture | 🟢 Low | 2026-06-25 |
+| TD-008 | Preexisting lint debt at shared-config adoption: 33 problems (4 errors, 29 warnings) — mostly `consistent-type-imports` errors + `no-unused-vars` warnings in tests. Not fixed inline; CI runs `@jplannnou/eslint-config` in ratchet mode (only changed files gated), so debt burns down organically. | tooling | 🟡 Medium | 2026-07-02 |
 
 ## Done
 

@@ -16,7 +16,15 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  packages: read
+
 jobs:
+  lint:
+    uses: jplannnou/gundo-eslint-config/.github/workflows/lint-reusable.yml@main
+    secrets: inherit
+
   test:
     name: Typecheck & unit tests
     runs-on: ubuntu-latest
@@ -34,6 +42,8 @@ jobs:
           cache: 'pnpm'
 
       - run: pnpm install --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Typecheck
         run: pnpm typecheck
