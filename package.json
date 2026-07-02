@@ -17,6 +17,8 @@
     "./theme.css": "./src/theme.css"
   },
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "build": "tsc && node scripts/fix-esm-imports.js",
     "prepublishOnly": "pnpm run build",
     "test": "vitest run",
@@ -70,7 +72,9 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
+    "@jplannnou/eslint-config": "^1.0.3",
     "@playwright/test": "^1.58.2",
+    "eslint": "^9.39.0",
     "@tailwindcss/vite": "^4.2.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
