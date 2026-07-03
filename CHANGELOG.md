@@ -1,3 +1,11 @@
+## [1.29.2](https://github.com/jplannnou/gundo-ui/compare/v1.29.1...v1.29.2) (2026-07-03)
+
+
+### Bug Fixes
+
+* eslint-config optional (unblocks consumers that clone+build gundo-ui) ([fcde4eb](https://github.com/jplannnou/gundo-ui/commit/fcde4eb06b4917dadec0d831c7a67e114f3691fe))
+* regenerate lockfile with eslint-config optional ([dda975b](https://github.com/jplannnou/gundo-ui/commit/dda975b77f137f820efa88698171d1365b9061ce))
+
 ## [1.29.1](https://github.com/jplannnou/gundo-ui/compare/v1.29.0...v1.29.1) (2026-06-30)
 
 
