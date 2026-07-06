@@ -3,12 +3,12 @@ import { useState, useRef, useEffect, useCallback, useId, type KeyboardEvent as 
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Camera, FileText, Paperclip, Send, X as XIcon } from 'lucide-react';
 import { ChatMarkdown } from './ChatMarkdown';
-import {
+import type {
   ChatClient,
-  type ChatProductCard,
-  type FoodAnalysis,
-  type ChatHealthContext,
-  type SendMessageParams,
+  ChatProductCard,
+  FoodAnalysis,
+  ChatHealthContext,
+  SendMessageParams,
 } from './chat-client';
 
 export interface ChatLabels {
