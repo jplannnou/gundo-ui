@@ -1,3 +1,10 @@
+## [1.29.3](https://github.com/jplannnou/gundo-ui/compare/v1.29.2...v1.29.3) (2026-07-06)
+
+
+### Bug Fixes
+
+* **widget:** neutralizar voseo en labels por defecto del chat ([#60](https://github.com/jplannnou/gundo-ui/issues/60)) ([22a0276](https://github.com/jplannnou/gundo-ui/commit/22a02765c93b2011291f94ffedeadf14aaeb5c75))
+
 ## [1.29.2](https://github.com/jplannnou/gundo-ui/compare/v1.29.1...v1.29.2) (2026-07-03)
 
 
