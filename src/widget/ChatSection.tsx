@@ -3,12 +3,12 @@ import { useState, useRef, useEffect, useCallback, useId, type KeyboardEvent as 
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Camera, FileText, Paperclip, Send, X as XIcon } from 'lucide-react';
 import { ChatMarkdown } from './ChatMarkdown';
-import {
+import type {
   ChatClient,
-  type ChatProductCard,
-  type FoodAnalysis,
-  type ChatHealthContext,
-  type SendMessageParams,
+  ChatProductCard,
+  FoodAnalysis,
+  ChatHealthContext,
+  SendMessageParams,
 } from './chat-client';
 
 export interface ChatLabels {
@@ -32,12 +32,12 @@ export interface ChatLabels {
 
 const DEFAULT_LABELS: ChatLabels = {
   online: 'En línea',
-  inputPlaceholder: 'Escribí tu mensaje…',
+  inputPlaceholder: 'Escribe tu mensaje…',
   attach: 'Adjuntar archivo',
   capture: 'Tomar foto',
   send: 'Enviar',
   sources: 'Fuentes',
-  errorMessage: 'Disculpá, tuve un problema técnico. Probá de nuevo en un momento.',
+  errorMessage: 'Disculpa, tuve un problema técnico. Prueba de nuevo en un momento.',
   compatible: 'Compatible',
   notCompatible: 'No compatible',
   foodAnalysisTitle: 'Análisis del plato',
