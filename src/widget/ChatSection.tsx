@@ -32,12 +32,12 @@ export interface ChatLabels {
 
 const DEFAULT_LABELS: ChatLabels = {
   online: 'En línea',
-  inputPlaceholder: 'Escribí tu mensaje…',
+  inputPlaceholder: 'Escribe tu mensaje…',
   attach: 'Adjuntar archivo',
   capture: 'Tomar foto',
   send: 'Enviar',
   sources: 'Fuentes',
-  errorMessage: 'Disculpá, tuve un problema técnico. Probá de nuevo en un momento.',
+  errorMessage: 'Disculpa, tuve un problema técnico. Prueba de nuevo en un momento.',
   compatible: 'Compatible',
   notCompatible: 'No compatible',
   foodAnalysisTitle: 'Análisis del plato',
