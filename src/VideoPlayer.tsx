@@ -90,7 +90,8 @@ export function VideoPlayer({
   const pause = useCallback(() => videoRef.current?.pause(), []);
   const togglePlay = useCallback(() => {
     if (!videoRef.current) return;
-    videoRef.current.paused ? play() : pause();
+    if (videoRef.current.paused) play();
+    else pause();
   }, [play, pause]);
 
   const toggleMute = useCallback(() => {

@@ -77,7 +77,8 @@ export function TreeView({
       if (!controlledExpanded) {
         setInternalExpanded((prev) => {
           const next = new Set(prev);
-          isOpen ? next.delete(id) : next.add(id);
+          if (isOpen) next.delete(id);
+          else next.add(id);
           return next;
         });
       }

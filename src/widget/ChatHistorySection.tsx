@@ -1,7 +1,7 @@
 import '../ui-classes.css';
 import { useEffect, useState } from 'react';
 import { MessageCircle, ChevronRight } from 'lucide-react';
-import { ChatClient, type ChatHistoryMessage } from './chat-client';
+import type { ChatClient, ChatHistoryMessage } from './chat-client';
 
 export interface ChatHistorySectionProps {
   client: ChatClient;
