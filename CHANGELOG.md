@@ -1,3 +1,15 @@
+# [1.30.0](https://github.com/jplannnou/gundo-ui/compare/v1.29.3...v1.30.0) (2026-07-08)
+
+
+### Bug Fixes
+
+* **lint:** resolve pre-existing eslint errors blocking pre-push ([d06b71c](https://github.com/jplannnou/gundo-ui/commit/d06b71c173b4facb4d3a9587d3d16820aa991c86))
+
+
+### Features
+
+* **MetricRow:** optional info button slot (onInfo/infoLabel) ([9471433](https://github.com/jplannnou/gundo-ui/commit/9471433c0f96a0c26315d6df8cf64c133702786e))
+
 ## [1.29.3](https://github.com/jplannnou/gundo-ui/compare/v1.29.2...v1.29.3) (2026-07-06)
 
 
