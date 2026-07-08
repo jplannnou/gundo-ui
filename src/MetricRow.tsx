@@ -35,6 +35,14 @@ export interface MetricRowProps {
   statusLabel: string;
   /** Optional range bar config. */
   range?: MetricRange;
+  /**
+   * When provided, renders a trailing "i" button (info affordance) that calls
+   * this handler — e.g. to open a glossary drawer explaining the marker. Omit
+   * to render no button (backward compatible).
+   */
+  onInfo?: () => void;
+  /** Localized accessible label for the info button (required when `onInfo` is set). */
+  infoLabel?: string;
   className?: string;
 }
 
@@ -68,6 +76,8 @@ export function MetricRow({
   status,
   statusLabel,
   range,
+  onInfo,
+  infoLabel,
   className = '',
 }: MetricRowProps) {
   const t = statusTokens[status];
@@ -86,14 +96,41 @@ export function MetricRow({
             {sub && <div className="truncate text-xs gu-text-text-muted">{sub}</div>}
           </div>
         </div>
-        <div className="flex shrink-0 flex-col items-end">
-          <span className="text-sm font-bold gu-text-text">{value}</span>
-          <span
-            className="mt-0.5 rounded-md px-2 py-0.5 text-[10px] font-bold tracking-wide"
-            style={{ background: t.soft, color: t.color }}
-          >
-            {statusLabel}
-          </span>
+        <div className="flex shrink-0 items-center gap-2">
+          <div className="flex flex-col items-end">
+            <span className="text-sm font-bold gu-text-text">{value}</span>
+            <span
+              className="mt-0.5 rounded-md px-2 py-0.5 text-[10px] font-bold tracking-wide"
+              style={{ background: t.soft, color: t.color }}
+            >
+              {statusLabel}
+            </span>
+          </div>
+          {onInfo && (
+            <button
+              type="button"
+              onClick={onInfo}
+              aria-label={infoLabel}
+              className="gu-fv-ring-primary gu-h-bg-surface-hover flex h-8 w-8 shrink-0 items-center justify-center rounded-full gu-border-border gu-text-text-muted"
+              style={{ border: '1px solid var(--ui-border)' }}
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12.01" y2="8" />
+              </svg>
+            </button>
+          )}
         </div>
       </div>
       {range && (
