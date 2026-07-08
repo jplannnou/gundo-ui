@@ -1,3 +1,10 @@
+## [1.30.1](https://github.com/jplannnou/gundo-ui/compare/v1.30.0...v1.30.1) (2026-07-08)
+
+
+### Bug Fixes
+
+* **AnimatedCounter:** re-animar cuando `to` cambia estando en viewport ([#61](https://github.com/jplannnou/gundo-ui/issues/61)) ([d2cae6a](https://github.com/jplannnou/gundo-ui/commit/d2cae6a87f5a3d52f73f389d50e0385b01bd48fb))
+
 # [1.30.0](https://github.com/jplannnou/gundo-ui/compare/v1.29.3...v1.30.0) (2026-07-08)
 
 
