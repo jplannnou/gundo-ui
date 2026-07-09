@@ -1,3 +1,10 @@
+## [1.31.1](https://github.com/jplannnou/gundo-ui/compare/v1.31.0...v1.31.1) (2026-07-09)
+
+
+### Bug Fixes
+
+* don't swallow iOS Safari play() rejection in useCamera ([#63](https://github.com/jplannnou/gundo-ui/issues/63)) ([9cef94d](https://github.com/jplannnou/gundo-ui/commit/9cef94d677a280406a59b420d8ed37428f8bf313))
+
 # [1.31.0](https://github.com/jplannnou/gundo-ui/compare/v1.30.1...v1.31.0) (2026-07-09)
 
 
