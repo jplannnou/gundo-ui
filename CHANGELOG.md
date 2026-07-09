@@ -1,3 +1,10 @@
+# [1.31.0](https://github.com/jplannnou/gundo-ui/compare/v1.30.1...v1.31.0) (2026-07-09)
+
+
+### Features
+
+* **ProductCardWithExplainability:** matchScoreColor to force ring color only ([#62](https://github.com/jplannnou/gundo-ui/issues/62)) ([e88bd32](https://github.com/jplannnou/gundo-ui/commit/e88bd320f2372a808f5d473cb828547cf568befc))
+
 ## [1.30.1](https://github.com/jplannnou/gundo-ui/compare/v1.30.0...v1.30.1) (2026-07-08)
 
 
