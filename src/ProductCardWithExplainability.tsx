@@ -1,7 +1,11 @@
-import './ui-classes.css';
-import type { ReactNode } from 'react';
-import { MatchScoreRing } from './MatchScoreRing';
-import { ExplainabilityBadge, type ExplainabilityTag, type ExplainabilityTone } from './ExplainabilityBadge';
+import "./ui-classes.css";
+import type { ReactNode } from "react";
+import { MatchScoreRing } from "./MatchScoreRing";
+import {
+  ExplainabilityBadge,
+  type ExplainabilityTag,
+  type ExplainabilityTone,
+} from "./ExplainabilityBadge";
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
@@ -37,10 +41,7 @@ export interface ExplainabilityProduct {
 }
 
 export type ExplainabilityProductState =
-  | 'match'
-  | 'low-match'
-  | 'incompatible'
-  | 'neutral';
+  "match" | "low-match" | "incompatible" | "neutral";
 
 /**
  * Profile suitability surfacing — used by Gundo retail grids that already
@@ -54,7 +55,7 @@ export interface ProductSuitability {
   /** Visible label, e.g. "1 alerta para tu perfil". Hidden when undefined. */
   label?: string;
   /** Tone of the pill. 'alert' = red, 'review' = amber, 'ok' = green. */
-  tone?: 'alert' | 'review' | 'ok';
+  tone?: "alert" | "review" | "ok";
   /** When > 0 renders a +N chip after the pill area. */
   extraProfilesCount?: number;
   /** Pill click — typically opens an inline modal listing the issues. */
@@ -67,6 +68,14 @@ export interface ProductCardWithExplainabilityProps {
   product: ExplainabilityProduct;
   /** Explicit state override. Auto-derived from matchScore if omitted. */
   state?: ExplainabilityProductState;
+  /**
+   * Override ONLY the match-score ring color (e.g. `var(--ui-error)` to force
+   * danger for a clinically not-suitable product) without changing `state` —
+   * i.e. without greying the image, showing the state label, or disabling the
+   * cart button. Falls back to the state-derived ring color when omitted.
+   * Mirrors `MatchScoreRing`'s own `color` prop; `aria-valuenow` stays truthful.
+   */
+  matchScoreColor?: string;
   /** Replaces default cart button */
   action?: ReactNode;
   onAddToCart?: (ean: string) => void;
@@ -89,14 +98,14 @@ export interface ProductCardWithExplainabilityProps {
 /* ─── Helpers ────────────────────────────────────────────────────────── */
 
 function deriveState(score?: number): ExplainabilityProductState {
-  if (score === undefined) return 'neutral';
-  if (score < 25) return 'incompatible';
-  if (score < 55) return 'low-match';
-  return 'match';
+  if (score === undefined) return "neutral";
+  if (score < 25) return "incompatible";
+  if (score < 55) return "low-match";
+  return "match";
 }
 
-function formatPrice(price: number | string, currency = '€'): string {
-  if (typeof price === 'string') return price;
+function formatPrice(price: number | string, currency = "€"): string {
+  if (typeof price === "string") return price;
   return `${currency}${price.toFixed(2)}`;
 }
 
@@ -105,27 +114,27 @@ const stateStyles: Record<
   { ring: string; badge: string; border: string; label?: string }
 > = {
   match: {
-    ring: 'var(--ui-success)',
-    badge: 'gu-bg-success-soft gu-text-success',
-    border: 'gu-border-border',
-    label: 'Compatible con vos',
+    ring: "var(--ui-success)",
+    badge: "gu-bg-success-soft gu-text-success",
+    border: "gu-border-border",
+    label: "Compatible con vos",
   },
-  'low-match': {
-    ring: 'var(--ui-warning)',
-    badge: 'gu-bg-warning-soft gu-text-warning',
-    border: 'gu-border-border',
-    label: 'Match medio',
+  "low-match": {
+    ring: "var(--ui-warning)",
+    badge: "gu-bg-warning-soft gu-text-warning",
+    border: "gu-border-border",
+    label: "Match medio",
   },
   incompatible: {
-    ring: 'var(--ui-error)',
-    badge: 'gu-bg-error-soft gu-text-error',
-    border: 'border-[color-mix(in_srgb,var(--ui-error)_30%,transparent)]',
-    label: 'No recomendado',
+    ring: "var(--ui-error)",
+    badge: "gu-bg-error-soft gu-text-error",
+    border: "border-[color-mix(in_srgb,var(--ui-error)_30%,transparent)]",
+    label: "No recomendado",
   },
   neutral: {
-    ring: 'var(--ui-primary)',
-    badge: 'gu-bg-surface-hover gu-text-text-secondary',
-    border: 'gu-border-border',
+    ring: "var(--ui-primary)",
+    badge: "gu-bg-surface-hover gu-text-text-secondary",
+    border: "gu-border-border",
   },
 };
 
@@ -134,24 +143,25 @@ const stateStyles: Record<
 export function ProductCardWithExplainability({
   product,
   state,
+  matchScoreColor,
   action,
   onAddToCart,
   onOpen,
-  addToCartLabel = 'Añadir',
+  addToCartLabel = "Añadir",
   isInCart = false,
   footer,
   suitability,
-  className = '',
+  className = "",
 }: ProductCardWithExplainabilityProps) {
   const resolvedState = state ?? deriveState(product.matchScore);
   const styles = stateStyles[resolvedState];
   const mainReason = product.reasons?.[0];
-  const isIncompatible = resolvedState === 'incompatible';
+  const isIncompatible = resolvedState === "incompatible";
 
   return (
     <article
       className={`group relative flex flex-col overflow-hidden rounded-xl border gu-bg-surface transition-shadow gu-h-shadow-shadow-md ${styles.border} ${
-        onOpen ? 'cursor-pointer' : ''
+        onOpen ? "cursor-pointer" : ""
       } ${className}`}
       onClick={onOpen ? () => onOpen(product.ean) : undefined}
       aria-label={product.name}
@@ -163,11 +173,14 @@ export function ProductCardWithExplainability({
             src={product.image}
             alt={product.imageAlt ?? product.name}
             className={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 ${
-              isIncompatible ? 'opacity-60 grayscale' : ''
+              isIncompatible ? "opacity-60 grayscale" : ""
             }`}
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center gu-text-text-muted" aria-hidden="true">
+          <div
+            className="flex h-full w-full items-center justify-center gu-text-text-muted"
+            aria-hidden="true"
+          >
             🛒
           </div>
         )}
@@ -180,12 +193,12 @@ export function ProductCardWithExplainability({
           </span>
         )}
         {/* Match ring */}
-        {typeof product.matchScore === 'number' && (
+        {typeof product.matchScore === "number" && (
           <div className="absolute right-2 top-2 rounded-full gu-bg-surface p-1 gu-shadow-shadow-sm">
             <MatchScoreRing
               score={product.matchScore}
               size="sm"
-              color={styles.ring}
+              color={matchScoreColor ?? styles.ring}
               hideValue={false}
               disableAnimation={false}
             />
@@ -225,12 +238,12 @@ export function ProductCardWithExplainability({
                 }
                 disabled={!suitability.onPillClick}
                 className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium leading-tight transition-colors ${
-                  suitability.tone === 'alert'
-                    ? 'bg-[color-mix(in_srgb,var(--ui-error)_15%,transparent)] gu-text-error ring-1 ring-[color-mix(in_srgb,var(--ui-error)_30%,transparent)]'
-                    : suitability.tone === 'review'
-                      ? 'bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] gu-text-warning ring-1 ring-[color-mix(in_srgb,var(--ui-warning)_30%,transparent)]'
-                      : 'bg-[color-mix(in_srgb,var(--ui-success)_15%,transparent)] gu-text-success ring-1 ring-[color-mix(in_srgb,var(--ui-success)_30%,transparent)]'
-                } ${suitability.onPillClick ? 'cursor-pointer hover:brightness-110' : 'cursor-default'}`}
+                  suitability.tone === "alert"
+                    ? "bg-[color-mix(in_srgb,var(--ui-error)_15%,transparent)] gu-text-error ring-1 ring-[color-mix(in_srgb,var(--ui-error)_30%,transparent)]"
+                    : suitability.tone === "review"
+                      ? "bg-[color-mix(in_srgb,var(--ui-warning)_15%,transparent)] gu-text-warning ring-1 ring-[color-mix(in_srgb,var(--ui-warning)_30%,transparent)]"
+                      : "bg-[color-mix(in_srgb,var(--ui-success)_15%,transparent)] gu-text-success ring-1 ring-[color-mix(in_srgb,var(--ui-success)_30%,transparent)]"
+                } ${suitability.onPillClick ? "cursor-pointer hover:brightness-110" : "cursor-default"}`}
               >
                 {suitability.label}
               </button>
@@ -260,7 +273,10 @@ export function ProductCardWithExplainability({
           <ExplainabilityBadge
             reason={mainReason.reason}
             tags={mainReason.tags}
-            tone={mainReason.tone ?? (resolvedState === 'incompatible' ? 'warning' : 'success')}
+            tone={
+              mainReason.tone ??
+              (resolvedState === "incompatible" ? "warning" : "success")
+            }
             score={mainReason.score}
             compact
           />
@@ -288,7 +304,9 @@ export function ProductCardWithExplainability({
             </span>
             {(product.approxWeight || product.pricePerKgLabel) && (
               <span className="text-[10px] leading-tight gu-text-text-muted tabular-nums">
-                {[product.approxWeight, product.pricePerKgLabel].filter(Boolean).join(' · ')}
+                {[product.approxWeight, product.pricePerKgLabel]
+                  .filter(Boolean)
+                  .join(" · ")}
               </span>
             )}
           </span>
@@ -302,20 +320,24 @@ export function ProductCardWithExplainability({
               }}
               className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                 isInCart
-                  ? 'gu-bg-primary-soft gu-text-primary'
+                  ? "gu-bg-primary-soft gu-text-primary"
                   : isIncompatible
-                    ? 'cursor-not-allowed gu-bg-surface-hover gu-text-text-muted'
-                    : 'gu-bg-primary gu-text-surface gu-h-bg-primary-hover'
+                    ? "cursor-not-allowed gu-bg-surface-hover gu-text-text-muted"
+                    : "gu-bg-primary gu-text-surface gu-h-bg-primary-hover"
               }`}
               aria-label={
                 isIncompatible
                   ? `${product.name} no recomendado`
                   : isInCart
-                    ? 'En el carrito'
+                    ? "En el carrito"
                     : `${addToCartLabel} ${product.name}`
               }
             >
-              {isIncompatible ? 'No recomendado' : isInCart ? 'Añadido' : addToCartLabel}
+              {isIncompatible
+                ? "No recomendado"
+                : isInCart
+                  ? "Añadido"
+                  : addToCartLabel}
             </button>
           )}
         </div>
