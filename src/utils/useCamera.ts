@@ -55,7 +55,20 @@ export function useCamera(options: UseCameraOptions = {}): UseCameraResult {
       streamRef.current = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        await videoRef.current.play().catch(() => {});
+        try {
+          // Must be awaited (not swallowed): iOS Safari can reject play() when
+          // called outside a user gesture (autoplay policy, backgrounded PWA).
+          // If it rejects we fall through to the outer catch below instead of
+          // reporting `ready` over a frozen/black frame.
+          await videoRef.current.play();
+        } catch (playError) {
+          // Release the track we just opened so the camera indicator turns
+          // off while the error/start-button state is shown; a subsequent
+          // user tap on the start button re-requests a fresh stream.
+          stream.getTracks().forEach((t) => t.stop());
+          streamRef.current = null;
+          throw playError;
+        }
       }
       setReady(true);
     } catch (e) {
