@@ -50,4 +50,13 @@ describe('Checkbox', () => {
     expect(cls).toContain('gu-bg-primary');
     expect(cls).not.toContain('gu-border-text-muted');
   });
+
+  it('inks the glyph with the theme surface, not white', () => {
+    // Regression: white on the dark theme's --ui-primary (#67C728) is 2.2:1 —
+    // under 1.4.11's 3:1. --ui-surface flips with the theme and clears it both ways.
+    const { container } = render(<Checkbox label="Test" checked />);
+    const glyph = box(container).querySelector('svg') as SVGElement;
+    expect(glyph.getAttribute('class')).toContain('gu-text-surface');
+    expect(glyph.getAttribute('class')).not.toContain('text-white');
+  });
 });

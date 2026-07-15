@@ -97,11 +97,15 @@ export function RadioGroup({
             onKeyDown={e => handleKeyDown(e, index)}
             className={`flex items-start gap-2.5 text-left rounded-lg px-1 py-0.5 transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface disabled:opacity-40 disabled:cursor-not-allowed`}
           >
+            {/* Unselected: --ui-border-hover is white/20% (~1.7:1 on the dark
+                surface), under the 3:1 WCAG 1.4.11 needs for a control border.
+                --ui-text-muted clears it (5.4:1 dark / 5.8:1 light) and the soft
+                fill reads as a control — same treatment as Checkbox and Input. */}
             <span
               className={`${dotSize} shrink-0 mt-0.5 rounded-full border-2 flex items-center justify-center transition-colors ${
                 isSelected
                   ? 'gu-border-primary gu-bg-primary'
-                  : 'gu-border-border-hover bg-transparent'
+                  : 'gu-border-text-muted gu-bg-surface-hover'
               }`}
             >
               {isSelected && (
