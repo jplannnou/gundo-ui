@@ -114,4 +114,60 @@ describe('PaywallUnified', () => {
       expect(screen.getByRole('button', { name: /Activar ahora/ })).toBeInTheDocument();
     });
   });
+
+  describe('cycleMode', () => {
+    // GUNDO Live: 4,99/mes o 49,90/año. Con el toggle en anual (el default) el
+    // header pintaba 49,90/12 = €4,16 — un precio que Stripe NUNCA cobra.
+    const live = { monthly: 4.99, yearly: 49.9, currency: 'EUR' as const };
+    const liveAddon = { label: 'GUNDO Live' };
+
+    it('choose (default): sigue mostrando el toggle', () => {
+      render(<PaywallUnified trigger="plan" onUpgrade={() => {}} pricing={live} />);
+      expect(screen.getByRole('button', { name: /Mensual/ })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Anual/ })).toBeInTheDocument();
+    });
+
+    it('inherited: no hay toggle — el ciclo no se elige', () => {
+      render(
+        <PaywallUnified
+          trigger="plan"
+          onUpgrade={() => {}}
+          pricing={live}
+          cycleMode="inherited"
+        />,
+      );
+      expect(screen.queryByRole('button', { name: /Mensual/ })).not.toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: /^Anual/ })).not.toBeInTheDocument();
+    });
+
+    it('inherited: muestra el mensual REAL, nunca el anual/12', () => {
+      render(
+        <PaywallUnified
+          trigger="plan"
+          onUpgrade={() => {}}
+          pricing={live}
+          cycleMode="inherited"
+        />,
+      );
+      expect(screen.getByText('€4.99')).toBeInTheDocument();
+      // El regression test que importa: 49,90/12 = 4,16 no puede volver.
+      expect(screen.queryByText('€4.16')).not.toBeInTheDocument();
+    });
+
+    it('inherited: enuncia el anual y de quién hereda el ciclo', () => {
+      render(
+        <PaywallUnified
+          trigger="plan"
+          onUpgrade={() => {}}
+          pricing={live}
+          addon={liveAddon}
+          hasBasePlan
+          cycleMode="inherited"
+        />,
+      );
+      expect(screen.getByText(/€49.90\/año, según el ciclo de tu/)).toBeInTheDocument();
+      // Y NO el copy de "facturado X/año", que afirma un ciclo concreto.
+      expect(screen.queryByText(/facturado/)).not.toBeInTheDocument();
+    });
+  });
 });
