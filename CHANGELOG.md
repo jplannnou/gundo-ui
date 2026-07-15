@@ -1,3 +1,10 @@
+# [1.33.0](https://github.com/jplannnou/gundo-ui/compare/v1.32.1...v1.33.0) (2026-07-15)
+
+
+### Features
+
+* **PaywallUnified:** cycleMode inherited para add-ons que no eligen ciclo ([#70](https://github.com/jplannnou/gundo-ui/issues/70)) ([3831c72](https://github.com/jplannnou/gundo-ui/commit/3831c727344bc00acc584cf901b408aa205e7d31))
+
 ## [1.32.1](https://github.com/jplannnou/gundo-ui/compare/v1.32.0...v1.32.1) (2026-07-15)
 
 
