@@ -1,3 +1,10 @@
+## [1.32.1](https://github.com/jplannnou/gundo-ui/compare/v1.32.0...v1.32.1) (2026-07-15)
+
+
+### Bug Fixes
+
+* **Checkbox:** make the unchecked box visible (WCAG 1.4.11) ([#69](https://github.com/jplannnou/gundo-ui/issues/69)) ([3d43e17](https://github.com/jplannnou/gundo-ui/commit/3d43e17b48ec7e69bb0b940ed0f5a30b5d89baf4))
+
 # [1.32.0](https://github.com/jplannnou/gundo-ui/compare/v1.31.1...v1.32.0) (2026-07-15)
 
 
