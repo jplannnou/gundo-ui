@@ -26,18 +26,21 @@ export function Checkbox({ label, checked = false, indeterminate = false, onChan
         />
         {/* Unchecked: --ui-border (white/10%) is ~1.3:1 on the dark surface — a
             16px unfilled box was effectively invisible. --ui-text-muted clears
-            WCAG 1.4.11 (3.5:1 dark / 4.1:1 light) and the soft fill makes it
+            WCAG 1.4.11 (5.4:1 dark / 5.8:1 light) and the soft fill makes it
             read as a control, matching Input's filled treatment. */}
         <span className={`flex items-center justify-center w-4 h-4 rounded border transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--ui-focus-ring-color)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--ui-surface)] ${
           checked || indeterminate
             ? 'gu-bg-primary gu-border-primary'
             : 'gu-border-text-muted gu-bg-surface-hover peer-hover:border-[var(--ui-text-secondary)]'
         }`}>
+          {/* Ink is --ui-surface, not white: it flips with the theme, so the
+              glyph stays legible on both greens (6.4:1 on dark #67C728, 8.7:1
+              on light #08563E). White is only 2.2:1 on the dark-theme green. */}
           {checked && !indeterminate && (
-            <Check className="w-3 h-3 text-white" strokeWidth={2.5} aria-hidden="true" />
+            <Check className="w-3 h-3 gu-text-surface" strokeWidth={2.5} aria-hidden="true" />
           )}
           {indeterminate && (
-            <Minus className="w-3 h-3 text-white" strokeWidth={2.5} aria-hidden="true" />
+            <Minus className="w-3 h-3 gu-text-surface" strokeWidth={2.5} aria-hidden="true" />
           )}
         </span>
       </span>
