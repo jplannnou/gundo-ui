@@ -13,9 +13,23 @@ import { test, expect } from '@playwright/test';
  *
  * A ratio can't work here — it scales with the page, which is mostly empty
  * background, so the more viewport you add the less the gate sees. An absolute
- * count is independent of that. Playwright's per-pixel `threshold` (0.2 YIQ,
- * default) already absorbs anti-aliasing noise, so this only needs to cover
- * residual subpixel jitter, not real repaints.
+ * count is independent of that. 100 is measured, not guessed: two consecutive
+ * `--update-snapshots` runs on CI produce byte-identical output for all 60
+ * baselines, so there is no jitter band to absorb — components are either
+ * pixel-identical or genuinely changed.
+ *
+ * ⚠️ WHY THE BASELINES WERE WRONG FOR MONTHS — the trap to not fall into again:
+ * `toHaveScreenshot` polls, comparing each frame against the expected image, and
+ * stops the moment one MATCHES. The harness runs on the Vite **dev** server, so
+ * `import './ui-classes.css'` is injected by JS after first paint — there is a
+ * window where components render unstyled. A baseline recorded in that window is
+ * self-perpetuating: every later run matches an early unstyled frame, stops, and
+ * passes. The suite was asserting that components look like their broken,
+ * style-less selves. `--update-snapshots` has nothing to match, so it waits for
+ * stability and captures the real render — which is why regenerating changed 41
+ * of 60 baselines (Callout by 554.392 px: the soft backgrounds were simply
+ * absent). Corollary: a green visual run does NOT prove the baseline is truthful.
+ * If you regenerate and see a large diff, look at the image before assuming drift.
  */
 const MAX_DIFF_PIXELS = 100;
 const components = [
