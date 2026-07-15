@@ -12,7 +12,7 @@ import {
   Tooltip, EmptyState, KpiCard, Avatar, Breadcrumbs, Callout, CopyButton,
   ThemeToggle, StatusDot, SegmentedControl, Skeleton, SkeletonText,
   Popover, CodeBlock, BrandHeader, FormField, DataTable, MarkdownRenderer,
-  Pagination, ProductCard, MealCard,
+  Pagination, ProductCard, MealCard, StepIndicator,
   FloatingActionButton, ImageGallery, InlineEdit, ScoreGauge, SparklineChart, MacrosDisplay,
   TourProvider, ExplainerFlow, WhyPanel, EmptyStateEducation, ProgressCelebration,
   UnlockRing, PersonalizedLoader, FeatureHighlight,
@@ -443,10 +443,28 @@ const showcases: Record<string, () => ReactNode> = {
   ),
 
   FloatingActionButton: () => (
-    <div style={{ position: 'relative', height: 120 }}>
+    // The badge is the point: it is the --ui-bg-error surface whose ink was
+    // white at 2.77:1 (TD-009). A showcase without `badge` snapshots the button
+    // and guards nothing about it.
+    <div style={{ position: 'relative', height: 120, display: 'flex', gap: 32 }}>
       <FloatingActionButton icon={<span aria-hidden>＋</span>} label="Agregar comida" fixed={false} />
+      <FloatingActionButton icon={<span aria-hidden>＋</span>} label="Con badge" badge={3} fixed={false} />
     </div>
   ),
+
+  StepIndicator: () => (
+    <div style={{ maxWidth: 520 }}>
+      <StepIndicator
+        steps={[{ label: 'Sube' }, { label: 'Revisa' }, { label: 'Confirma' }]}
+        currentStep={1}
+      />
+    </div>
+  ),
+
+  // No BottomBar showcase on purpose: it is `md:hidden fixed`, i.e. mobile-only,
+  // and this harness renders at 1280px — it would snapshot an empty page. Its
+  // TD-009 badge repaint is pinned by semantic-ink.test.tsx instead. Covering it
+  // visually needs a mobile-viewport project (TD-003).
 
   ImageGallery: () => (
     <div style={{ width: 480 }}>
