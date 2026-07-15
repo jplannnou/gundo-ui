@@ -4,3 +4,8 @@ dist/
 
 # a11y full sweep report (generated)
 e2e/a11y/a11y-full-report.json
+
+# Playwright run output (generated). Baselines live in e2e/visual/__snapshots__
+# and ARE tracked — these two only hold the actual/diff of a failing run.
+test-results/
+playwright-report/
