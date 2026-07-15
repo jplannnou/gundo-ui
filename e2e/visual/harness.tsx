@@ -5,7 +5,7 @@
  */
 import { createRoot } from 'react-dom/client';
 import { useState, useEffect, type ReactNode } from 'react';
-import '../../src/theme.css';
+import './harness.css';
 import {
   Button, Card, Modal, Drawer, Sheet, Toast, AlertBanner, Accordion, AccordionItem,
   Tabs, Badge, Spinner, ProgressBar, Input, Select, Checkbox, Toggle, SearchInput,
@@ -446,7 +446,9 @@ const showcases: Record<string, () => ReactNode> = {
     // The badge is the point: it is the --ui-bg-error surface whose ink was
     // white at 2.77:1 (TD-009). A showcase without `badge` snapshots the button
     // and guards nothing about it.
-    <div style={{ position: 'relative', height: 120, display: 'flex', gap: 32 }}>
+    // alignItems: flex-start — without it the flex parent stretches the FAB into
+    // a tall bar and the baseline stops looking like the component.
+    <div style={{ position: 'relative', height: 120, display: 'flex', gap: 32, alignItems: 'flex-start' }}>
       <FloatingActionButton icon={<span aria-hidden>＋</span>} label="Agregar comida" fixed={false} />
       <FloatingActionButton icon={<span aria-hidden>＋</span>} label="Con badge" badge={3} fixed={false} />
     </div>

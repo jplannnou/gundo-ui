@@ -1,8 +1,11 @@
 import { defineConfig } from 'vitest/config';
+import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'path';
 
 export default defineConfig({
   root: resolve(__dirname),
+  // Without this the components render with colour but no layout — see harness.css.
+  plugins: [tailwindcss()],
   server: {
     port: 4173,
     strictPort: true,
