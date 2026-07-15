@@ -84,8 +84,16 @@ export default defineConfig({
 
   /* ─── Local dev server for visual tests ─────────────────────── */
   webServer: {
-    command: 'npx vite --config e2e/visual/vite.config.ts',
+    // BUILD + preview, never the dev server (TD-011). Dev injects component CSS
+    // via JS after first paint, leaving a window where everything renders
+    // unstyled — and since toHaveScreenshot stops at the first frame that
+    // matches, a baseline captured in that window keeps matching broken frames
+    // forever. That is how 41 of 60 baselines ended up wrong (TD-010). A build
+    // ships the CSS as a blocking <link>, so there is no unstyled frame to catch.
+    command:
+      'npx vite build --config e2e/visual/vite.config.ts && npx vite preview --config e2e/visual/vite.config.ts',
     port: 4173,
+    timeout: 180_000, // the build runs before the port opens
     reuseExistingServer: !process.env.CI,
   },
 });
