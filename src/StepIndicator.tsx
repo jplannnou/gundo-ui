@@ -25,7 +25,7 @@ export function StepIndicator({ steps, currentStep, className = '' }: StepIndica
               <div
                 className={`flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold shrink-0 transition-colors ${
                   status === 'complete'
-                    ? 'gu-bg-primary text-white'
+                    ? 'gu-bg-primary gu-text-surface'
                     : status === 'current'
                       ? 'border-2 gu-border-primary gu-text-primary'
                       : 'border-2 gu-border-border gu-text-text-muted'

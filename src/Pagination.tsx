@@ -63,7 +63,7 @@ export function Pagination({ page, totalPages, onPageChange, total, pageSize, cl
               aria-current={p === page ? 'page' : undefined}
               className={`min-w-[36px] py-2 text-sm rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface ${
                 p === page
-                  ? 'gu-bg-primary text-white font-medium'
+                  ? 'gu-bg-primary gu-text-surface font-medium'
                   : 'gu-text-text-secondary gu-h-bg-surface-hover'
               }`}
             >

@@ -58,7 +58,7 @@ export function BottomBar({ items, renderLink, className = '' }: BottomBarProps)
                 {item.icon}
                 {item.badge !== undefined && item.badge !== 0 && item.badge !== '0' && (
                   <span
-                    className="absolute -right-1.5 -top-1.5 inline-flex min-w-[16px] items-center justify-center rounded-full gu-bg-error px-1 text-[9px] font-bold leading-none text-white"
+                    className="absolute -right-1.5 -top-1.5 inline-flex min-w-[16px] items-center justify-center rounded-full gu-bg-error px-1 text-[9px] font-bold leading-none gu-text-surface"
                     aria-hidden="true"
                   >
                     {item.badge}
