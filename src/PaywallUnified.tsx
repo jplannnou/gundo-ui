@@ -68,6 +68,21 @@ export interface PaywallUnifiedProps {
   hasBasePlan?: boolean;
   /** Override the primary CTA label entirely. */
   ctaLabel?: string;
+  /**
+   * Quien decide el ciclo de facturacion.
+   *
+   * - `choose` (default): lo elige el usuario → toggle Mensual/Anual, y el
+   *   precio grande es el del ciclo elegido.
+   * - `inherited`: NO se elige — lo hereda la suscripcion base. Es el caso de
+   *   un add-on: Stripe exige que todos los items de una suscripcion compartan
+   *   `interval`, asi que el add-on se factura al ciclo de la Premium que ya
+   *   tiene el usuario. Sin toggle (seria ficcion: no cambia nada de lo que se
+   *   cobra) y sin derivar `anual/12` (ese numero NO se cobra nunca).
+   *
+   * Con `inherited`, el argumento `cycle` de `onUpgrade` no significa nada:
+   * el ciclo real lo resuelve el backend leyendo la suscripcion base.
+   */
+  cycleMode?: 'choose' | 'inherited';
   /** Inline ROI tiles */
   roi?: PaywallRoi[];
   /** Social proof */
@@ -185,6 +200,7 @@ export function PaywallUnified({
   addon,
   hasBasePlan = false,
   ctaLabel,
+  cycleMode = 'choose',
   roi,
   testimonials,
   footer,
@@ -193,8 +209,15 @@ export function PaywallUnified({
   const [cycle, setCycle] = useState<PaywallBillingCycle>('yearly');
   const copy = triggerCopy[trigger];
   const savings = savingsPercent(pricing);
-  const displayPrice =
-    cycle === 'yearly' ? yearlyPerMonth(pricing) : pricing.monthly;
+  // Con el ciclo heredado no hay eleccion que mostrar: se enuncia el mensual
+  // real. Derivar `anual/12` aqui era exactamente el bug — pintaba un numero
+  // que no se cobra (49,90/12 = 4,16 mientras el cargo es 4,99).
+  const inheritsCycle = cycleMode === 'inherited';
+  const displayPrice = inheritsCycle
+    ? pricing.monthly
+    : cycle === 'yearly'
+      ? yearlyPerMonth(pricing)
+      : pricing.monthly;
 
   // With an add-on tier, someone who already pays for Premium is buying the
   // add-on — not Premium. Anything else would be selling them what they have.
@@ -259,24 +282,26 @@ export function PaywallUnified({
           </p>
         </header>
 
-        {/* Billing toggle */}
-        <div className="mt-6 inline-flex items-center rounded-full border gu-border-border gu-bg-surface-raised p-1">
-          {(['monthly', 'yearly'] as PaywallBillingCycle[]).map((c) => (
-            <button
-              key={c}
-              type="button"
-              onClick={() => setCycle(c)}
-              aria-pressed={cycle === c}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-colors ${
-                cycle === c
-                  ? 'gu-bg-primary gu-text-surface'
-                  : 'gu-text-text-secondary gu-h-text-text'
-              }`}
-            >
-              {c === 'monthly' ? 'Mensual' : `Anual${savings > 0 ? ` · -${savings}%` : ''}`}
-            </button>
-          ))}
-        </div>
+        {/* Billing toggle — solo si el ciclo se elige (ver `cycleMode`). */}
+        {!inheritsCycle && (
+          <div className="mt-6 inline-flex items-center rounded-full border gu-border-border gu-bg-surface-raised p-1">
+            {(['monthly', 'yearly'] as PaywallBillingCycle[]).map((c) => (
+              <button
+                key={c}
+                type="button"
+                onClick={() => setCycle(c)}
+                aria-pressed={cycle === c}
+                className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-colors ${
+                  cycle === c
+                    ? 'gu-bg-primary gu-text-surface'
+                    : 'gu-text-text-secondary gu-h-text-text'
+                }`}
+              >
+                {c === 'monthly' ? 'Mensual' : `Anual${savings > 0 ? ` · -${savings}%` : ''}`}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Pricing */}
         <div className="mt-6 flex items-end gap-2">
@@ -288,7 +313,15 @@ export function PaywallUnified({
                 · encima de tu {premiumLabel}
               </span>
             )}
-            {cycle === 'yearly' && (
+            {/* Ciclo heredado: NO derivamos un precio/mes del anual — sería el
+                precio que NO se cobra. Se enuncian los dos reales. */}
+            {inheritsCycle && (
+              <span className="ml-1 gu-text-text-muted">
+                o {formatEUR(pricing.yearly)}/año, según el ciclo de tu{' '}
+                {premiumLabel}
+              </span>
+            )}
+            {!inheritsCycle && cycle === 'yearly' && (
               <span className="ml-1 gu-text-text-muted">
                 (facturado {formatEUR(pricing.yearly)}/año)
               </span>
