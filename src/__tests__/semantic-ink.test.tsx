@@ -17,7 +17,7 @@ import { StepIndicator } from '../StepIndicator';
 describe('semantic backgrounds ink with the theme surface, not white', () => {
   it('Pagination: the active page', () => {
     const { container } = render(
-      <Pagination total={30} page={1} pageSize={10} onPageChange={() => {}} />,
+      <Pagination page={1} totalPages={3} onPageChange={() => {}} />,
     );
     const active = container.querySelector('[aria-current="page"]') as HTMLElement;
     expect(active.className).toContain('gu-bg-primary');
@@ -28,7 +28,7 @@ describe('semantic backgrounds ink with the theme surface, not white', () => {
   it('StepIndicator: a completed step', () => {
     const { container } = render(
       <StepIndicator
-        steps={[{ id: 'a', label: 'A' }, { id: 'b', label: 'B' }]}
+        steps={[{ label: 'A' }, { label: 'B' }]}
         currentStep={1}
       />,
     );
