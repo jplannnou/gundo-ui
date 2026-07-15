@@ -1,3 +1,10 @@
+## [1.33.2](https://github.com/jplannnou/gundo-ui/compare/v1.33.1...v1.33.2) (2026-07-15)
+
+
+### Bug Fixes
+
+* **a11y:** ink semantic backgrounds with the theme surface, not white ([#74](https://github.com/jplannnou/gundo-ui/issues/74)) ([c968296](https://github.com/jplannnou/gundo-ui/commit/c968296040b8781adcdf56088e219a1d5b4bb0ea)), closes [#67C728](https://github.com/jplannnou/gundo-ui/issues/67C728) [#22c55](https://github.com/jplannnou/gundo-ui/issues/22c55) [#f87171](https://github.com/jplannnou/gundo-ui/issues/f87171)
+
 ## [1.33.1](https://github.com/jplannnou/gundo-ui/compare/v1.33.0...v1.33.1) (2026-07-15)
 
 
