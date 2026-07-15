@@ -1,3 +1,10 @@
+## [1.33.1](https://github.com/jplannnou/gundo-ui/compare/v1.33.0...v1.33.1) (2026-07-15)
+
+
+### Bug Fixes
+
+* **RadioGroup, Checkbox:** meet WCAG 1.4.11 on the dot border and the glyph ink ([#71](https://github.com/jplannnou/gundo-ui/issues/71)) ([4da4db3](https://github.com/jplannnou/gundo-ui/commit/4da4db38b20628e5600b70abcfb9b769f72e80af)), closes [#67C728](https://github.com/jplannnou/gundo-ui/issues/67C728)
+
 # [1.33.0](https://github.com/jplannnou/gundo-ui/compare/v1.32.1...v1.33.0) (2026-07-15)
 
 
