@@ -32,6 +32,21 @@ import { test, expect } from '@playwright/test';
  * If you regenerate and see a large diff, look at the image before assuming drift.
  */
 const MAX_DIFF_PIXELS = 100;
+
+/**
+ * ⚠️ A component absent from this list is NOT guarded, however green the job is.
+ * TD-009 repainted Pagination and FloatingActionButton (white ink → surface ink)
+ * and `visual` stayed green — not because it looked, but because it wasn't
+ * looking: neither had a baseline. Both are added below. StepIndicator,
+ * UploadWizard and BottomBar were repainted by the same PR and still aren't
+ * here — they have no showcase in harness.tsx yet (TD-003).
+ *
+ * To add one: give it a showcase, add it here, then generate the baseline on CI
+ * Linux (`visual.yml` → workflow_dispatch → update_snapshots) and commit it. Do
+ * NOT let a missing baseline be written by a normal run: with `retries: 2` the
+ * first attempt writes it and fails, the retry compares against what it just
+ * wrote, and the test passes — locking in whatever it happened to capture.
+ */
 const components = [
   'Button',
   'Card',
@@ -55,6 +70,8 @@ const components = [
   'ThemeToggle',
   'CopyButton',
   'SegmentedControl',
+  'Pagination',
+  'FloatingActionButton',
 ];
 
 for (const name of components) {
