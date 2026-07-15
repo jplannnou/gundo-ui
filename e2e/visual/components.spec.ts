@@ -3,6 +3,35 @@ import { test, expect } from '@playwright/test';
 // Visual snapshots — only Tier 1 (baselines committed). Tier 2 components are
 // covered by a11y.spec.ts but not visual snapshots: snapshots need a baseline
 // generated on CI Linux first (separate workflow_dispatch with update_snapshots).
+
+/**
+ * The budget is ABSOLUTE, not a ratio of the page (TD-010). These are full-page
+ * shots: 1280×720 = 921.600 px, so the old `maxDiffPixelRatio: 0.01` allowed
+ * 9.216 differing pixels — while the entire Checkbox showcase is ~1.024 px. That
+ * made the gate blind to any small component: PR #69 changed the Checkbox's
+ * border AND added a fill, and this suite reported SUCCESS.
+ *
+ * A ratio can't work here — it scales with the page, which is mostly empty
+ * background, so the more viewport you add the less the gate sees. An absolute
+ * count is independent of that. 100 is measured, not guessed: two consecutive
+ * `--update-snapshots` runs on CI produce byte-identical output for all 60
+ * baselines, so there is no jitter band to absorb — components are either
+ * pixel-identical or genuinely changed.
+ *
+ * ⚠️ WHY THE BASELINES WERE WRONG FOR MONTHS — the trap to not fall into again:
+ * `toHaveScreenshot` polls, comparing each frame against the expected image, and
+ * stops the moment one MATCHES. The harness runs on the Vite **dev** server, so
+ * `import './ui-classes.css'` is injected by JS after first paint — there is a
+ * window where components render unstyled. A baseline recorded in that window is
+ * self-perpetuating: every later run matches an early unstyled frame, stops, and
+ * passes. The suite was asserting that components look like their broken,
+ * style-less selves. `--update-snapshots` has nothing to match, so it waits for
+ * stability and captures the real render — which is why regenerating changed 41
+ * of 60 baselines (Callout by 554.392 px: the soft backgrounds were simply
+ * absent). Corollary: a green visual run does NOT prove the baseline is truthful.
+ * If you regenerate and see a large diff, look at the image before assuming drift.
+ */
+const MAX_DIFF_PIXELS = 100;
 const components = [
   'Button',
   'Card',
@@ -33,14 +62,14 @@ for (const name of components) {
     test(`dark theme`, async ({ page }) => {
       await page.goto(`/#/${name}`);
       await expect(page).toHaveScreenshot(`${name}-dark.png`, {
-        maxDiffPixelRatio: 0.01,
+        maxDiffPixels: MAX_DIFF_PIXELS,
       });
     });
 
     test(`light theme`, async ({ page }) => {
       await page.goto(`/#/${name}?theme=light`);
       await expect(page).toHaveScreenshot(`${name}-light.png`, {
-        maxDiffPixelRatio: 0.01,
+        maxDiffPixels: MAX_DIFF_PIXELS,
       });
     });
   });
@@ -69,7 +98,7 @@ for (const name of learnComponents) {
       await page.goto(`/#/${name}`);
       await page.waitForTimeout(250); // portal mount + layout settle
       await expect(page).toHaveScreenshot(`${name}-dark.png`, {
-        maxDiffPixelRatio: 0.01,
+        maxDiffPixels: MAX_DIFF_PIXELS,
       });
     });
 
@@ -78,7 +107,7 @@ for (const name of learnComponents) {
       await page.goto(`/#/${name}?theme=light`);
       await page.waitForTimeout(250);
       await expect(page).toHaveScreenshot(`${name}-light.png`, {
-        maxDiffPixelRatio: 0.01,
+        maxDiffPixels: MAX_DIFF_PIXELS,
       });
     });
   });
