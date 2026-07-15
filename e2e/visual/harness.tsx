@@ -450,14 +450,11 @@ const showcases: Record<string, () => ReactNode> = {
   ),
 
   FloatingActionButton: () => (
-    // The badge is the point: it is the --ui-bg-error surface whose ink was
-    // white at 2.77:1 (TD-009). A showcase without `badge` snapshots the button
-    // and guards nothing about it.
-    // alignItems: flex-start — without it the flex parent stretches the FAB into
-    // a tall bar and the baseline stops looking like the component.
-    <div style={{ position: 'relative', height: 120, display: 'flex', gap: 32, alignItems: 'flex-start' }}>
-      <FloatingActionButton icon={<span aria-hidden>＋</span>} label="Agregar comida" fixed={false} />
-      <FloatingActionButton icon={<span aria-hidden>＋</span>} label="Con badge" badge={3} fixed={false} />
+    // Badge on purpose: it is the --ui-bg-error surface whose ink was white at
+    // 2.77:1 (TD-009). Only one FAB — `fixed={false}` is still position:absolute
+    // in its relative parent, so a second one would just stack behind the first.
+    <div style={{ position: 'relative', height: 120 }}>
+      <FloatingActionButton icon={<span aria-hidden>＋</span>} label="Agregar comida" badge={3} fixed={false} />
     </div>
   ),
 
