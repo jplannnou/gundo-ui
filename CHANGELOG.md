@@ -1,3 +1,10 @@
+# [1.32.0](https://github.com/jplannnou/gundo-ui/compare/v1.31.1...v1.32.0) (2026-07-15)
+
+
+### Features
+
+* **PaywallUnified:** opt-in add-on tier so Premium users aren't sold Premium ([#68](https://github.com/jplannnou/gundo-ui/issues/68)) ([3b40b26](https://github.com/jplannnou/gundo-ui/commit/3b40b2636c51804fc330d08b3f94ef41c54797fc))
+
 ## [1.31.1](https://github.com/jplannnou/gundo-ui/compare/v1.31.0...v1.31.1) (2026-07-09)
 
 
