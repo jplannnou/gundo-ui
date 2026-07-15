@@ -30,12 +30,10 @@ const components = [
   'BrandHeader',
   'FormField',
   'DataTable',
-  // 'MarkdownRenderer' — excluded: links use Tailwind 4 arbitrary value
-  // `text-[var(--ui-primary)]` which the harness vite config doesn't process
-  // (no @tailwindcss/vite plugin), so links fall back to browser default
-  // #0000ee on dark surface (1.45:1 fail). Real consumer apps DO process
-  // Tailwind so the test would be a false positive. Follow-up: refactor
-  // MarkdownRenderer to plain CSS classes (same pattern as Button.css).
+  // MarkdownRenderer was excluded for the same reason as Accordion/CopyButton —
+  // the harness didn't process Tailwind, so its links fell back to #0000ee
+  // (1.45:1). harness.css fixes that, so it is checked again.
+  'MarkdownRenderer',
   'Pagination',
   'ProductCard',
   'MealCard',
@@ -62,24 +60,25 @@ const learnComponents = [
 // values). Plus .ui-btn-danger uses #b91c1c/#ffffff (5.83:1, real AA pass,
 // no longer excluded).
 //
-// Accordion: still excluded. Uses `bg-[var(--ui-surface)]` and other
-// Tailwind 4 arbitrary values for surfaces. axe-core can't resolve these
-// CSS custom properties through Tailwind's runtime cascade and reports false
-// 1.04:1 contrast (foreground #f2f4f3 vs miscomputed #efefef bg). Verified
-// manually that Accordion text contrasts correctly in both themes. Migrating
-// the surfaces to plain-CSS classes too is a follow-up.
-// CopyButton: harness false-positive. The native <button> keeps the UA
-// `buttonface` background (#efefef) because the e2e/visual vite harness has no
-// Tailwind preflight to reset it (TD-004 context). Real consumer apps run
-// Tailwind preflight (`button { background-color: transparent }`), so the
-// button sits on the dark surface and text-secondary passes. Tracked: TD-007.
-const contrastExclusions = ['Accordion', 'CopyButton'];
+// Accordion and CopyButton used to be excluded here, both for the same reason:
+// the harness had no Tailwind, so surfaces fell back to the UA `buttonface`
+// #efefef and axe computed false 1.04:1 contrast. The harness now imports
+// Tailwind (harness.css) and gets the real preflight, so the cause is gone and
+// the exclusions with it — these components are contrast-checked again.
+//
+// Nothing is excluded wholesale any more. When a violation is a genuine WCAG
+// exemption rather than a bug, mark the element `data-axe-exempt="<reason>"` in
+// the harness: it scopes the suppression to that element instead of blinding a
+// whole component, and it has to state why.
+const contrastExclusions: string[] = [];
 
 for (const name of components) {
   test.describe(name, () => {
     test('dark theme a11y', async ({ page }) => {
       await page.goto(`/#/${name}`);
-      let builder = new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']);
+      let builder = new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa'])
+        .exclude('[data-axe-exempt]');
       if (contrastExclusions.includes(name)) {
         builder = builder.disableRules(['color-contrast']);
       }
@@ -89,7 +88,9 @@ for (const name of components) {
 
     test('light theme a11y', async ({ page }) => {
       await page.goto(`/#/${name}?theme=light`);
-      let builder = new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']);
+      let builder = new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa'])
+        .exclude('[data-axe-exempt]');
       if (contrastExclusions.includes(name)) {
         builder = builder.disableRules(['color-contrast']);
       }
@@ -104,7 +105,9 @@ for (const name of learnComponents) {
     test('dark theme a11y', async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.goto(`/#/${name}`);
-      let builder = new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']);
+      let builder = new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa'])
+        .exclude('[data-axe-exempt]');
       if (contrastExclusions.includes(name)) {
         builder = builder.disableRules(['color-contrast']);
       }
@@ -115,7 +118,9 @@ for (const name of learnComponents) {
     test('light theme a11y', async ({ page }) => {
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.goto(`/#/${name}?theme=light`);
-      let builder = new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']);
+      let builder = new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa'])
+        .exclude('[data-axe-exempt]');
       if (contrastExclusions.includes(name)) {
         builder = builder.disableRules(['color-contrast']);
       }

@@ -72,6 +72,7 @@ const components = [
   'SegmentedControl',
   'Pagination',
   'FloatingActionButton',
+  'StepIndicator',
 ];
 
 for (const name of components) {

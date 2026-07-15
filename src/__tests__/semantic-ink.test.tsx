@@ -2,6 +2,8 @@ import { render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { Pagination } from '../Pagination';
 import { StepIndicator } from '../StepIndicator';
+import { BottomBar } from '../BottomBar';
+import { FloatingActionButton } from '../FloatingActionButton';
 
 /**
  * TD-009 regression. White ink on the dark theme's semantic colours fails WCAG:
@@ -38,5 +40,37 @@ describe('semantic backgrounds ink with the theme surface, not white', () => {
     expect(filled).toBeTruthy();
     expect(filled!.className).toContain('gu-text-surface');
     expect(filled!.className).not.toContain('text-white');
+  });
+
+  // The two error badges carry 9-10px bold text, where white's 2.77:1 hurts most.
+  // BottomBar is `md:hidden fixed` (mobile-only) so the 1280px visual harness
+  // can never snapshot it — this is its only guard.
+  it('BottomBar: the notification badge', () => {
+    const { container } = render(
+      <BottomBar
+        items={[
+          { label: 'Inicio', icon: <span>i</span>, to: '/', active: true },
+          { label: 'Avisos', icon: <span>a</span>, to: '/avisos', badge: 4 },
+        ]}
+      />,
+    );
+    const badge = Array.from(container.querySelectorAll('span')).find(el =>
+      el.className.includes('gu-bg-error'),
+    );
+    expect(badge).toBeTruthy();
+    expect(badge!.className).toContain('gu-text-surface');
+    expect(badge!.className).not.toContain('text-white');
+  });
+
+  it('FloatingActionButton: the count badge', () => {
+    const { container } = render(
+      <FloatingActionButton icon={<span>+</span>} label="Add" badge={3} fixed={false} />,
+    );
+    const badge = Array.from(container.querySelectorAll('span')).find(el =>
+      el.className.includes('gu-bg-error'),
+    );
+    expect(badge).toBeTruthy();
+    expect(badge!.className).toContain('gu-text-surface');
+    expect(badge!.className).not.toContain('text-white');
   });
 });

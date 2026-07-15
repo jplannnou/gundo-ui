@@ -5,14 +5,14 @@
  */
 import { createRoot } from 'react-dom/client';
 import { useState, useEffect, type ReactNode } from 'react';
-import '../../src/theme.css';
+import './harness.css';
 import {
   Button, Card, Modal, Drawer, Sheet, Toast, AlertBanner, Accordion, AccordionItem,
   Tabs, Badge, Spinner, ProgressBar, Input, Select, Checkbox, Toggle, SearchInput,
   Tooltip, EmptyState, KpiCard, Avatar, Breadcrumbs, Callout, CopyButton,
   ThemeToggle, StatusDot, SegmentedControl, Skeleton, SkeletonText,
   Popover, CodeBlock, BrandHeader, FormField, DataTable, MarkdownRenderer,
-  Pagination, ProductCard, MealCard,
+  Pagination, ProductCard, MealCard, StepIndicator,
   FloatingActionButton, ImageGallery, InlineEdit, ScoreGauge, SparklineChart, MacrosDisplay,
   TourProvider, ExplainerFlow, WhyPanel, EmptyStateEducation, ProgressCelebration,
   UnlockRing, PersonalizedLoader, FeatureHighlight,
@@ -123,7 +123,14 @@ const showcases: Record<string, () => ReactNode> = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <Toggle label="Off" checked={false} onChange={() => {}} />
       <Toggle label="On" checked={true} onChange={() => {}} />
-      <Toggle label="Disabled" disabled onChange={() => {}} />
+      {/* WCAG 1.4.3 exempts text in an inactive component, and `disabled` puts
+          opacity-50 on the label — #F2F4F3 at 50% over the surface is 4.3:1.
+          axe can't infer the exemption here (the opacity is on an ancestor and
+          the disabled input is the span's sibling, not its parent), so mark it.
+          Checkbox has the identical pattern and axe does spot it there. */}
+      <div data-axe-exempt="wcag-1.4.3-inactive-component">
+        <Toggle label="Disabled" checked={false} disabled onChange={() => {}} />
+      </div>
     </div>
   ),
 
@@ -443,10 +450,27 @@ const showcases: Record<string, () => ReactNode> = {
   ),
 
   FloatingActionButton: () => (
+    // Badge on purpose: it is the --ui-bg-error surface whose ink was white at
+    // 2.77:1 (TD-009). Only one FAB — `fixed={false}` is still position:absolute
+    // in its relative parent, so a second one would just stack behind the first.
     <div style={{ position: 'relative', height: 120 }}>
-      <FloatingActionButton icon={<span aria-hidden>＋</span>} label="Agregar comida" fixed={false} />
+      <FloatingActionButton icon={<span aria-hidden>＋</span>} label="Agregar comida" badge={3} fixed={false} />
     </div>
   ),
+
+  StepIndicator: () => (
+    <div style={{ maxWidth: 520 }}>
+      <StepIndicator
+        steps={[{ label: 'Sube' }, { label: 'Revisa' }, { label: 'Confirma' }]}
+        currentStep={1}
+      />
+    </div>
+  ),
+
+  // No BottomBar showcase on purpose: it is `md:hidden fixed`, i.e. mobile-only,
+  // and this harness renders at 1280px — it would snapshot an empty page. Its
+  // TD-009 badge repaint is pinned by semantic-ink.test.tsx instead. Covering it
+  // visually needs a mobile-viewport project (TD-003).
 
   ImageGallery: () => (
     <div style={{ width: 480 }}>
