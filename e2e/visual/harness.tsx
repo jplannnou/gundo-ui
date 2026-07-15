@@ -123,7 +123,14 @@ const showcases: Record<string, () => ReactNode> = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <Toggle label="Off" checked={false} onChange={() => {}} />
       <Toggle label="On" checked={true} onChange={() => {}} />
-      <Toggle label="Disabled" disabled onChange={() => {}} />
+      {/* WCAG 1.4.3 exempts text in an inactive component, and `disabled` puts
+          opacity-50 on the label — #F2F4F3 at 50% over the surface is 4.3:1.
+          axe can't infer the exemption here (the opacity is on an ancestor and
+          the disabled input is the span's sibling, not its parent), so mark it.
+          Checkbox has the identical pattern and axe does spot it there. */}
+      <div data-axe-exempt="wcag-1.4.3-inactive-component">
+        <Toggle label="Disabled" checked={false} disabled onChange={() => {}} />
+      </div>
     </div>
   ),
 
