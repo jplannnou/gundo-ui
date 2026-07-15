@@ -3,6 +3,21 @@ import { test, expect } from '@playwright/test';
 // Visual snapshots — only Tier 1 (baselines committed). Tier 2 components are
 // covered by a11y.spec.ts but not visual snapshots: snapshots need a baseline
 // generated on CI Linux first (separate workflow_dispatch with update_snapshots).
+
+/**
+ * The budget is ABSOLUTE, not a ratio of the page (TD-010). These are full-page
+ * shots: 1280×720 = 921.600 px, so the old `maxDiffPixelRatio: 0.01` allowed
+ * 9.216 differing pixels — while the entire Checkbox showcase is ~1.024 px. That
+ * made the gate blind to any small component: PR #69 changed the Checkbox's
+ * border AND added a fill, and this suite reported SUCCESS.
+ *
+ * A ratio can't work here — it scales with the page, which is mostly empty
+ * background, so the more viewport you add the less the gate sees. An absolute
+ * count is independent of that. Playwright's per-pixel `threshold` (0.2 YIQ,
+ * default) already absorbs anti-aliasing noise, so this only needs to cover
+ * residual subpixel jitter, not real repaints.
+ */
+const MAX_DIFF_PIXELS = 100;
 const components = [
   'Button',
   'Card',
@@ -33,14 +48,14 @@ for (const name of components) {
     test(`dark theme`, async ({ page }) => {
       await page.goto(`/#/${name}`);
       await expect(page).toHaveScreenshot(`${name}-dark.png`, {
-        maxDiffPixelRatio: 0.01,
+        maxDiffPixels: MAX_DIFF_PIXELS,
       });
     });
 
     test(`light theme`, async ({ page }) => {
       await page.goto(`/#/${name}?theme=light`);
       await expect(page).toHaveScreenshot(`${name}-light.png`, {
-        maxDiffPixelRatio: 0.01,
+        maxDiffPixels: MAX_DIFF_PIXELS,
       });
     });
   });
@@ -69,7 +84,7 @@ for (const name of learnComponents) {
       await page.goto(`/#/${name}`);
       await page.waitForTimeout(250); // portal mount + layout settle
       await expect(page).toHaveScreenshot(`${name}-dark.png`, {
-        maxDiffPixelRatio: 0.01,
+        maxDiffPixels: MAX_DIFF_PIXELS,
       });
     });
 
@@ -78,7 +93,7 @@ for (const name of learnComponents) {
       await page.goto(`/#/${name}?theme=light`);
       await page.waitForTimeout(250);
       await expect(page).toHaveScreenshot(`${name}-light.png`, {
-        maxDiffPixelRatio: 0.01,
+        maxDiffPixels: MAX_DIFF_PIXELS,
       });
     });
   });
