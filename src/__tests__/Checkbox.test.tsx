@@ -29,4 +29,25 @@ describe('Checkbox', () => {
     render(<Checkbox />);
     expect(screen.getByRole('checkbox')).toBeInTheDocument();
   });
+
+  // The visible box is a sibling <span> — the real <input> is sr-only.
+  const box = (container: HTMLElement) =>
+    container.querySelector('input')?.nextElementSibling as HTMLElement;
+
+  it('gives the unchecked box a border that meets non-text contrast', () => {
+    // Regression: --ui-border is white/10% (~1.3:1 on the dark surface), which
+    // made a 16px unfilled checkbox effectively invisible. It must not come back.
+    const { container } = render(<Checkbox label="Test" />);
+    const cls = box(container).className;
+    expect(cls).toContain('gu-border-text-muted');
+    expect(cls).not.toContain('gu-border-border');
+    expect(cls).not.toContain('bg-transparent');
+  });
+
+  it('switches the unchecked box to the primary fill when checked', () => {
+    const { container } = render(<Checkbox label="Test" checked />);
+    const cls = box(container).className;
+    expect(cls).toContain('gu-bg-primary');
+    expect(cls).not.toContain('gu-border-text-muted');
+  });
 });
