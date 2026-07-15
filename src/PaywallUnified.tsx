@@ -25,6 +25,19 @@ export interface PaywallRoi {
   description?: string;
 }
 
+/**
+ * An add-on sold ON TOP of the base Premium plan (e.g. GUNDO Live, €4,99/mes).
+ * Providing it turns the comparison into three tiers — Free · Premium ·
+ * Premium + add-on — so a user who is ALREADY Premium is never told to
+ * "become Premium" for something Premium does not include.
+ */
+export interface PaywallAddonTier {
+  /** Third column header + CTA subject, e.g. `GUNDO Live`. */
+  label: string;
+  /** CTA when the user already has the base plan (default: `Añadir {label}`). */
+  ctaLabel?: string;
+}
+
 export interface PaywallUnifiedProps {
   /** What locked surface triggered this paywall */
   trigger: PaywallTrigger;
@@ -41,6 +54,20 @@ export interface PaywallUnifiedProps {
   onDismiss?: () => void;
   /** Replace the comparison matrix */
   featureMatrix?: PaywallFeatureRow[];
+  /**
+   * Opt-in third tier: an add-on that rides on top of Premium. When provided,
+   * the matrix renders a third column from each row's `addon` value. Omit it
+   * and the paywall stays exactly the Free-vs-Premium one.
+   */
+  addon?: PaywallAddonTier;
+  /**
+   * The user already pays for the base Premium plan. Only meaningful with
+   * `addon`: flips the header and CTA from "become Premium" to "add the
+   * add-on", since Premium is already theirs.
+   */
+  hasBasePlan?: boolean;
+  /** Override the primary CTA label entirely. */
+  ctaLabel?: string;
   /** Inline ROI tiles */
   roi?: PaywallRoi[];
   /** Social proof */
@@ -54,6 +81,8 @@ export interface PaywallFeatureRow {
   feature: string;
   free: string | boolean;
   premium: string | boolean;
+  /** Third-column value. Rendered only when an `addon` tier is provided. */
+  addon?: string | boolean;
   highlight?: boolean;
 }
 
@@ -153,6 +182,9 @@ export function PaywallUnified({
   subtitle,
   onDismiss,
   featureMatrix = defaultMatrix,
+  addon,
+  hasBasePlan = false,
+  ctaLabel,
   roi,
   testimonials,
   footer,
@@ -163,6 +195,16 @@ export function PaywallUnified({
   const savings = savingsPercent(pricing);
   const displayPrice =
     cycle === 'yearly' ? yearlyPerMonth(pricing) : pricing.monthly;
+
+  // With an add-on tier, someone who already pays for Premium is buying the
+  // add-on — not Premium. Anything else would be selling them what they have.
+  const sellingAddon = Boolean(addon) && hasBasePlan;
+  const primaryCta =
+    ctaLabel ??
+    (sellingAddon
+      ? (addon?.ctaLabel ?? `Añadir ${addon?.label}`)
+      : `Hacerme Premium${plan === 'plus' ? '+' : ''}`);
+  const premiumLabel = `Premium${plan === 'plus' ? '+' : ''}`;
 
   return (
     <section
@@ -198,8 +240,16 @@ export function PaywallUnified({
             className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold text-white"
             style={{ background: 'var(--ui-gradient)' }}
           >
-            Premium {plan === 'plus' ? '+' : ''}
+            {addon ? addon.label : `Premium ${plan === 'plus' ? '+' : ''}`}
           </span>
+          {sellingAddon && (
+            <span className="inline-flex items-center gap-1.5 rounded-full gu-bg-success-soft gu-text-success px-3 py-1 text-xs font-semibold">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Ya eres {premiumLabel}
+            </span>
+          )}
           <h2 id="paywall-title" className="text-2xl font-bold leading-tight">
             <span className="mr-2" aria-hidden="true">{copy.emoji}</span>
             {title ?? copy.title}
@@ -233,6 +283,11 @@ export function PaywallUnified({
           <span className="text-5xl font-bold tabular-nums">{formatEUR(displayPrice)}</span>
           <span className="pb-1.5 text-sm gu-text-text-secondary">
             /mes
+            {sellingAddon && (
+              <span className="ml-1 gu-text-text-muted">
+                · encima de tu {premiumLabel}
+              </span>
+            )}
             {cycle === 'yearly' && (
               <span className="ml-1 gu-text-text-muted">
                 (facturado {formatEUR(pricing.yearly)}/año)
@@ -272,9 +327,18 @@ export function PaywallUnified({
                 <th className="px-3 py-2 text-xs font-semibold">
                   Free
                 </th>
-                <th className="px-3 py-2 text-xs font-semibold gu-text-primary">
-                  Premium{plan === 'plus' ? '+' : ''}
+                <th
+                  className={`px-3 py-2 text-xs font-semibold ${
+                    addon ? '' : 'gu-text-primary'
+                  }`}
+                >
+                  {premiumLabel}
                 </th>
+                {addon && (
+                  <th className="px-3 py-2 text-xs font-semibold gu-text-primary">
+                    + {addon.label}
+                  </th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -292,6 +356,11 @@ export function PaywallUnified({
                   <td className="px-3 py-2 text-center">
                     <Cell value={row.premium} />
                   </td>
+                  {addon && (
+                    <td className="px-3 py-2 text-center">
+                      <Cell value={row.addon ?? false} />
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
@@ -324,7 +393,7 @@ export function PaywallUnified({
             className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white gu-shadow-shadow-md transition-transform hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
             style={{ background: 'var(--ui-gradient)' }}
           >
-            Hacerme Premium{plan === 'plus' ? '+' : ''}
+            {primaryCta}
           </button>
           {onDismiss && (
             <button
