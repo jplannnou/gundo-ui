@@ -1,3 +1,10 @@
+# [1.34.0](https://github.com/jplannnou/gundo-ui/compare/v1.33.2...v1.34.0) (2026-07-16)
+
+
+### Features
+
+* **widget:** continuousSignalsSummary en ChatHealthContext (GUNDO Live 4c) ([#76](https://github.com/jplannnou/gundo-ui/issues/76)) ([2424401](https://github.com/jplannnou/gundo-ui/commit/242440191205e98e0b3e51f019ad89f17f6bad51))
+
 ## [1.33.2](https://github.com/jplannnou/gundo-ui/compare/v1.33.1...v1.33.2) (2026-07-15)
 
 
