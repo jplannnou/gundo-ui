@@ -134,6 +134,17 @@ export interface ChatHealthContext {
    * it under ~600 chars; the Engine renders a dedicated context block.
    */
   checkInInsightsSummary?: string;
+
+  /**
+   * GUNDO Live: compact summary of the user's continuous-signal snapshot
+   * (wearable/CGM daily deriveds — sleep, HRV, steps, glucose distribution,
+   * weight trend) + recent postprandial responses. The OBJECTIVE twin of
+   * checkInInsightsSummary (subjective check-in). The host builds it from
+   * genie's `continuousSignals` (freshness ≤48h) and postprandial insights.
+   * Keep it under ~600 chars; wellness context only — the Engine's prompt
+   * block forbids diagnostic use.
+   */
+  continuousSignalsSummary?: string;
 }
 
 export interface SendMessageParams extends ChatHealthContext {
@@ -192,6 +203,8 @@ export class ChatClient {
       fd.append('familyMemberCount', String(params.familyMemberCount));
     if (params.checkInInsightsSummary)
       fd.append('checkInInsightsSummary', params.checkInInsightsSummary);
+    if (params.continuousSignalsSummary)
+      fd.append('continuousSignalsSummary', params.continuousSignalsSummary);
     if (params.media?.length) params.media.forEach((file) => fd.append('media', file));
     return fd;
   }
