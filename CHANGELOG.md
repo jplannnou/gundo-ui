@@ -1,3 +1,10 @@
+## [1.34.1](https://github.com/jplannnou/gundo-ui/compare/v1.34.0...v1.34.1) (2026-07-17)
+
+
+### Bug Fixes
+
+* **theme:** TD-013 — oscurecer el verde del gradiente de marca para WCAG AA ([#77](https://github.com/jplannnou/gundo-ui/issues/77)) ([64cd55e](https://github.com/jplannnou/gundo-ui/commit/64cd55e619175c55aee12b9342415a8b8af9988c)), closes [#409C35](https://github.com/jplannnou/gundo-ui/issues/409C35) [#67C728](https://github.com/jplannnou/gundo-ui/issues/67C728) [#24495](https://github.com/jplannnou/gundo-ui/issues/24495) [#08563](https://github.com/jplannnou/gundo-ui/issues/08563) [#409C35](https://github.com/jplannnou/gundo-ui/issues/409C35) [#36852](https://github.com/jplannnou/gundo-ui/issues/36852) [#67C728](https://github.com/jplannnou/gundo-ui/issues/67C728) [#428417](https://github.com/jplannnou/gundo-ui/issues/428417)
+
 # [1.34.0](https://github.com/jplannnou/gundo-ui/compare/v1.33.2...v1.34.0) (2026-07-16)
 
 
