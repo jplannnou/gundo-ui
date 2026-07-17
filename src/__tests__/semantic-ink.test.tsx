@@ -13,8 +13,11 @@ import { FloatingActionButton } from '../FloatingActionButton';
  * #f87171 = 2.77:1. --ui-surface flips with the theme, so it clears AA on both
  * grounds (primary: 6.35:1 dark / 8.71:1 light).
  *
- * The exception is --ui-gradient (PaywallUnified): it does NOT flip, so its ink
- * must not either — surface-dark on the gradient's blue end is 1.41:1.
+ * The exception is --ui-gradient (PaywallUnified): it keeps WHITE ink in both
+ * themes. Each theme's gradient starts on a dark end (blue #24495A dark / deep
+ * green #08563E light) where surface-dark is invisible (1.41:1) and only white
+ * works; the green end is darkened (dark #36852C, light #428417) so white also
+ * clears AA there (4.6:1). TD-013.
  */
 describe('semantic backgrounds ink with the theme surface, not white', () => {
   it('Pagination: the active page', () => {

@@ -27,8 +27,12 @@
   --ui-tertiary-hover: #1e3d4c;
   --ui-tertiary-soft: rgb(36 73 90 / 0.15);
 
-  /* Brand gradient */
-  --ui-gradient: linear-gradient(135deg, #24495A, #409C35);
+  /* Brand gradient. Ink on top is always white (PaywallUnified/MagicLinkAuth):
+     the blue start #24495A needs it (surface-dark is 1.41:1 there). The green
+     end is #36852C — darkened from the old #409C35 so white clears WCAG AA
+     normal (4.6:1 vs the old 3.49:1) across the whole sweep. Do NOT restore a
+     brighter green: white text on it fails AA. TD-013. */
+  --ui-gradient: linear-gradient(135deg, #24495A, #36852C);
 
   /* Surface colors — brandbook charcoal (backgrounds) */
   --ui-surface: #292E37;
@@ -214,7 +218,10 @@
   --ui-tertiary-hover: #5ab322;
   --ui-tertiary-soft: rgb(103 199 40 / 0.1);
 
-  --ui-gradient: linear-gradient(135deg, #08563E, #67C728);
+  /* Green end darkened from the old #67C728 (white was 2.15:1 — worse than the
+     dark theme) to #428417 so white clears WCAG AA normal (4.6:1). See the dark
+     theme's gradient note. TD-013. */
+  --ui-gradient: linear-gradient(135deg, #08563E, #428417);
 
   /* Surface — brandbook warm off-white */
   --ui-surface: #F2F4F3;
