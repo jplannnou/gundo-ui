@@ -115,6 +115,10 @@ export { StepWizard, StepWizardModal, StepWizardProgress, StepWizardContent, Ste
 export type { StepWizardProps, StepWizardModalProps, WizardStep } from './StepWizard';
 export { ScoreGauge, ScoreGaugeMini, DEFAULT_SCORE_BANDS, MATCH_SCORE_BANDS } from './ScoreGauge';
 export type { ScoreGaugeProps, ScoreGaugeMiniProps, ScoreGaugeVariant, ScoreBand } from './ScoreGauge';
+export { GamificationWidget } from './GamificationWidget';
+export type { GamificationWidgetProps } from './GamificationWidget';
+export { RewardsGallery } from './RewardsGallery';
+export type { RewardsGalleryProps, RewardItem } from './RewardsGallery';
 export { SenderIdentity } from './SenderIdentity';
 export type { SenderIdentityProps, SenderIdentityActor, SenderIdentityVariant } from './SenderIdentity';
 export { CodeBlock } from './CodeBlock';
