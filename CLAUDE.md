@@ -23,8 +23,8 @@
 --ui-tertiary: #24495A;  --ui-tertiary-hover: #1e3d4c;
 --ui-tertiary-soft: rgb(36 73 90 / 0.15);
 
-/* Brand gradient */
---ui-gradient: linear-gradient(135deg, #24495A, #409C35);
+/* Brand gradient — green end darkened for WCAG AA (white ink), TD-013 */
+--ui-gradient: linear-gradient(135deg, #24495A, #36852C);
 
 /* Surfaces — brandbook charcoal (dark-first) */
 --ui-surface: #292E37;

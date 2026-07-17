@@ -258,13 +258,13 @@ export function PaywallUnified({
         {/* Header */}
         <header className="flex flex-col items-start gap-3">
           <span
-            // text-white intencional, NO cambiar a gu-text-surface (TD-009): el
-            // fondo es --ui-gradient, que NO voltea con el tema, así que la tinta
-            // tampoco debe. Medido sobre el extremo azul #24495A: blanco 9.65:1,
-            // surface-dark 1.41:1 — invisible. El blanco es lo correcto aquí.
-            // Pendiente aparte: sobre el extremo verde #409C35 el blanco da
-            // 3.49:1, corto para AA normal (4.5:1) — se arregla oscureciendo el
-            // gradiente, que es decisión de marca.
+            // text-white intencional, NO cambiar a gu-text-surface (TD-009): en
+            // ambos temas el gradiente arranca en un extremo oscuro (azul #24495A
+            // dark / verde profundo #08563E light) donde surface-dark es invisible
+            // (1.41:1) y solo el blanco funciona. El extremo verde se oscureció
+            // (dark #36852C, light #428417) para que el blanco clave AA normal
+            // (4.6:1) en todo el gradiente — TD-013 resuelto (antes 3.49:1 dark /
+            // 2.15:1 light).
             className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold text-white"
             style={{ background: 'var(--ui-gradient)' }}
           >
