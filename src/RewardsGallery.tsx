@@ -71,6 +71,7 @@ export function RewardsGallery({
       className={`gu-grid ${gridCols[columns]} gu-gap-4 gu-w-full ${className || ''}`}
       role="region"
       aria-label="Catálogo de recompensas"
+      data-testid="rewards-gallery"
     >
       {rewards.map((reward) => {
         const canRedeem =
@@ -82,6 +83,7 @@ export function RewardsGallery({
             className="gu-flex gu-flex-col gu-justify-between gu-h-full hover:gu-bg-surface-hover gu-transition-colors"
             role="article"
             aria-label={reward.name}
+            data-testid="reward-card"
           >
             {/* Icon/Image */}
             {reward.image ? (

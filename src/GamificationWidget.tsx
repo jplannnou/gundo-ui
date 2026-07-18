@@ -48,6 +48,7 @@ export function GamificationWidget({
     <div
       role="region"
       aria-label="Gamificación"
+      data-testid="gamification-widget"
       className={`gu-p-4 gu-bg-surface gu-rounded-lg gu-border gu-border-edge ${className || ''}`}
     >
       <Stack
