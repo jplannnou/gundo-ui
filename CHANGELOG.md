@@ -1,3 +1,12 @@
+# [1.35.0](https://github.com/jplannnou/gundo-ui/compare/v1.34.1...v1.35.0) (2026-07-18)
+
+
+### Features
+
+* add GamificationWidget and RewardsGallery composites for engagement UI ([28841ed](https://github.com/jplannnou/gundo-ui/commit/28841ed69031d250d9ff5c417c1395d72c5e95ff))
+* add PointsThisMonthCard component for monthly rewards tracking ([52cdbb0](https://github.com/jplannnou/gundo-ui/commit/52cdbb090b4515fdbd84ad4f7edc50a0571b8f52))
+* **widget:** continuousSignalsSummary en ChatHealthContext (GUNDO Live 4c) ([26d5f02](https://github.com/jplannnou/gundo-ui/commit/26d5f029ddf4d9f6d49e0845fde1b502e8fa8298))
+
 ## [1.34.1](https://github.com/jplannnou/gundo-ui/compare/v1.34.0...v1.34.1) (2026-07-17)
 
 
