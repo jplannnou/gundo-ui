@@ -186,6 +186,8 @@ export { RewardsGallery } from "./RewardsGallery";
 export type { RewardsGalleryProps, RewardItem } from "./RewardsGallery";
 export { StreakCard } from "./StreakCard";
 export type { StreakCardProps, HeatmapDay } from "./StreakCard";
+export { PointsThisMonthCard } from "./PointsThisMonthCard";
+export type { PointsThisMonthCardProps } from "./PointsThisMonthCard";
 export { SenderIdentity } from "./SenderIdentity";
 export type {
   SenderIdentityProps,
