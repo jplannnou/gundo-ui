@@ -65,27 +65,27 @@ export function StreakCard({
 
   return (
     <Card
-      className={`gu-flex gu-flex-col gu-gap-4 ${className || ""}`}
+      className={`flex flex-col gap-4 ${className || ""}`}
       role="region"
       aria-label={label}
       data-testid="streak-card"
     >
       {/* Header */}
-      <div className="gu-flex gu-justify-between gu-items-center">
-        <h3 className="gu-font-semibold gu-text-lg">{label}</h3>
-        <Badge variant="success" className="gu-text-base">
+      <div className="flex justify-between items-center">
+        <h3 className="font-semibold text-lg">{label}</h3>
+        <Badge variant="success" className="text-base">
           🔥 {days} {days === 1 ? "día" : "días"}
         </Badge>
       </div>
 
       {/* Heatmap */}
       <div
-        className="gu-grid gu-gap-2"
+        className="grid gap-2"
         role="grid"
         aria-label="Últimos 28 días de racha"
       >
         {weeks.map((week, weekIdx) => (
-          <div key={weekIdx} className="gu-flex gu-gap-1" role="row">
+          <div key={weekIdx} className="flex gap-1" role="row">
             {week.map((day, dayIdx) => {
               const isToday = day.date === today;
               const isFrozenDay = day.isFrozen;
@@ -97,11 +97,11 @@ export function StreakCard({
                   aria-label={`${day.date}: ${day.completed ? "completado" : "no completado"}${isFrozenDay ? ", congelado" : ""}`}
                   title={day.date}
                   data-testid="heatmap-cell"
-                  className={`gu-w-8 gu-h-8 gu-rounded-full gu-flex gu-items-center gu-justify-center gu-text-xs gu-font-medium gu-transition-all ${
+                  className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium transition-all ${
                     day.completed
                       ? "gu-bg-primary gu-text-surface"
-                      : "gu-bg-surface-hover gu-text-muted"
-                  } ${isToday ? "gu-ring-2 gu-ring-primary" : ""}`}
+                      : "gu-bg-surface-hover gu-text-text-muted"
+                  } ${isToday ? "border-2 gu-border-primary" : ""}`}
                 >
                   {isFrozenDay ? "🔒" : day.completed ? "✓" : "·"}
                 </div>
@@ -112,13 +112,13 @@ export function StreakCard({
       </div>
 
       {/* Legend */}
-      <div className="gu-flex gu-gap-3 gu-text-xs gu-text-secondary gu-pt-2 gu-border-t gu-border-edge">
-        <div className="gu-flex gu-items-center gu-gap-1">
-          <div className="gu-w-3 gu-h-3 gu-rounded-full gu-bg-primary" />
+      <div className="flex gap-3 text-xs gu-text-text-secondary pt-2 border-t gu-border-border">
+        <div className="flex items-center gap-1">
+          <div className="w-3 h-3 rounded-full gu-bg-primary" />
           Completado
         </div>
-        <div className="gu-flex gu-items-center gu-gap-1">
-          <div className="gu-w-3 gu-h-3 gu-rounded-full gu-bg-surface-hover" />
+        <div className="flex items-center gap-1">
+          <div className="w-3 h-3 rounded-full gu-bg-surface-hover" />
           No completado
         </div>
       </div>
@@ -128,18 +128,18 @@ export function StreakCard({
         <Stack
           direction="column"
           gap="2"
-          className="gu-pt-2 gu-border-t gu-border-edge"
+          className="pt-2 border-t gu-border-border"
         >
           <Button
             onClick={onFreeze}
             disabled={!freezeEligible || isFreezeLoading}
             variant={freezeEligible ? "primary" : "secondary"}
             size="sm"
-            className="gu-w-full"
+            className="w-full"
             aria-busy={isFreezeLoading}
           >
             {isFreezeLoading ? (
-              <span className="gu-flex gu-items-center gu-gap-2">
+              <span className="flex items-center gap-2">
                 <Spinner size="sm" />
                 Congelando...
               </span>
@@ -149,13 +149,13 @@ export function StreakCard({
           </Button>
 
           {freezeError && (
-            <p className="gu-text-xs gu-text-error gu-text-center">
+            <p className="text-xs gu-text-error text-center">
               {freezeError}
             </p>
           )}
 
           {!freezeEligible && !isFreezeLoading && (
-            <p className="gu-text-xs gu-text-muted gu-text-center">
+            <p className="text-xs gu-text-text-muted text-center">
               {`Ya usaste los ${maxFreezes} congelamientos permitidos este mes`}
             </p>
           )}

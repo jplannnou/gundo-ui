@@ -33,21 +33,21 @@ export function PointsThisMonthCard({
     <Card className={className} data-testid="points-this-month-card">
       <Stack direction="column" gap="4">
         <div>
-          <p className="gu-text-secondary gu-text-sm gu-mb-2">
+          <p className="gu-text-text-secondary text-sm mb-2">
             Puntos este mes
           </p>
-          <div className="gu-flex gu-items-baseline gu-gap-3">
-            <span className="gu-text-3xl gu-font-bold gu-text-primary">
+          <div className="flex items-baseline gap-3">
+            <span className="text-3xl font-bold gu-text-primary">
               {earnedThisMonth}
             </span>
             {trend && (
               <span
-                className={`gu-text-sm gu-font-medium ${
+                className={`text-sm font-medium ${
                   trend === "up"
                     ? "gu-text-success"
                     : trend === "down"
                       ? "gu-text-error"
-                      : "gu-text-secondary"
+                      : "gu-text-text-secondary"
                 }`}
               >
                 {trend === "up"
@@ -61,8 +61,8 @@ export function PointsThisMonthCard({
         </div>
 
         {earnedLastMonth !== undefined && (
-          <div className="gu-pt-2 gu-border-t gu-border-edge">
-            <p className="gu-text-xs gu-text-secondary">
+          <div className="pt-2 border-t gu-border-border">
+            <p className="text-xs gu-text-text-secondary">
               Mes pasado: {earnedLastMonth}
             </p>
           </div>

@@ -50,8 +50,8 @@ export function RewardsGallery({
 }: RewardsGalleryProps) {
   if (isLoading) {
     return (
-      <div className="gu-text-center gu-py-12">
-        <p className="gu-text-secondary">Cargando recompensas...</p>
+      <div className="text-center py-12">
+        <p className="gu-text-text-secondary">Cargando recompensas...</p>
       </div>
     );
   }
@@ -61,26 +61,26 @@ export function RewardsGallery({
   }
 
   const gridCols: Record<2 | 3 | 4, string> = {
-    2: 'gu-grid-cols-2',
-    3: 'gu-grid-cols-3',
-    4: 'gu-grid-cols-4',
+    2: 'grid-cols-1 sm:grid-cols-2',
+    3: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
+    4: 'grid-cols-2 lg:grid-cols-4',
   };
 
   return (
     <div
-      className={`gu-grid ${gridCols[columns]} gu-gap-4 gu-w-full ${className || ''}`}
+      className={`grid ${gridCols[columns]} gap-4 w-full ${className || ''}`}
       role="region"
       aria-label="Catálogo de recompensas"
       data-testid="rewards-gallery"
     >
       {rewards.map((reward) => {
-        const canRedeem =
-          reward.isRedeemable !== false && pointsBalance >= reward.pointsRequired;
+        const lockedByTier = reward.isRedeemable === false;
+        const canRedeem = !lockedByTier && pointsBalance >= reward.pointsRequired;
 
         return (
           <Card
             key={reward.id}
-            className="gu-flex gu-flex-col gu-justify-between gu-h-full hover:gu-bg-surface-hover gu-transition-colors"
+            className="flex flex-col justify-between h-full gu-h-bg-surface-hover transition-colors"
             role="article"
             aria-label={reward.name}
             data-testid="reward-card"
@@ -90,22 +90,22 @@ export function RewardsGallery({
               <img
                 src={reward.image}
                 alt={reward.name}
-                className="gu-w-full gu-h-32 gu-object-cover gu-rounded-md gu-mb-3"
+                className="w-full h-32 object-cover rounded-md mb-3"
               />
             ) : reward.icon ? (
-              <div className="gu-flex gu-justify-center gu-mb-3 gu-text-4xl">
+              <div className="flex justify-center mb-3 text-4xl">
                 {reward.icon}
               </div>
             ) : null}
 
             {/* Content */}
-            <Stack direction="column" gap="2" className="gu-flex-1">
-              <h3 className="gu-font-semibold gu-text-base gu-line-clamp-2">
+            <Stack direction="column" gap="2" className="flex-1">
+              <h3 className="font-semibold text-base line-clamp-2">
                 {reward.name}
               </h3>
 
               {reward.description && (
-                <p className="gu-text-sm gu-text-secondary gu-line-clamp-2">
+                <p className="text-sm gu-text-text-secondary line-clamp-2">
                   {reward.description}
                 </p>
               )}
@@ -116,9 +116,9 @@ export function RewardsGallery({
             </Stack>
 
             {/* Points & Action */}
-            <Stack direction="column" gap="3" className="gu-mt-4">
-              <div className="gu-flex gu-items-center gu-justify-between">
-                <span className="gu-text-sm gu-font-medium gu-text-secondary">
+            <Stack direction="column" gap="3" className="mt-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium gu-text-text-secondary">
                   Puntos
                 </span>
                 <Badge variant={canRedeem ? 'success' : 'secondary'}>
@@ -131,15 +131,21 @@ export function RewardsGallery({
                 disabled={!canRedeem}
                 variant={canRedeem ? 'primary' : 'secondary'}
                 size="sm"
-                className="gu-w-full"
+                className="w-full"
               >
                 {reward.redeemText || 'Canjear'}
               </Button>
 
-              {!canRedeem && (
-                <p className="gu-text-xs gu-text-muted gu-text-center">
-                  Necesitás {reward.pointsRequired - pointsBalance} puntos más
+              {lockedByTier ? (
+                <p className="text-xs gu-text-text-muted text-center">
+                  Bloqueado por tu nivel
                 </p>
+              ) : (
+                !canRedeem && (
+                  <p className="text-xs gu-text-text-muted text-center">
+                    Necesitas {reward.pointsRequired - pointsBalance} puntos más
+                  </p>
+                )
               )}
             </Stack>
           </Card>

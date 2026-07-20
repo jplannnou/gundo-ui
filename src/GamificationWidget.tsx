@@ -49,14 +49,14 @@ export function GamificationWidget({
       role="region"
       aria-label="Gamificación"
       data-testid="gamification-widget"
-      className={`gu-p-4 gu-bg-surface gu-rounded-lg gu-border gu-border-edge ${className || ''}`}
+      className={`p-4 gu-bg-surface rounded-lg border gu-border-border ${className || ''}`}
     >
       <Stack
         direction="column"
         gap="4"
       >
         {/* Points gauge */}
-        <div className="gu-flex gu-justify-center">
+        <div className="flex justify-center">
           <ScoreGauge
             score={Math.min(points, 100)}
             label={pointsLabel}
@@ -69,9 +69,9 @@ export function GamificationWidget({
 
         {/* Streak progress */}
         {streakProgress > 0 && (
-          <div className="gu-w-full">
-            <div className="gu-flex gu-justify-between gu-items-center gu-mb-2">
-              <span className="gu-text-sm gu-font-medium gu-text-secondary">
+          <div className="w-full">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm font-medium gu-text-text-secondary">
                 {streakLabel}
               </span>
               {streak > 0 && (
@@ -86,13 +86,13 @@ export function GamificationWidget({
 
         {/* Tier badge */}
         {tier && (
-          <div className="gu-flex gu-justify-center">
+          <div className="flex justify-center">
             <Badge variant="purple">{tier}</Badge>
           </div>
         )}
 
         {/* Action button/content */}
-        {action && <div className="gu-mt-2">{action}</div>}
+        {action && <div className="mt-2">{action}</div>}
       </Stack>
     </div>
   );
