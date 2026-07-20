@@ -1,3 +1,10 @@
+## [1.35.1](https://github.com/jplannnou/gundo-ui/compare/v1.35.0...v1.35.1) (2026-07-20)
+
+
+### Bug Fixes
+
+* **streak:** habilitar congelar racha cuando quedan freezes disponibles ([6c53f99](https://github.com/jplannnou/gundo-ui/commit/6c53f9901cd60136fd8a13aeebf664afd0907c3e))
+
 # [1.35.0](https://github.com/jplannnou/gundo-ui/compare/v1.34.1...v1.35.0) (2026-07-18)
 
 
