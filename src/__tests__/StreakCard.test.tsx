@@ -47,7 +47,10 @@ describe("StreakCard", () => {
     expect(freezeButton).not.toBeDisabled();
   });
 
-  it("disables freeze button when freezesRemaining >= maxFreezes", () => {
+  it("enables freeze button when all freezes are still available", () => {
+    // Regresión: la lógica anterior (freezesRemaining < maxFreezes)
+    // deshabilitaba el botón justo cuando el usuario tenía TODOS los
+    // congelamientos disponibles.
     render(
       <StreakCard
         days={3}
@@ -59,7 +62,25 @@ describe("StreakCard", () => {
     );
 
     const freezeButton = screen.getByRole("button", { name: /Congelar/ });
+    expect(freezeButton).not.toBeDisabled();
+  });
+
+  it("disables freeze button when no freezes remain", () => {
+    render(
+      <StreakCard
+        days={3}
+        heatmapData={mockHeatmapData}
+        canFreeze={true}
+        freezesRemaining={0}
+        maxFreezes={2}
+      />,
+    );
+
+    const freezeButton = screen.getByRole("button", { name: /Congelar/ });
     expect(freezeButton).toBeDisabled();
+    expect(
+      screen.getByText(/Ya usaste los 2 congelamientos/),
+    ).toBeInTheDocument();
   });
 
   it("calls onFreeze callback when button is clicked", () => {
@@ -70,7 +91,7 @@ describe("StreakCard", () => {
         days={7}
         heatmapData={mockHeatmapData}
         canFreeze={true}
-        freezesRemaining={0}
+        freezesRemaining={1}
         maxFreezes={2}
         onFreeze={handleFreeze}
       />,

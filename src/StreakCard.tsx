@@ -58,7 +58,10 @@ export function StreakCard({
     heatmapData.slice(weekIdx * 7, (weekIdx + 1) * 7),
   );
 
-  const freezeEligible = canFreeze && freezesRemaining < maxFreezes;
+  // Eligible mientras queden congelamientos disponibles este mes. (Antes
+  // comparaba `freezesRemaining < maxFreezes`, que deshabilitaba el botón
+  // justo cuando el usuario tenía TODOS los freezes disponibles.)
+  const freezeEligible = canFreeze && freezesRemaining > 0;
 
   return (
     <Card
@@ -153,9 +156,7 @@ export function StreakCard({
 
           {!freezeEligible && !isFreezeLoading && (
             <p className="gu-text-xs gu-text-muted gu-text-center">
-              {freezesRemaining >= maxFreezes
-                ? `Ya usaste los ${maxFreezes} congelamientos permitidos este mes`
-                : `${freezesRemaining}/${maxFreezes} congelamientos usados`}
+              {`Ya usaste los ${maxFreezes} congelamientos permitidos este mes`}
             </p>
           )}
         </Stack>
