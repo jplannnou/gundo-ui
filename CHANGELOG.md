@@ -1,3 +1,10 @@
+## [1.35.2](https://github.com/jplannnou/gundo-ui/compare/v1.35.1...v1.35.2) (2026-07-20)
+
+
+### Bug Fixes
+
+* **gamification:** render gamification components with real layout ([c23780b](https://github.com/jplannnou/gundo-ui/commit/c23780b137a3342f3b2e982856a53e30b90f5006))
+
 ## [1.35.1](https://github.com/jplannnou/gundo-ui/compare/v1.35.0...v1.35.1) (2026-07-20)
 
 
