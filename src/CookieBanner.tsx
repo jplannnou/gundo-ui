@@ -32,6 +32,18 @@ export interface CookieBannerProps {
   /** Position (default: 'bottom') */
   position?: 'bottom' | 'bottom-left' | 'bottom-right';
   className?: string;
+  /**
+   * Textos de los botones. Estaban cosidos en español dentro de la librería,
+   * así que en una app con siete idiomas el usuario alemán leía "Aceptar
+   * todas". El consentimiento tiene que pedirse en un lenguaje claro y
+   * comprensible para quien lo da (RGPD art. 12.1) y en Cataluña además debe
+   * estar disponible en catalán (Codi de consum, art. 128-1). El defecto sigue
+   * en español para no romper a quien no los pase.
+   */
+  acceptLabel?: string;
+  rejectLabel?: string;
+  savePreferencesLabel?: string;
+  customizeLabel?: string;
 }
 
 const DEFAULT_CATEGORIES: CookieCategory[] = [
@@ -39,6 +51,13 @@ const DEFAULT_CATEGORIES: CookieCategory[] = [
   { id: 'analytics', label: 'Analíticas', description: 'Nos ayudan a entender cómo interactúas con el sitio.' },
   { id: 'marketing', label: 'Marketing', description: 'Usadas para mostrarte publicidad relevante.' },
 ];
+
+/**
+ * Lo que aceptar y rechazar comparten: tamaño, grosor y borde. Solo el color
+ * los distingue, que es lo que permite que ninguno pese más que el otro.
+ */
+const SAME_BUTTON =
+  'flex-1 rounded-lg border px-4 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary';
 
 const positionClasses: Record<string, string> = {
   bottom: 'bottom-0 left-0 right-0 mx-4 mb-4 sm:mx-auto sm:max-w-2xl',
@@ -58,6 +77,10 @@ export function CookieBanner({
   description = 'Usamos cookies para mejorar tu experiencia y analizar el tráfico del sitio. Puedes aceptar todas o personalizar tus preferencias.',
   privacyPolicyUrl,
   privacyPolicyLabel = 'Política de privacidad',
+  acceptLabel = 'Aceptar todas',
+  rejectLabel = 'Solo necesarias',
+  savePreferencesLabel = 'Guardar preferencias',
+  customizeLabel,
   variant = 'simple',
   position = 'bottom',
   className = '',
@@ -129,21 +152,28 @@ export function CookieBanner({
           </ul>
         )}
 
-        {/* Actions */}
+        {/* Actions
+            Aceptar iba RELLENO y rechazar en contorno, con lo que aceptar
+            pesaba mucho más en la mirada. La guía de cookies de la AEPD pide
+            que rechazar sea tan accesible y VISIBLE como aceptar (y el CEPD lo
+            trata como patrón engañoso), así que los dos comparten ahora tamaño,
+            grosor, borde y relleno; solo cambia el color. `SAME_BUTTON` existe
+            para que un cambio de estilo no pueda volver a desequilibrarlos sin
+            que se note. */}
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
             onClick={onAcceptAll}
-            className="flex-1 rounded-lg gu-bg-primary px-4 py-2 text-xs font-semibold gu-text-surface transition-colors gu-h-bg-primary-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
+            className={`${SAME_BUTTON} gu-bg-primary gu-text-surface gu-border-primary gu-h-bg-primary-hover`}
           >
-            Aceptar todas
+            {acceptLabel}
           </button>
           <button
             type="button"
             onClick={onRejectAll}
-            className="flex-1 rounded-lg border gu-border-border px-4 py-2 text-xs font-semibold gu-text-text transition-colors gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
+            className={`${SAME_BUTTON} gu-bg-surface-hover gu-text-text gu-border-border gu-h-bg-surface-hover`}
           >
-            Solo necesarias
+            {rejectLabel}
           </button>
           {variant === 'detailed' && (
             <>
@@ -153,7 +183,7 @@ export function CookieBanner({
                   onClick={() => onSavePreferences?.(prefs)}
                   className="w-full rounded-lg border gu-border-primary px-4 py-2 text-xs font-semibold gu-text-primary transition-colors gu-h-bg-primary-soft focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
                 >
-                  Guardar preferencias
+                  {savePreferencesLabel}
                 </button>
               ) : (
                 <button
@@ -161,7 +191,7 @@ export function CookieBanner({
                   onClick={() => setShowDetails(true)}
                   className="w-full text-xs gu-text-text-muted underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary rounded"
                 >
-                  Personalizar
+                  {customizeLabel ?? 'Personalizar'}
                 </button>
               )}
             </>

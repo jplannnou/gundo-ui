@@ -95,3 +95,49 @@ describe('CookieBanner', () => {
     expect(screen.getByRole('link', { name: 'Política de privacidad' })).toBeInTheDocument();
   });
 });
+
+describe('simetría del consentimiento', () => {
+  const props = {
+    open: true,
+    onAcceptAll: () => {},
+    onRejectAll: () => {},
+  };
+
+  /**
+   * La guía de cookies de la AEPD pide que rechazar sea tan accesible y visible
+   * como aceptar; el CEPD trata lo contrario como patrón engañoso. Aceptar iba
+   * relleno y rechazar en contorno, así que aceptar pesaba mucho más.
+   */
+  it('aceptar y rechazar comparten tamaño, grosor y borde', () => {
+    render(<CookieBanner {...props} />);
+
+    const aceptar = screen.getByRole('button', { name: 'Aceptar todas' });
+    const rechazar = screen.getByRole('button', { name: 'Solo necesarias' });
+
+    const compartido = ['flex-1', 'rounded-lg', 'border', 'px-4', 'py-2', 'text-xs', 'font-semibold'];
+    for (const clase of compartido) {
+      expect(aceptar.className).toContain(clase);
+      expect(rechazar.className).toContain(clase);
+    }
+  });
+
+  it('ninguno de los dos se queda sin relleno', () => {
+    // Contorno contra relleno es justo el desequilibrio que había.
+    render(<CookieBanner {...props} />);
+
+    expect(screen.getByRole('button', { name: 'Aceptar todas' }).className).toMatch(/gu-bg-/);
+    expect(screen.getByRole('button', { name: 'Solo necesarias' }).className).toMatch(/gu-bg-/);
+  });
+
+  it('los textos se pueden traducir; el defecto sigue en español', () => {
+    // Estaban cosidos en español dentro de la librería: en una app de siete
+    // idiomas, el usuario alemán leía "Aceptar todas" (RGPD art. 12.1).
+    const { unmount } = render(<CookieBanner {...props} />);
+    expect(screen.getByRole('button', { name: 'Aceptar todas' })).toBeTruthy();
+    unmount();
+
+    render(<CookieBanner {...props} acceptLabel="Alle akzeptieren" rejectLabel="Nur notwendige" />);
+    expect(screen.getByRole('button', { name: 'Alle akzeptieren' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Nur notwendige' })).toBeTruthy();
+  });
+});
