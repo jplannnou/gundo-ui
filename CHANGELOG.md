@@ -1,3 +1,10 @@
+## [1.35.3](https://github.com/jplannnou/gundo-ui/compare/v1.35.2...v1.35.3) (2026-08-01)
+
+
+### Bug Fixes
+
+* **cookies:** que rechazar pese lo mismo que aceptar, y en tu idioma ([#83](https://github.com/jplannnou/gundo-ui/issues/83)) ([1ae5352](https://github.com/jplannnou/gundo-ui/commit/1ae535256e8960331378134eaee4b223741e611b))
+
 ## [1.35.2](https://github.com/jplannnou/gundo-ui/compare/v1.35.1...v1.35.2) (2026-07-20)
 
 
