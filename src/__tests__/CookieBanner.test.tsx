@@ -140,4 +140,19 @@ describe('simetría del consentimiento', () => {
     expect(screen.getByRole('button', { name: 'Alle akzeptieren' })).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Nur notwendige' })).toBeTruthy();
   });
+
+  it('el relleno de aceptar usa el ACENTO, no el token de texto', () => {
+    // Medido en producción sobre /axa: `gu-bg-primary` resuelve a `--ui-primary`,
+    // que la app intercambia entre temas para que la marca se lea COMO TEXTO.
+    // De fondo sale pálido —el azul marino #00008F quedaba en #7A7AC5— y con la
+    // tinta fija daba 3,52:1, por debajo del 4,5:1 de WCAG AA. El acento
+    // conserva el color crudo y trae su tinta elegida por luminancia.
+    render(<CookieBanner {...props} />);
+
+    const aceptar = screen.getByRole('button', { name: 'Aceptar todas' });
+    expect(aceptar.className).toContain('gu-bg-brand-accent');
+    expect(aceptar.className).toContain('gu-text-brand-accent-fg');
+    expect(aceptar.className).not.toContain('gu-bg-primary');
+    expect(aceptar.className).not.toContain('gu-text-surface');
+  });
 });

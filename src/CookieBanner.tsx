@@ -164,7 +164,7 @@ export function CookieBanner({
           <button
             type="button"
             onClick={onAcceptAll}
-            className={`${SAME_BUTTON} gu-bg-primary gu-text-surface gu-border-primary gu-h-bg-primary-hover`}
+            className={`${SAME_BUTTON} gu-bg-brand-accent gu-text-brand-accent-fg gu-border-primary`}
           >
             {acceptLabel}
           </button>
