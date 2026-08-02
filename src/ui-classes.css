@@ -9,6 +9,15 @@
 .gu-bg-info-soft{background-color:var(--ui-info-soft)}
 .gu-bg-overlay{background-color:var(--ui-overlay)}
 .gu-bg-primary{background-color:var(--ui-primary)}
+/* Relleno de marca. Distinto de --ui-primary A PROPÓSITO: ese token codifica
+   CONTRASTE y la app lo intercambia entre temas para que la marca se lea COMO
+   TEXTO sobre el fondo activo, así que de fondo sale pálido. Medido en
+   producción sobre /axa: el azul marino #00008F, aclarado para leerse sobre el
+   fondo oscuro, quedaba en #7A7AC5 y con la tinta fija daba 3,52:1 — por debajo
+   del 4,5:1 de WCAG AA. El acento conserva el color CRUDO de la marca y trae su
+   propia tinta elegida por luminancia. Fallback a primary/surface para los
+   consumidores que no publiquen el acento. */
+.gu-bg-brand-accent{background-color:var(--ui-brand-accent, var(--ui-primary))}
 .gu-bg-primary-soft{background-color:var(--ui-primary-soft)}
 .gu-bg-range-attention{background-color:var(--ui-range-attention)}
 .gu-bg-range-attention-soft{background-color:var(--ui-range-attention-soft)}
@@ -102,3 +111,4 @@
 .gu-z-z-modal{z-index:var(--ui-z-modal)}
 .gu-z-z-overlay{z-index:var(--ui-z-overlay)}
 .gu-z-z-sticky{z-index:var(--ui-z-sticky)}
+.gu-text-brand-accent-fg{color:var(--ui-brand-accent-fg, var(--ui-surface))}
