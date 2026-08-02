@@ -1,3 +1,10 @@
+## [1.35.4](https://github.com/jplannnou/gundo-ui/compare/v1.35.3...v1.35.4) (2026-08-02)
+
+
+### Bug Fixes
+
+* **cookies:** el relleno de aceptar usa el acento, no el token de texto ([#84](https://github.com/jplannnou/gundo-ui/issues/84)) ([baed43b](https://github.com/jplannnou/gundo-ui/commit/baed43b72fc6da11ca1f8c96b9d3433303dae9af)), closes [#00008](https://github.com/jplannnou/gundo-ui/issues/00008) [#7A7AC5](https://github.com/jplannnou/gundo-ui/issues/7A7AC5)
+
 ## [1.35.3](https://github.com/jplannnou/gundo-ui/compare/v1.35.2...v1.35.3) (2026-08-01)
 
 
