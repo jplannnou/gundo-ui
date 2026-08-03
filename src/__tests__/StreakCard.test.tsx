@@ -151,4 +151,82 @@ describe("StreakCard", () => {
     const freezeButton = screen.queryByRole("button", { name: /Congelar/ });
     expect(freezeButton).not.toBeInTheDocument();
   });
+
+  /**
+   * Guarda de `aria-required-children` (axe, CRÍTICO).
+   *
+   * `role="row"` EXIGE hijos con rol `cell`/`gridcell`/`columnheader`/
+   * `rowheader`. Una fila sin celdas es un nodo ARIA mal formado: el lector de
+   * pantalla entra en la cuadrícula y no encuentra nada que recorrer.
+   *
+   * POR QUÉ EXISTE: el componente construía las filas con
+   * `Array.from({ length: 4 })` — cuatro filas SIEMPRE, hubiera o no días. El
+   * consumidor (ultraperso, /profile) pasa `heatmapData={[]}` porque el API de
+   * racha no expone histórico por día, así que en producción salían 4 filas
+   * completamente vacías. Medido con axe contra prod el 2026-08-03: 4 nodos
+   * críticos. Ningún test lo veía porque TODOS los casos de arriba pasan
+   * `mockHeatmapData`, que trae exactamente 28 días y llena las 4 filas.
+   *
+   * El arreglo NO es quitar `role="row"` (dejaría la cuadrícula sin filas
+   * navegables, igual de rota): es que el número de filas salga de los datos.
+   */
+  const diasDe = (n: number) =>
+    Array.from({ length: n }, (_, i) => ({
+      date: `2026-01-${String(i + 1).padStart(2, "0")}`,
+      completed: i % 3 === 0,
+    }));
+
+  /** Filas presentes en el DOM que NO contienen ninguna celda. Debe ser 0. */
+  const filasSinCeldas = (raiz: HTMLElement) =>
+    Array.from(raiz.querySelectorAll('[role="row"]')).filter(
+      (fila) =>
+        fila.querySelectorAll(
+          '[role="gridcell"], [role="cell"], [role="columnheader"], [role="rowheader"]',
+        ).length === 0,
+    );
+
+  describe("aria-required-children: ninguna fila puede quedar sin celdas", () => {
+    // 0 días es el caso REAL de producción; el resto cubre rejillas parciales
+    // (cualquier número que no sea múltiplo exacto de 7 partía la última fila).
+    for (const n of [0, 1, 6, 7, 10, 21, 28]) {
+      it(`con ${n} días no deja ninguna fila vacía`, () => {
+        const { container } = render(
+          <StreakCard days={n} heatmapData={diasDe(n)} />,
+        );
+
+        expect(filasSinCeldas(container)).toHaveLength(0);
+        expect(screen.queryAllByRole("gridcell")).toHaveLength(n);
+        expect(screen.queryAllByRole("row")).toHaveLength(Math.ceil(n / 7));
+      });
+    }
+
+    it("sin días no dibuja cuadrícula ni leyenda, pero mantiene contador y acción", () => {
+      render(
+        <StreakCard
+          days={0}
+          heatmapData={[]}
+          canFreeze={true}
+          freezesRemaining={2}
+        />,
+      );
+
+      // Una cuadrícula vacía no tendría nada que anunciar y en pantalla dejaba
+      // un hueco entre el contador y el botón.
+      expect(screen.queryByRole("grid")).not.toBeInTheDocument();
+      expect(screen.queryByText("Completado")).not.toBeInTheDocument();
+      // Lo que sí aporta valor sin histórico sigue en pie.
+      expect(screen.getByText(/0 días/)).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /Congelar/ }),
+      ).toBeInTheDocument();
+    });
+
+    it("la etiqueta de la cuadrícula anuncia los días que hay, no un 28 fijo", () => {
+      render(<StreakCard days={3} heatmapData={diasDe(10)} />);
+
+      expect(
+        screen.getByRole("grid", { name: "Últimos 10 días de racha" }),
+      ).toBeInTheDocument();
+    });
+  });
 });
