@@ -45,6 +45,26 @@ describe('ScoreGauge', () => {
     render(<ScoreGauge score={50} icon={<span data-testid="icon">★</span>} />);
     expect(screen.getByTestId('icon')).toBeInTheDocument();
   });
+
+  it('appends suffix to the value when provided', () => {
+    render(<ScoreGauge score={80} suffix="%" />);
+    expect(screen.getByText('80%')).toBeInTheDocument();
+  });
+
+  it('formats match variant as percentage by default', () => {
+    render(<ScoreGauge score={92} variant="match" />);
+    expect(screen.getByText('92%')).toBeInTheDocument();
+  });
+
+  it('lets suffix override the match variant percentage', () => {
+    render(<ScoreGauge score={92} variant="match" suffix=" pts" />);
+    expect(screen.getByText('92 pts')).toBeInTheDocument();
+  });
+
+  it('shows a bare number when neither suffix nor match variant are set', () => {
+    render(<ScoreGauge score={64} variant="compact" />);
+    expect(screen.getByText('64')).toBeInTheDocument();
+  });
 });
 
 describe('ScoreGaugeMini', () => {
