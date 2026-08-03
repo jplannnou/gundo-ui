@@ -158,10 +158,31 @@ function savingsPercent(pricing: PaywallPricing): number {
 
 /* ─── Row renderer ───────────────────────────────────────────────────── */
 
+/**
+ * Celda de la matriz de comparación.
+ *
+ * POR QUÉ LLEVAN `role="img"`:
+ * El sí/no se dibuja con un tick o una cruz en SVG, y el SVG va `aria-hidden`
+ * porque la forma no dice nada por sí sola: el significado lo pone el
+ * `aria-label` del contenedor. Pero un `<span>` pelado mapea al rol `generic`,
+ * que NO admite nombre accesible — el lector de pantalla DESCARTA ese
+ * `aria-label` y la celda se anuncia vacía. Con `aria-hidden` dentro y una
+ * etiqueta que no cuenta fuera, la fila entera quedaba muda: quien la
+ * escuchara no podía saber si la función estaba incluida o no.
+ *
+ * `role="img"` es el rol de "una imagen cuyo contenido es una unidad", admite
+ * nombre accesible y hace que la etiqueta se anuncie. Medido con axe en
+ * producción (pantalla de dispositivos, desktop, 2026-08-02): 15 nodos
+ * `aria-prohibited-attr` serios, todos de estas dos celdas.
+ *
+ * OJO: quitar el `aria-label` NO era el arreglo — dejaría la celda sin nombre,
+ * que es peor. El arreglo es darle al elemento un rol que sí pueda llevarlo.
+ */
 function Cell({ value }: { value: string | boolean }) {
   if (value === true) {
     return (
       <span
+        role="img"
         className="inline-flex h-5 w-5 items-center justify-center rounded-full gu-bg-success-soft gu-text-success"
         aria-label="Incluido"
       >
@@ -174,6 +195,7 @@ function Cell({ value }: { value: string | boolean }) {
   if (value === false) {
     return (
       <span
+        role="img"
         className="inline-flex h-5 w-5 items-center justify-center rounded-full gu-bg-surface-hover gu-text-text-muted"
         aria-label="No incluido"
       >
