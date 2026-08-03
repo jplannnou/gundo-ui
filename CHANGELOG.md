@@ -1,3 +1,10 @@
+## [1.35.5](https://github.com/jplannnou/gundo-ui/compare/v1.35.4...v1.35.5) (2026-08-03)
+
+
+### Bug Fixes
+
+* **ScoreGauge:** añade prop suffix para scores porcentuales fuera de la variante match ([#85](https://github.com/jplannnou/gundo-ui/issues/85)) ([4fa2b64](https://github.com/jplannnou/gundo-ui/commit/4fa2b645a7af083b8323dc46fd0944189e59bf27))
+
 ## [1.35.4](https://github.com/jplannnou/gundo-ui/compare/v1.35.3...v1.35.4) (2026-08-02)
 
 
