@@ -1,3 +1,10 @@
+## [1.35.7](https://github.com/jplannnou/gundo-ui/compare/v1.35.6...v1.35.7) (2026-08-03)
+
+
+### Bug Fixes
+
+* **a11y:** StreakCard pintaba 4 filas de cuadrícula sin una sola celda dentro ([#87](https://github.com/jplannnou/gundo-ui/issues/87)) ([6791f0d](https://github.com/jplannnou/gundo-ui/commit/6791f0d317baaef961c776c154726fab5f8c9a38))
+
 ## [1.35.6](https://github.com/jplannnou/gundo-ui/compare/v1.35.5...v1.35.6) (2026-08-03)
 
 
