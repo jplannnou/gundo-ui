@@ -1,3 +1,10 @@
+## [1.35.6](https://github.com/jplannnou/gundo-ui/compare/v1.35.5...v1.35.6) (2026-08-03)
+
+
+### Bug Fixes
+
+* **a11y:** la matriz del paywall se anunciaba vacía (aria-prohibited-attr) ([#86](https://github.com/jplannnou/gundo-ui/issues/86)) ([02ec553](https://github.com/jplannnou/gundo-ui/commit/02ec553825223260d7da0557e51e005937a5adea))
+
 ## [1.35.5](https://github.com/jplannnou/gundo-ui/compare/v1.35.4...v1.35.5) (2026-08-03)
 
 
