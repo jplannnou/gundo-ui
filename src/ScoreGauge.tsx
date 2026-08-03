@@ -44,6 +44,13 @@ export interface ScoreGaugeProps {
   size?: number;
   /** Visual variant. `match` formats the value as "{n}%" for product/recipe affinity. */
   variant?: ScoreGaugeVariant;
+  /**
+   * Sufijo del valor mostrado (p. ej. "%"). Cuando se pasa, se antepone al número:
+   * `${score}${suffix}`. Sirve para scores que SON un porcentaje pero no usan la
+   * variante `match` (ej. "% de marcadores en rango"). Si se omite, solo la variante
+   * `match` añade "%"; el resto muestra el número adimensional (comportamiento previo).
+   */
+  suffix?: string;
   /** Override color (defaults to band color from `bands` based on score) */
   color?: string;
   /** Show numeric score value */
@@ -75,6 +82,7 @@ export function ScoreGauge({
   icon,
   size = 80,
   variant = 'default',
+  suffix,
   color,
   showValue = true,
   strokeWidth,
@@ -85,7 +93,7 @@ export function ScoreGauge({
   const activeBand = getBandFor(clampedScore, bands);
   const resolvedColor = color ?? activeBand.color;
   const resolvedStroke = strokeWidth ?? (variant === 'minimal' ? 3 : variant === 'compact' ? 5 : 7);
-  const valueDisplay = variant === 'match' ? `${clampedScore}%` : `${clampedScore}`;
+  const valueDisplay = `${clampedScore}${suffix ?? (variant === 'match' ? '%' : '')}`;
 
   // SVG arc geometry
   const radius = (size - resolvedStroke * 2) / 2;
