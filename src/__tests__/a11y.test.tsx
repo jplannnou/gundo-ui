@@ -68,6 +68,10 @@ import {
   ChartTooltip,
   CodeBlock,
   BrandHeader,
+  VerdictBanner,
+  RangeBar,
+  MacroRow,
+  StatNumber,
 } from '../index';
 
 describe('Accessibility (axe)', () => {
@@ -499,6 +503,52 @@ describe('Accessibility (axe)', () => {
         tagline="Salud activa cada día"
       />,
     );
+    await expectNoA11yViolations(container);
+  });
+
+  it('VerdictBanner (critical allergen) has no a11y violations', async () => {
+    const { container } = render(
+      <VerdictBanner
+        level="critical"
+        title="No es para ti"
+        reason="Contiene frutos secos — declarado en tu perfil como alérgeno."
+        action={{ label: 'Ver alternativas', onClick: () => {} }}
+        unverified
+      />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('VerdictBanner (safe) has no a11y violations', async () => {
+    const { container } = render(
+      <VerdictBanner level="safe" title="Apto para tu plan" reason="Encaja con tus objetivos de hoy." />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('RangeBar has no a11y violations', async () => {
+    const { container } = render(
+      <RangeBar
+        min={0}
+        max={100}
+        value={72}
+        bands={[{ from: 40, to: 80, tone: 'optimal', label: 'Óptimo' }]}
+        showBounds
+        ariaLabel="Valor 72 dentro del rango óptimo 40–80"
+      />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('MacroRow (cells) has no a11y violations', async () => {
+    const { container } = render(
+      <MacroRow calories={620} protein={42} carbs={48} fat={22} />,
+    );
+    await expectNoA11yViolations(container);
+  });
+
+  it('StatNumber has no a11y violations', async () => {
+    const { container } = render(<StatNumber value="1.980" unit="kcal" label="por día" icon="🔥" />);
     await expectNoA11yViolations(container);
   });
 });

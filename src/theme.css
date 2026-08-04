@@ -90,6 +90,23 @@
   --ui-range-critical: #ef4444;      /* outside safe range */
   --ui-range-critical-soft: rgb(239 68 68 / 0.15);
 
+  /* Macro tokens — nutrition macronutrient identity colors.
+     A dedicated family so macro UIs (MacroRow, MacrosDisplay, MealCard) stop
+     borrowing semantic tokens (protein≠"success", carbs≠"warning"): those
+     couplings broke the moment a real carb value looked like an alert. Tuned
+     for AA-as-text (≥4.5:1) on --ui-surface #292E37. kcal is intentionally
+     neutral (reads as the headline number, not a hue). Light overrides below. */
+  --ui-macro-kcal: var(--ui-text);
+  --ui-macro-kcal-soft: rgb(255 255 255 / 0.06);
+  --ui-macro-protein: #F0806A;       /* warm coral */
+  --ui-macro-protein-soft: rgb(240 128 106 / 0.15);
+  --ui-macro-carbs: #E8A13A;         /* amber */
+  --ui-macro-carbs-soft: rgb(232 161 58 / 0.15);
+  --ui-macro-fat: #7FB79A;           /* sage */
+  --ui-macro-fat-soft: rgb(127 183 154 / 0.15);
+  --ui-macro-fiber: #A3E635;         /* lime */
+  --ui-macro-fiber-soft: rgb(163 230 53 / 0.15);
+
   /* Tooltip — inverse-of-surface pattern (GitHub/Linear style).
      Tooltips on --ui-surface backgrounds become invisible if they share the
      same color, so we use the inverse: dark text-color as bg, surface as fg.
@@ -120,6 +137,10 @@
   --ui-font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
   --ui-font-display: 'Quicksand', 'Montserrat', system-ui, sans-serif;
   --ui-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  /* Editorial serif — premium B2C surfaces (Plan, Home hero, stat numbers).
+     System serif stack: zero webfont cost, renders instantly, warm/editorial.
+     Never on dashboards (Engine/Radar/Finance/CC keep the sans data-density). */
+  --ui-font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, 'Times New Roman', serif;
   --ui-font-size-xs: 0.75rem;
   --ui-font-size-sm: 0.875rem;
   --ui-font-size-base: 1rem;
@@ -246,6 +267,19 @@
   --ui-info: #1d4ed8;
   --ui-info-soft: rgb(37 99 235 / 0.1);
 
+  /* Macro tokens — darkened for AA-as-text (≥4.5:1) on light surface #F2F4F3.
+     -soft fills stay light-tinted for the same swatch identity. */
+  --ui-macro-kcal: var(--ui-text);
+  --ui-macro-kcal-soft: rgb(0 0 0 / 0.04);
+  --ui-macro-protein: #B23E2C;       /* darkened coral */
+  --ui-macro-protein-soft: rgb(178 62 44 / 0.1);
+  --ui-macro-carbs: #8A5A0A;         /* darkened amber */
+  --ui-macro-carbs-soft: rgb(138 90 10 / 0.1);
+  --ui-macro-fat: #2F6B4C;           /* darkened sage */
+  --ui-macro-fat-soft: rgb(47 107 76 / 0.1);
+  --ui-macro-fiber: #427012;         /* darkened lime — 5.34:1 on light */
+  --ui-macro-fiber-soft: rgb(66 112 18 / 0.1);
+
   --ui-overlay: rgb(0 0 0 / 0.3);
 
   /* Code syntax highlighting — light variant.
@@ -265,6 +299,7 @@
   --ui-font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
   --ui-font-display: 'Quicksand', 'Montserrat', system-ui, sans-serif;
   --ui-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --ui-font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, 'Times New Roman', serif;
 
   /* Shadows (lighter for light theme) */
   --ui-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
