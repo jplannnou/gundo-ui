@@ -235,6 +235,14 @@ export { MealCard } from "./MealCard";
 export type { MealCardProps, Macros, MealType } from "./MealCard";
 export { MacrosDisplay } from "./MacrosDisplay";
 export type { MacrosDisplayProps, MacroItem } from "./MacrosDisplay";
+export { MacroRow } from "./MacroRow";
+export type { MacroRowProps, MacroCell, MacroKind } from "./MacroRow";
+export { VerdictBanner } from "./VerdictBanner";
+export type { VerdictBannerProps, VerdictLevel } from "./VerdictBanner";
+export { RangeBar } from "./RangeBar";
+export type { RangeBarProps, RangeBand, RangeTone } from "./RangeBar";
+export { StatNumber } from "./StatNumber";
+export type { StatNumberProps, StatNumberSize } from "./StatNumber";
 export { ProfileHeader } from "./ProfileHeader";
 export type {
   ProfileHeaderProps,
