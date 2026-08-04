@@ -110,7 +110,10 @@ function DropdownVariant({
         aria-controls={listId}
         aria-label={`Idioma actual: ${current.label}`}
         onClick={() => setOpen((v) => !v)}
-        className="flex h-8 items-center gap-1.5 rounded-lg border gu-border-border gu-bg-surface-hover px-2.5 text-sm font-medium gu-text-text transition-colors gu-h-bg-surface-raised focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
+        /* El disparador mide 32px de alto y vive en barras compactas, así que
+           subirlo a 44 lo deformaría. `gu-tap-44` le da el área táctil que pide
+           WCAG 2.5.5 sin tocar la píldora que se ve. */
+        className="gu-tap-44 flex h-8 items-center gap-1.5 rounded-lg border gu-border-border gu-bg-surface-hover px-2.5 text-sm font-medium gu-text-text transition-colors gu-h-bg-surface-raised focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
       >
         {showFlag && current.flag && <span aria-hidden="true">{current.flag}</span>}
         <span>{showLabel ? current.label : (current.short ?? current.code.toUpperCase())}</span>
@@ -143,7 +146,13 @@ function DropdownVariant({
                   role="option"
                   aria-selected={isSelected}
                   onClick={() => handleSelect(lang.code)}
-                  className={`flex cursor-pointer items-center gap-2 px-3 py-1.5 text-sm transition-colors gu-h-bg-surface-hover ${
+                  /* Las opciones se apilan en vertical: aquí NO sirve extender
+                     el área con un pseudo-elemento (se solaparía con la de
+                     arriba y la de abajo, y el toque quedaría ambiguo). El
+                     arreglo correcto es padding real: py-3 + line-height 20px
+                     de text-sm = 44px. Un menú desplegable puede permitirse ser
+                     cómodo de tocar. */
+                  className={`flex cursor-pointer items-center gap-2 px-3 py-3 text-sm transition-colors gu-h-bg-surface-hover ${
                     isSelected ? 'gu-text-primary font-medium' : 'gu-text-text'
                   }`}
                 >
@@ -198,7 +207,10 @@ function PillsVariant({
             role="radio"
             aria-checked={isSelected}
             onClick={() => onChange(lang.code)}
-            className={`flex h-7 items-center gap-1 rounded-full px-3 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary ${
+            /* Las pills van en fila y pegadas: `gu-tap-44-y` extiende el área
+               solo en vertical, porque a lo ancho invadiría la de la pill
+               vecina y un toque en el borde no sabría a qué idioma va. */
+            className={`gu-tap-44-y flex h-7 items-center gap-1 rounded-full px-3 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary ${
               isSelected
                 ? 'gu-bg-primary gu-text-surface'
                 : 'gu-bg-surface-hover gu-text-text-muted gu-h-text-text'
@@ -232,7 +244,10 @@ function SelectVariant({
         id={selectId}
         value={currentLanguage}
         onChange={(e) => onChange(e.target.value)}
-        className="h-8 rounded-lg border gu-border-border gu-bg-surface-hover px-2 text-sm gu-text-text outline-none transition-colors gu-fv-border-primary focus-visible:ring-1 gu-fv-ring-primary"
+        /* Un `<select>` es un elemento reemplazado: no admite pseudo-elementos,
+           así que aquí no hay truco posible — la caja tiene que ser de verdad
+           de 44px de alto (h-11). Es lo correcto para un control de formulario. */
+        className="h-11 rounded-lg border gu-border-border gu-bg-surface-hover px-2 text-sm gu-text-text outline-none transition-colors gu-fv-border-primary focus-visible:ring-1 gu-fv-ring-primary"
       >
         {languages.map((lang) => (
           <option key={lang.code} value={lang.code}>

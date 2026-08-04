@@ -112,3 +112,23 @@
 .gu-z-z-overlay{z-index:var(--ui-z-overlay)}
 .gu-z-z-sticky{z-index:var(--ui-z-sticky)}
 .gu-text-brand-accent-fg{color:var(--ui-brand-accent-fg, var(--ui-surface))}
+
+/* ── Área táctil mínima (WCAG 2.5.5 · 44×44 CSS px) ───────────────────────
+   Extiende SOLO la superficie que recibe el toque, con un pseudo-elemento
+   centrado que no pinta nada. El control se sigue viendo igual de compacto:
+   agrandar la píldora para pasar la métrica sería el arreglo equivocado.
+
+   `gu-tap-44`   → los dos ejes. Para controles aislados.
+   `gu-tap-44-y` → solo vertical. Para controles en fila (pills, chips de un
+                   riel), donde crecer a lo ancho solaparía el área del vecino
+                   y volvería ambiguo el destino del toque.
+
+   Ojo con el radio: el hit-testing del navegador respeta `border-radius`, así
+   que un control muy redondeado ofrece menos área útil que su caja. El
+   pseudo-elemento es rectangular, así que recupera también las esquinas. */
+.gu-tap-44,
+.gu-tap-44-y{position:relative}
+.gu-tap-44::after,
+.gu-tap-44-y::after{content:"";position:absolute;top:50%;left:50%;height:max(100%,44px);transform:translate(-50%,-50%)}
+.gu-tap-44::after{width:max(100%,44px)}
+.gu-tap-44-y::after{width:100%}
