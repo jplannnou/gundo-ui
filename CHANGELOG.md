@@ -1,3 +1,10 @@
+## [1.35.8](https://github.com/jplannnou/gundo-ui/compare/v1.35.7...v1.35.8) (2026-08-04)
+
+
+### Bug Fixes
+
+* **a11y:** LanguageSwitcher tenía 32px de área táctil en sus cuatro variantes ([#88](https://github.com/jplannnou/gundo-ui/issues/88)) ([cc2428d](https://github.com/jplannnou/gundo-ui/commit/cc2428d251c8c8a425fb5ed31a3952516b1713be))
+
 ## [1.35.7](https://github.com/jplannnou/gundo-ui/compare/v1.35.6...v1.35.7) (2026-08-03)
 
 
