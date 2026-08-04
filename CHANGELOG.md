@@ -1,3 +1,10 @@
+# [1.36.0](https://github.com/jplannnou/gundo-ui/compare/v1.35.8...v1.36.0) (2026-08-04)
+
+
+### Features
+
+* premium foundation — VerdictBanner, RangeBar, MacroRow, StatNumber + macro/serif tokens ([#89](https://github.com/jplannnou/gundo-ui/issues/89)) ([df9c19f](https://github.com/jplannnou/gundo-ui/commit/df9c19f891a6eab38491515242a42a43fa4aa61b))
+
 ## [1.35.8](https://github.com/jplannnou/gundo-ui/compare/v1.35.7...v1.35.8) (2026-08-04)
 
 
