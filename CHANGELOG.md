@@ -1,3 +1,10 @@
+# [1.37.0](https://github.com/jplannnou/gundo-ui/compare/v1.36.0...v1.37.0) (2026-08-04)
+
+
+### Features
+
+* brand logo SVGs — vectorized from raster (full-color, adaptive, isotipo) ([#90](https://github.com/jplannnou/gundo-ui/issues/90)) ([4d3ecaa](https://github.com/jplannnou/gundo-ui/commit/4d3ecaad2ae51e5a3af96e18672103b145ba048c)), closes [#292E37](https://github.com/jplannnou/gundo-ui/issues/292E37) [#67C728](https://github.com/jplannnou/gundo-ui/issues/67C728)
+
 # [1.36.0](https://github.com/jplannnou/gundo-ui/compare/v1.35.8...v1.36.0) (2026-08-04)
 
 
