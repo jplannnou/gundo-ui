@@ -19,6 +19,18 @@ describe('Badge', () => {
     expect(screen.getByText('Failed')).toBeInTheDocument();
   });
 
+  it.each(['purple', 'secondary'] as const)(
+    'uses theme-aware readable ink for the %s variant',
+    (variant) => {
+      render(<Badge variant={variant}>Visible</Badge>);
+
+      const badge = screen.getByText('Visible');
+      expect(badge).toHaveClass('gu-text-text-secondary');
+      expect(badge).not.toHaveClass('gu-text-tertiary');
+      expect(badge).not.toHaveClass('gu-text-secondary');
+    },
+  );
+
   it('renders with dot', () => {
     const { container } = render(<Badge dot>Status</Badge>);
     expect(screen.getByText('Status')).toBeInTheDocument();
