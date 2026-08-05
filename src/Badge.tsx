@@ -18,8 +18,12 @@ const variantStyles: Record<Variant, string> = {
   error: 'gu-bg-error-soft gu-text-error',
   warning: 'gu-bg-warning-soft gu-text-warning',
   info: 'gu-bg-info-soft gu-text-info',
-  purple: 'gu-bg-tertiary-soft gu-text-tertiary',
-  secondary: 'gu-bg-secondary-soft gu-text-secondary',
+  // Los tokens tertiary/secondary pueden ser colores de marca oscuros. Usar
+  // el mismo color como tinta sobre su variante soft produjo ratios de 1.34:1
+  // en dark y 3.19:1 en el tenant AXA. La tinta neutral theme-aware mantiene
+  // el matiz en el fondo sin sacrificar legibilidad ni white-label.
+  purple: 'gu-bg-tertiary-soft gu-text-text-secondary',
+  secondary: 'gu-bg-secondary-soft gu-text-text-secondary',
   destructive: 'gu-bg-error-soft gu-text-error',
   outline: 'bg-transparent border gu-border-border gu-text-text',
 };
