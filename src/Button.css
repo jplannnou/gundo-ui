@@ -19,6 +19,23 @@
   outline-offset: var(--ui-focus-ring-offset, 2px);
 }
 
+/* Preserve the compact visual rhythm while guaranteeing a 44x44 CSS px hit
+ * area. The pseudo-element participates in pointer hit-testing but paints
+ * nothing, so consumers do not need app-specific touch-target utilities. */
+.ui-btn-target {
+  position: relative;
+}
+
+.ui-btn-target::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
+}
+
 .ui-btn-primary {
   background-color: var(--ui-primary);
   color: var(--ui-surface);
