@@ -1,3 +1,10 @@
+## [1.37.1](https://github.com/jplannnou/gundo-ui/compare/v1.37.0...v1.37.1) (2026-08-05)
+
+
+### Bug Fixes
+
+* keep branded badges readable ([#91](https://github.com/jplannnou/gundo-ui/issues/91)) ([aec095e](https://github.com/jplannnou/gundo-ui/commit/aec095e882e2d35cbea8b7dcbb0b243bf368738a))
+
 # [1.37.0](https://github.com/jplannnou/gundo-ui/compare/v1.36.0...v1.37.0) (2026-08-04)
 
 
