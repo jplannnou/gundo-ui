@@ -1,3 +1,10 @@
+## [1.37.2](https://github.com/jplannnou/gundo-ui/compare/v1.37.1...v1.37.2) (2026-08-05)
+
+
+### Bug Fixes
+
+* **a11y:** guarantee premium touch targets ([#92](https://github.com/jplannnou/gundo-ui/issues/92)) ([392eb2f](https://github.com/jplannnou/gundo-ui/commit/392eb2f202c077a5b87ef8e088c214f46386d896))
+
 ## [1.37.1](https://github.com/jplannnou/gundo-ui/compare/v1.37.0...v1.37.1) (2026-08-05)
 
 
