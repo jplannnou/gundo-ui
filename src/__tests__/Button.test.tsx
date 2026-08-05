@@ -32,4 +32,9 @@ describe('Button', () => {
     render(<Button variant="ghost">Ghost</Button>);
     expect(screen.getByRole('button').className).toContain('ui-btn-ghost');
   });
+
+  it.each(['sm', 'md', 'lg', 'icon'] as const)('keeps the %s target contract', (size) => {
+    render(<Button size={size}>Accessible target</Button>);
+    expect(screen.getByRole('button').className).toContain('ui-btn-target');
+  });
 });

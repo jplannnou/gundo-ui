@@ -53,7 +53,13 @@ describe('FilterBar', () => {
 
   it('renders search input when searchable=true', () => {
     render(<FilterBar filters={filters} searchable />);
-    expect(screen.getByRole('searchbox')).toBeInTheDocument();
+    expect(screen.getByRole('searchbox')).toHaveClass('h-11');
+  });
+
+  it('keeps filter triggers at least 44px high', () => {
+    render(<FilterBar filters={filters} />);
+    expect(screen.getByRole('button', { name: /Categoría/ })).toHaveClass('ui-btn-target');
+    expect(screen.getByRole('button', { name: /Marca/ })).toHaveClass('ui-btn-target');
   });
 
   it('calls onSearchChange on input', () => {
