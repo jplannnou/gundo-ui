@@ -256,14 +256,28 @@ describe('assertResolvedInstall — el detector del no-op del PR #107', () => {
 });
 
 describe('barrido de consumidores', () => {
-  it('scripts/consumers.json lista los 10 consumidores con su pkg_dir', () => {
+  it('scripts/consumers.json es el registro de TODOS los repos que consumen el DS', () => {
     const consumers = loadConsumers();
-    expect(consumers).toHaveLength(10);
     for (const consumer of consumers) {
       expect(consumer.repo).toMatch(/^[\w.-]+\/[\w.-]+$/);
       expect(typeof consumer.pkg_dir).toBe('string');
     }
-    expect(consumers.map((c) => c.repo)).toContain('Gundo-Health-and-Food/genie-ui');
+    // Sin duplicados: dos entradas del mismo repo audirían dos veces y una de
+    // ellas podría quedarse con un pkg_dir obsoleto.
+    expect(new Set(consumers.map((c) => c.repo)).size).toBe(consumers.length);
+
+    // Los que el bot versiona (los 4 del org por npm + los 6 en file:).
+    const propagados = consumers.filter((c) => c.propagate !== false);
+    expect(propagados).toHaveLength(10);
+    expect(propagados.map((c) => c.repo)).toContain('Gundo-Health-and-Food/genie-ui');
+
+    // Y los que consumen el DS sin que el bot los versione: el barrido de
+    // higiene SÍ los mira, que es lo que impide que sean un punto ciego.
+    const soloAuditados = consumers.filter((c) => c.propagate === false);
+    expect(soloAuditados.map((c) => c.repo)).toEqual([
+      'Gundo-Health-and-Food/gundo-internal-dashboard-ui',
+      'Gundo-Health-and-Food/gundo-ocr-pwa',
+    ]);
   });
 
   it('🔴 el barrido devuelve fallo en cuanto UN consumidor está duplicado', () => {

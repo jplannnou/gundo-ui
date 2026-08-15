@@ -8,5 +8,8 @@
   { "repo": "Gundo-Health-and-Food/gundo-admin-fitness-ui", "pkg_dir": "." },
   { "repo": "Gundo-Health-and-Food/gundo-plataform-ui", "pkg_dir": "." },
   { "repo": "Gundo-Health-and-Food/genie-ui", "pkg_dir": "." },
-  { "repo": "Gundo-Health-and-Food/gundo-ecommerce-ui", "pkg_dir": "." }
+  { "repo": "Gundo-Health-and-Food/gundo-ecommerce-ui", "pkg_dir": "." },
+
+  { "repo": "Gundo-Health-and-Food/gundo-internal-dashboard-ui", "pkg_dir": ".", "propagate": false },
+  { "repo": "Gundo-Health-and-Food/gundo-ocr-pwa", "pkg_dir": "client", "propagate": false }
 ]

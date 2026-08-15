@@ -80,7 +80,10 @@ jobs:
 
   # La lista de consumidores vivía embebida en la matriz de este workflow, así
   # que el barrido de higiene (consumer-hygiene.yml) no podía compartirla y
-  # habrían derivado. Ahora ambos leen `scripts/consumers.json`.
+  # habrían derivado. Ahora ambos leen `scripts/consumers.json` — y ese registro
+  # incluye repos que consumen el DS pero que el bot no versiona
+  # (`propagate: false`): siguen entrando en la auditoría de higiene, que es
+  # justo donde un consumidor olvidado se convierte en un punto ciego.
   consumers:
     name: Load consumer matrix
     needs: release
@@ -91,7 +94,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: load
-        run: echo "matrix=$(jq -c . scripts/consumers.json)" >> "$GITHUB_OUTPUT"
+        run: echo "matrix=$(jq -c '[.[] | select(.propagate != false)]' scripts/consumers.json)" >> "$GITHUB_OUTPUT"
 
   propagate:
     name: Propagate to consumers
