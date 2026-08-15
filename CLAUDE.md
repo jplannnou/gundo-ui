@@ -141,6 +141,36 @@ Two valid ways consumers depend on this library — pick by repo location:
 **Adding a new consumer**:
 - If in `jplannnou` org → `file:` protocol
 - If in `Gundo-Health-and-Food` (or any other org) → npm via GitHub Packages, requires `NODE_AUTH_TOKEN` for `pnpm install`
+- Add the repo to `scripts/consumers.json` — single source of truth for the propagate matrix **and** the hygiene sweep
+
+### One declaration only — the alias is canonical
+
+npm consumers MUST declare the DS exactly once, through the alias:
+
+```jsonc
+"@gundo/ui": "npm:@jplannnou/gundo-ui@^1.37.2"   // ✅ canonical
+"@jplannnou/gundo-ui": "^1.37.2"                  // ❌ never, not even alongside
+```
+
+Declaring both keys installs **two copies** of the DS — two ThemeProviders, two
+sets of tokens in the same bundle. It happened in `genie-ui` and
+`gundo-admin-fitness-ui` (Aug 2026) and went unnoticed for months, because the
+auto-propagate only ever wrote to *one* of the two keys. Worst case measured:
+`admin-fitness-ui` PR #107, titled "update @gundo/ui to ^1.35.2", wrote to the
+key nobody imported — the app kept serving 1.26.2 and the PR merged as a no-op.
+
+Two mechanical guards now enforce this, both of which **fail the job**:
+
+| Guard | Where | Catches |
+|-------|-------|---------|
+| `scripts/ds-consumer-guard.mjs audit` | `publish.yml` → `propagate`, before touching anything | duplicate key, bare `@jplannnou/gundo-ui`, alias pointing elsewhere |
+| `scripts/verify-ds-resolution.mjs` | `publish.yml` → `propagate`, after `pnpm install` | two copies unpacked in `node_modules`; written version ≠ resolved version (the #107 no-op) |
+
+`scripts/audit-ds-consumers.mjs` runs the same audit against all consumers on a
+weekly cron (`consumer-hygiene.yml`) plus `workflow_dispatch`, so a hand-edited
+manifest doesn't have to wait for a release to be caught. Run it locally with
+`GITHUB_TOKEN=$(gh auth token) node scripts/audit-ds-consumers.mjs`. Unit tests
+for both guards live in `scripts/__tests__/` and run in the normal `pnpm test`.
 
 **Publishing**:
 - semantic-release on push to `main` reads `feat:`/`fix:`/`BREAKING CHANGE:` commits and publishes patch/minor/major automatically

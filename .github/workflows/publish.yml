@@ -78,44 +78,63 @@ jobs:
             echo "new-version=" >> "$GITHUB_OUTPUT"
           fi
 
+  # La lista de consumidores vivía embebida en la matriz de este workflow, así
+  # que el barrido de higiene (consumer-hygiene.yml) no podía compartirla y
+  # habrían derivado. Ahora ambos leen `scripts/consumers.json`.
+  consumers:
+    name: Load consumer matrix
+    needs: release
+    if: needs.release.outputs.released == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.load.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: load
+        run: echo "matrix=$(jq -c . scripts/consumers.json)" >> "$GITHUB_OUTPUT"
+
   propagate:
     name: Propagate to consumers
-    needs: release
+    needs: [release, consumers]
     if: needs.release.outputs.released == 'true'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - repo: jplannnou/Gundo_Engine
-            pkg_dir: frontend
-          - repo: jplannnou/Gundo_Finance
-            pkg_dir: frontend
-          - repo: jplannnou/Gundo_Radar
-            pkg_dir: client
-          - repo: jplannnou/jp-assistant
-            pkg_dir: frontend
-          - repo: jplannnou/gundo-feedback
-            pkg_dir: frontend
-          - repo: jplannnou/gundo-vida
-            pkg_dir: .
-          - repo: Gundo-Health-and-Food/gundo-admin-fitness-ui
-            pkg_dir: .
-          - repo: Gundo-Health-and-Food/gundo-plataform-ui
-            pkg_dir: .
-          - repo: Gundo-Health-and-Food/genie-ui
-            pkg_dir: .
-          - repo: Gundo-Health-and-Food/gundo-ecommerce-ui
-            pkg_dir: .
+        consumer: ${{ fromJSON(needs.consumers.outputs.matrix) }}
     env:
       VERSION: ${{ needs.release.outputs.new-version }}
       NODE_AUTH_TOKEN: ${{ secrets.RENOVATE_PAT }}
+      # Ruta al package.json del consumidor, relativa al workspace.
+      CONSUMER_PKG: consumer/${{ matrix.consumer.pkg_dir == '.' && 'package.json' || format('{0}/package.json', matrix.consumer.pkg_dir) }}
     steps:
+      - name: Checkout gundo-ui (guardas)
+        uses: actions/checkout@v4
+        with:
+          path: _ds
+
       - name: Checkout consumer repo
         uses: actions/checkout@v4
         with:
-          repository: ${{ matrix.repo }}
+          repository: ${{ matrix.consumer.repo }}
           token: ${{ secrets.RENOVATE_PAT }}
+          path: consumer
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: '@jplannnou'
+
+      # ── GUARDA 1: forma canónica del manifiesto ────────────────────────────
+      # Corre ANTES de tocar nada y revienta la entrada de la matriz si el
+      # consumidor declara el DS más de una vez (alias + nombre directo, o la
+      # misma clave en dos secciones). Es el fallo que dejó a genie-ui y a
+      # admin-fitness-ui con dos copias del DS en el bundle durante semanas.
+      # Sustituye al viejo `grep` que solo miraba si había protocolo file:.
+      - name: 'Guarda: manifiesto canónico del consumidor'
+        id: check
+        run: node _ds/scripts/ds-consumer-guard.mjs audit --pkg "$CONSUMER_PKG" --label "${{ matrix.consumer.repo }}"
 
       # pnpm/action-setup@v4 errors out with "Multiple versions of pnpm
       # specified" if both the action `version` input AND the consumer's
@@ -136,54 +155,55 @@ jobs:
       # that file has packageManager, pass empty version (auto-detect);
       # otherwise fall back to 10.30.1.
       - name: Resolve pnpm config
+        if: steps.check.outputs.skip != 'true'
         id: pnpm-version
         run: |
-          PKG="package.json"
-          if [ "${{ matrix.pkg_dir }}" != "." ]; then PKG="${{ matrix.pkg_dir }}/package.json"; fi
-          HAS_PM=$(node -p "!!require('./'+'$PKG').packageManager" 2>/dev/null || echo "false")
-          echo "pkg_file=$PKG" >> "$GITHUB_OUTPUT"
+          HAS_PM=$(node -p "!!require('./'+'$CONSUMER_PKG').packageManager" 2>/dev/null || echo "false")
+          echo "pkg_file=$CONSUMER_PKG" >> "$GITHUB_OUTPUT"
           if [ "$HAS_PM" = "true" ]; then
             echo "version=" >> "$GITHUB_OUTPUT"
-            echo "Source: packageManager field in $PKG (auto-detect)"
+            echo "Source: packageManager field in $CONSUMER_PKG (auto-detect)"
           else
             echo "version=10.30.1" >> "$GITHUB_OUTPUT"
-            echo "Source: workflow fallback (no packageManager in $PKG)"
+            echo "Source: workflow fallback (no packageManager in $CONSUMER_PKG)"
           fi
 
       - uses: pnpm/action-setup@v4
+        if: steps.check.outputs.skip != 'true'
         with:
           version: ${{ steps.pnpm-version.outputs.version }}
           package_json_file: ${{ steps.pnpm-version.outputs.pkg_file }}
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          registry-url: https://npm.pkg.github.com
-          scope: '@jplannnou'
-
-      - name: Check if @gundo/ui used via npm (skip file protocol)
-        id: check
-        run: |
-          PKG="package.json"
-          if [ "${{ matrix.pkg_dir }}" != "." ]; then PKG="${{ matrix.pkg_dir }}/package.json"; fi
-          if ! grep -q '@gundo/ui\|@jplannnou/gundo-ui' "$PKG" 2>/dev/null; then
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-          elif grep '@gundo/ui\|@jplannnou/gundo-ui' "$PKG" | grep -q '"file:'; then
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "skip=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Update @gundo/ui version
+      # Escribe SIEMPRE sobre el alias `"@gundo/ui": "npm:@jplannnou/gundo-ui@^X"`,
+      # que es la forma canónica del org. El `pnpm add @jplannnou/gundo-ui@^X`
+      # anterior escribía en la clave que pnpm decidiera — en genie-ui tocó el
+      # alias (PR #650) y en admin-fitness-ui el nombre directo (PR #107) — y por
+      # eso el #107 salió con título de bump y efecto cero. Reescritura textual:
+      # no reformatea el package.json ajeno.
+      - name: Escribir bump sobre el alias canónico
         if: steps.check.outputs.skip != 'true'
-        working-directory: ${{ matrix.pkg_dir }}
+        run: node _ds/scripts/ds-consumer-guard.mjs bump --pkg "$CONSUMER_PKG" --version "$VERSION" --label "${{ matrix.consumer.repo }}"
+
+      - name: Instalar (regenera lockfile)
+        if: steps.check.outputs.skip != 'true'
+        working-directory: consumer/${{ matrix.consumer.pkg_dir }}
         run: |
           git config --global url."https://x-access-token:${{ secrets.RENOVATE_PAT }}@github.com/".insteadOf "https://github.com/"
-          pnpm add "@jplannnou/gundo-ui@^${VERSION}"
+          pnpm install --no-frozen-lockfile
+
+      # ── GUARDA 2: lo escrito == lo resuelto ───────────────────────────────
+      # Mira el árbol instalado, no el manifiesto. Falla si quedan dos copias
+      # del DS desempaquetadas o si el consumidor resuelve una versión distinta
+      # de la que acabamos de escribir. Es lo único que habría delatado al PR
+      # #107, que se mergeó anunciando ^1.35.2 mientras la app servía 1.26.2.
+      - name: 'Guarda: la versión resuelta es la propagada'
+        if: steps.check.outputs.skip != 'true'
+        run: node _ds/scripts/verify-ds-resolution.mjs --dir "consumer/${{ matrix.consumer.pkg_dir }}" --expect "$VERSION" --label "${{ matrix.consumer.repo }}"
 
       - name: Check for changes
         if: steps.check.outputs.skip != 'true'
         id: changes
+        working-directory: consumer
         run: |
           if git diff --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -193,6 +213,7 @@ jobs:
 
       - name: Open PR with version bump
         if: steps.check.outputs.skip != 'true' && steps.changes.outputs.changed == 'true'
+        working-directory: consumer
         env:
           GH_TOKEN: ${{ secrets.RENOVATE_PAT }}
         run: |
@@ -203,9 +224,9 @@ jobs:
           git add .
           git commit -m "chore: update @gundo/ui to ^${VERSION} (auto-propagate)"
           git push -u origin "$BRANCH"
-          printf 'Bumps `@gundo/ui` to `^%s`.\n\nTriggered by v%s release: https://github.com/jplannnou/gundo-ui/releases/tag/v%s\n\nAuto-generated.' \
-            "$VERSION" "$VERSION" "$VERSION" > /tmp/pr-body.txt
+          printf 'Bumps `@gundo/ui` to `^%s` sobre el alias canónico `"@gundo/ui": "npm:@jplannnou/gundo-ui@^%s"`.\n\nVerificado tras el install: una sola copia del DS en `node_modules`, resuelta a `%s`.\n\nTriggered by v%s release: https://github.com/jplannnou/gundo-ui/releases/tag/v%s\n\nAuto-generated.' \
+            "$VERSION" "$VERSION" "$VERSION" "$VERSION" "$VERSION" > /tmp/pr-body.txt
           gh pr create \
-            --repo "${{ matrix.repo }}" \
+            --repo "${{ matrix.consumer.repo }}" \
             --title "chore: update @gundo/ui to ^${VERSION}" \
             --body-file /tmp/pr-body.txt

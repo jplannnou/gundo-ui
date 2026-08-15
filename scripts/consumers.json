@@ -1,0 +1,12 @@
+[
+  { "repo": "jplannnou/Gundo_Engine", "pkg_dir": "frontend" },
+  { "repo": "jplannnou/Gundo_Finance", "pkg_dir": "frontend" },
+  { "repo": "jplannnou/Gundo_Radar", "pkg_dir": "client" },
+  { "repo": "jplannnou/jp-assistant", "pkg_dir": "frontend" },
+  { "repo": "jplannnou/gundo-feedback", "pkg_dir": "frontend" },
+  { "repo": "jplannnou/gundo-vida", "pkg_dir": "." },
+  { "repo": "Gundo-Health-and-Food/gundo-admin-fitness-ui", "pkg_dir": "." },
+  { "repo": "Gundo-Health-and-Food/gundo-plataform-ui", "pkg_dir": "." },
+  { "repo": "Gundo-Health-and-Food/genie-ui", "pkg_dir": "." },
+  { "repo": "Gundo-Health-and-Food/gundo-ecommerce-ui", "pkg_dir": "." }
+]
