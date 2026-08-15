@@ -1,0 +1,50 @@
+name: Consumer Hygiene (design system)
+
+# Guarda contra la duplicidad del design system en los consumidores.
+#
+# En agosto de 2026 se descubrió que `genie-ui` y `gundo-admin-fitness-ui`
+# declaraban `@gundo/ui` DOS veces —el alias canónico y el nombre publicado
+# `@jplannnou/gundo-ui`— a versiones distintas, con las dos importadas desde el
+# código: dos ThemeProviders y dos juegos de tokens en el bundle. La clave
+# duplicada la introdujo un PR a mano y sobrevivió meses porque nada la miraba.
+#
+# El propagate de publish.yml ya audita cada consumidor, pero solo corre cuando
+# hay release. Este workflow barre a los 10 consumidores en cron y a demanda, y
+# FALLA EL JOB si alguno se sale de la forma canónica. No es un log: es un check
+# rojo con notificación.
+
+on:
+  schedule:
+    # Lunes 06:00 UTC, justo antes de la pasada semanal de Renovate.
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    # Solo cuando se toca la propia guarda: así el barrido no bloquea PRs de
+    # componentes por un consumidor sucio que no tiene nada que ver con ellos.
+    paths:
+      - 'scripts/consumers.json'
+      - 'scripts/ds-consumer-guard.mjs'
+      - 'scripts/audit-ds-consumers.mjs'
+      - '.github/workflows/consumer-hygiene.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Auditar consumidores del DS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Barrido de manifiestos
+        env:
+          # PAT porque la mitad de los consumidores son repos privados del org
+          # Gundo-Health-and-Food, fuera del alcance de GITHUB_TOKEN.
+          GITHUB_TOKEN: ${{ secrets.RENOVATE_PAT }}
+        run: node scripts/audit-ds-consumers.mjs
