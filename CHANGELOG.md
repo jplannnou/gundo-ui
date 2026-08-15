@@ -1,3 +1,10 @@
+## [1.37.3](https://github.com/jplannnou/gundo-ui/compare/v1.37.2...v1.37.3) (2026-08-15)
+
+
+### Bug Fixes
+
+* **propagate:** escribir siempre sobre el alias + guarda contra el DS duplicado ([#93](https://github.com/jplannnou/gundo-ui/issues/93)) ([b85d887](https://github.com/jplannnou/gundo-ui/commit/b85d8878bf455c614832525faf1456a9780f256b)), closes [#650](https://github.com/jplannnou/gundo-ui/issues/650) [#107](https://github.com/jplannnou/gundo-ui/issues/107) [#107](https://github.com/jplannnou/gundo-ui/issues/107) [#107](https://github.com/jplannnou/gundo-ui/issues/107)
+
 ## [1.37.2](https://github.com/jplannnou/gundo-ui/compare/v1.37.1...v1.37.2) (2026-08-05)
 
 
