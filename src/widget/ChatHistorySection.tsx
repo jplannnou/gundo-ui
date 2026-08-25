@@ -50,7 +50,7 @@ export function ChatHistorySection({ client, locale = 'es', onResume, labels }: 
       <div className="flex flex-col items-center justify-center h-full p-6 text-center">
         <MessageCircle className="w-10 h-10 gu-text-text-muted mb-3" aria-hidden="true" />
         <p className="text-sm gu-text-text-muted">
-          {labels?.empty ?? 'Todavía no tenés charlas. Empezá una desde el Asistente.'}
+          {labels?.empty ?? 'Todavía no tienes charlas. Empieza una desde el Asistente.'}
         </p>
       </div>
     );

@@ -117,6 +117,25 @@ export interface ChatHealthContext {
   conditionDetails?: Record<string, string | number | boolean>;
 
   /**
+   * Tests already loaded in the user's profile. The Engine renders these into
+   * the system prompt AND gates add-on upsell on them (`blockedByProfileFlag`
+   * in its product catalog): without them the assistant assumes NOBODY has any
+   * test loaded, and can offer to sell a test the user already took.
+   *
+   * They are flags, not payloads — the assistant never sees the results here.
+   */
+  hasBloodTest?: boolean;
+  hasMicrobiotaTest?: boolean;
+  hasNutrigeneticTest?: boolean;
+
+  /**
+   * Days left in the user's trial. The Engine reads it to decide whether to
+   * mention the trial at all; absent means "not in a trial", which is why the
+   * host must send it whenever it knows better. Engine range: 0–365.
+   */
+  daysUntilTrialEnds?: number;
+
+  /**
    * Family group: the user shops for a household with several profiles. Lets the
    * assistant offer/use per-member personalization (the scanner, recommendations
    * and plan all personalize per member). The host sets these from its family
@@ -198,6 +217,16 @@ export class ChatClient {
     if (params.activePlanSummary) fd.append('activePlanSummary', params.activePlanSummary);
     if (params.activeShoppingContext)
       fd.append('activeShoppingContext', params.activeShoppingContext);
+    // Flags de tests: se mandan SOLO cuando son ciertos, igual que
+    // hasFamilyGroup. Ausencia = false. Es deliberado: sobre multipart todo
+    // viaja como string, y aunque el Engine tenga enableImplicitConversion,
+    // mandar 'false' depende de cómo lo coaccione class-transformer. No
+    // mandarlo no depende de nada.
+    if (params.hasBloodTest) fd.append('hasBloodTest', 'true');
+    if (params.hasMicrobiotaTest) fd.append('hasMicrobiotaTest', 'true');
+    if (params.hasNutrigeneticTest) fd.append('hasNutrigeneticTest', 'true');
+    if (typeof params.daysUntilTrialEnds === 'number')
+      fd.append('daysUntilTrialEnds', String(params.daysUntilTrialEnds));
     if (params.hasFamilyGroup) fd.append('hasFamilyGroup', 'true');
     if (typeof params.familyMemberCount === 'number')
       fd.append('familyMemberCount', String(params.familyMemberCount));
@@ -219,7 +248,7 @@ export class ChatClient {
     });
 
     if (!response.ok || !response.body) {
-      yield { type: 'error', data: 'No pude conectar con el asistente. Intentá de nuevo en unos momentos.' };
+      yield { type: 'error', data: 'No pude conectar con el asistente. Inténtalo de nuevo en unos momentos.' };
       return;
     }
 
