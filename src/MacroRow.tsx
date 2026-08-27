@@ -100,7 +100,7 @@ export function MacroRow({
               {c.value}
               {c.unit}
             </span>
-            <span className="mt-1 block text-[9.5px] font-semibold uppercase tracking-wide gu-text-text-muted">
+            <span className="mt-1 block text-[9.5px] font-semibold uppercase tracking-wide gu-text-text-secondary">
               {c.label}
             </span>
           </div>

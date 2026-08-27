@@ -5,7 +5,10 @@ import { Badge } from '../Badge';
 describe('Badge', () => {
   it('renders children', () => {
     render(<Badge>Active</Badge>);
-    expect(screen.getByText('Active')).toBeInTheDocument();
+    const badge = screen.getByText('Active');
+    expect(badge).toBeInTheDocument();
+    expect(badge).toHaveClass('gu-text-text');
+    expect(badge).not.toHaveClass('gu-text-text-secondary');
   });
 
   it('renders with success variant', () => {
