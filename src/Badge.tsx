@@ -13,7 +13,10 @@ interface BadgeProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
 }
 
 const variantStyles: Record<Variant, string> = {
-  default: 'gu-bg-surface-hover gu-text-text-secondary',
+  // `text-secondary` queda en 4.30:1 sobre `surface-hover` en el tema oscuro
+  // de Ultra. El badge es texto pequeño (12 px), por lo que necesita la tinta
+  // principal para conservar AA en consumidores que personalizan los tokens.
+  default: 'gu-bg-surface-hover gu-text-text',
   success: 'gu-bg-success-soft gu-text-success',
   error: 'gu-bg-error-soft gu-text-error',
   warning: 'gu-bg-warning-soft gu-text-warning',

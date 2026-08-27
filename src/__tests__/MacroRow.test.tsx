@@ -33,5 +33,7 @@ describe('MacroRow', () => {
     const { container } = render(<MacroRow protein={18} carbs={52} fat={14} variant="strip" />);
     expect(container.firstChild).not.toBeNull();
     expect(screen.getByText('18g')).toBeInTheDocument();
+    expect(screen.getByText('Proteína')).toHaveClass('gu-text-text-secondary');
+    expect(screen.getByText('Proteína')).not.toHaveClass('gu-text-text-muted');
   });
 });
