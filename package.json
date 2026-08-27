@@ -97,7 +97,7 @@
   },
   "pnpm": {
     "overrides": {
-      "undici": "7.24.1",
+      "undici": "7.29.0",
       "lodash-es": ">=4.18.0",
       "picomatch": ">=4.0.4"
     }
