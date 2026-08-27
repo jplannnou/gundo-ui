@@ -1,3 +1,10 @@
+## [1.37.4](https://github.com/jplannnou/gundo-ui/compare/v1.37.3...v1.37.4) (2026-08-27)
+
+
+### Bug Fixes
+
+* asegurar contraste AA en badges y macros ([#99](https://github.com/jplannnou/gundo-ui/issues/99)) ([8613e2b](https://github.com/jplannnou/gundo-ui/commit/8613e2b6e4e74a81b2cf073930507f8dc60fe8f4))
+
 ## [1.37.3](https://github.com/jplannnou/gundo-ui/compare/v1.37.2...v1.37.3) (2026-08-15)
 
 
