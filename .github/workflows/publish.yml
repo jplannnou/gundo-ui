@@ -208,7 +208,7 @@ jobs:
         id: changes
         working-directory: consumer
         run: |
-          if git diff --quiet; then
+          if [ -z "$(git status --porcelain)" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -221,15 +221,15 @@ jobs:
           GH_TOKEN: ${{ secrets.RENOVATE_PAT }}
         run: |
           BRANCH="chore/update-gundo-ui-${VERSION}"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$BRANCH"
-          git add .
-          git commit -m "chore: update @gundo/ui to ^${VERSION} (auto-propagate)"
-          git push -u origin "$BRANCH"
+          BASE="$(git branch --show-current)"
+          test -n "$BASE"
           printf 'Bumps `@gundo/ui` to `^%s` sobre el alias canónico `"@gundo/ui": "npm:@jplannnou/gundo-ui@^%s"`.\n\nVerificado tras el install: una sola copia del DS en `node_modules`, resuelta a `%s`.\n\nTriggered by v%s release: https://github.com/jplannnou/gundo-ui/releases/tag/v%s\n\nAuto-generated.' \
             "$VERSION" "$VERSION" "$VERSION" "$VERSION" "$VERSION" > /tmp/pr-body.txt
-          gh pr create \
+          node ../_ds/scripts/create-signed-consumer-pr.mjs \
             --repo "${{ matrix.consumer.repo }}" \
+            --base "$BASE" \
+            --branch "$BRANCH" \
+            --worktree . \
             --title "chore: update @gundo/ui to ^${VERSION}" \
-            --body-file /tmp/pr-body.txt
+            --body-file /tmp/pr-body.txt \
+            --message "chore: update @gundo/ui to ^${VERSION} (auto-propagate)"
