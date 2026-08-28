@@ -1,3 +1,10 @@
+## [1.37.5](https://github.com/jplannnou/gundo-ui/compare/v1.37.4...v1.37.5) (2026-08-28)
+
+
+### Bug Fixes
+
+* harden detail tabs keyboard navigation ([#100](https://github.com/jplannnou/gundo-ui/issues/100)) ([2245d3e](https://github.com/jplannnou/gundo-ui/commit/2245d3e2e1c5acd7b8bc90ee5ceedc7c4b73b819))
+
 ## [1.37.4](https://github.com/jplannnou/gundo-ui/compare/v1.37.3...v1.37.4) (2026-08-27)
 
 
