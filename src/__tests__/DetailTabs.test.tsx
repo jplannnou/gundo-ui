@@ -41,6 +41,84 @@ describe('DetailTabs', () => {
     expect(onTabChange).toHaveBeenCalledWith('c');
   });
 
+  it.each([
+    ['ArrowRight', 'Tab B', 'Content B'],
+    ['ArrowLeft', 'Tab C', 'Content C'],
+    ['Home', 'Tab A', 'Content A'],
+    ['End', 'Tab C', 'Content C'],
+  ])('selects and focuses the expected tab with %s', (key, label, content) => {
+    render(<DetailTabs tabs={baseTabs} isPremium />);
+    const firstTab = screen.getByRole('tab', { name: /Tab A/ });
+
+    firstTab.focus();
+    fireEvent.keyDown(firstTab, { key });
+
+    expect(screen.getByRole('tab', { name: label })).toHaveFocus();
+    expect(screen.getByText(content)).toBeInTheDocument();
+  });
+
+  it('wraps from the last tab to the first with ArrowRight', () => {
+    render(<DetailTabs tabs={baseTabs} defaultTab="c" isPremium />);
+    const lastTab = screen.getByRole('tab', { name: /Tab C/ });
+
+    lastTab.focus();
+    fireEvent.keyDown(lastTab, { key: 'ArrowRight' });
+
+    expect(screen.getByRole('tab', { name: /Tab A/ })).toHaveFocus();
+    expect(screen.getByText('Content A')).toBeInTheDocument();
+  });
+
+  it('exposes only the active tab in the sequential tab order', () => {
+    render(<DetailTabs tabs={baseTabs} />);
+
+    expect(screen.getByRole('tab', { name: /Tab A/ })).toHaveAttribute('tabindex', '0');
+    expect(screen.getByRole('tab', { name: /Tab B/ })).toHaveAttribute('tabindex', '-1');
+    expect(screen.getByRole('tab', { name: /Tab C/ })).toHaveAttribute('tabindex', '-1');
+  });
+
+  it('keeps keyboard focus inside the DetailTabs instance that received the key', () => {
+    render(
+      <>
+        <DetailTabs tabs={baseTabs} ariaLabel="First detail" isPremium />
+        <DetailTabs tabs={baseTabs} ariaLabel="Second detail" isPremium />
+      </>,
+    );
+    const secondTablist = screen.getByRole('tablist', { name: 'Second detail' });
+    const secondFirstTab = secondTablist.querySelector<HTMLButtonElement>('[role="tab"]');
+
+    secondFirstTab?.focus();
+    fireEvent.keyDown(secondFirstTab as HTMLButtonElement, { key: 'ArrowRight' });
+
+    expect(secondTablist.querySelector('[aria-selected="true"]')).toHaveTextContent('Tab B');
+    expect(secondTablist.querySelector('[aria-selected="true"]')).toHaveFocus();
+  });
+
+  it('falls back to a valid tab when an uncontrolled active tab is removed', () => {
+    const { rerender } = render(<DetailTabs tabs={baseTabs} defaultTab="c" isPremium />);
+
+    rerender(<DetailTabs tabs={baseTabs.slice(0, 2)} isPremium />);
+
+    expect(screen.getByRole('tab', { name: /Tab A/ })).toHaveAttribute('tabindex', '0');
+    expect(screen.getByRole('tab', { name: /Tab A/ })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByText('Content A')).toBeInTheDocument();
+  });
+
+  it('falls back to a valid tab when controlled activeTab is not present', () => {
+    render(<DetailTabs tabs={baseTabs} activeTab={'missing' as 'a'} isPremium />);
+
+    expect(screen.getByRole('tab', { name: /Tab A/ })).toHaveAttribute('tabindex', '0');
+    expect(screen.getByText('Content A')).toBeInTheDocument();
+  });
+
+  it('wires every tab to the stable panel rendered in the DOM', () => {
+    render(<DetailTabs tabs={baseTabs} />);
+    const panel = screen.getByRole('tabpanel');
+
+    for (const tab of screen.getAllByRole('tab')) {
+      expect(tab).toHaveAttribute('aria-controls', panel.id);
+    }
+  });
+
   it('shows lock indicator on premium tabs when not premium', () => {
     render(<DetailTabs tabs={baseTabs} isPremium={false} />);
     const premiumTab = screen.getByRole('tab', { name: /Tab B/ });
@@ -100,7 +178,7 @@ describe('DetailTabs', () => {
   it('uses idPrefix for ARIA wiring', () => {
     render(<DetailTabs tabs={baseTabs} idPrefix="custom" />);
     expect(screen.getByRole('tab', { name: /Tab A/ })).toHaveAttribute('id', 'custom-tab-a');
-    expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'custom-panel-a');
+    expect(screen.getByRole('tabpanel')).toHaveAttribute('id', 'custom-panel');
   });
 
   it('uses ariaLabel on tablist', () => {

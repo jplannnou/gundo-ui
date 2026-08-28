@@ -1,5 +1,12 @@
 import './ui-classes.css';
-import { useState, useEffect, type ReactNode } from 'react';
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type ReactNode,
+} from 'react';
 
 /**
  * Generic tabbed detail viewer with optional premium gating.
@@ -41,7 +48,7 @@ export interface DetailTabsProps<TId extends string = string> {
   lockedContent?: ReactNode | ((tab: DetailTabDefinition<TId>) => ReactNode);
   /** ARIA label for the tablist (defaults to "Detalle") */
   ariaLabel?: string;
-  /** Optional id prefix for ARIA wiring (defaults to "detail") */
+  /** Optional id prefix for ARIA wiring (unique per instance when omitted) */
   idPrefix?: string;
   className?: string;
 }
@@ -54,12 +61,18 @@ export function DetailTabs<TId extends string = string>({
   isPremium = true,
   lockedContent,
   ariaLabel = 'Detalle',
-  idPrefix = 'detail',
+  idPrefix,
   className = '',
 }: DetailTabsProps<TId>) {
+  const generatedId = useId();
+  const resolvedIdPrefix = idPrefix ?? `detail-${generatedId.replace(/:/g, '')}`;
+  const tabRefs = useRef(new Map<TId, HTMLButtonElement>());
   const initialTab = defaultTab ?? tabs[0]?.id;
   const [internalActive, setInternalActive] = useState<TId | undefined>(initialTab);
-  const active = activeTab ?? internalActive;
+  const requestedActive = activeTab ?? internalActive;
+  const active = tabs.some((tab) => tab.id === requestedActive)
+    ? requestedActive
+    : tabs[0]?.id;
 
   // If controlled `activeTab` changes externally, no internal sync needed
   // (we just read `active`). If uncontrolled and `defaultTab` changes, follow it.
@@ -68,6 +81,16 @@ export function DetailTabs<TId extends string = string>({
       setInternalActive(defaultTab);
     }
   }, [defaultTab, activeTab]);
+
+  useEffect(() => {
+    if (
+      activeTab === undefined &&
+      internalActive !== undefined &&
+      !tabs.some((tab) => tab.id === internalActive)
+    ) {
+      setInternalActive(tabs[0]?.id);
+    }
+  }, [activeTab, internalActive, tabs]);
 
   if (!active || tabs.length === 0) {
     return null;
@@ -78,6 +101,33 @@ export function DetailTabs<TId extends string = string>({
       setInternalActive(id);
     }
     onTabChange?.(id);
+  }
+
+  function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, currentId: TId) {
+    const currentIndex = tabs.findIndex((tab) => tab.id === currentId);
+    let nextIndex: number | null = null;
+
+    switch (event.key) {
+      case 'ArrowRight':
+        nextIndex = (currentIndex + 1) % tabs.length;
+        break;
+      case 'ArrowLeft':
+        nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+        break;
+      case 'Home':
+        nextIndex = 0;
+        break;
+      case 'End':
+        nextIndex = tabs.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    const nextTab = tabs[nextIndex];
+    selectTab(nextTab.id);
+    tabRefs.current.get(nextTab.id)?.focus();
   }
 
   const activeTabDef = tabs.find((t) => t.id === active);
@@ -116,10 +166,19 @@ export function DetailTabs<TId extends string = string>({
               key={t.id}
               role="tab"
               aria-selected={selected}
-              aria-controls={`${idPrefix}-panel-${t.id}`}
-              id={`${idPrefix}-tab-${t.id}`}
+              aria-controls={`${resolvedIdPrefix}-panel`}
+              id={`${resolvedIdPrefix}-tab-${t.id}`}
               type="button"
+              tabIndex={selected ? 0 : -1}
+              ref={(element) => {
+                if (element) {
+                  tabRefs.current.set(t.id, element);
+                } else {
+                  tabRefs.current.delete(t.id);
+                }
+              }}
               onClick={() => selectTab(t.id)}
+              onKeyDown={(event) => handleTabKeyDown(event, t.id)}
               className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                 selected
                   ? 'gu-bg-primary gu-text-surface'
@@ -140,8 +199,8 @@ export function DetailTabs<TId extends string = string>({
 
       <div
         role="tabpanel"
-        id={`${idPrefix}-panel-${active}`}
-        aria-labelledby={`${idPrefix}-tab-${active}`}
+        id={`${resolvedIdPrefix}-panel`}
+        aria-labelledby={`${resolvedIdPrefix}-tab-${active}`}
         className="rounded-2xl border gu-border-border gu-bg-surface p-4 md:p-5"
       >
         {renderPanel()}
