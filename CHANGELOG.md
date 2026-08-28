@@ -1,3 +1,10 @@
+## [1.37.6](https://github.com/jplannnou/gundo-ui/compare/v1.37.5...v1.37.6) (2026-08-28)
+
+
+### Bug Fixes
+
+* **release:** create verified consumer commits ([#101](https://github.com/jplannnou/gundo-ui/issues/101)) ([908ac3f](https://github.com/jplannnou/gundo-ui/commit/908ac3fc0c2c52bfddc5737dd4b3ba0ab8ad1506))
+
 ## [1.37.5](https://github.com/jplannnou/gundo-ui/compare/v1.37.4...v1.37.5) (2026-08-28)
 
 
