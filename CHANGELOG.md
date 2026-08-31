@@ -1,3 +1,10 @@
+## [1.37.7](https://github.com/jplannnou/gundo-ui/compare/v1.37.6...v1.37.7) (2026-08-31)
+
+
+### Bug Fixes
+
+* **learn:** keep the guided tour's card inside the screen ([#102](https://github.com/jplannnou/gundo-ui/issues/102)) ([1e3a25e](https://github.com/jplannnou/gundo-ui/commit/1e3a25e441a8bce16d43fa74da23035f3bf8196f))
+
 ## [1.37.6](https://github.com/jplannnou/gundo-ui/compare/v1.37.5...v1.37.6) (2026-08-28)
 
 
