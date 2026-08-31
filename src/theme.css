@@ -211,6 +211,11 @@
   /* Z-index layers */
   --ui-z-dropdown: 50;
   --ui-z-sticky: 100;
+  /* Floating docks anchored to a screen corner (chat bubble, help launcher).
+     Above sticky page chrome, below anything that takes over the screen —
+     an overlay, a tour, a modal. The chat dock used to sit at a raw 9998 and
+     painted itself over the guided tour's card and buttons. */
+  --ui-z-dock: 300;
   --ui-z-overlay: 400;
   /* Spotlight/GuidedTour sits above page overlays but below modals so a
      host-triggered Modal can always interrupt an onboarding tour. */

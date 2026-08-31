@@ -508,12 +508,12 @@ const showcases: Record<string, () => ReactNode> = {
         {
           target: '#tour-demo-target',
           title: 'Tu panel de resultados',
-          body: 'Acá ves todos los parámetros desbloqueados con tus tests.',
+          body: 'Aquí ves todos los parámetros que desbloquean tus tests.',
           placement: 'bottom',
         },
         {
           target: '#tour-demo-secondary',
-          title: 'Subí un test',
+          title: 'Sube un test',
           body: 'Cada test nuevo desbloquea más personalización.',
         },
       ]}
@@ -530,6 +530,64 @@ const showcases: Record<string, () => ReactNode> = {
           style={{ padding: 24, borderRadius: 12, border: '1px solid var(--ui-border)', background: 'var(--ui-surface-raised)' }}
         >
           Subir test
+        </div>
+      </div>
+    </TourProvider>
+  ),
+
+  /**
+   * The geometry that used to break the tour, as a fixture.
+   *
+   * Measured on 2026-08-31 against the shipped component: a highlighted band
+   * taller than the screen with `placement: "top"` drew the card at a negative
+   * `top` (y = -472 at 375x667), and a target low on a short screen pushed the
+   * action row 85 px below the fold. Both left the tour impossible to advance
+   * or dismiss from its own buttons. `guided-tour-mobile.spec.ts` walks this.
+   */
+  GuidedTourTall: () => (
+    <TourProvider
+      isOpen
+      onComplete={() => {}}
+      onSkip={() => {}}
+      labels={{
+        next: 'Siguiente',
+        back: 'Atrás',
+        skip: 'Saltar',
+        done: 'Listo',
+        progress: (c, t) => `${c} de ${t}`,
+      }}
+      steps={[
+        {
+          target: '#tour-tall-band',
+          title: 'Una sección más alta que la pantalla',
+          body: 'El cuerpo ocupa varias líneas para que la tarjeta crezca y el caso se parezca al real, no a un mínimo cómodo.',
+          placement: 'top',
+        },
+        {
+          target: '#tour-bottom-edge',
+          title: 'Pegado al borde inferior',
+          body: 'Sin acotar, la fila de botones cae fuera de la pantalla.',
+          placement: 'bottom',
+        },
+        {
+          target: '#tour-missing-target',
+          title: 'Target que no existe',
+          body: 'Debe caer al paso centrado, no anclarse a la esquina.',
+        },
+      ]}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        <div
+          id="tour-tall-band"
+          style={{ height: '160vh', padding: 24, borderRadius: 12, border: '1px solid var(--ui-border)', background: 'var(--ui-surface-raised)' }}
+        >
+          Banda alta
+        </div>
+        <div
+          id="tour-bottom-edge"
+          style={{ padding: 24, borderRadius: 12, border: '1px solid var(--ui-border)', background: 'var(--ui-surface-raised)' }}
+        >
+          Bloque final
         </div>
       </div>
     </TourProvider>

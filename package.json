@@ -29,6 +29,7 @@
     "test:visual": "playwright test --project=visual",
     "test:visual:update": "playwright test --project=visual --update-snapshots",
     "test:a11y": "playwright test --project=a11y",
+    "test:mobile": "playwright test --project=mobile",
     "test:browser": "vitest run --config vitest.config.browser.ts",
     "gallery:dev": "vite --config gallery/vite.config.ts",
     "gallery:build": "vite build --config gallery/vite.config.ts",

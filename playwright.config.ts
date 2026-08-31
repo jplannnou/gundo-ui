@@ -29,6 +29,21 @@ export default defineConfig({
       },
     },
 
+    /* ─── Mobile viewports (TD-003) ─────────────────────────────
+       The suite had never rendered a component below 1280 px. That is how a
+       guided tour whose card fell outside the screen on every phone size
+       shipped with CI green — the only browser this repo ever opened was a
+       desktop one. Specs here set their own viewport per describe block.     */
+    {
+      name: 'mobile',
+      testDir: './e2e/mobile',
+      testMatch: '**/*.spec.ts',
+      use: {
+        ...devices['Pixel 5'],
+        baseURL: 'http://localhost:4173',
+      },
+    },
+
     /* ─── Accessibility tests (real browser axe-core) ───────────── */
     {
       name: 'a11y',
