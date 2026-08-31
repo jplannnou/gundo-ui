@@ -1,5 +1,5 @@
-'use client';
-import '../ui-classes.css';
+"use client";
+import "../ui-classes.css";
 import {
   createContext,
   useCallback,
@@ -11,27 +11,25 @@ import {
   useState,
   type ReactNode,
   type RefObject,
-} from 'react';
-import { createPortal } from 'react-dom';
-import { AnimatePresence, motion } from 'motion/react';
-import { useFocusTrap } from '../utils/useFocusTrap';
-import { useReducedMotion } from '../utils/useReducedMotion';
-import { tourCardLayout, CARD_ESTIMATE, EDGE } from './tourCardLayout';
+} from "react";
+import { createPortal } from "react-dom";
+import { AnimatePresence, motion } from "motion/react";
+import { useFocusTrap } from "../utils/useFocusTrap";
+import { useReducedMotion } from "../utils/useReducedMotion";
+import { tourCardLayout, CARD_ESTIMATE, EDGE } from "./tourCardLayout";
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
 /** Ref, CSS selector, or getter that resolves the element a step points at. */
 export type TourTarget =
-  | RefObject<HTMLElement | null>
-  | string
-  | (() => HTMLElement | null);
+  RefObject<HTMLElement | null> | string | (() => HTMLElement | null);
 
 export interface TourStepDef {
   target: TourTarget;
   title: ReactNode;
   body?: ReactNode;
   /** Card position relative to the target. `auto` picks by available space. */
-  placement?: 'top' | 'bottom' | 'auto';
+  placement?: "top" | "bottom" | "auto";
 }
 
 /**
@@ -61,9 +59,12 @@ interface TourContextValue {
 
 const TourContext = createContext<TourContextValue | null>(null);
 
-export function useTour(): Omit<TourContextValue, 'registerStep' | 'unregisterStep'> {
+export function useTour(): Omit<
+  TourContextValue,
+  "registerStep" | "unregisterStep"
+> {
   const ctx = useContext(TourContext);
-  if (!ctx) throw new Error('useTour must be used within <TourProvider>');
+  if (!ctx) throw new Error("useTour must be used within <TourProvider>");
   return ctx;
 }
 
@@ -71,8 +72,9 @@ export function useTour(): Omit<TourContextValue, 'registerStep' | 'unregisterSt
 
 function resolveTarget(target: TourTarget | undefined): HTMLElement | null {
   if (!target) return null;
-  if (typeof target === 'string') return document.querySelector<HTMLElement>(target);
-  if (typeof target === 'function') return target();
+  if (typeof target === "string")
+    return document.querySelector<HTMLElement>(target);
+  if (typeof target === "function") return target();
   return target.current;
 }
 
@@ -83,7 +85,10 @@ interface TargetRect {
   height: number;
 }
 
-function useTargetRect(target: TourTarget | undefined, active: boolean): TargetRect | null {
+function useTargetRect(
+  target: TourTarget | undefined,
+  active: boolean,
+): TargetRect | null {
   const [rect, setRect] = useState<TargetRect | null>(null);
 
   useEffect(() => {
@@ -122,26 +127,26 @@ function useTargetRect(target: TourTarget | undefined, active: boolean): TargetR
       raf = requestAnimationFrame(measure);
     };
     measure();
-    window.addEventListener('resize', schedule);
+    window.addEventListener("resize", schedule);
     // Rotating the device does not always fire `resize` on mobile Safari, and
     // the software keyboard changes the usable area without touching
     // `innerHeight` at all — visualViewport is the only source that sees it.
-    window.addEventListener('orientationchange', schedule);
-    const vv = typeof window !== 'undefined' ? window.visualViewport : null;
-    vv?.addEventListener('resize', schedule);
-    vv?.addEventListener('scroll', schedule);
+    window.addEventListener("orientationchange", schedule);
+    const vv = typeof window !== "undefined" ? window.visualViewport : null;
+    vv?.addEventListener("resize", schedule);
+    vv?.addEventListener("scroll", schedule);
     // capture: also catches scrolling inside nested containers
-    window.addEventListener('scroll', schedule, true);
+    window.addEventListener("scroll", schedule, true);
     const el = resolveTarget(target);
     const ro = el ? new ResizeObserver(schedule) : null;
     if (el && ro) ro.observe(el);
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener('resize', schedule);
-      window.removeEventListener('orientationchange', schedule);
-      vv?.removeEventListener('resize', schedule);
-      vv?.removeEventListener('scroll', schedule);
-      window.removeEventListener('scroll', schedule, true);
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("orientationchange", schedule);
+      vv?.removeEventListener("resize", schedule);
+      vv?.removeEventListener("scroll", schedule);
+      window.removeEventListener("scroll", schedule, true);
       ro?.disconnect();
     };
   }, [target, active]);
@@ -167,7 +172,7 @@ interface Viewport {
  */
 function useViewport(): Viewport {
   const read = (): Viewport => {
-    if (typeof window === 'undefined') return { width: 1024, height: 768 };
+    if (typeof window === "undefined") return { width: 1024, height: 768 };
     const vv = window.visualViewport;
     return {
       width: Math.round(vv?.width ?? window.innerWidth),
@@ -183,20 +188,22 @@ function useViewport(): Viewport {
       raf = requestAnimationFrame(() =>
         setVp((prev) => {
           const next = read();
-          return prev.width === next.width && prev.height === next.height ? prev : next;
+          return prev.width === next.width && prev.height === next.height
+            ? prev
+            : next;
         }),
       );
     };
     schedule();
-    window.addEventListener('resize', schedule);
-    window.addEventListener('orientationchange', schedule);
+    window.addEventListener("resize", schedule);
+    window.addEventListener("orientationchange", schedule);
     const vv = window.visualViewport;
-    vv?.addEventListener('resize', schedule);
+    vv?.addEventListener("resize", schedule);
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener('resize', schedule);
-      window.removeEventListener('orientationchange', schedule);
-      vv?.removeEventListener('resize', schedule);
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("orientationchange", schedule);
+      vv?.removeEventListener("resize", schedule);
     };
     // `read` is redefined per render but has no captured state, so the
     // listener set is deliberately installed once.
@@ -304,9 +311,9 @@ export function Spotlight({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: reduced ? 0 : 0.2, ease: 'easeOut' }}
+          transition={{ duration: reduced ? 0 : 0.2, ease: "easeOut" }}
           className="fixed inset-0"
-          style={{ zIndex: zIndex ?? 'var(--ui-z-spotlight)' }}
+          style={{ zIndex: zIndex ?? "var(--ui-z-spotlight)" }}
         >
           {/*
             Click capture. The cutout used to sit UNDER a single full-screen
@@ -389,7 +396,7 @@ export function Spotlight({
               }
               style={{
                 borderRadius: radius,
-                boxShadow: '0 0 0 9999px var(--ui-overlay)',
+                boxShadow: "0 0 0 9999px var(--ui-overlay)",
               }}
               aria-hidden="true"
             />
@@ -413,7 +420,7 @@ export function Spotlight({
 export interface TourStepProps {
   title: ReactNode;
   body?: ReactNode;
-  placement?: 'top' | 'bottom' | 'auto';
+  placement?: "top" | "bottom" | "auto";
   /** Explicit ordering (defaults to mount order) */
   order?: number;
   /** The highlighted element — first DOM child of this wrapper */
@@ -427,9 +434,15 @@ let tourStepMountCounter = 0;
  * highlight. The wrapper uses `display: contents` so it never affects layout;
  * the spotlight targets its first element child.
  */
-export function TourStep({ title, body, placement, order, children }: TourStepProps) {
+export function TourStep({
+  title,
+  body,
+  placement,
+  order,
+  children,
+}: TourStepProps) {
   const ctx = useContext(TourContext);
-  if (!ctx) throw new Error('<TourStep> must be used within <TourProvider>');
+  if (!ctx) throw new Error("<TourStep> must be used within <TourProvider>");
   const id = useId();
   const wrapperRef = useRef<HTMLSpanElement>(null);
   const orderRef = useRef(order ?? ++tourStepMountCounter);
@@ -440,7 +453,8 @@ export function TourStep({ title, body, placement, order, children }: TourStepPr
     registerStep(
       id,
       {
-        target: () => (wrapperRef.current?.firstElementChild as HTMLElement | null) ?? null,
+        target: () =>
+          (wrapperRef.current?.firstElementChild as HTMLElement | null) ?? null,
         title,
         body,
         placement,
@@ -454,7 +468,7 @@ export function TourStep({ title, body, placement, order, children }: TourStepPr
   }, [id, placement, order, registerStep, unregisterStep]);
 
   return (
-    <span ref={wrapperRef} style={{ display: 'contents' }}>
+    <span ref={wrapperRef} style={{ display: "contents" }}>
       {children}
     </span>
   );
@@ -506,7 +520,7 @@ function TourCard({
   const { placement } = layout;
 
   const style: React.CSSProperties =
-    layout.mode === 'sheet'
+    layout.mode === "sheet"
       ? {
           // The sheet is pinned to the bottom edge in CSS rather than at the
           // computed `top`, so the home-indicator inset is honoured on the
@@ -514,7 +528,7 @@ function TourCard({
           left: layout.left,
           right: EDGE,
           bottom: `calc(${EDGE}px + env(safe-area-inset-bottom, 0px))`,
-          width: 'auto',
+          width: "auto",
           maxHeight: `calc(${layout.maxHeight}px - env(safe-area-inset-bottom, 0px))`,
         }
       : {
@@ -527,7 +541,7 @@ function TourCard({
   const arrowStyle: React.CSSProperties | null =
     layout.arrowLeft === null
       ? null
-      : placement === 'bottom'
+      : placement === "bottom"
         ? { top: -6, left: layout.arrowLeft }
         : { bottom: -6, left: layout.arrowLeft };
 
@@ -542,9 +556,13 @@ function TourCard({
       aria-describedby={step.body ? `${progressId} ${bodyId}` : progressId}
       tabIndex={-1}
       key={index}
-      initial={reduced ? undefined : { opacity: 0, y: placement === 'bottom' ? 8 : -8 }}
+      initial={
+        reduced ? undefined : { opacity: 0, y: placement === "bottom" ? 8 : -8 }
+      }
       animate={{ opacity: 1, y: 0 }}
-      exit={reduced ? undefined : { opacity: 0, y: placement === 'bottom' ? 8 : -8 }}
+      exit={
+        reduced ? undefined : { opacity: 0, y: placement === "bottom" ? 8 : -8 }
+      }
       transition={{ duration: reduced ? 0 : 0.2, ease: [0, 0, 0.2, 1] }}
       className="absolute flex flex-col rounded-2xl border gu-border-border gu-bg-surface p-4 gu-shadow-shadow-lg outline-none"
       style={style}
@@ -555,10 +573,10 @@ function TourCard({
           className="absolute h-3 w-3 rotate-45 gu-border-border gu-bg-surface"
           style={{
             ...arrowStyle,
-            borderTopWidth: placement === 'bottom' ? 1 : 0,
-            borderLeftWidth: placement === 'bottom' ? 1 : 0,
-            borderBottomWidth: placement === 'top' ? 1 : 0,
-            borderRightWidth: placement === 'top' ? 1 : 0,
+            borderTopWidth: placement === "bottom" ? 1 : 0,
+            borderLeftWidth: placement === "bottom" ? 1 : 0,
+            borderBottomWidth: placement === "top" ? 1 : 0,
+            borderRightWidth: placement === "top" ? 1 : 0,
           }}
         />
       )}
@@ -577,11 +595,25 @@ function TourCard({
         >
           {labels.progress(index + 1, total)}
         </p>
-        <h3 id={titleId} className="text-base font-semibold gu-text-text">
+        {/*
+          El título toma la familia display del sistema (Quicksand). Sin ella
+          heredaba la de UI y la tarjeta era la única superficie del rediseño
+          premium sin voz propia: mismo peso y misma letra que un tooltip
+          cualquiera. El serif editorial NO se usa aquí a propósito — está
+          reservado al registro largo (plan, hero, cifras), y sobre tres líneas
+          de instrucción se lee como una cita, no como una explicación.
+        */}
+        <h3
+          id={titleId}
+          className="gu-font-font-display text-base font-semibold gu-text-text"
+        >
           {step.title}
         </h3>
         {step.body && (
-          <div id={bodyId} className="mt-1.5 text-sm leading-relaxed gu-text-text-secondary">
+          <div
+            id={bodyId}
+            className="mt-1.5 text-sm leading-relaxed gu-text-text-secondary"
+          >
             {step.body}
           </div>
         )}
@@ -688,13 +720,16 @@ export function TourProvider({
   >(() => new Map());
   const reduced = useReducedMotion();
 
-  const registerStep = useCallback((id: string, def: TourStepDef, order: number) => {
-    setRegistered((prev) => {
-      const map = new Map(prev);
-      map.set(id, { def, order });
-      return map;
-    });
-  }, []);
+  const registerStep = useCallback(
+    (id: string, def: TourStepDef, order: number) => {
+      setRegistered((prev) => {
+        const map = new Map(prev);
+        map.set(id, { def, order });
+        return map;
+      });
+    },
+    [],
+  );
 
   const unregisterStep = useCallback((id: string) => {
     setRegistered((prev) => {
@@ -768,10 +803,10 @@ export function TourProvider({
   useEffect(() => {
     if (!isOpen) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') skip();
+      if (e.key === "Escape") skip();
     };
-    document.addEventListener('keydown', handler);
-    return () => document.removeEventListener('keydown', handler);
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
   }, [isOpen, skip]);
 
   // Scroll the current target into view
@@ -784,11 +819,12 @@ export function TourProvider({
     // section taller than the screen ends up with its top off-screen, which is
     // exactly the case the card has to be clamped out of. Showing its start
     // instead leaves real room underneath for the card to anchor.
-    const tallerThanViewport = el.getBoundingClientRect().height > window.innerHeight;
+    const tallerThanViewport =
+      el.getBoundingClientRect().height > window.innerHeight;
     el.scrollIntoView({
-      block: tallerThanViewport ? 'start' : 'center',
-      inline: 'nearest',
-      behavior: reduced ? 'auto' : 'smooth',
+      block: tallerThanViewport ? "start" : "center",
+      inline: "nearest",
+      behavior: reduced ? "auto" : "smooth",
     });
   }, [activeStep, reduced]);
 
