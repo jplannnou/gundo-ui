@@ -98,11 +98,17 @@ export function GundoWidget({
   // bottom bar (bottomOffset). Always inline so the safe-area inset applies
   // even without a host offset; overrides the `bottom-5` / `bottom-24`
   // utility fallbacks.
+  // The stacking order comes from the token scale, not from a raw 9998. At
+  // 9998 the bubble and its panel painted over everything the design system
+  // puts above page chrome on purpose — including the guided tour's card and
+  // its buttons, which is how a tour became impossible to finish on a phone.
   const bubbleBottomStyle = {
     bottom: `calc(1.25rem + env(safe-area-inset-bottom, 0px) + ${bottomOffset}px)`,
+    zIndex: 'var(--ui-z-dock)',
   };
   const panelBottomStyle = {
     bottom: `calc(6rem + env(safe-area-inset-bottom, 0px) + ${bottomOffset}px)`,
+    zIndex: 'var(--ui-z-dock)',
   };
   const [open, setOpen] = useState(defaultOpen);
   const [section, setSection] = useState<GundoWidgetSection>('chat');
@@ -231,7 +237,7 @@ export function GundoWidget({
           aria-expanded={open}
           aria-haspopup="dialog"
           style={bubbleBottomStyle}
-          className="fixed bottom-5 right-5 z-[9998] w-14 h-14 rounded-full gu-bg-primary gu-text-surface shadow-lg flex items-center justify-center active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary focus-visible:ring-offset-2"
+          className="fixed bottom-5 right-5 w-14 h-14 rounded-full gu-bg-primary gu-text-surface shadow-lg flex items-center justify-center active:scale-95 transition-transform focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary focus-visible:ring-offset-2"
         >
           {open ? <X className="w-6 h-6" aria-hidden="true" /> : <MessageCircle className="w-6 h-6" aria-hidden="true" />}
           {!open && badgeCount > 0 && (
@@ -254,7 +260,7 @@ export function GundoWidget({
             exit={panelExit}
             transition={{ duration: panelDuration, ease: [0.16, 1, 0.3, 1] as const }}
             style={panelBottomStyle}
-            className="fixed bottom-24 right-5 z-[9998] w-[min(400px,calc(100vw-2.5rem))] h-[min(620px,calc(100vh-8rem))] supports-[height:100dvh]:h-[min(620px,calc(100dvh-8rem))] rounded-2xl overflow-hidden border gu-border-border gu-bg-surface shadow-2xl flex flex-col"
+            className="fixed bottom-24 right-5 w-[min(400px,calc(100vw-2.5rem))] h-[min(620px,calc(100vh-8rem))] supports-[height:100dvh]:h-[min(620px,calc(100dvh-8rem))] rounded-2xl overflow-hidden border gu-border-border gu-bg-surface shadow-2xl flex flex-col"
             role="dialog"
             aria-modal="true"
             aria-label={productName}

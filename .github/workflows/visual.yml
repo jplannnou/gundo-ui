@@ -39,6 +39,12 @@ jobs:
       - name: Run accessibility tests
         run: pnpm test:a11y
 
+      # Mobile viewports (TD-003). Until this step the repo had never opened a
+      # browser narrower than 1280 px, which is how a guided tour whose card
+      # fell outside the screen on every phone size shipped with CI green.
+      - name: Run mobile viewport tests
+        run: pnpm test:mobile
+
       - name: Upload updated snapshots
         if: inputs.update_snapshots && !cancelled()
         uses: actions/upload-artifact@v4
