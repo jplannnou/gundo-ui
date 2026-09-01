@@ -36,7 +36,10 @@ describe('VerdictBanner', () => {
 
   it('renders the unverified chip when flagged', () => {
     render(<VerdictBanner level="caution" title="Quizá" unverified unverifiedLabel="No verificado" />);
-    expect(screen.getByText('No verificado')).toBeInTheDocument();
+    const chip = screen.getByText('No verificado');
+    expect(chip).toBeInTheDocument();
+    expect(chip).toHaveClass('gu-text-text-secondary');
+    expect(chip).not.toHaveClass('gu-text-text-muted');
   });
 
   it('renders the score slot', () => {
