@@ -128,7 +128,9 @@ export function VerdictBanner({
           <p className="text-lg font-bold leading-tight gu-text-text">{title}</p>
           {unverified && (
             <span
-              className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide gu-text-text-muted"
+              // A 10 px label needs the secondary token: muted falls below AA
+              // on caution backgrounds in dark consumer themes.
+              className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide gu-text-text-secondary"
               style={{ border: '1px solid var(--ui-border)' }}
             >
               {unverifiedLabel}
