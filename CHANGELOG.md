@@ -1,3 +1,10 @@
+## [1.37.10](https://github.com/jplannnou/gundo-ui/compare/v1.37.9...v1.37.10) (2026-09-01)
+
+
+### Bug Fixes
+
+* **a11y:** los tokens de rango no existian en el tema claro ([#107](https://github.com/jplannnou/gundo-ui/issues/107)) ([dd9cd62](https://github.com/jplannnou/gundo-ui/commit/dd9cd6234b240213fa7d7a7218c079ebec6a8743)), closes [#F2F4F3](https://github.com/jplannnou/gundo-ui/issues/F2F4F3) [#ef4444](https://github.com/jplannnou/gundo-ui/issues/ef4444) [#f26d6](https://github.com/jplannnou/gundo-ui/issues/f26d6) [#9ca3](https://github.com/jplannnou/gundo-ui/issues/9ca3) [#828b98](https://github.com/jplannnou/gundo-ui/issues/828b98) [#b0b8c4](https://github.com/jplannnou/gundo-ui/issues/b0b8c4) [#9aa4b2](https://github.com/jplannnou/gundo-ui/issues/9aa4b2)
+
 ## [1.37.9](https://github.com/jplannnou/gundo-ui/compare/v1.37.8...v1.37.9) (2026-09-01)
 
 
