@@ -87,8 +87,11 @@
   --ui-range-good-soft: rgb(132 204 22 / 0.15);
   --ui-range-attention: #f59e0b;     /* needs monitoring */
   --ui-range-attention-soft: rgb(245 158 11 / 0.15);
-  --ui-range-critical: #ef4444;      /* outside safe range */
-  --ui-range-critical-soft: rgb(239 68 68 / 0.15);
+  --ui-range-critical: #f26d6d;      /* outside safe range — 4.66:1 on
+                                        #292E37. Was #ef4444 (3.62:1), the
+                                        very value this theme had already
+                                        rejected for --ui-error. */
+  --ui-range-critical-soft: rgb(242 109 109 / 0.15);
 
   /* Macro tokens — nutrition macronutrient identity colors.
      A dedicated family so macro UIs (MacroRow, MacrosDisplay, MealCard) stop
@@ -284,6 +287,21 @@
   --ui-macro-fat-soft: rgb(47 107 76 / 0.1);
   --ui-macro-fiber: #427012;         /* darkened lime — 5.34:1 on light */
   --ui-macro-fiber-soft: rgb(66 112 18 / 0.1);
+
+  /* Range tokens — darkened for AA-as-text (≥4.5:1) on light surface
+     #F2F4F3. Without this block the :root (dark) values leaked into the
+     light theme, where optimal/good/attention landed at 2.06/1.79/1.94:1 —
+     under the 3:1 that SC 1.4.11 asks of a non-text indicator, let alone a
+     readable label. Kept distinct from --ui-success/error/warning so "in
+     band" never reads as the same ink as "operation succeeded". */
+  --ui-range-optimal: #15803d;       /* 4.54:1 */
+  --ui-range-optimal-soft: rgb(21 128 61 / 0.1);
+  --ui-range-good: #4d7c0f;          /* 4.52:1 */
+  --ui-range-good-soft: rgb(77 124 15 / 0.1);
+  --ui-range-attention: #b45309;     /* 4.55:1 */
+  --ui-range-attention-soft: rgb(180 83 9 / 0.1);
+  --ui-range-critical: #c2261c;      /* 5.30:1 */
+  --ui-range-critical-soft: rgb(194 38 28 / 0.1);
 
   --ui-overlay: rgb(0 0 0 / 0.3);
 
