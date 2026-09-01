@@ -1,3 +1,10 @@
+## [1.37.8](https://github.com/jplannnou/gundo-ui/compare/v1.37.7...v1.37.8) (2026-09-01)
+
+
+### Bug Fixes
+
+* **a11y:** asegurar contraste del estado no validado ([#105](https://github.com/jplannnou/gundo-ui/issues/105)) ([281515d](https://github.com/jplannnou/gundo-ui/commit/281515db250184f569b065ee9f69146682c19f40))
+
 ## [1.37.7](https://github.com/jplannnou/gundo-ui/compare/v1.37.6...v1.37.7) (2026-08-31)
 
 
