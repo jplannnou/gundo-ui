@@ -1,3 +1,10 @@
+# [1.38.0](https://github.com/jplannnou/gundo-ui/compare/v1.37.10...v1.38.0) (2026-09-01)
+
+
+### Features
+
+* **RangeBar:** decir los numeros y anclar lo que se sale de la escala ([#108](https://github.com/jplannnou/gundo-ui/issues/108)) ([3ab3bdb](https://github.com/jplannnou/gundo-ui/commit/3ab3bdb73c9b920e3cbf77d2cfe545c0dea968e5))
+
 ## [1.37.10](https://github.com/jplannnou/gundo-ui/compare/v1.37.9...v1.37.10) (2026-09-01)
 
 
