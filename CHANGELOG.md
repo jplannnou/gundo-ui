@@ -1,3 +1,10 @@
+## [1.37.9](https://github.com/jplannnou/gundo-ui/compare/v1.37.8...v1.37.9) (2026-09-01)
+
+
+### Bug Fixes
+
+* **widget:** mantener el asistente sobre el contenido ([#106](https://github.com/jplannnou/gundo-ui/issues/106)) ([af9d1bf](https://github.com/jplannnou/gundo-ui/commit/af9d1bf606f0e5274887cce29ab8f321629a5b6f))
+
 ## [1.37.8](https://github.com/jplannnou/gundo-ui/compare/v1.37.7...v1.37.8) (2026-09-01)
 
 
