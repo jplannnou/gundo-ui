@@ -104,11 +104,15 @@ export function GundoWidget({
   // its buttons, which is how a tour became impossible to finish on a phone.
   const bubbleBottomStyle = {
     bottom: `calc(1.25rem + env(safe-area-inset-bottom, 0px) + ${bottomOffset}px)`,
-    zIndex: 'var(--ui-z-dock)',
+    // Consumers redefine the token contract instead of importing theme.css.
+    // A missing custom property invalidates the whole z-index declaration and
+    // silently falls back to `auto`, leaving the launcher below ordinary page
+    // content. Keep the canonical token, but make its numeric contract durable.
+    zIndex: 'var(--ui-z-dock, 300)',
   };
   const panelBottomStyle = {
     bottom: `calc(6rem + env(safe-area-inset-bottom, 0px) + ${bottomOffset}px)`,
-    zIndex: 'var(--ui-z-dock)',
+    zIndex: 'var(--ui-z-dock, 300)',
   };
   const [open, setOpen] = useState(defaultOpen);
   const [section, setSection] = useState<GundoWidgetSection>('chat');
