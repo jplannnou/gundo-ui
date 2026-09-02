@@ -1,3 +1,10 @@
+## [1.38.2](https://github.com/jplannnou/gundo-ui/compare/v1.38.1...v1.38.2) (2026-09-02)
+
+
+### Bug Fixes
+
+* **product-card:** en el movil se perdia un tercio de la foto del producto ([#110](https://github.com/jplannnou/gundo-ui/issues/110)) ([6cec926](https://github.com/jplannnou/gundo-ui/commit/6cec9265a0066afe23cea723dcf5c4a9306afd8f))
+
 ## [1.38.1](https://github.com/jplannnou/gundo-ui/compare/v1.38.0...v1.38.1) (2026-09-02)
 
 
