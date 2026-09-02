@@ -100,8 +100,14 @@ export function ProductCard({
     >
       {/* Image */}
       {image ? (
+        /* Proporcional, no alto fijo: el mismo motivo que en
+         * ProductCardWithExplainability. `h-44`/`h-32` median lo mismo en una
+         * columna de 162px que en una de 268px, asi que el producto salia en
+         * retrato en el movil y apaisado en el escritorio, recortado por lados
+         * distintos. 4:3 es la relacion nativa del origen (400x300). El ratio
+         * reserva el espacio igual de bien: el CLS sigue en cero. */
         <div
-          className={`relative overflow-hidden gu-bg-surface-raised ${isCompact ? 'h-32' : 'h-44'}`}
+          className={`relative overflow-hidden gu-bg-surface-raised ${isCompact ? 'aspect-[3/2]' : 'aspect-[4/3]'}`}
         >
           <img
             src={image}
@@ -127,7 +133,7 @@ export function ProductCard({
         </div>
       ) : (
         <div
-          className={`flex items-center justify-center gu-bg-surface-raised ${isCompact ? 'h-32' : 'h-44'}`}
+          className={`flex items-center justify-center gu-bg-surface-raised ${isCompact ? 'aspect-[3/2]' : 'aspect-[4/3]'}`}
         >
           <svg
             width="40"
