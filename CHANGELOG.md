@@ -1,3 +1,10 @@
+## [1.38.1](https://github.com/jplannnou/gundo-ui/compare/v1.38.0...v1.38.1) (2026-09-02)
+
+
+### Bug Fixes
+
+* **marca:** los SVG del logotipo no salian publicados ([#109](https://github.com/jplannnou/gundo-ui/issues/109)) ([bd27461](https://github.com/jplannnou/gundo-ui/commit/bd274615467d71f97097d6931dd845089a46b551))
+
 # [1.38.0](https://github.com/jplannnou/gundo-ui/compare/v1.37.10...v1.38.0) (2026-09-01)
 
 
