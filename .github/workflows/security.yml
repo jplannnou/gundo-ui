@@ -1,6 +1,11 @@
 name: Security Audit
 
 on:
+  pull_request:
+    paths:
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/security.yml'
   schedule:
     - cron: '0 8 * * 1'
   workflow_dispatch:
@@ -9,6 +14,27 @@ permissions:
   contents: read
 
 jobs:
+  dependency-audit:
+    name: pnpm audit (high+)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.30.1
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies from lockfile
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Reject high or critical dependency vulnerabilities
+        run: pnpm audit --audit-level high
+
   audit:
     name: Trivy filesystem scan
     runs-on: ubuntu-latest
@@ -26,4 +52,3 @@ jobs:
           format: table
         env:
           TRIVY_INCLUDE_DEV_DEPS: 'true'
-
