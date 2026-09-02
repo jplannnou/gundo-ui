@@ -1,5 +1,6 @@
 import "./ui-classes.css";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import { ShoppingCart } from "lucide-react";
 import { MatchScoreRing } from "./MatchScoreRing";
 import {
   ExplainabilityBadge,
@@ -157,6 +158,7 @@ export function ProductCardWithExplainability({
   const styles = stateStyles[resolvedState];
   const mainReason = product.reasons?.[0];
   const isIncompatible = resolvedState === "incompatible";
+  const [imagenRota, setImagenRota] = useState(false);
 
   return (
     <article
@@ -166,12 +168,31 @@ export function ProductCardWithExplainability({
       onClick={onOpen ? () => onOpen(product.ean) : undefined}
       aria-label={product.name}
     >
-      {/* Image */}
-      <div className="relative h-44 overflow-hidden gu-bg-surface-raised">
-        {product.image ? (
+      {/* Foto.
+       *
+       * `aspect-[4/3]` y NO un alto fijo. El alto fijo (`h-44` = 176px) medía
+       * lo mismo en una columna de 162px que en una de 268px, así que el mismo
+       * producto salía en retrato en el móvil y en apaisado en el escritorio, y
+       * `object-cover` recortaba por lados distintos en cada sitio. 4:3 es
+       * además la relación NATIVA del origen (400×300), así que a este ratio no
+       * se recorta nada.
+       *
+       * El ratio reserva el espacio igual de bien que el alto fijo: el CLS
+       * sigue en cero.
+       *
+       * ⚠️ Esto ya se había arreglado una vez, en la tarjeta que este componente
+       * vino a sustituir, y con el mismo razonamiento escrito al lado. Se
+       * perdió en la reescritura porque la lección vivía en un comentario. */}
+      <div className="relative aspect-[4/3] overflow-hidden gu-bg-surface-raised">
+        {product.image && !imagenRota ? (
           <img
             src={product.image}
             alt={product.imageAlt ?? product.name}
+            /* Una foto de producto viene del CDN de la enseña: caduca, da 403 o
+             * muere. Sin esto quedaba el icono roto del navegador dentro de la
+             * tarjeta. Ahora una foto que falla se ve igual que un producto sin
+             * foto, y nunca como un agujero. */
+            onError={() => setImagenRota(true)}
             className={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 ${
               isIncompatible ? "opacity-60 grayscale" : ""
             }`}
@@ -181,9 +202,14 @@ export function ProductCardWithExplainability({
             className="flex h-full w-full items-center justify-center gu-text-text-muted"
             aria-hidden="true"
           >
-            🛒
+            {/* Era un 🛒. Lo pintaba la fuente del sistema —distinto en iOS, en
+             * Android y en Windows—, no obedecía al tema y no escalaba con la
+             * tarjeta. Un hueco de marca no puede depender de la fuente de
+             * quien mira. */}
+            <ShoppingCart className="h-2/5 w-2/5" />
           </div>
         )}
+
         {/* State label */}
         {styles.label && (
           <span
