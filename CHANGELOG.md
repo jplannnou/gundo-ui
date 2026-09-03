@@ -1,3 +1,10 @@
+## [1.39.3](https://github.com/jplannnou/gundo-ui/compare/v1.39.2...v1.39.3) (2026-09-03)
+
+
+### Bug Fixes
+
+* **ProductCardWithExplainability:** `tagLabels` era inalcanzable desde fuera ([#120](https://github.com/jplannnou/gundo-ui/issues/120)) ([4adaa32](https://github.com/jplannnou/gundo-ui/commit/4adaa32cf22df2cc02b6a245d19d08ae57e6d3ac))
+
 ## [1.39.2](https://github.com/jplannnou/gundo-ui/compare/v1.39.1...v1.39.2) (2026-09-03)
 
 
