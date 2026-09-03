@@ -184,4 +184,23 @@ describe("copy del design system", () => {
         "\n\nUna deuda que se queda escrita después de pagarla deja de medir nada.",
     ).toEqual([]);
   });
+  it("NINGUN componente pinta un emoji como icono", () => {
+    // Un emoji lo pinta la FUENTE DEL SISTEMA: el mismo simbolo es distinto en
+    // iOS, en Android y en Windows, y en algunos ni existe. No obedece al tema,
+    // no escala con el texto, y un lector de pantalla lo LEE en medio de una
+    // etiqueta. El ecom lleva su propio trinquete de iconografia desde hace
+    // meses, pero no ve este repo: los 11 componentes que quedaban aqui se le
+    // escapaban por vivir al otro lado del paquete.
+    const PICTOGRAMA = /[\u{1F300}-\u{1FAFF}\u{1F000}-\u{1F0FF}✀-➿☀-⛿]/gu;
+    const culpables: string[] = [];
+    for (const { rel, codigo } of FICHEROS) {
+      const m = sinComentarios(codigo).match(PICTOGRAMA);
+      if (m) culpables.push(rel + ": " + [...new Set(m)].join(" "));
+    }
+    expect(
+      culpables,
+      "usa lucide-react (o una prop `icon`) en vez de un emoji:\n  " +
+        culpables.join("\n  "),
+    ).toEqual([]);
+  });
 });

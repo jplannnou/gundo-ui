@@ -1,4 +1,5 @@
-import './ui-classes.css';
+import "./ui-classes.css";
+import { Lock } from "lucide-react";
 import {
   useEffect,
   useId,
@@ -6,7 +7,7 @@ import {
   useState,
   type KeyboardEvent,
   type ReactNode,
-} from 'react';
+} from "react";
 
 /**
  * Generic tabbed detail viewer with optional premium gating.
@@ -60,15 +61,18 @@ export function DetailTabs<TId extends string = string>({
   onTabChange,
   isPremium = true,
   lockedContent,
-  ariaLabel = 'Detalle',
+  ariaLabel = "Detalle",
   idPrefix,
-  className = '',
+  className = "",
 }: DetailTabsProps<TId>) {
   const generatedId = useId();
-  const resolvedIdPrefix = idPrefix ?? `detail-${generatedId.replace(/:/g, '')}`;
+  const resolvedIdPrefix =
+    idPrefix ?? `detail-${generatedId.replace(/:/g, "")}`;
   const tabRefs = useRef(new Map<TId, HTMLButtonElement>());
   const initialTab = defaultTab ?? tabs[0]?.id;
-  const [internalActive, setInternalActive] = useState<TId | undefined>(initialTab);
+  const [internalActive, setInternalActive] = useState<TId | undefined>(
+    initialTab,
+  );
   const requestedActive = activeTab ?? internalActive;
   const active = tabs.some((tab) => tab.id === requestedActive)
     ? requestedActive
@@ -103,21 +107,24 @@ export function DetailTabs<TId extends string = string>({
     onTabChange?.(id);
   }
 
-  function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, currentId: TId) {
+  function handleTabKeyDown(
+    event: KeyboardEvent<HTMLButtonElement>,
+    currentId: TId,
+  ) {
     const currentIndex = tabs.findIndex((tab) => tab.id === currentId);
     let nextIndex: number | null = null;
 
     switch (event.key) {
-      case 'ArrowRight':
+      case "ArrowRight":
         nextIndex = (currentIndex + 1) % tabs.length;
         break;
-      case 'ArrowLeft':
+      case "ArrowLeft":
         nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
         break;
-      case 'Home':
+      case "Home":
         nextIndex = 0;
         break;
-      case 'End':
+      case "End":
         nextIndex = tabs.length - 1;
         break;
       default:
@@ -138,7 +145,7 @@ export function DetailTabs<TId extends string = string>({
     if (!locked) {
       return activeTabDef.content;
     }
-    if (typeof lockedContent === 'function') {
+    if (typeof lockedContent === "function") {
       return lockedContent(activeTabDef);
     }
     if (lockedContent !== undefined) {
@@ -181,15 +188,18 @@ export function DetailTabs<TId extends string = string>({
               onKeyDown={(event) => handleTabKeyDown(event, t.id)}
               className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                 selected
-                  ? 'gu-bg-primary gu-text-surface'
-                  : 'gu-text-text-secondary gu-h-bg-surface-hover gu-h-text-text'
+                  ? "gu-bg-primary gu-text-surface"
+                  : "gu-text-text-secondary gu-h-bg-surface-hover gu-h-text-text"
               }`}
             >
               {t.icon && <span aria-hidden="true">{t.icon}</span>}
               {t.label}
               {gated && (
-                <span className="ml-0.5 text-[10px]" aria-label="Premium" title="Premium">
-                  🔒
+                <span title="Premium">
+                  <Lock
+                    className="ml-0.5 h-3 w-3"
+                    aria-label="Premium"
+                  />
                 </span>
               )}
             </button>

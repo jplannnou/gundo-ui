@@ -1,5 +1,14 @@
 import "./ui-classes.css";
 import {
+  Camera,
+  Check,
+  CheckCircle2,
+  Droplet,
+  FileText,
+  Lock,
+  TestTube,
+} from "lucide-react";
+import {
   useCallback,
   useRef,
   useState,
@@ -186,7 +195,11 @@ export function UploadWizard({
                 }`}
                 aria-current={state === "active" ? "step" : undefined}
               >
-                {state === "done" ? "✓" : idx + 1}
+                {state === "done" ? (
+                  <Check className="h-3.5 w-3.5" aria-hidden="true" />
+                ) : (
+                  idx + 1
+                )}
               </span>
               <span
                 className={`text-xs font-medium ${
@@ -208,9 +221,10 @@ export function UploadWizard({
 
       {privacyBanner ?? (
         <div className="flex items-start gap-2 rounded-xl border gu-border-border gu-bg-surface-raised p-3 text-xs gu-text-text-secondary">
-          <span aria-hidden="true" className="mt-0.5 gu-text-info">
-            🔒
-          </span>
+          <Lock
+            className="mt-0.5 h-4 w-4 shrink-0 gu-text-info"
+            aria-hidden="true"
+          />
           <p>
             Tus datos clínicos se guardan cifrados y no se comparten con
             terceros. OCR se corre del lado del servidor y sólo vos ves los
@@ -236,9 +250,11 @@ export function UploadWizard({
                     : "gu-border-border gu-h-border-border-hover"
                 }`}
               >
-                <span className="text-2xl" aria-hidden="true">
-                  {t === "blood" ? "🩸" : "💧"}
-                </span>
+                {t === "blood" ? (
+                  <Droplet className="h-6 w-6 shrink-0" aria-hidden="true" />
+                ) : (
+                  <TestTube className="h-6 w-6 shrink-0" aria-hidden="true" />
+                )}
                 <div>
                   <p className="font-semibold gu-text-text">
                     {t === "blood"
@@ -280,9 +296,10 @@ export function UploadWizard({
                 if (f) handleFileSelected(f);
               }}
             />
-            <span className="text-3xl" aria-hidden="true">
-              📄
-            </span>
+            <FileText
+              className="h-8 w-8 gu-text-text-muted"
+              aria-hidden="true"
+            />
             <p className="text-sm font-semibold gu-text-text">
               Arrastrá tu PDF o imagen aquí
             </p>
@@ -323,7 +340,8 @@ export function UploadWizard({
             onClick={() => inputRef.current?.click()}
             className="inline-flex items-center justify-center gap-2 rounded-xl border gu-border-border px-4 py-2 text-sm font-medium gu-text-text gu-h-bg-surface-hover"
           >
-            📷 Usar cámara
+            <Camera className="h-4 w-4" aria-hidden="true" />
+            Usar cámara
           </button>
           {onManualFallback && (
             <button
@@ -406,9 +424,10 @@ export function UploadWizard({
 
       {step === "done" && (
         <div className="flex flex-col items-center gap-2 py-6 text-center">
-          <span className="text-4xl" aria-hidden="true">
-            ✅
-          </span>
+          <CheckCircle2
+            className="h-10 w-10 gu-text-success"
+            aria-hidden="true"
+          />
           <p className="text-lg font-bold gu-text-text">Analítica guardada</p>
           <p className="text-sm gu-text-text-secondary">
             Estamos actualizando tu plan. Te avisamos cuando esté listo.

@@ -1,16 +1,23 @@
-import './ui-classes.css';
-import { useState, type ReactNode } from 'react';
+import "./ui-classes.css";
+import { useState, type ReactNode } from "react";
+import {
+  BarChart3,
+  CalendarDays,
+  Camera,
+  ChefHat,
+  type LucideIcon,
+} from "lucide-react";
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
-export type PaywallTrigger = 'analytics' | 'recipes' | 'plan' | 'scanner';
-export type PaywallPlanVariant = 'standard' | 'plus';
-export type PaywallBillingCycle = 'monthly' | 'yearly';
+export type PaywallTrigger = "analytics" | "recipes" | "plan" | "scanner";
+export type PaywallPlanVariant = "standard" | "plus";
+export type PaywallBillingCycle = "monthly" | "yearly";
 
 export interface PaywallPricing {
   monthly: number;
   yearly: number;
-  currency: 'EUR';
+  currency: "EUR";
 }
 
 export interface PaywallTestimonial {
@@ -82,7 +89,7 @@ export interface PaywallUnifiedProps {
    * Con `inherited`, el argumento `cycle` de `onUpgrade` no significa nada:
    * el ciclo real lo resuelve el backend leyendo la suscripcion base.
    */
-  cycleMode?: 'choose' | 'inherited';
+  cycleMode?: "choose" | "inherited";
   /** Inline ROI tiles */
   roi?: PaywallRoi[];
   /** Social proof */
@@ -105,38 +112,51 @@ export interface PaywallFeatureRow {
 
 const triggerCopy: Record<
   PaywallTrigger,
-  { title: string; subtitle: string; emoji: string }
+  { title: string; subtitle: string; Icono: LucideIcon }
 > = {
   analytics: {
-    emoji: '📊',
-    title: 'Desbloquea tu evolución completa',
-    subtitle: 'Analítica avanzada, tendencias a 6-12 meses e insights accionables.',
+    Icono: BarChart3,
+    title: "Desbloquea tu evolución completa",
+    subtitle:
+      "Analítica avanzada, tendencias a 6-12 meses e insights accionables.",
   },
   recipes: {
-    emoji: '🍳',
-    title: 'Recetas ilimitadas a medida',
-    subtitle: 'Generador Premium sin límites + alternativas y adaptaciones automáticas.',
+    Icono: ChefHat,
+    title: "Recetas ilimitadas a medida",
+    subtitle:
+      "Generador Premium sin límites + alternativas y adaptaciones automáticas.",
   },
   plan: {
-    emoji: '🗓️',
-    title: 'Plan nutricional Premium',
-    subtitle: 'Hidratación, timing, educación y ajustes semanales con IA.',
+    Icono: CalendarDays,
+    title: "Plan nutricional Premium",
+    subtitle: "Hidratación, timing, educación y ajustes semanales con IA.",
   },
   scanner: {
-    emoji: '📷',
-    title: 'Scanner ilimitado',
-    subtitle: 'Analiza cuantos productos quieras al mes con alternativas al instante.',
+    Icono: Camera,
+    title: "Scanner ilimitado",
+    subtitle:
+      "Analiza cuantos productos quieras al mes con alternativas al instante.",
   },
 };
 
 const defaultMatrix: PaywallFeatureRow[] = [
-  { feature: 'Plan alimenticio personalizado', free: true, premium: true },
-  { feature: 'Scans producto / mes', free: '3', premium: 'Ilimitado', highlight: true },
-  { feature: 'Recetas generadas / mes', free: '3', premium: 'Ilimitadas', highlight: true },
-  { feature: 'Análisis avanzado + evolución', free: false, premium: true },
-  { feature: 'Hidratación y timing de comidas', free: false, premium: true },
-  { feature: 'Chat nutricional IA', free: false, premium: true },
-  { feature: 'Soporte prioritario', free: false, premium: true },
+  { feature: "Plan alimenticio personalizado", free: true, premium: true },
+  {
+    feature: "Scans producto / mes",
+    free: "3",
+    premium: "Ilimitado",
+    highlight: true,
+  },
+  {
+    feature: "Recetas generadas / mes",
+    free: "3",
+    premium: "Ilimitadas",
+    highlight: true,
+  },
+  { feature: "Análisis avanzado + evolución", free: false, premium: true },
+  { feature: "Hidratación y timing de comidas", free: false, premium: true },
+  { feature: "Chat nutricional IA", free: false, premium: true },
+  { feature: "Soporte prioritario", free: false, premium: true },
 ];
 
 /* ─── Helpers ────────────────────────────────────────────────────────── */
@@ -186,8 +206,20 @@ function Cell({ value }: { value: string | boolean }) {
         className="inline-flex h-5 w-5 items-center justify-center rounded-full gu-bg-success-soft gu-text-success"
         aria-label="Incluido"
       >
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M2.5 6l2.5 2.5L9.5 3.5"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </span>
     );
@@ -199,8 +231,19 @@ function Cell({ value }: { value: string | boolean }) {
         className="inline-flex h-5 w-5 items-center justify-center rounded-full gu-bg-surface-hover gu-text-text-muted"
         aria-label="No incluido"
       >
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-          <path d="M2.5 2.5l5 5M7.5 2.5l-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <svg
+          width="10"
+          height="10"
+          viewBox="0 0 10 10"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M2.5 2.5l5 5M7.5 2.5l-5 5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
         </svg>
       </span>
     );
@@ -214,7 +257,7 @@ export function PaywallUnified({
   trigger,
   onUpgrade,
   pricing,
-  plan = 'standard',
+  plan = "standard",
   title,
   subtitle,
   onDismiss,
@@ -222,22 +265,22 @@ export function PaywallUnified({
   addon,
   hasBasePlan = false,
   ctaLabel,
-  cycleMode = 'choose',
+  cycleMode = "choose",
   roi,
   testimonials,
   footer,
-  className = '',
+  className = "",
 }: PaywallUnifiedProps) {
-  const [cycle, setCycle] = useState<PaywallBillingCycle>('yearly');
+  const [cycle, setCycle] = useState<PaywallBillingCycle>("yearly");
   const copy = triggerCopy[trigger];
   const savings = savingsPercent(pricing);
   // Con el ciclo heredado no hay eleccion que mostrar: se enuncia el mensual
   // real. Derivar `anual/12` aqui era exactamente el bug — pintaba un numero
   // que no se cobra (49,90/12 = 4,16 mientras el cargo es 4,99).
-  const inheritsCycle = cycleMode === 'inherited';
+  const inheritsCycle = cycleMode === "inherited";
   const displayPrice = inheritsCycle
     ? pricing.monthly
-    : cycle === 'yearly'
+    : cycle === "yearly"
       ? yearlyPerMonth(pricing)
       : pricing.monthly;
 
@@ -248,8 +291,8 @@ export function PaywallUnified({
     ctaLabel ??
     (sellingAddon
       ? (addon?.ctaLabel ?? `Añadir ${addon?.label}`)
-      : `Hacerme Premium${plan === 'plus' ? '+' : ''}`);
-  const premiumLabel = `Premium${plan === 'plus' ? '+' : ''}`;
+      : `Hacerme Premium${plan === "plus" ? "+" : ""}`);
+  const premiumLabel = `Premium${plan === "plus" ? "+" : ""}`;
 
   return (
     <section
@@ -259,7 +302,7 @@ export function PaywallUnified({
       {/* Premium ribbon */}
       <div
         className="h-1 w-full"
-        style={{ background: 'var(--ui-gradient)' }}
+        style={{ background: "var(--ui-gradient)" }}
         aria-hidden="true"
       />
 
@@ -270,8 +313,19 @@ export function PaywallUnified({
           aria-label="Cerrar"
           className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full gu-text-text-secondary gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
         >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M4 4l8 8M12 4l-8 8"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
       )}
@@ -288,20 +342,35 @@ export function PaywallUnified({
             // (4.6:1) en todo el gradiente — TD-013 resuelto (antes 3.49:1 dark /
             // 2.15:1 light).
             className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold text-white"
-            style={{ background: 'var(--ui-gradient)' }}
+            style={{ background: "var(--ui-gradient)" }}
           >
-            {addon ? addon.label : `Premium ${plan === 'plus' ? '+' : ''}`}
+            {addon ? addon.label : `Premium ${plan === "plus" ? "+" : ""}`}
           </span>
           {sellingAddon && (
             <span className="inline-flex items-center gap-1.5 rounded-full gu-bg-success-soft gu-text-success px-3 py-1 text-xs font-semibold">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                <path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M2.5 6l2.5 2.5L9.5 3.5"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               Ya eres {premiumLabel}
             </span>
           )}
           <h2 id="paywall-title" className="text-2xl font-bold leading-tight">
-            <span className="mr-2" aria-hidden="true">{copy.emoji}</span>
+            <copy.Icono
+              className="mr-2 inline h-5 w-5 align-[-3px]"
+              aria-hidden="true"
+            />
             {title ?? copy.title}
           </h2>
           <p className="text-sm gu-text-text-secondary">
@@ -312,7 +381,7 @@ export function PaywallUnified({
         {/* Billing toggle — solo si el ciclo se elige (ver `cycleMode`). */}
         {!inheritsCycle && (
           <div className="mt-6 inline-flex items-center rounded-full border gu-border-border gu-bg-surface-raised p-1">
-            {(['monthly', 'yearly'] as PaywallBillingCycle[]).map((c) => (
+            {(["monthly", "yearly"] as PaywallBillingCycle[]).map((c) => (
               <button
                 key={c}
                 type="button"
@@ -320,11 +389,13 @@ export function PaywallUnified({
                 aria-pressed={cycle === c}
                 className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-colors ${
                   cycle === c
-                    ? 'gu-bg-primary gu-text-surface'
-                    : 'gu-text-text-secondary gu-h-text-text'
+                    ? "gu-bg-primary gu-text-surface"
+                    : "gu-text-text-secondary gu-h-text-text"
                 }`}
               >
-                {c === 'monthly' ? 'Mensual' : `Anual${savings > 0 ? ` · -${savings}%` : ''}`}
+                {c === "monthly"
+                  ? "Mensual"
+                  : `Anual${savings > 0 ? ` · -${savings}%` : ""}`}
               </button>
             ))}
           </div>
@@ -332,7 +403,9 @@ export function PaywallUnified({
 
         {/* Pricing */}
         <div className="mt-6 flex items-end gap-2">
-          <span className="text-5xl font-bold tabular-nums">{formatEUR(displayPrice)}</span>
+          <span className="text-5xl font-bold tabular-nums">
+            {formatEUR(displayPrice)}
+          </span>
           <span className="pb-1.5 text-sm gu-text-text-secondary">
             /mes
             {sellingAddon && (
@@ -344,11 +417,11 @@ export function PaywallUnified({
                 precio que NO se cobra. Se enuncian los dos reales. */}
             {inheritsCycle && (
               <span className="ml-1 gu-text-text-muted">
-                o {formatEUR(pricing.yearly)}/año, según el ciclo de tu{' '}
+                o {formatEUR(pricing.yearly)}/año, según el ciclo de tu{" "}
                 {premiumLabel}
               </span>
             )}
-            {!inheritsCycle && cycle === 'yearly' && (
+            {!inheritsCycle && cycle === "yearly" && (
               <span className="ml-1 gu-text-text-muted">
                 (facturado {formatEUR(pricing.yearly)}/año)
               </span>
@@ -365,7 +438,9 @@ export function PaywallUnified({
                 className="rounded-xl border gu-border-border gu-bg-surface-raised p-3"
               >
                 <p className="text-xs gu-text-text-muted">{item.label}</p>
-                <p className="mt-1 text-lg font-bold gu-text-primary">{item.value}</p>
+                <p className="mt-1 text-lg font-bold gu-text-primary">
+                  {item.value}
+                </p>
                 {item.description && (
                   <p className="mt-0.5 text-[11px] gu-text-text-secondary">
                     {item.description}
@@ -384,12 +459,10 @@ export function PaywallUnified({
                 <th className="px-3 py-2 text-left text-xs font-semibold">
                   Feature
                 </th>
-                <th className="px-3 py-2 text-xs font-semibold">
-                  Free
-                </th>
+                <th className="px-3 py-2 text-xs font-semibold">Free</th>
                 <th
                   className={`px-3 py-2 text-xs font-semibold ${
-                    addon ? '' : 'gu-text-primary'
+                    addon ? "" : "gu-text-primary"
                   }`}
                 >
                   {premiumLabel}
@@ -406,7 +479,11 @@ export function PaywallUnified({
                 <tr
                   key={row.feature}
                   className={`border-t gu-border-border ${
-                    row.highlight ? 'gu-bg-primary-soft' : idx % 2 === 1 ? 'gu-bg-surface-raised' : ''
+                    row.highlight
+                      ? "gu-bg-primary-soft"
+                      : idx % 2 === 1
+                        ? "gu-bg-surface-raised"
+                        : ""
                   }`}
                 >
                   <td className="px-3 py-2 gu-text-text">{row.feature}</td>
@@ -438,7 +515,7 @@ export function PaywallUnified({
                 <p className="italic gu-text-text">“{t.quote}”</p>
                 <footer className="mt-2 text-xs gu-text-text-muted">
                   — {t.name}
-                  {t.role ? ` · ${t.role}` : ''}
+                  {t.role ? ` · ${t.role}` : ""}
                 </footer>
               </blockquote>
             ))}
@@ -451,7 +528,7 @@ export function PaywallUnified({
             type="button"
             onClick={() => onUpgrade(cycle)}
             className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white gu-shadow-shadow-md transition-transform hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
-            style={{ background: 'var(--ui-gradient)' }}
+            style={{ background: "var(--ui-gradient)" }}
           >
             {primaryCta}
           </button>
@@ -466,7 +543,9 @@ export function PaywallUnified({
           )}
         </div>
 
-        {footer && <div className="mt-4 text-xs gu-text-text-muted">{footer}</div>}
+        {footer && (
+          <div className="mt-4 text-xs gu-text-text-muted">{footer}</div>
+        )}
       </div>
     </section>
   );
