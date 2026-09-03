@@ -1,3 +1,16 @@
+# [1.39.0](https://github.com/jplannnou/gundo-ui/compare/v1.38.3...v1.39.0) (2026-09-03)
+
+
+### Bug Fixes
+
+* **copy:** quita el voseo del DS —uno estaba vivo en producción— y lo blinda ([#113](https://github.com/jplannnou/gundo-ui/issues/113)) ([c62684a](https://github.com/jplannnou/gundo-ui/commit/c62684a4f5c7f702c2579a2c4a39a88c7662a85b))
+* **lockfile:** main no podia instalar ni publicar ([#116](https://github.com/jplannnou/gundo-ui/issues/116)) ([484c4a8](https://github.com/jplannnou/gundo-ui/commit/484c4a81fa813898866f4e813a47a431d443b240)), closes [#59](https://github.com/jplannnou/gundo-ui/issues/59) [#111](https://github.com/jplannnou/gundo-ui/issues/111)
+
+
+### Features
+
+* **PricingCard:** una prestacion puede llevar VALOR, no solo si/no ([#111](https://github.com/jplannnou/gundo-ui/issues/111)) ([14517d8](https://github.com/jplannnou/gundo-ui/commit/14517d833cc274232817e71a03225945b6bc4582))
+
 ## [1.38.3](https://github.com/jplannnou/gundo-ui/compare/v1.38.2...v1.38.3) (2026-09-03)
 
 
