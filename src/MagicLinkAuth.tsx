@@ -172,7 +172,7 @@ export function MagicLinkAuth({
             Te enviamos un link a {email || "tu email"}
           </p>
           <p className="text-xs gu-text-text-secondary">
-            Abrí el email y tocá el botón para entrar. Expira en 15 min.
+            Abre el correo y toca el botón para entrar. Caduca en 15 minutos.
           </p>
           <button
             type="button"

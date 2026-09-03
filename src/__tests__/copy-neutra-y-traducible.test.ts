@@ -62,22 +62,31 @@ function sinComentarios(codigo: string): string {
   return codigo.replace(/\/\*[\s\S]*?\*\//g, " ").replace(/\/\/.*$/gm, " ");
 }
 
-/** Literales que pueden ser texto visible: no slugs, ni clases, ni rutas. */
+/**
+ * Texto que puede acabar en pantalla: cadenas entrecomilladas Y **texto suelto
+ * de JSX**.
+ *
+ * ⚠️ La primera versión solo miraba lo entrecomillado y se dejaba fuera
+ * `<p>Abre el correo y toca el boton</p>` — que es el sitio MAS comun del copy.
+ * Se descubrio porque el voseo de `MagicLinkAuth` seguia ahi con la guarda en
+ * verde. Una guarda que no mira donde vive el texto no es una guarda.
+ */
 function literales(codigo: string): string[] {
+  const limpio = sinComentarios(codigo);
   const out: string[] = [];
-  for (const m of sinComentarios(codigo).matchAll(
-    /'([^'\n]{3,80})'|"([^"\n]{3,80})"/g,
-  )) {
-    const v = m[1] ?? m[2];
-    if (!v) continue;
-    if (/^[a-z0-9-]+$/.test(v)) continue;
-    if (
-      /[{}<>#]|\bgu-|\bflex\b|\brounded|\btext-|\bmt-|\bpx-|\bw-|\bh-/.test(v)
-    )
-      continue;
-    if (/^https?:|^\.{0,2}\//.test(v)) continue;
-    out.push(v);
-  }
+  const anotar = (v: string) => {
+    const t = v.trim();
+    if (t.length < 3 || t.length > 160) return;
+    if (/^[a-z0-9-]+$/.test(t)) return;
+    if (/[{}]|\bgu-|\bflex\b|\brounded|\btext-|\bmt-|\bpx-|\bw-|\bh-/.test(t))
+      return;
+    if (/^https?:|^\.{0,2}\//.test(t)) return;
+    out.push(t);
+  };
+  for (const m of limpio.matchAll(/'([^'\n]{3,120})'|"([^"\n]{3,120})"/g))
+    anotar(m[1] ?? m[2] ?? "");
+  // Texto entre etiquetas JSX: `>...<` sin llaves ni etiquetas dentro.
+  for (const m of limpio.matchAll(/>([^<>{}]{3,160})</g)) anotar(m[1] ?? "");
   return out;
 }
 
@@ -114,9 +123,11 @@ const CON_CASTELLANO = new Set([
   "MealDetailTabs.tsx",
   "NotificationCard.tsx",
   "PaywallUnified.tsx",
+  "PointsThisMonthCard.tsx",
   "PricingCard.tsx",
   "ProductCardWithExplainability.tsx",
   "RecipeReasoningPills.tsx",
+  "RewardsGallery.tsx",
   "SaveBar.tsx",
   "SenderIdentity.tsx",
   "StepWizard.tsx",
