@@ -1,3 +1,10 @@
+## [1.39.1](https://github.com/jplannnou/gundo-ui/compare/v1.39.0...v1.39.1) (2026-09-03)
+
+
+### Bug Fixes
+
+* **release:** un refactor que cambia lo que se VE tiene que poder publicarse ([#118](https://github.com/jplannnou/gundo-ui/issues/118)) ([78730f6](https://github.com/jplannnou/gundo-ui/commit/78730f6fc8ad56e8daa67de28336eba8d4c5a39a)), closes [#115](https://github.com/jplannnou/gundo-ui/issues/115)
+
 # [1.39.0](https://github.com/jplannnou/gundo-ui/compare/v1.38.3...v1.39.0) (2026-09-03)
 
 
