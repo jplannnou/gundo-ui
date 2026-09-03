@@ -1,3 +1,10 @@
+## [1.39.2](https://github.com/jplannnou/gundo-ui/compare/v1.39.1...v1.39.2) (2026-09-03)
+
+
+### Bug Fixes
+
+* **ci:** decir donde corre el lint, que es lo que faltaba ([#117](https://github.com/jplannnou/gundo-ui/issues/117)) ([30db271](https://github.com/jplannnou/gundo-ui/commit/30db2713ac8e868d881f8cc4f31abe69b6912b10)), closes [gundo-eslint-config#13](https://github.com/gundo-eslint-config/issues/13)
+
 ## [1.39.1](https://github.com/jplannnou/gundo-ui/compare/v1.39.0...v1.39.1) (2026-09-03)
 
 
