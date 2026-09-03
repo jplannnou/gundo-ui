@@ -1,5 +1,13 @@
 import './ui-classes.css';
 import type { HTMLAttributes, ReactNode } from 'react';
+import {
+  Ban,
+  Dna,
+  Droplet,
+  Microscope,
+  Sparkles,
+  type LucideIcon,
+} from 'lucide-react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
@@ -20,6 +28,15 @@ export interface ExplainabilityBadgeProps
   icon?: ReactNode;
   /** Compact variant drops the tag chips */
   compact?: boolean;
+  /**
+   * Etiqueta visible de cada tag, en el idioma de quien mira.
+   *
+   * El design system no tiene i18n y quien lo consume si. Sin esta prop, una
+   * app que sale en 7 idiomas ensenaba «Analitica / Microbiota / Genetica /
+   * Alergenos» en castellano en los 7. Los valores por defecto siguen ahi, en
+   * neutro, para no romper a nadie.
+   */
+  tagLabels?: Partial<Record<ExplainabilityTag, string>>;
 }
 
 /* ─── Helpers ────────────────────────────────────────────────────────── */
@@ -33,11 +50,23 @@ const toneClassName: Record<ExplainabilityTone, string> = {
     'gu-bg-info-soft gu-text-info border-[color-mix(in_srgb,var(--ui-info)_30%,transparent)]',
 };
 
-const tagMeta: Record<ExplainabilityTag, { label: string; emoji: string }> = {
-  analytic: { label: 'Analítica', emoji: '🧪' },
-  microbiota: { label: 'Microbiota', emoji: '🦠' },
-  gene: { label: 'Genética', emoji: '🧬' },
-  allergen: { label: 'Alérgenos', emoji: '⚠️' },
+/**
+ * Puerta semantica: CONCEPTO -> icono, con el porque al lado. Antes eran emoji,
+ * que los pinta la fuente del sistema (el mismo simbolo cambia entre iOS,
+ * Android y Windows, y en algunos ni existe), no obedecen al tema y un lector de
+ * pantalla los lee en medio de la etiqueta.
+ *
+ * Mismo vocabulario que `iconos-nutricion.ts` de gundo-ecommerce-ui: dos repos
+ * no pueden dibujar la misma idea de dos maneras.
+ */
+const tagMeta: Record<
+  ExplainabilityTag,
+  { label: string; Icono: LucideIcon }
+> = {
+  analytic: { label: 'Analítica', Icono: Droplet }, // la gota de la analitica de sangre
+  microbiota: { label: 'Microbiota', Icono: Microscope },
+  gene: { label: 'Genética', Icono: Dna },
+  allergen: { label: 'Alérgenos', Icono: Ban }, // prohibido, no "cuidado": no es un aviso, es un veto
 };
 
 /* ─── ExplainabilityBadge ─────────────────────────────────────────────── */
@@ -49,6 +78,7 @@ export function ExplainabilityBadge({
   score,
   icon,
   compact = false,
+  tagLabels,
   className = '',
   ...rest
 }: ExplainabilityBadgeProps) {
@@ -64,9 +94,7 @@ export function ExplainabilityBadge({
           {icon}
         </span>
       ) : (
-        <span className="mt-0.5 shrink-0" aria-hidden="true">
-          ✨
-        </span>
+        <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
       )}
       <div className="flex flex-1 flex-col gap-1">
         <div className="flex items-center gap-1.5">
@@ -79,16 +107,20 @@ export function ExplainabilityBadge({
         </div>
         {!compact && tags.length > 0 && (
           <div className="flex flex-wrap gap-1">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center gap-1 rounded-full gu-bg-surface px-2 py-0.5 text-[10px] font-medium"
-                title={tagMeta[tag].label}
-              >
-                <span aria-hidden="true">{tagMeta[tag].emoji}</span>
-                {tagMeta[tag].label}
-              </span>
-            ))}
+            {tags.map((tag) => {
+              const { Icono } = tagMeta[tag];
+              const etiqueta = tagLabels?.[tag] ?? tagMeta[tag].label;
+              return (
+                <span
+                  key={tag}
+                  className="inline-flex items-center gap-1 rounded-full gu-bg-surface px-2 py-0.5 text-[10px] font-medium"
+                  title={etiqueta}
+                >
+                  <Icono className="h-3 w-3" aria-hidden="true" />
+                  {etiqueta}
+                </span>
+              );
+            })}
           </div>
         )}
       </div>
