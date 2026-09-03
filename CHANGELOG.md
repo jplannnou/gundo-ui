@@ -1,3 +1,10 @@
+## [1.38.3](https://github.com/jplannnou/gundo-ui/compare/v1.38.2...v1.38.3) (2026-09-03)
+
+
+### Bug Fixes
+
+* **RangeBar:** boundLabels imprimia el relleno del eje como si fuera un umbral ([#112](https://github.com/jplannnou/gundo-ui/issues/112)) ([3f14237](https://github.com/jplannnou/gundo-ui/commit/3f14237b8aaee7f6e5462feca3e49582b0201daf))
+
 ## [1.38.2](https://github.com/jplannnou/gundo-ui/compare/v1.38.1...v1.38.2) (2026-09-02)
 
 
