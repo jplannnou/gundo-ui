@@ -1,5 +1,10 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  within,
+} from '@testing-library/react';
 import { DetailTabs, type DetailTabDefinition } from '../DetailTabs';
 
 const baseTabs: DetailTabDefinition<'a' | 'b' | 'c'>[] = [
@@ -122,13 +127,15 @@ describe('DetailTabs', () => {
   it('shows lock indicator on premium tabs when not premium', () => {
     render(<DetailTabs tabs={baseTabs} isPremium={false} />);
     const premiumTab = screen.getByRole('tab', { name: /Tab B/ });
-    expect(premiumTab).toHaveTextContent('🔒');
+    // Se comprueba el SIGNIFICADO (el candado etiquetado como Premium) y no
+    // el caracter: era un emoji, que lo pinta la fuente del sistema.
+    expect(within(premiumTab).getByLabelText('Premium')).toBeInTheDocument();
   });
 
   it('hides lock indicator when premium', () => {
     render(<DetailTabs tabs={baseTabs} isPremium />);
     const premiumTab = screen.getByRole('tab', { name: /Tab B/ });
-    expect(premiumTab).not.toHaveTextContent('🔒');
+    expect(within(premiumTab).queryByLabelText('Premium')).toBeNull();
   });
 
   it('shows default locked content for premium tabs when not premium', () => {

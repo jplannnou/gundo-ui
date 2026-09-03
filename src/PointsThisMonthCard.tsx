@@ -1,4 +1,5 @@
 import "./ui-classes.css";
+import { Minus, TrendingDown, TrendingUp } from "lucide-react";
 import { Card } from "./Card";
 import { Stack } from "./Stack";
 
@@ -9,6 +10,12 @@ export interface PointsThisMonthCardProps {
   earnedLastMonth?: number;
   /** Custom className */
   className?: string;
+  /**
+   * Textos visibles, en el idioma de quien mira. El design system no tiene
+   * i18n y quien lo consume si; los valores por defecto van en espanol neutro
+   * para no dejar huecos, pero una app multiidioma tiene que pasarlos.
+   */
+  labels?: { title?: string; up?: string; down?: string; flat?: string };
 }
 
 /**
@@ -19,6 +26,7 @@ export function PointsThisMonthCard({
   earnedThisMonth,
   earnedLastMonth,
   className,
+  labels,
 }: PointsThisMonthCardProps) {
   const trend =
     earnedLastMonth !== undefined
@@ -34,7 +42,7 @@ export function PointsThisMonthCard({
       <Stack direction="column" gap="4">
         <div>
           <p className="gu-text-text-secondary text-sm mb-2">
-            Puntos este mes
+            {labels?.title ?? "Puntos este mes"}
           </p>
           <div className="flex items-baseline gap-3">
             <span className="text-3xl font-bold gu-text-primary">
@@ -50,11 +58,18 @@ export function PointsThisMonthCard({
                       : "gu-text-text-secondary"
                 }`}
               >
+                {trend === "up" ? (
+                  <TrendingUp className="h-4 w-4" aria-hidden="true" />
+                ) : trend === "down" ? (
+                  <TrendingDown className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <Minus className="h-4 w-4" aria-hidden="true" />
+                )}
                 {trend === "up"
-                  ? "📈 Subiendo"
+                  ? (labels?.up ?? "Subiendo")
                   : trend === "down"
-                    ? "📉 Bajando"
-                    : "➡️ Igual"}
+                    ? (labels?.down ?? "Bajando")
+                    : (labels?.flat ?? "Igual")}
               </span>
             )}
           </div>

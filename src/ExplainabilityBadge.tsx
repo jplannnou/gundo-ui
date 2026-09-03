@@ -1,5 +1,5 @@
-import './ui-classes.css';
-import type { HTMLAttributes, ReactNode } from 'react';
+import "./ui-classes.css";
+import type { HTMLAttributes, ReactNode } from "react";
 import {
   Ban,
   Dna,
@@ -7,15 +7,17 @@ import {
   Microscope,
   Sparkles,
   type LucideIcon,
-} from 'lucide-react';
+} from "lucide-react";
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
-export type ExplainabilityTag = 'analytic' | 'microbiota' | 'gene' | 'allergen';
-export type ExplainabilityTone = 'success' | 'warning' | 'info';
+export type ExplainabilityTag = "analytic" | "microbiota" | "gene" | "allergen";
+export type ExplainabilityTone = "success" | "warning" | "info";
 
-export interface ExplainabilityBadgeProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+export interface ExplainabilityBadgeProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "children"
+> {
   /** Human-readable reason, e.g. "Alto en fibra · mejora microbiota" */
   reason: string;
   /** Tags that drove the match (drives icons) */
@@ -43,11 +45,10 @@ export interface ExplainabilityBadgeProps
 
 const toneClassName: Record<ExplainabilityTone, string> = {
   success:
-    'gu-bg-success-soft gu-text-success border-[color-mix(in_srgb,var(--ui-success)_30%,transparent)]',
+    "gu-bg-success-soft gu-text-success border-[color-mix(in_srgb,var(--ui-success)_30%,transparent)]",
   warning:
-    'gu-bg-warning-soft gu-text-warning border-[color-mix(in_srgb,var(--ui-warning)_30%,transparent)]',
-  info:
-    'gu-bg-info-soft gu-text-info border-[color-mix(in_srgb,var(--ui-info)_30%,transparent)]',
+    "gu-bg-warning-soft gu-text-warning border-[color-mix(in_srgb,var(--ui-warning)_30%,transparent)]",
+  info: "gu-bg-info-soft gu-text-info border-[color-mix(in_srgb,var(--ui-info)_30%,transparent)]",
 };
 
 /**
@@ -59,27 +60,25 @@ const toneClassName: Record<ExplainabilityTone, string> = {
  * Mismo vocabulario que `iconos-nutricion.ts` de gundo-ecommerce-ui: dos repos
  * no pueden dibujar la misma idea de dos maneras.
  */
-const tagMeta: Record<
-  ExplainabilityTag,
-  { label: string; Icono: LucideIcon }
-> = {
-  analytic: { label: 'Analítica', Icono: Droplet }, // la gota de la analitica de sangre
-  microbiota: { label: 'Microbiota', Icono: Microscope },
-  gene: { label: 'Genética', Icono: Dna },
-  allergen: { label: 'Alérgenos', Icono: Ban }, // prohibido, no "cuidado": no es un aviso, es un veto
-};
+const tagMeta: Record<ExplainabilityTag, { label: string; Icono: LucideIcon }> =
+  {
+    analytic: { label: "Analítica", Icono: Droplet }, // la gota de la analitica de sangre
+    microbiota: { label: "Microbiota", Icono: Microscope },
+    gene: { label: "Genética", Icono: Dna },
+    allergen: { label: "Alérgenos", Icono: Ban }, // prohibido, no "cuidado": no es un aviso, es un veto
+  };
 
 /* ─── ExplainabilityBadge ─────────────────────────────────────────────── */
 
 export function ExplainabilityBadge({
   reason,
   tags = [],
-  tone = 'success',
+  tone = "success",
   score,
   icon,
   compact = false,
   tagLabels,
-  className = '',
+  className = "",
   ...rest
 }: ExplainabilityBadgeProps) {
   return (
@@ -99,7 +98,7 @@ export function ExplainabilityBadge({
       <div className="flex flex-1 flex-col gap-1">
         <div className="flex items-center gap-1.5">
           <span className="font-semibold">{reason}</span>
-          {typeof score === 'number' && (
+          {typeof score === "number" && (
             <span className="rounded-full gu-bg-surface px-1.5 py-0.5 text-[10px] font-bold tabular-nums opacity-90">
               {Math.max(0, Math.min(100, Math.round(score)))}%
             </span>
