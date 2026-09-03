@@ -4,10 +4,23 @@ import { describe, it, expect } from "vitest";
  * TRINQUETE DE COPY DEL DESIGN SYSTEM — dos reglas, una dura y una que aprieta.
  *
  * ── Por qué existe ─────────────────────────────────────────────────────────
- * El 3-sep-2026 se encontró **voseo servido en producción**: la ficha de
- * producto V2 (`ProductCardWithExplainability`) pintaba «Compatible con v-o-s»
- * en `ultrapersonalizacion.gundo.life`. Verificado en el bundle vivo, no
- * deducido. Había dos casos más (`MagicLinkAuth`, `ChatHistorySection`).
+ * El 3-sep-2026 aparecieron CUATRO cadenas en registro rioplatense en este
+ * repo, una de ellas en la ficha de producto V2
+ * (`ProductCardWithExplainability`).
+ *
+ * ⚠️ CORRECCIÓN de la primera versión de esta nota, que decía «servido en
+ * producción». La cadena SÍ viajaba en el bundle de
+ * `ultrapersonalizacion.gundo.life` —verificado— pero NO se pintaba: el único
+ * consumidor (`ProductCardV2` del ecom) fuerza `state="neutral"`, cuyo estilo no
+ * tiene etiqueta, y lo hace con un comentario que dice exactamente por qué:
+ * «evita que el componente compartido derive etiquetas de compatibilidad no
+ * localizadas». Alguien ya se había topado con esto y apagó la función.
+ * Los otros dos (`MagicLinkAuth`, `UploadWizard`) solo los consume `genie-ui`,
+ * que es legacy.
+ *
+ * O sea: no llegó a un usuario. Lo que sí es cierto y sigue justificando esta
+ * guarda es que el código estaba escrito, se empaquetaba y se distribuía, y que
+ * la única defensa era que un consumidor lo apagara a mano.
  *
  * El hook `check-voseo` de la máquina de JP solo mira los ficheros que se
  * editan, así que una cadena escrita hace meses en OTRO repo nunca pasa por él.
