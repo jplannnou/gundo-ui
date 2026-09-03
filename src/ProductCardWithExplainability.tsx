@@ -70,6 +70,16 @@ export interface ProductCardWithExplainabilityProps {
   /** Explicit state override. Auto-derived from matchScore if omitted. */
   state?: ExplainabilityProductState;
   /**
+   * Etiqueta visible del estado de compatibilidad, por estado.
+   *
+   * 🔑 El design system NO puede traducir: no tiene i18n, y quien lo consume sí.
+   * Los valores por defecto están en español neutro para que un consumidor que
+   * todavía no las pase no muestre un hueco — pero **cualquier app con más de un
+   * idioma tiene que pasarlas**. `gundo-ecommerce-ui` sale en 7 y hasta el
+   * 3-sep-2026 enseñaba estas tres etiquetas en castellano en los 7.
+   */
+  stateLabels?: Partial<Record<ExplainabilityProductState, string>>;
+  /**
    * Override ONLY the match-score ring color (e.g. `var(--ui-error)` to force
    * danger for a clinically not-suitable product) without changing `state` —
    * i.e. without greying the image, showing the state label, or disabling the
@@ -118,7 +128,10 @@ const stateStyles: Record<
     ring: "var(--ui-success)",
     badge: "gu-bg-success-soft gu-text-success",
     border: "gu-border-border",
-    label: "Compatible con vos",
+    // ⚠️ Antes en registro rioplatense, y se estaba sirviendo EN PRODUCCIÓN
+    // (verificado el 3-sep-2026 en el bundle de ultrapersonalizacion.gundo.life).
+    // Todo el copy de GUNDO va en español neutro con "tú".
+    label: "Compatible contigo",
   },
   "low-match": {
     ring: "var(--ui-warning)",
@@ -144,6 +157,7 @@ const stateStyles: Record<
 export function ProductCardWithExplainability({
   product,
   state,
+  stateLabels,
   matchScoreColor,
   action,
   onAddToCart,
@@ -156,6 +170,9 @@ export function ProductCardWithExplainability({
 }: ProductCardWithExplainabilityProps) {
   const resolvedState = state ?? deriveState(product.matchScore);
   const styles = stateStyles[resolvedState];
+  // La etiqueta que pasa el consumidor manda: es la unica que puede estar en el
+  // idioma de quien mira.
+  const etiquetaEstado = stateLabels?.[resolvedState] ?? styles.label;
   const mainReason = product.reasons?.[0];
   const isIncompatible = resolvedState === "incompatible";
   const [imagenRota, setImagenRota] = useState(false);
@@ -211,11 +228,11 @@ export function ProductCardWithExplainability({
         )}
 
         {/* State label */}
-        {styles.label && (
+        {etiquetaEstado && (
           <span
             className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold ${styles.badge}`}
           >
-            {styles.label}
+            {etiquetaEstado}
           </span>
         )}
         {/* Match ring */}

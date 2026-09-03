@@ -1,7 +1,7 @@
-import '../ui-classes.css';
-import { useEffect, useState } from 'react';
-import { MessageCircle, ChevronRight } from 'lucide-react';
-import type { ChatClient, ChatHistoryMessage } from './chat-client';
+import "../ui-classes.css";
+import { useEffect, useState } from "react";
+import { MessageCircle, ChevronRight } from "lucide-react";
+import type { ChatClient, ChatHistoryMessage } from "./chat-client";
 
 export interface ChatHistorySectionProps {
   client: ChatClient;
@@ -15,7 +15,12 @@ export interface ChatHistorySectionProps {
   };
 }
 
-export function ChatHistorySection({ client, locale = 'es', onResume, labels }: ChatHistorySectionProps) {
+export function ChatHistorySection({
+  client,
+  locale = "es",
+  onResume,
+  labels,
+}: ChatHistorySectionProps) {
   const [messages, setMessages] = useState<ChatHistoryMessage[] | null>(null);
 
   useEffect(() => {
@@ -40,7 +45,7 @@ export function ChatHistorySection({ client, locale = 'es', onResume, labels }: 
         aria-live="polite"
         className="p-6 text-sm gu-text-text-muted"
       >
-        {labels?.loading ?? 'Cargando…'}
+        {labels?.loading ?? "Cargando…"}
       </div>
     );
   }
@@ -48,15 +53,19 @@ export function ChatHistorySection({ client, locale = 'es', onResume, labels }: 
   if (messages.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full p-6 text-center">
-        <MessageCircle className="w-10 h-10 gu-text-text-muted mb-3" aria-hidden="true" />
+        <MessageCircle
+          className="w-10 h-10 gu-text-text-muted mb-3"
+          aria-hidden="true"
+        />
         <p className="text-sm gu-text-text-muted">
-          {labels?.empty ?? 'Todavía no tenés charlas. Empezá una desde el Asistente.'}
+          {labels?.empty ??
+            "Todavía no tienes conversaciones. Empieza una desde el Asistente."}
         </p>
       </div>
     );
   }
 
-  const userTurns = messages.filter((m) => m.role === 'user').reverse();
+  const userTurns = messages.filter((m) => m.role === "user").reverse();
 
   return (
     <div className="h-full overflow-y-auto p-3 space-y-2">
@@ -67,14 +76,19 @@ export function ChatHistorySection({ client, locale = 'es', onResume, labels }: 
       >
         <div className="min-w-0">
           <p className="text-sm font-medium gu-text-text">
-            {labels?.resume ?? 'Continuar mi conversación'}
+            {labels?.resume ?? "Continuar mi conversación"}
           </p>
           <p className="text-xs gu-text-text-muted">
-            {messages.length} mensajes · último{' '}
-            {new Date(messages[messages.length - 1]?.timestamp ?? Date.now()).toLocaleDateString(locale)}
+            {messages.length} mensajes · último{" "}
+            {new Date(
+              messages[messages.length - 1]?.timestamp ?? Date.now(),
+            ).toLocaleDateString(locale)}
           </p>
         </div>
-        <ChevronRight className="w-4 h-4 gu-text-text-muted shrink-0" aria-hidden="true" />
+        <ChevronRight
+          className="w-4 h-4 gu-text-text-muted shrink-0"
+          aria-hidden="true"
+        />
       </button>
 
       <ul className="pt-1 list-none p-0 m-0">
@@ -92,10 +106,10 @@ export function ChatHistorySection({ client, locale = 'es', onResume, labels }: 
               <p className="text-sm gu-text-text truncate">{m.content}</p>
               <p className="text-[11px] gu-text-text-secondary">
                 {new Date(m.timestamp).toLocaleString(locale, {
-                  day: '2-digit',
-                  month: '2-digit',
-                  hour: '2-digit',
-                  minute: '2-digit',
+                  day: "2-digit",
+                  month: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
                 })}
               </p>
             </button>

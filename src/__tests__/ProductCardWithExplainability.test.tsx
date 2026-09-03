@@ -30,7 +30,7 @@ describe("ProductCardWithExplainability", () => {
 
   it("derives match state and shows label", () => {
     render(<ProductCardWithExplainability product={product} />);
-    expect(screen.getByText("Compatible con vos")).toBeInTheDocument();
+    expect(screen.getByText("Compatible contigo")).toBeInTheDocument();
   });
 
   it("disables add-to-cart when incompatible", () => {
@@ -75,5 +75,17 @@ describe("ProductCardWithExplainability", () => {
     expect(screen.queryByText("No recomendado")).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: /Añadir/ }));
     expect(onAddToCart).toHaveBeenCalledWith(product.ean);
+  });
+  it('deja que el consumidor traduzca la etiqueta de estado', () => {
+    // El DS no tiene i18n y quien lo consume si. Sin esta prop, una app que sale
+    // en 7 idiomas ensenaba las tres etiquetas en castellano en los 7.
+    render(
+      <ProductCardWithExplainability
+        product={{ ean: '1', name: 'Spelt bread', price: 2, matchScore: 90 }}
+        stateLabels={{ match: 'Matches your profile' }}
+      />
+    );
+    expect(screen.getByText('Matches your profile')).toBeInTheDocument();
+    expect(screen.queryByText('Compatible contigo')).toBeNull();
   });
 });

@@ -1,10 +1,16 @@
-import './ui-classes.css';
-import { useCallback, useRef, useState, type DragEvent, type ReactNode } from 'react';
+import "./ui-classes.css";
+import {
+  useCallback,
+  useRef,
+  useState,
+  type DragEvent,
+  type ReactNode,
+} from "react";
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
-export type UploadWizardTestType = 'blood' | 'urine';
-export type UploadWizardStep = 'type' | 'upload' | 'review' | 'done';
+export type UploadWizardTestType = "blood" | "urine";
+export type UploadWizardStep = "type" | "upload" | "review" | "done";
 
 export interface OCRMetric {
   id: string;
@@ -29,9 +35,15 @@ export interface OCRResult {
 
 export interface UploadWizardProps {
   /** Handle OCR extraction. Return metrics from the uploaded file. */
-  onUpload: (file: File, metadata: { testType: UploadWizardTestType }) => Promise<OCRResult>;
+  onUpload: (
+    file: File,
+    metadata: { testType: UploadWizardTestType },
+  ) => Promise<OCRResult>;
   /** Called with confirmed metrics after user review */
-  onConfirm: (metrics: OCRMetric[], metadata: { testType: UploadWizardTestType; file: File }) => void;
+  onConfirm: (
+    metrics: OCRMetric[],
+    metadata: { testType: UploadWizardTestType; file: File },
+  ) => void;
   /** Force a test type (skips step 1) */
   testType?: UploadWizardTestType;
   /** Called when user exits */
@@ -50,10 +62,10 @@ export interface UploadWizardProps {
 /* ─── Helpers ────────────────────────────────────────────────────────── */
 
 const steps: { id: UploadWizardStep; label: string }[] = [
-  { id: 'type', label: 'Tipo' },
-  { id: 'upload', label: 'Subir' },
-  { id: 'review', label: 'Revisar' },
-  { id: 'done', label: 'Listo' },
+  { id: "type", label: "Tipo" },
+  { id: "upload", label: "Subir" },
+  { id: "review", label: "Revisar" },
+  { id: "done", label: "Listo" },
 ];
 
 function formatBytes(bytes: number): string {
@@ -70,13 +82,17 @@ export function UploadWizard({
   testType: forcedType,
   onCancel,
   maxSizeMB = 10,
-  accept = 'image/*,.pdf',
+  accept = "image/*,.pdf",
   onManualFallback,
   privacyBanner,
-  className = '',
+  className = "",
 }: UploadWizardProps) {
-  const [step, setStep] = useState<UploadWizardStep>(forcedType ? 'upload' : 'type');
-  const [testType, setTestType] = useState<UploadWizardTestType | null>(forcedType ?? null);
+  const [step, setStep] = useState<UploadWizardStep>(
+    forcedType ? "upload" : "type",
+  );
+  const [testType, setTestType] = useState<UploadWizardTestType | null>(
+    forcedType ?? null,
+  );
   const [file, setFile] = useState<File | null>(null);
   const [result, setResult] = useState<OCRResult | null>(null);
   const [metrics, setMetrics] = useState<OCRMetric[]>([]);
@@ -96,7 +112,7 @@ export function UploadWizard({
         return;
       }
       if (!testType) {
-        setError('Elegí primero el tipo de test');
+        setError("Elige primero el tipo de análisis");
         return;
       }
       setError(null);
@@ -106,11 +122,16 @@ export function UploadWizard({
         const ocr = await onUpload(selected, { testType });
         setResult(ocr);
         setMetrics(
-          ocr.metrics.map((m) => ({ ...m, originalValue: m.originalValue ?? m.value })),
+          ocr.metrics.map((m) => ({
+            ...m,
+            originalValue: m.originalValue ?? m.value,
+          })),
         );
-        setStep('review');
+        setStep("review");
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Error procesando el archivo');
+        setError(
+          err instanceof Error ? err.message : "Error procesando el archivo",
+        );
       } finally {
         setProcessing(false);
       }
@@ -126,13 +147,15 @@ export function UploadWizard({
   };
 
   const editMetric = (id: string, patch: Partial<OCRMetric>) => {
-    setMetrics((prev) => prev.map((m) => (m.id === id ? { ...m, ...patch } : m)));
+    setMetrics((prev) =>
+      prev.map((m) => (m.id === id ? { ...m, ...patch } : m)),
+    );
   };
 
   const confirmReview = () => {
     if (!file || !testType) return;
     onConfirm(metrics, { testType, file });
-    setStep('done');
+    setStep("done");
   };
 
   /* ─── Render ───────────────────────────────────────────────────────── */
@@ -145,30 +168,38 @@ export function UploadWizard({
       {/* Stepper */}
       <ol className="flex items-center gap-2" aria-label="Pasos del wizard">
         {steps.map((s, idx) => {
-          const state = idx < stepIndex ? 'done' : idx === stepIndex ? 'active' : 'upcoming';
+          const state =
+            idx < stepIndex
+              ? "done"
+              : idx === stepIndex
+                ? "active"
+                : "upcoming";
           return (
             <li key={s.id} className="flex flex-1 items-center gap-2">
               <span
                 className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-                  state === 'done'
-                    ? 'gu-bg-success gu-text-surface'
-                    : state === 'active'
-                      ? 'gu-bg-primary gu-text-surface'
-                      : 'gu-bg-surface-hover gu-text-text-muted'
+                  state === "done"
+                    ? "gu-bg-success gu-text-surface"
+                    : state === "active"
+                      ? "gu-bg-primary gu-text-surface"
+                      : "gu-bg-surface-hover gu-text-text-muted"
                 }`}
-                aria-current={state === 'active' ? 'step' : undefined}
+                aria-current={state === "active" ? "step" : undefined}
               >
-                {state === 'done' ? '✓' : idx + 1}
+                {state === "done" ? "✓" : idx + 1}
               </span>
               <span
                 className={`text-xs font-medium ${
-                  state === 'upcoming' ? 'gu-text-text-muted' : 'gu-text-text'
+                  state === "upcoming" ? "gu-text-text-muted" : "gu-text-text"
                 }`}
               >
                 {s.label}
               </span>
               {idx < steps.length - 1 && (
-                <span className="mx-1 hidden h-px flex-1 gu-bg-border sm:block" aria-hidden="true" />
+                <span
+                  className="mx-1 hidden h-px flex-1 gu-bg-border sm:block"
+                  aria-hidden="true"
+                />
               )}
             </li>
           );
@@ -177,18 +208,21 @@ export function UploadWizard({
 
       {privacyBanner ?? (
         <div className="flex items-start gap-2 rounded-xl border gu-border-border gu-bg-surface-raised p-3 text-xs gu-text-text-secondary">
-          <span aria-hidden="true" className="mt-0.5 gu-text-info">🔒</span>
+          <span aria-hidden="true" className="mt-0.5 gu-text-info">
+            🔒
+          </span>
           <p>
-            Tus datos clínicos se guardan cifrados y no se comparten con terceros. OCR se corre del
-            lado del servidor y sólo vos ves los resultados.
+            Tus datos clínicos se guardan cifrados y no se comparten con
+            terceros. OCR se corre del lado del servidor y sólo vos ves los
+            resultados.
           </p>
         </div>
       )}
 
       {/* Step body */}
-      {step === 'type' && (
+      {step === "type" && (
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {(['blood', 'urine'] as UploadWizardTestType[]).map((t) => {
+          {(["blood", "urine"] as UploadWizardTestType[]).map((t) => {
             const selected = testType === t;
             return (
               <button
@@ -198,21 +232,23 @@ export function UploadWizard({
                 aria-pressed={selected}
                 className={`flex items-start gap-3 rounded-xl border p-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                   selected
-                    ? 'gu-border-primary gu-bg-primary-soft'
-                    : 'gu-border-border gu-h-border-border-hover'
+                    ? "gu-border-primary gu-bg-primary-soft"
+                    : "gu-border-border gu-h-border-border-hover"
                 }`}
               >
                 <span className="text-2xl" aria-hidden="true">
-                  {t === 'blood' ? '🩸' : '💧'}
+                  {t === "blood" ? "🩸" : "💧"}
                 </span>
                 <div>
                   <p className="font-semibold gu-text-text">
-                    {t === 'blood' ? 'Analítica de sangre' : 'Analítica de orina'}
+                    {t === "blood"
+                      ? "Analítica de sangre"
+                      : "Analítica de orina"}
                   </p>
                   <p className="text-xs gu-text-text-secondary">
-                    {t === 'blood'
-                      ? 'Hemograma, perfil lipídico, glucosa, etc.'
-                      : 'Sedimento, pH, densidad, etc.'}
+                    {t === "blood"
+                      ? "Hemograma, perfil lipídico, glucosa, etc."
+                      : "Sedimento, pH, densidad, etc."}
                   </p>
                 </div>
               </button>
@@ -221,7 +257,7 @@ export function UploadWizard({
         </div>
       )}
 
-      {step === 'upload' && (
+      {step === "upload" && (
         <div className="flex flex-col gap-3">
           <label
             onDragEnter={() => setDragging(true)}
@@ -230,8 +266,8 @@ export function UploadWizard({
             onDrop={onDrop}
             className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-8 text-center transition-colors ${
               dragging
-                ? 'gu-border-primary gu-bg-primary-soft'
-                : 'gu-border-border gu-bg-surface-raised gu-h-border-border-hover'
+                ? "gu-border-primary gu-bg-primary-soft"
+                : "gu-border-border gu-bg-surface-raised gu-h-border-border-hover"
             }`}
           >
             <input
@@ -244,18 +280,38 @@ export function UploadWizard({
                 if (f) handleFileSelected(f);
               }}
             />
-            <span className="text-3xl" aria-hidden="true">📄</span>
+            <span className="text-3xl" aria-hidden="true">
+              📄
+            </span>
             <p className="text-sm font-semibold gu-text-text">
               Arrastrá tu PDF o imagen aquí
             </p>
             <p className="text-xs gu-text-text-secondary">
-              o tocá para elegir · máx {maxSizeMB} MB · {accept.includes('pdf') ? 'PDF + JPG/PNG' : 'JPG/PNG'}
+              o tocá para elegir · máx {maxSizeMB} MB ·{" "}
+              {accept.includes("pdf") ? "PDF + JPG/PNG" : "JPG/PNG"}
             </p>
             {processing && (
               <p className="mt-2 inline-flex items-center gap-2 text-xs font-medium gu-text-primary">
-                <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeOpacity="0.25" strokeWidth="3" />
-                  <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                <svg
+                  className="h-4 w-4 animate-spin"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeOpacity="0.25"
+                    strokeWidth="3"
+                  />
+                  <path
+                    d="M12 2a10 10 0 0 1 10 10"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
                 </svg>
                 Procesando OCR…
               </p>
@@ -286,12 +342,12 @@ export function UploadWizard({
         </div>
       )}
 
-      {step === 'review' && result && (
+      {step === "review" && result && (
         <div className="flex flex-col gap-3">
           {file && (
             <p className="text-xs gu-text-text-muted">
               {file.name} · {formatBytes(file.size)}
-              {result.testDate ? ` · Fecha test: ${result.testDate}` : ''}
+              {result.testDate ? ` · Fecha test: ${result.testDate}` : ""}
             </p>
           )}
           <div className="flex flex-col divide-y divide-[var(--ui-border)] overflow-hidden rounded-xl border gu-border-border">
@@ -300,7 +356,9 @@ export function UploadWizard({
               return (
                 <div key={m.id} className="flex items-center gap-3 p-3">
                   <div className="flex-1">
-                    <p className="text-sm font-semibold gu-text-text">{m.label}</p>
+                    <p className="text-sm font-semibold gu-text-text">
+                      {m.label}
+                    </p>
                     {m.referenceRange && (
                       <p className="text-[11px] gu-text-text-muted">
                         Rango: {m.referenceRange}
@@ -310,22 +368,26 @@ export function UploadWizard({
                   <input
                     type="text"
                     value={String(m.value)}
-                    onChange={(e) => editMetric(m.id, { value: e.target.value })}
+                    onChange={(e) =>
+                      editMetric(m.id, { value: e.target.value })
+                    }
                     className={`w-28 rounded-lg border px-2 py-1.5 text-right text-sm tabular-nums ${
                       edited
-                        ? 'gu-border-warning gu-bg-warning-soft'
-                        : 'gu-border-border gu-bg-surface-raised'
+                        ? "gu-border-warning gu-bg-warning-soft"
+                        : "gu-border-border gu-bg-surface-raised"
                     } gu-fv-border-primary focus-visible:outline-none`}
                   />
-                  <span className="w-10 text-xs gu-text-text-muted">{m.unit ?? ''}</span>
-                  {typeof m.confidence === 'number' && (
+                  <span className="w-10 text-xs gu-text-text-muted">
+                    {m.unit ?? ""}
+                  </span>
+                  {typeof m.confidence === "number" && (
                     <span
                       className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
                         m.confidence >= 80
-                          ? 'gu-bg-success-soft gu-text-success'
+                          ? "gu-bg-success-soft gu-text-success"
                           : m.confidence >= 60
-                            ? 'gu-bg-warning-soft gu-text-warning'
-                            : 'gu-bg-error-soft gu-text-error'
+                            ? "gu-bg-warning-soft gu-text-warning"
+                            : "gu-bg-error-soft gu-text-error"
                       }`}
                       title="Confianza OCR"
                     >
@@ -342,9 +404,11 @@ export function UploadWizard({
         </div>
       )}
 
-      {step === 'done' && (
+      {step === "done" && (
         <div className="flex flex-col items-center gap-2 py-6 text-center">
-          <span className="text-4xl" aria-hidden="true">✅</span>
+          <span className="text-4xl" aria-hidden="true">
+            ✅
+          </span>
           <p className="text-lg font-bold gu-text-text">Analítica guardada</p>
           <p className="text-sm gu-text-text-secondary">
             Estamos actualizando tu plan. Te avisamos cuando esté listo.
@@ -353,30 +417,31 @@ export function UploadWizard({
       )}
 
       {/* Footer actions */}
-      {step !== 'done' && (
+      {step !== "done" && (
         <footer className="mt-2 flex items-center justify-between gap-2">
           <button
             type="button"
             onClick={() => {
-              if (step === 'type') onCancel?.();
-              else if (step === 'upload') setStep(forcedType ? 'upload' : 'type');
-              else if (step === 'review') setStep('upload');
+              if (step === "type") onCancel?.();
+              else if (step === "upload")
+                setStep(forcedType ? "upload" : "type");
+              else if (step === "review") setStep("upload");
             }}
             className="rounded-xl px-4 py-2 text-sm font-medium gu-text-text-secondary gu-h-bg-surface-hover"
           >
-            {step === 'type' ? 'Cancelar' : 'Atrás'}
+            {step === "type" ? "Cancelar" : "Atrás"}
           </button>
-          {step === 'type' && (
+          {step === "type" && (
             <button
               type="button"
-              onClick={() => testType && setStep('upload')}
+              onClick={() => testType && setStep("upload")}
               disabled={!testType}
               className="rounded-xl gu-bg-primary px-5 py-2.5 text-sm font-semibold gu-text-surface transition-colors gu-h-bg-primary-hover disabled:opacity-50"
             >
               Siguiente
             </button>
           )}
-          {step === 'review' && (
+          {step === "review" && (
             <button
               type="button"
               onClick={confirmReview}
