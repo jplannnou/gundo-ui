@@ -1,9 +1,16 @@
-import './ui-classes.css';
-import { useState } from 'react';
+import "./ui-classes.css";
+import { useState } from "react";
+import {
+  Dna,
+  Droplet,
+  Microscope,
+  Target,
+  type LucideIcon,
+} from "lucide-react";
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
-export type RecipeReasonCategory = 'test' | 'gene' | 'microbiota' | 'goal';
+export type RecipeReasonCategory = "test" | "gene" | "microbiota" | "goal";
 
 export interface RecipeReasoningData {
   test?: string[];
@@ -17,7 +24,7 @@ export interface RecipeReasoningPillsProps {
   /** Default open pill (defaults to first non-empty) */
   defaultOpen?: RecipeReasonCategory;
   /** Layout: `stack` shows expanded content below, `inline` side-by-side on md+ */
-  layout?: 'stack' | 'inline';
+  layout?: "stack" | "inline";
   className?: string;
 }
 
@@ -25,35 +32,35 @@ export interface RecipeReasoningPillsProps {
 
 const catalog: Record<
   RecipeReasonCategory,
-  { label: string; emoji: string; color: string; soft: string }
+  { label: string; Icono: LucideIcon; color: string; soft: string }
 > = {
   test: {
-    label: 'Analítica',
-    emoji: '🩸',
-    color: 'var(--ui-error)',
-    soft: 'var(--ui-error-soft)',
+    label: "Analítica",
+    Icono: Droplet, // la gota de la analitica de sangre
+    color: "var(--ui-error)",
+    soft: "var(--ui-error-soft)",
   },
   gene: {
-    label: 'Genética',
-    emoji: '🧬',
-    color: 'var(--ui-info)',
-    soft: 'var(--ui-info-soft)',
+    label: "Genética",
+    Icono: Dna,
+    color: "var(--ui-info)",
+    soft: "var(--ui-info-soft)",
   },
   microbiota: {
-    label: 'Microbiota',
-    emoji: '🦠',
-    color: 'var(--ui-warning)',
-    soft: 'var(--ui-warning-soft)',
+    label: "Microbiota",
+    Icono: Microscope,
+    color: "var(--ui-warning)",
+    soft: "var(--ui-warning-soft)",
   },
   goal: {
-    label: 'Objetivo',
-    emoji: '🎯',
-    color: 'var(--ui-success)',
-    soft: 'var(--ui-success-soft)',
+    label: "Objetivo",
+    Icono: Target,
+    color: "var(--ui-success)",
+    soft: "var(--ui-success-soft)",
   },
 };
 
-const order: RecipeReasonCategory[] = ['test', 'gene', 'microbiota', 'goal'];
+const order: RecipeReasonCategory[] = ["test", "gene", "microbiota", "goal"];
 
 /* ─── RecipeReasoningPills ───────────────────────────────────────────── */
 
@@ -66,13 +73,13 @@ const order: RecipeReasonCategory[] = ['test', 'gene', 'microbiota', 'goal'];
 export function RecipeReasoningPills({
   reasons,
   defaultOpen,
-  layout = 'stack',
-  className = '',
+  layout = "stack",
+  className = "",
 }: RecipeReasoningPillsProps) {
   const availableCategories = order.filter(
     (c) => reasons[c] && (reasons[c] as string[]).length > 0,
   );
-  const initialOpen = defaultOpen ?? availableCategories[0] ?? 'goal';
+  const initialOpen = defaultOpen ?? availableCategories[0] ?? "goal";
   const [active, setActive] = useState<RecipeReasonCategory>(initialOpen);
 
   if (availableCategories.length === 0) return null;
@@ -80,10 +87,12 @@ export function RecipeReasoningPills({
 
   return (
     <div
-      className={`flex flex-col gap-3 ${layout === 'inline' ? 'md:flex-row md:items-start' : ''} ${className}`}
+      className={`flex flex-col gap-3 ${layout === "inline" ? "md:flex-row md:items-start" : ""} ${className}`}
     >
       {/* Pills */}
-      <div className={`flex flex-wrap gap-2 ${layout === 'inline' ? 'md:max-w-xs md:flex-col' : ''}`}>
+      <div
+        className={`flex flex-wrap gap-2 ${layout === "inline" ? "md:max-w-xs md:flex-col" : ""}`}
+      >
         {availableCategories.map((cat) => {
           const meta = catalog[cat];
           const selected = cat === active;
@@ -96,23 +105,25 @@ export function RecipeReasoningPills({
               aria-pressed={selected}
               className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors gu-duration-duration-fast focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${
                 selected
-                  ? 'gu-text-surface gu-shadow-shadow-sm'
-                  : 'gu-text-text gu-h-bg-surface-hover'
+                  ? "gu-text-surface gu-shadow-shadow-sm"
+                  : "gu-text-text gu-h-bg-surface-hover"
               }`}
               style={{
                 background: selected ? meta.color : meta.soft,
-                borderColor: selected ? meta.color : 'transparent',
-                color: selected ? 'var(--ui-surface)' : meta.color,
+                borderColor: selected ? meta.color : "transparent",
+                color: selected ? "var(--ui-surface)" : meta.color,
               }}
             >
-              <span aria-hidden="true">{meta.emoji}</span>
+              <meta.Icono className="h-3 w-3" aria-hidden="true" />
               {meta.label}
               <span
                 className={`ml-1 inline-flex min-w-[18px] items-center justify-center rounded-full px-1 text-[10px] tabular-nums ${
-                  selected ? 'bg-white/30' : ''
+                  selected ? "bg-white/30" : ""
                 }`}
                 style={{
-                  background: selected ? 'rgba(255,255,255,0.3)' : 'var(--ui-surface)',
+                  background: selected
+                    ? "rgba(255,255,255,0.3)"
+                    : "var(--ui-surface)",
                 }}
               >
                 {count}
@@ -128,12 +139,18 @@ export function RecipeReasoningPills({
         style={{ borderLeftColor: catalog[active].color, borderLeftWidth: 4 }}
       >
         <p className="mb-2 flex items-center gap-2 text-xs font-semibold gu-text-text-secondary">
-          <span aria-hidden="true">{catalog[active].emoji}</span>
+          {(() => {
+            const { Icono } = catalog[active];
+            return <Icono className="h-3.5 w-3.5" aria-hidden="true" />;
+          })()}
           Por qué según {catalog[active].label.toLowerCase()}
         </p>
         <ul className="flex flex-col gap-1.5">
           {activeList.map((item, idx) => (
-            <li key={`${active}-${idx}`} className="flex items-start gap-2 text-sm gu-text-text">
+            <li
+              key={`${active}-${idx}`}
+              className="flex items-start gap-2 text-sm gu-text-text"
+            >
               <span
                 className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
                 style={{ background: catalog[active].color }}

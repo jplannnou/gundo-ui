@@ -35,9 +35,11 @@ export function ThemeToggle({ size = 'md', variant = 'icon', className = '' }: T
         aria-label={isLight ? 'Switch to dark mode' : 'Switch to light mode'}
         className={`flex items-center gap-3 w-full px-3 py-2.5 gu-rounded-radius-md text-sm font-medium gu-text-text-secondary gu-h-text-text gu-h-bg-surface-hover transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color ${className}`}
       >
-        <span className="w-5 h-5 flex items-center justify-center text-base" aria-hidden="true">
-          {isLight ? '☀️' : '🌙'}
-        </span>
+        {isLight ? (
+          <Sun className="w-5 h-5 shrink-0" aria-hidden="true" />
+        ) : (
+          <Moon className="w-5 h-5 shrink-0" aria-hidden="true" />
+        )}
         <span>{isLight ? 'Light mode' : 'Dark mode'}</span>
       </button>
     );

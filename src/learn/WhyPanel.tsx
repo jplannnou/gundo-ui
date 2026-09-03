@@ -2,7 +2,17 @@
 import '../ui-classes.css';
 import { useId, useState, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ChevronDown } from 'lucide-react';
+import {
+  ChevronDown,
+  ClipboardCheck,
+  Dna,
+  Droplet,
+  Microscope,
+  Target,
+  TestTube,
+  User,
+  type LucideIcon,
+} from 'lucide-react';
 import { useReducedMotion } from '../utils/useReducedMotion';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -54,14 +64,19 @@ export interface WhyPanelProps {
 
 /* ─── Defaults ───────────────────────────────────────────────────────── */
 
-const defaultIcons: Record<WhySignalSource, string> = {
-  blood: '🩸',
-  urine: '💧',
-  nutrigenetic: '🧬',
-  microbiota: '🦠',
-  profile: '👤',
-  goal: '🎯',
-  checkin: '📝',
+/**
+ * Puerta semantica: CONCEPTO -> icono, con el porque al lado. Mismo vocabulario
+ * que `iconos-nutricion.ts` de gundo-ecommerce-ui — dos repos no pueden dibujar
+ * la misma idea de dos maneras.
+ */
+const defaultIcons: Record<WhySignalSource, LucideIcon> = {
+  blood: Droplet,
+  urine: TestTube,
+  nutrigenetic: Dna,
+  microbiota: Microscope,
+  profile: User,
+  goal: Target,
+  checkin: ClipboardCheck, // un check-in es rellenar algo, no escribir libre
 };
 
 const impactStyles: Record<
@@ -89,10 +104,11 @@ function WhySignalRow({
   const expandable = Boolean(signal.evidence || signal.action);
   const tone = impactStyles[signal.impact ?? 'neutral'];
 
+  const IconoFuente = defaultIcons[signal.source];
   const icon = renderSourceIcon ? (
     renderSourceIcon(signal.source)
   ) : (
-    <span aria-hidden="true">{defaultIcons[signal.source]}</span>
+    <IconoFuente className="h-4 w-4 shrink-0" aria-hidden="true" />
   );
 
   const pillInner = (

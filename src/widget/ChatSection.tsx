@@ -46,7 +46,7 @@ const DEFAULT_LABELS: ChatLabels = {
   typing: 'Escribiendo respuesta',
   removeAttachment: 'Quitar adjunto',
   compatibilityScoreLabel: 'Compatibilidad',
-  npsThanks: '¡Gracias por tu respuesta! 🙌',
+  npsThanks: '¡Gracias por tu respuesta!',
 };
 
 interface NpsPrompt {

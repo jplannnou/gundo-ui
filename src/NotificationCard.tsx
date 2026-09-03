@@ -1,14 +1,22 @@
-import './ui-classes.css';
-import type { ReactNode } from 'react';
+import "./ui-classes.css";
+import type { ReactNode } from "react";
+import {
+  AlertTriangle,
+  ClipboardCheck,
+  Microscope,
+  Package,
+  PartyPopper,
+  type LucideIcon,
+} from "lucide-react";
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
 export type NotificationType =
-  | 'kit_tracking'
-  | 'procesamiento'
-  | 'checkin_reminder'
-  | 'test_ready'
-  | 'alert';
+  | "kit_tracking"
+  | "procesamiento"
+  | "checkin_reminder"
+  | "test_ready"
+  | "alert";
 
 export interface NotificationCardCTA {
   label: string;
@@ -34,36 +42,43 @@ export interface NotificationCardProps {
 
 /* ─── Type catalog ───────────────────────────────────────────────────── */
 
-const typeCatalog: Record<NotificationType, { emoji: string; color: string; soft: string; label: string }> = {
+/**
+ * Puerta semantica: CONCEPTO -> icono, con el porque al lado. Antes eran emoji,
+ * que los pinta la fuente del sistema y no obedecen al tema.
+ */
+const typeCatalog: Record<
+  NotificationType,
+  { Icono: LucideIcon; color: string; soft: string; label: string }
+> = {
   kit_tracking: {
-    emoji: '📦',
-    color: 'var(--ui-info)',
-    soft: 'var(--ui-info-soft)',
-    label: 'Envío',
+    Icono: Package, // el paquete que viaja, no un camion: lo que se sigue es el kit
+    color: "var(--ui-info)",
+    soft: "var(--ui-info-soft)",
+    label: "Envío",
   },
   procesamiento: {
-    emoji: '🔬',
-    color: 'var(--ui-warning)',
-    soft: 'var(--ui-warning-soft)',
-    label: 'Procesando',
+    Icono: Microscope,
+    color: "var(--ui-warning)",
+    soft: "var(--ui-warning-soft)",
+    label: "Procesando",
   },
   checkin_reminder: {
-    emoji: '📝',
-    color: 'var(--ui-primary)',
-    soft: 'var(--ui-primary-soft)',
-    label: 'Check-in',
+    Icono: ClipboardCheck, // un check-in es rellenar algo, no escribir libre
+    color: "var(--ui-primary)",
+    soft: "var(--ui-primary-soft)",
+    label: "Check-in",
   },
   test_ready: {
-    emoji: '🎉',
-    color: 'var(--ui-success)',
-    soft: 'var(--ui-success-soft)',
-    label: 'Resultado',
+    Icono: PartyPopper,
+    color: "var(--ui-success)",
+    soft: "var(--ui-success-soft)",
+    label: "Resultado",
   },
   alert: {
-    emoji: '⚠️',
-    color: 'var(--ui-error)',
-    soft: 'var(--ui-error-soft)',
-    label: 'Alerta',
+    Icono: AlertTriangle,
+    color: "var(--ui-error)",
+    soft: "var(--ui-error-soft)",
+    label: "Alerta",
   },
 };
 
@@ -74,13 +89,13 @@ function formatRelative(ts: string | Date): string {
   if (Number.isNaN(date.getTime())) return String(ts);
   const diff = Date.now() - date.getTime();
   const m = Math.floor(diff / 60_000);
-  if (m < 1) return 'ahora';
+  if (m < 1) return "ahora";
   if (m < 60) return `hace ${m}m`;
   const h = Math.floor(m / 60);
   if (h < 24) return `hace ${h}h`;
   const d = Math.floor(h / 24);
   if (d < 7) return `hace ${d}d`;
-  return date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+  return date.toLocaleDateString("es-ES", { day: "numeric", month: "short" });
 }
 
 /* ─── NotificationCard ───────────────────────────────────────────────── */
@@ -95,16 +110,18 @@ export function NotificationCard({
   onClick,
   onDismiss,
   icon,
-  className = '',
+  className = "",
 }: NotificationCardProps) {
   const meta = typeCatalog[type];
   return (
     <article
       className={`relative flex items-start gap-3 rounded-xl border p-3 transition-colors ${
-        read ? 'gu-border-border gu-bg-surface opacity-70' : 'gu-border-border gu-bg-surface'
-      } ${onClick ? 'cursor-pointer gu-h-bg-surface-hover' : ''} ${className}`}
+        read
+          ? "gu-border-border gu-bg-surface opacity-70"
+          : "gu-border-border gu-bg-surface"
+      } ${onClick ? "cursor-pointer gu-h-bg-surface-hover" : ""} ${className}`}
       onClick={onClick}
-      role={onClick ? 'button' : 'article'}
+      role={onClick ? "button" : "article"}
       aria-label={`Notificación ${meta.label}: ${title}`}
       tabIndex={onClick ? 0 : undefined}
     >
@@ -121,7 +138,7 @@ export function NotificationCard({
         style={{ background: meta.soft, color: meta.color }}
         aria-hidden="true"
       >
-        {icon ?? meta.emoji}
+        {icon ?? <meta.Icono className="h-4 w-4" aria-hidden="true" />}
       </div>
 
       <div className="flex-1">
@@ -140,7 +157,7 @@ export function NotificationCard({
               cta.onClick();
             }}
             className="mt-2 rounded-lg px-3 py-1 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
-            style={{ background: meta.color, color: 'var(--ui-surface)' }}
+            style={{ background: meta.color, color: "var(--ui-surface)" }}
           >
             {cta.label}
           </button>
@@ -157,8 +174,19 @@ export function NotificationCard({
           aria-label="Descartar notificación"
           className="self-start rounded-full p-1 gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text"
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3.5 3.5l7 7M10.5 3.5l-7 7"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
       )}

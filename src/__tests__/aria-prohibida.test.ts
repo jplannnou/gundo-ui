@@ -35,7 +35,6 @@ const DEUDA_CONOCIDA = new Set([
   'ContactCard.tsx',
   'DataChip.tsx',
   'DetailHeader.tsx',
-  'DetailTabs.tsx',
   'FloatingActionButton.tsx',
   'LoadingSkeletonVariants.tsx',
   'MealCard.tsx',

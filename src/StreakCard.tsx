@@ -1,5 +1,6 @@
 import "./ui-classes.css";
 import type { ReactNode } from "react";
+import { Check, Flame, Snowflake } from "lucide-react";
 import { Card } from "./Card";
 import { Badge } from "./Badge";
 import { Button } from "./Button";
@@ -97,7 +98,11 @@ export function StreakCard({
       <div className="flex justify-between items-center">
         <h3 className="font-semibold text-lg">{label}</h3>
         <Badge variant="success" className="text-base">
-          🔥 {days} {days === 1 ? "día" : "días"}
+          <Flame
+            className="mr-1 inline h-4 w-4 align-[-2px]"
+            aria-hidden="true"
+          />
+          {days} {days === 1 ? "día" : "días"}
         </Badge>
       </div>
 
@@ -130,7 +135,13 @@ export function StreakCard({
                         : "gu-bg-surface-hover gu-text-text-muted"
                     } ${isToday ? "border-2 gu-border-primary" : ""}`}
                   >
-                    {isFrozenDay ? "🔒" : day.completed ? "✓" : "·"}
+                    {isFrozenDay ? (
+                      <Snowflake className="h-3 w-3" aria-hidden="true" />
+                    ) : day.completed ? (
+                      <Check className="h-3 w-3" aria-hidden="true" />
+                    ) : (
+                      "·"
+                    )}
                   </div>
                 );
               })}
@@ -175,7 +186,10 @@ export function StreakCard({
                 Congelando...
               </span>
             ) : (
-              "❄️ Congelar racha"
+              <span className="flex items-center gap-1.5">
+                <Snowflake className="h-4 w-4" aria-hidden="true" />
+                Congelar racha
+              </span>
             )}
           </Button>
 
