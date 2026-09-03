@@ -31,8 +31,12 @@ describe('FilterBar', () => {
 
   it('opens dropdown when filter button is clicked', () => {
     render(<FilterBar filters={filters} />);
-    fireEvent.click(screen.getByRole('button', { name: /Categoría/ }));
-    expect(screen.getByRole('listbox')).toBeInTheDocument();
+    const trigger = screen.getByRole('button', { name: /Categoría/ });
+    expect(trigger).not.toHaveAttribute('aria-controls');
+    fireEvent.click(trigger);
+    const listbox = screen.getByRole('listbox');
+    expect(listbox).toBeInTheDocument();
+    expect(trigger).toHaveAttribute('aria-controls', listbox.id);
     expect(screen.getByText('Frutas')).toBeInTheDocument();
     expect(screen.getByText('Verduras')).toBeInTheDocument();
   });

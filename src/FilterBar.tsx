@@ -158,7 +158,7 @@ function FilterDropdown({ group, active, onChange }: FilterDropdownProps) {
         type="button"
         aria-haspopup="listbox"
         aria-expanded={open}
-        aria-controls={listId}
+        aria-controls={open ? listId : undefined}
         onClick={() => setOpen((v) => !v)}
         className={`ui-btn-target flex h-8 items-center gap-1.5 rounded-lg border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary ${
           hasActive
