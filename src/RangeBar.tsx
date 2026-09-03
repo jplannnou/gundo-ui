@@ -83,12 +83,29 @@ const toneColor = (tone: RangeTone | undefined, soft: boolean): string => {
 const anchorAt = (position: number): string =>
   position <= 4 ? 'translateX(0)' : position >= 96 ? 'translateX(-100%)' : 'translateX(-50%)';
 
-/** Unique band edges, in scale order, ignoring anything off the axis. */
+/**
+ * Unique band edges, in scale order — the THRESHOLDS only.
+ *
+ * The axis ends are excluded on purpose, with strict comparisons. `min` and
+ * `max` are the drawing, not the medicine: a clinical scale pads them out of
+ * the reference (a ferritin range of 11–307 draws an axis of 0–399.1, where
+ * 399.1 is just 307 x 1.3). Labelling them printed two invented numbers next
+ * to two real ones, and a reader has no way to tell which is which — 399.1
+ * looks exactly as much like a threshold as 307 does.
+ *
+ * It also produced overlap. Measured in production on 3-sep-2026: a reference
+ * minimum of 11 on an axis reaching 399.1 sits at 2.75%, so its label landed
+ * 1px from the "0" and the two read as "011" — the collision hid the number
+ * that actually mattered.
+ *
+ * `showBounds` is the prop for drawing the ends of the axis, and it stays
+ * untouched. This one is for thresholds, which is what its doc always said.
+ */
 function bandEdges(bands: RangeBand[], min: number, max: number): number[] {
   const edges = new Set<number>();
   for (const band of bands) {
     for (const edge of [band.from, band.to]) {
-      if (edge >= min && edge <= max) edges.add(edge);
+      if (edge > min && edge < max) edges.add(edge);
     }
   }
   return [...edges].sort((a, b) => a - b);
