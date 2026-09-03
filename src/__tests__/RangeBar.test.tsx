@@ -122,6 +122,48 @@ describe('RangeBar — números legibles', () => {
     expect(screen.queryByText('307')).not.toBeInTheDocument();
   });
 
+  // El caso medido en produccion el 3-sep-2026, en la ficha de ferritina de una
+  // persona real: referencia 11-307, asi que el eje se dibuja de 0 a 399,1
+  // (307 x 1,3). Con los extremos etiquetados, el "11" caia al 2,75 % y su caja
+  // quedaba a 1 px de la del "0": los dos se leian como "011", y el numero que
+  // se perdia era justo el clinico. Ademas se imprimia 399,1, que no existe en
+  // ningun informe: es relleno del dibujo con pinta de umbral.
+  it('no etiqueta el relleno del eje, que no es un umbral', () => {
+    render(
+      <RangeBar
+        min={0}
+        max={399.1}
+        value={7}
+        bands={[
+          { from: 0, to: 11, tone: 'attention' },
+          { from: 11, to: 307, tone: 'optimal' },
+          { from: 307, to: 399.1, tone: 'attention' },
+        ]}
+        boundLabels
+      />,
+    );
+    expect(screen.getByText('11')).toBeInTheDocument();
+    expect(screen.getByText('307')).toBeInTheDocument();
+    expect(screen.queryByText('0')).not.toBeInTheDocument();
+    expect(screen.queryByText('399.1')).not.toBeInTheDocument();
+  });
+
+  it('showBounds sigue siendo la forma de pedir los extremos', () => {
+    // Las dos props quedan ortogonales: `boundLabels` son umbrales,
+    // `showBounds` son los extremos del eje. Antes se solapaban.
+    render(
+      <RangeBar
+        min={0}
+        max={399.1}
+        value={7}
+        bands={[{ from: 11, to: 307, tone: 'optimal' }]}
+        showBounds
+      />,
+    );
+    expect(screen.getByText('0')).toBeInTheDocument();
+    expect(screen.getByText('399.1')).toBeInTheDocument();
+  });
+
   it('escribe el valor medido con su unidad', () => {
     render(<RangeBar min={15} max={307} value={120} unit="ng/mL" valueLabel />);
     expect(screen.getByText('120 ng/mL')).toBeInTheDocument();
