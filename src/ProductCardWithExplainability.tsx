@@ -80,6 +80,22 @@ export interface ProductCardWithExplainabilityProps {
    */
   stateLabels?: Partial<Record<ExplainabilityProductState, string>>;
   /**
+   * Etiquetas de los tags del motivo («Analítica», «Microbiota», «Genética»,
+   * «Alérgenos»), en el idioma de quien mira.
+   *
+   * 🔑 Puente hasta `ExplainabilityBadge`, que es quien las pinta: esta tarjeta
+   * lo monta por dentro, así que su prop `tagLabels` era inalcanzable desde
+   * fuera.
+   *
+   * ⚠️ HOY no se ven: la tarjeta pasa `compact` al badge, y en compacto los
+   * chips no se pintan. O sea que esto NO arregla nada visible ahora mismo —
+   * cierra un agujero del contrato. `gundo-ecommerce-ui` sí manda tags
+   * (`allergen`, `gene`, `analytic`, `microbiota`), así que el día que alguien
+   * quite ese `compact`, sin este puente saldrían las cuatro etiquetas en
+   * castellano en sus 7 idiomas. Lo vigila un test de caracterización.
+   */
+  tagLabels?: Partial<Record<ExplainabilityTag, string>>;
+  /**
    * Override ONLY the match-score ring color (e.g. `var(--ui-error)` to force
    * danger for a clinically not-suitable product) without changing `state` —
    * i.e. without greying the image, showing the state label, or disabling the
@@ -128,8 +144,9 @@ const stateStyles: Record<
     ring: "var(--ui-success)",
     badge: "gu-bg-success-soft gu-text-success",
     border: "gu-border-border",
-    // ⚠️ Antes en registro rioplatense, y se estaba sirviendo EN PRODUCCIÓN
-    // (verificado el 3-sep-2026 en el bundle de ultrapersonalizacion.gundo.life).
+    // ⚠️ Antes en registro rioplatense. Llegaba al bundle de
+    // ultrapersonalizacion.gundo.life pero NO se pintaba: su unico consumidor
+    // fuerza `state="neutral"`, que no tiene etiqueta. Aun asi se distribuia.
     // Todo el copy de GUNDO va en español neutro con "tú".
     label: "Compatible contigo",
   },
@@ -158,6 +175,7 @@ export function ProductCardWithExplainability({
   product,
   state,
   stateLabels,
+  tagLabels,
   matchScoreColor,
   action,
   onAddToCart,
@@ -316,6 +334,7 @@ export function ProductCardWithExplainability({
           <ExplainabilityBadge
             reason={mainReason.reason}
             tags={mainReason.tags}
+            tagLabels={tagLabels}
             tone={
               mainReason.tone ??
               (resolvedState === "incompatible" ? "warning" : "success")
