@@ -88,4 +88,26 @@ describe("ProductCardWithExplainability", () => {
     expect(screen.getByText('Matches your profile')).toBeInTheDocument();
     expect(screen.queryByText('Compatible contigo')).toBeNull();
   });
+  it('HOY no pinta los chips de tags: monta el badge en modo compacto', () => {
+    // Caracterizacion, no aspiracion. La tarjeta pasa `compact` a
+    // `ExplainabilityBadge`, y en compacto el badge NO pinta los chips. Por eso
+    // las cuatro etiquetas del DS («Analitica», «Microbiota», «Genetica»,
+    // «Alergenos») no llegan a nadie hoy, aunque el ecom SI manda tags.
+    //
+    // Si alguien quita ese `compact`, este test cae — y ahi hay que pasar
+    // `tagLabels`, que para eso existe el puente. Sin esta guarda, quitar
+    // `compact` sacaria castellano en los 7 idiomas del ecom sin avisar.
+    render(
+      <ProductCardWithExplainability
+        product={{
+          ean: '1',
+          name: 'Spelt bread',
+          price: 2,
+          reasons: [{ reason: 'High in fibre', tags: ['analytic'] }],
+        }}
+      />
+    );
+    expect(screen.getByText('High in fibre')).toBeInTheDocument();
+    expect(screen.queryByText('Analítica')).toBeNull();
+  });
 });
