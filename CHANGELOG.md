@@ -1,3 +1,10 @@
+## [1.39.4](https://github.com/jplannnou/gundo-ui/compare/v1.39.3...v1.39.4) (2026-09-03)
+
+
+### Bug Fixes
+
+* **PageTransition:** el estado en reposo tiene que ser VISIBLE ([#121](https://github.com/jplannnou/gundo-ui/issues/121)) ([ff40b07](https://github.com/jplannnou/gundo-ui/commit/ff40b0782b905bd741f5086e29aad7fd8445aacb))
+
 ## [1.39.3](https://github.com/jplannnou/gundo-ui/compare/v1.39.2...v1.39.3) (2026-09-03)
 
 
