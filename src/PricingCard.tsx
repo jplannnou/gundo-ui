@@ -1,12 +1,29 @@
-import './ui-classes.css';
-import type { ReactNode } from 'react';
-import { Loader2 } from 'lucide-react';
+import "./ui-classes.css";
+import type { ReactNode } from "react";
+import { Loader2 } from "lucide-react";
+import { VisuallyHidden } from "./VisuallyHidden";
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
 export interface PricingFeature {
   text: string;
   included: boolean;
+  /**
+   * Valor GRADUADO de la prestación en este plan: "3 días", "5/día",
+   * "Ilimitado". Cuando existe, manda sobre `included`.
+   *
+   * 🔑 Por qué hace falta: un booleano no puede decir «3 días». Una oferta
+   * escalonada aplastada a sí/no solo se puede expresar mintiendo — o la marcas
+   * incluida y se pierde el límite, o la marcas no-incluida y esta tarjeta la
+   * TACHA, diciéndole a quien está a punto de pagar que no tiene algo que sí
+   * tiene. Eso ya pasó en el comparador del ecom (2-sep-2026): la mitad de las
+   * filas de la oferta real de GUNDO son graduadas ("3 días" vs "4 semanas",
+   * "3/semana" vs "5/día"), y por eso este componente no lo usaba nadie.
+   *
+   * Con `value` la tarjeta muestra el valor y NO tacha: el plan más barato
+   * enseña lo que da, no lo que le falta.
+   */
+  value?: string;
   tooltip?: string;
 }
 
@@ -38,24 +55,24 @@ export interface PricingCardProps {
 export function PricingCard({
   name,
   price,
-  currency = '€',
-  period = '/mes',
+  currency = "€",
+  period = "/mes",
   description,
   features = [],
   badge,
   highlighted = false,
-  ctaLabel = 'Empezar',
+  ctaLabel = "Empezar",
   ctaLoading = false,
   ctaDisabled = false,
   onSelect,
   footer,
   display = false,
-  className = '',
+  className = "",
 }: PricingCardProps) {
   const priceStr =
-    typeof price === 'number'
+    typeof price === "number"
       ? price === 0
-        ? 'Gratis'
+        ? "Gratis"
         : `${currency}${price}`
       : price;
 
@@ -64,8 +81,8 @@ export function PricingCard({
       aria-label={`Plan ${name}`}
       className={`relative flex flex-col rounded-2xl border p-6 ${
         highlighted
-          ? 'gu-border-primary gu-bg-primary-soft shadow-[0_0_0_4px_var(--ui-primary-soft)]'
-          : 'gu-border-border gu-bg-surface'
+          ? "gu-border-primary gu-bg-primary-soft shadow-[0_0_0_4px_var(--ui-primary-soft)]"
+          : "gu-border-border gu-bg-surface"
       } ${className}`}
     >
       {/* Badge */}
@@ -79,17 +96,17 @@ export function PricingCard({
 
       {/* Header */}
       <div className="mb-4">
-        <h3 className="text-sm font-semibold gu-text-text-secondary">
-          {name}
-        </h3>
+        <h3 className="text-sm font-semibold gu-text-text-secondary">{name}</h3>
         <div className="mt-2 flex items-end gap-1">
           <span
-            className={`text-4xl font-bold tabular-nums gu-text-text ${display ? 'gu-font-font-display' : ''}`}
+            className={`text-4xl font-bold tabular-nums gu-text-text ${display ? "gu-font-font-display" : ""}`}
           >
             {priceStr}
           </span>
-          {typeof price === 'number' && price > 0 && (
-            <span className="mb-1 text-sm gu-text-text-secondary">{period}</span>
+          {typeof price === "number" && price > 0 && (
+            <span className="mb-1 text-sm gu-text-text-secondary">
+              {period}
+            </span>
           )}
         </div>
         {description && (
@@ -104,8 +121,8 @@ export function PricingCard({
         disabled={ctaDisabled || ctaLoading}
         className={`flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary focus-visible:ring-offset-2 gu-fv-ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50 ${
           highlighted
-            ? 'gu-bg-primary gu-text-surface gu-h-bg-primary-hover'
-            : 'border gu-border-border bg-transparent gu-text-text gu-h-bg-surface-hover'
+            ? "gu-bg-primary gu-text-surface gu-h-bg-primary-hover"
+            : "border gu-border-border bg-transparent gu-text-text gu-h-bg-surface-hover"
         }`}
       >
         {ctaLoading && (
@@ -116,18 +133,43 @@ export function PricingCard({
 
       {/* Features */}
       {features.length > 0 && (
-        <ul className="mt-6 flex flex-col gap-2" aria-label={`Características del plan ${name}`}>
+        <ul
+          className="mt-6 flex flex-col gap-2"
+          aria-label={`Características del plan ${name}`}
+        >
           {features.map((feat, i) => (
             <li key={i} className="flex items-start gap-2.5">
-              {feat.included ? (
+              {feat.value !== undefined ? (
+                /* Graduada: el valor ES el indicador. Ni check ni cruz, y sobre
+                   todo NUNCA tachado — lo que hay en este plan no es una
+                   carencia. */
+                <span
+                  className="mt-0.5 shrink-0 rounded-full gu-bg-surface-hover px-2 py-0.5 text-[11px] font-semibold leading-tight gu-text-text tabular-nums"
+                  aria-hidden="true"
+                >
+                  {feat.value}
+                </span>
+              ) : feat.included ? (
                 <svg
                   className="mt-0.5 h-4 w-4 shrink-0 gu-text-success"
                   viewBox="0 0 16 16"
                   fill="none"
                   aria-hidden="true"
                 >
-                  <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M5 8l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle
+                    cx="8"
+                    cy="8"
+                    r="7"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  />
+                  <path
+                    d="M5 8l2 2 4-4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               ) : (
                 <svg
@@ -136,24 +178,46 @@ export function PricingCard({
                   fill="none"
                   aria-hidden="true"
                 >
-                  <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M10 6L6 10M6 6l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <circle
+                    cx="8"
+                    cy="8"
+                    r="7"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  />
+                  <path
+                    d="M10 6L6 10M6 6l4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
                 </svg>
               )}
               <span
                 className={`text-sm ${
-                  feat.included ? 'gu-text-text-secondary' : 'gu-text-text-secondary line-through opacity-60'
+                  feat.value !== undefined || feat.included
+                    ? "gu-text-text-secondary"
+                    : "gu-text-text-secondary line-through opacity-60"
                 }`}
                 title={feat.tooltip}
               >
                 {feat.text}
+                {feat.value !== undefined && (
+                  /* El valor va también aquí, sin `aria-hidden`, para que un
+                     lector de pantalla lea «Recetas nuevas, 3 por semana» y no
+                     solo «Recetas nuevas». La píldora de arriba es la versión
+                     visual de esto mismo. */
+                  <VisuallyHidden>{`: ${feat.value}`}</VisuallyHidden>
+                )}
               </span>
             </li>
           ))}
         </ul>
       )}
 
-      {footer && <div className="mt-4 border-t gu-border-border pt-4">{footer}</div>}
+      {footer && (
+        <div className="mt-4 border-t gu-border-border pt-4">{footer}</div>
+      )}
     </article>
   );
 }
