@@ -60,8 +60,8 @@ function MacroBar({
   return (
     <div className="flex flex-col gap-0.5">
       <div className="flex items-baseline justify-between">
-        <span className="text-[10px] gu-text-text-muted">{label}</span>
-        <span className="text-[10px] font-semibold tabular-nums gu-text-text-secondary">
+        <span className="gu-text-2xs gu-text-text-muted">{label}</span>
+        <span className="gu-text-2xs font-semibold tabular-nums gu-text-text-secondary">
           {value}{unit}
         </span>
       </div>
@@ -174,7 +174,7 @@ export function MealCard({
 
         {/* Compact macros (inline) */}
         {macros && isCompact && (
-          <div className="flex gap-3 text-[10px] tabular-nums gu-text-text-muted">
+          <div className="flex gap-3 gu-text-2xs tabular-nums gu-text-text-muted">
             <span><strong className="gu-text-text">{macros.calories}</strong> kcal</span>
             <span><strong className="gu-text-primary">{macros.protein}g</strong> prot</span>
             <span><strong className="gu-text-warning">{macros.carbs}g</strong> carbs</span>

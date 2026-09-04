@@ -132,3 +132,30 @@
 .gu-tap-44-y::after{content:"";position:absolute;top:50%;left:50%;height:max(100%,44px);transform:translate(-50%,-50%)}
 .gu-tap-44::after{width:max(100%,44px)}
 .gu-tap-44-y::after{width:100%}
+
+/* ── Suelo tipográfico ────────────────────────────────────────────────────
+   `gu-text-2xs` = 11px. La escala de Tailwind empieza en `text-xs` (0.75rem =
+   12px) y esta librería necesita un paso por debajo para insignias, píldoras y
+   etiquetas en versal. Sin él se inventaba en línea: medido el 3-sep-2026,
+   **55 tamaños arbitrarios por debajo de 11px en 30 componentes** (48 a 10px,
+   4 a 9px, uno a 9,5px, uno a 10,5px y un `0.65rem` que son 10,4px).
+
+   POR QUÉ UNA CLASE `gu-` Y NO UN TOKEN `text-2xs` DE TAILWIND. Es el mismo
+   motivo por el que existe este archivo: un componente de la librería NO puede
+   depender de que el consumidor declare nada. El comercio sí define
+   `--text-2xs`, pero la plataforma y el frontend de feedback no — y un
+   `font-size: var(--text-2xs)` sin definir no cae a un valor por defecto: la
+   declaración queda inválida y el texto HEREDA el del padre. O sea que en dos
+   de los tres productos una etiqueta de 10px habría saltado a 16px sin que
+   nadie tocara nada.
+
+   POR QUÉ 11px. Es el mínimo que piden las guías de interfaz de Apple, y estos
+   componentes se sirven dentro de webviews nativas.
+
+   Y POR QUÉ EN `rem` Y NO EN `px`. Un píxel clavado no se mueve aunque el
+   usuario suba el tamaño de letra del sistema. Era el texto más pequeño que
+   pintamos: justo el que alguien con poca vista necesita agrandar.
+
+   Sólo fija el tamaño, como hacía el valor arbitrario que sustituye: la
+   interlínea se sigue heredando del contenedor. */
+.gu-text-2xs{font-size:.6875rem}

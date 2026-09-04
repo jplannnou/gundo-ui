@@ -188,7 +188,7 @@ export function ProductCard({
         </h3>
 
         {weighableLabel && (
-          <span className="inline-flex w-fit items-center rounded-full gu-bg-surface-hover px-2 py-0.5 text-[10px] font-medium gu-text-text-secondary">
+          <span className="inline-flex w-fit items-center rounded-full gu-bg-surface-hover px-2 py-0.5 gu-text-2xs font-medium gu-text-text-secondary">
             {weighableLabel}
           </span>
         )}
@@ -226,7 +226,7 @@ export function ProductCard({
               </span>
             )}
             {(approxWeight || pricePerKgLabel) && (
-              <span className="mt-0.5 block text-[10px] leading-tight gu-text-text-muted tabular-nums">
+              <span className="mt-0.5 block gu-text-2xs leading-tight gu-text-text-muted tabular-nums">
                 {[approxWeight, pricePerKgLabel].filter(Boolean).join(' · ')}
               </span>
             )}

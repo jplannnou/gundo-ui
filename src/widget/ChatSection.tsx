@@ -373,7 +373,7 @@ export function ChatSection({
                   )}
                   {msg.sources && msg.sources.length > 0 && (
                     <div className="mt-2 pt-2 border-t gu-border-border">
-                      <p className="text-[10px] gu-text-text-secondary uppercase font-bold mb-1">{labels.sources}</p>
+                      <p className="gu-text-2xs gu-text-text-secondary uppercase font-bold mb-1">{labels.sources}</p>
                       {msg.sources.map((s, j) => (
                         <a
                           key={j}
@@ -388,7 +388,7 @@ export function ChatSection({
                       ))}
                     </div>
                   )}
-                  <span className="text-[10px] mt-1 block opacity-50">
+                  <span className="gu-text-2xs mt-1 block opacity-50">
                     {new Date(msg.timestamp).toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })}
                   </span>
                 </div>
@@ -594,8 +594,8 @@ function NpsScaleInline({
       </div>
       {(prompt.lowLabel || prompt.highLabel) && (
         <div className="flex justify-between mt-1">
-          <span className="text-[10px] gu-text-text-secondary">{prompt.lowLabel}</span>
-          <span className="text-[10px] gu-text-text-secondary">{prompt.highLabel}</span>
+          <span className="gu-text-2xs gu-text-text-secondary">{prompt.lowLabel}</span>
+          <span className="gu-text-2xs gu-text-text-secondary">{prompt.highLabel}</span>
         </div>
       )}
     </div>
@@ -646,7 +646,7 @@ function ProductCardInline({
         </div>
         <div className="text-right shrink-0">
           <span className={`text-lg font-bold ${tokens.text}`}>{score}</span>
-          <span className="text-[10px] gu-text-text-secondary">/100</span>
+          <span className="gu-text-2xs gu-text-text-secondary">/100</span>
         </div>
       </div>
       <div
@@ -694,7 +694,7 @@ function FoodAnalysisCard({ analysis, labels }: { analysis: FoodAnalysis; labels
         ].map((m) => (
           <div key={m.label} className="text-center">
             <p className="text-sm font-bold gu-text-text">{m.value}</p>
-            <p className="text-[10px] gu-text-text-secondary">{m.label}</p>
+            <p className="gu-text-2xs gu-text-text-secondary">{m.label}</p>
           </div>
         ))}
       </div>
@@ -711,7 +711,7 @@ function FoodAnalysisCard({ analysis, labels }: { analysis: FoodAnalysis; labels
           ))}
         </div>
       )}
-      <p className="mt-2 text-[10px] gu-text-text-muted italic">{labels.estimateNote}</p>
+      <p className="mt-2 gu-text-2xs gu-text-text-muted italic">{labels.estimateNote}</p>
     </div>
   );
 }

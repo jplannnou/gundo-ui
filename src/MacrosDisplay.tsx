@@ -81,13 +81,13 @@ function RadialMacro({
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-[10px] font-bold tabular-nums leading-none" style={{ color }}>
+          <span className="gu-text-2xs font-bold tabular-nums leading-none" style={{ color }}>
             {value}
           </span>
-          <span className="text-[9px] gu-text-text-muted">{unit}</span>
+          <span className="gu-text-2xs gu-text-text-muted">{unit}</span>
         </div>
       </div>
-      <span className="text-[10px] font-medium gu-text-text-muted">{label}</span>
+      <span className="gu-text-2xs font-medium gu-text-text-muted">{label}</span>
     </div>
   );
 }
@@ -155,7 +155,7 @@ export function MacrosDisplay({
             <span className="text-sm font-bold tabular-nums" style={{ color: m.color }}>
               {m.value}<span className="text-xs font-normal">{m.unit}</span>
             </span>
-            <span className="text-[10px] gu-text-text-muted">{m.label}</span>
+            <span className="gu-text-2xs gu-text-text-muted">{m.label}</span>
           </div>
         ))}
       </div>

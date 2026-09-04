@@ -173,7 +173,7 @@ export function CommandPalette({
                 placeholder={placeholder}
                 className="flex-1 bg-transparent py-3 text-sm gu-text-text placeholder:text-[var(--ui-text-muted)] outline-none"
               />
-              <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border gu-border-border text-[10px] gu-text-text-muted font-mono">
+              <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border gu-border-border gu-text-2xs gu-text-text-muted font-mono">
                 ESC
               </kbd>
             </div>

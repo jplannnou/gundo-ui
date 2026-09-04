@@ -47,7 +47,7 @@ export function BottomBar({ items, renderLink, className = '' }: BottomBarProps)
         {items.map((item) => {
           const isActive = item.active === true;
           const activeColor = isActive ? 'var(--ui-primary)' : 'var(--ui-text-secondary)';
-          const baseClass = `relative flex flex-1 flex-col items-center justify-center gap-1 py-2 text-[10px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset gu-fv-ring-focus-ring-color`;
+          const baseClass = `relative flex flex-1 flex-col items-center justify-center gap-1 py-2 gu-text-2xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset gu-fv-ring-focus-ring-color`;
           const children = (
             <>
               <span
@@ -58,7 +58,7 @@ export function BottomBar({ items, renderLink, className = '' }: BottomBarProps)
                 {item.icon}
                 {item.badge !== undefined && item.badge !== 0 && item.badge !== '0' && (
                   <span
-                    className="absolute -right-1.5 -top-1.5 inline-flex min-w-[16px] items-center justify-center rounded-full gu-bg-error px-1 text-[9px] font-bold leading-none gu-text-surface"
+                    className="absolute -right-1.5 -top-1.5 inline-flex min-w-[16px] items-center justify-center rounded-full gu-bg-error px-1 gu-text-2xs font-bold leading-none gu-text-surface"
                     aria-hidden="true"
                   >
                     {item.badge}

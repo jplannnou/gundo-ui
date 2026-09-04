@@ -117,7 +117,7 @@ export function RadioGroup({
                 {opt.label}
               </span>
               {opt.description && (
-                <span className={`${size === 'sm' ? 'text-[0.65rem]' : 'text-xs'} gu-text-text-muted mt-0.5`}>
+                <span className={`${size === 'sm' ? 'gu-text-2xs' : 'text-xs'} gu-text-text-muted mt-0.5`}>
                   {opt.description}
                 </span>
               )}

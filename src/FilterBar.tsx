@@ -168,7 +168,7 @@ function FilterDropdown({ group, active, onChange }: FilterDropdownProps) {
       >
         {group.label}
         {hasActive && (
-          <span className="flex h-4 w-4 items-center justify-center rounded-full gu-bg-primary text-[10px] font-bold gu-text-surface">
+          <span className="flex h-4 w-4 items-center justify-center rounded-full gu-bg-primary gu-text-2xs font-bold gu-text-surface">
             {active.length}
           </span>
         )}

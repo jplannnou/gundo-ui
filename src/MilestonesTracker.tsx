@@ -123,7 +123,7 @@ export function MilestonesTracker({
               <div className="mt-2 max-w-[80px] text-center">
                 <p className={`text-xs font-medium ${cfg.text}`}>{m.label}</p>
                 {showDates && m.date && (
-                  <p className="mt-0.5 text-[10px] gu-text-text-muted">{m.date}</p>
+                  <p className="mt-0.5 gu-text-2xs gu-text-text-muted">{m.date}</p>
                 )}
               </div>
             </div>

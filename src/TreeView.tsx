@@ -166,7 +166,7 @@ function TreeNodeItem({ node, depth }: { node: TreeNode; depth: number }) {
 
         {/* Badge */}
         {node.badge !== undefined && (
-          <span className="shrink-0 rounded-full gu-bg-surface-hover px-1.5 py-0.5 text-[10px] font-semibold tabular-nums gu-text-text-muted">
+          <span className="shrink-0 rounded-full gu-bg-surface-hover px-1.5 py-0.5 gu-text-2xs font-semibold tabular-nums gu-text-text-muted">
             {node.badge}
           </span>
         )}

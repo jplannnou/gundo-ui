@@ -238,7 +238,7 @@ export function CalendarGrid({
                       onEventClick?.(ev);
                     }}
                     aria-label={ev.title}
-                    className="w-full truncate rounded px-1 text-left text-[10px] font-medium leading-4 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-1 gu-fv-ring-primary"
+                    className="w-full truncate rounded px-1 text-left gu-text-2xs font-medium leading-4 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-1 gu-fv-ring-primary"
                     style={{
                       background: ev.color ?? 'var(--ui-primary-soft)',
                       color: ev.color ? 'white' : 'var(--ui-primary)',
@@ -248,7 +248,7 @@ export function CalendarGrid({
                   </button>
                 ))}
                 {dayEvents.length > 3 && (
-                  <span className="text-[10px] gu-text-text-muted">
+                  <span className="gu-text-2xs gu-text-text-muted">
                     +{dayEvents.length - 3} más
                   </span>
                 )}

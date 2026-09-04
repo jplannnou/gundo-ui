@@ -248,7 +248,7 @@ export function ProductCardWithExplainability({
         {/* State label */}
         {etiquetaEstado && (
           <span
-            className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold ${styles.badge}`}
+            className={`absolute left-2 top-2 rounded-full px-2 py-0.5 gu-text-2xs font-semibold ${styles.badge}`}
           >
             {etiquetaEstado}
           </span>
@@ -279,7 +279,7 @@ export function ProductCardWithExplainability({
         </h3>
 
         {product.weighableLabel && (
-          <span className="inline-flex w-fit items-center rounded-full gu-bg-surface-hover px-2 py-0.5 text-[10px] font-medium gu-text-text-secondary">
+          <span className="inline-flex w-fit items-center rounded-full gu-bg-surface-hover px-2 py-0.5 gu-text-2xs font-medium gu-text-text-secondary">
             {product.weighableLabel}
           </span>
         )}
@@ -349,7 +349,7 @@ export function ProductCardWithExplainability({
             {product.tags.slice(0, 3).map((tag) => (
               <span
                 key={tag}
-                className="rounded-full gu-bg-surface-hover px-2 py-0.5 text-[10px] gu-text-text-secondary"
+                className="rounded-full gu-bg-surface-hover px-2 py-0.5 gu-text-2xs gu-text-text-secondary"
               >
                 {tag}
               </span>
@@ -365,7 +365,7 @@ export function ProductCardWithExplainability({
               {formatPrice(product.price, product.currency)}
             </span>
             {(product.approxWeight || product.pricePerKgLabel) && (
-              <span className="text-[10px] leading-tight gu-text-text-muted tabular-nums">
+              <span className="gu-text-2xs leading-tight gu-text-text-muted tabular-nums">
                 {[product.approxWeight, product.pricePerKgLabel]
                   .filter(Boolean)
                   .join(" · ")}

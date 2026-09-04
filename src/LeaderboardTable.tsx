@@ -117,7 +117,7 @@ export function LeaderboardTable({
                 <div className="flex items-center gap-1.5">
                   <p className="truncate text-sm font-medium gu-text-text">{entry.name}</p>
                   {entry.badge && (
-                    <span className="rounded-full gu-bg-primary-soft px-1.5 py-0.5 text-[10px] font-semibold gu-text-primary">
+                    <span className="rounded-full gu-bg-primary-soft px-1.5 py-0.5 gu-text-2xs font-semibold gu-text-primary">
                       {entry.badge}
                     </span>
                   )}
@@ -146,7 +146,7 @@ export function LeaderboardTable({
                 </span>
                 {entry.delta !== undefined && entry.delta !== 0 && (
                   <span
-                    className={`text-[10px] font-medium tabular-nums ${entry.delta > 0 ? 'gu-text-success' : 'gu-text-error'}`}
+                    className={`gu-text-2xs font-medium tabular-nums ${entry.delta > 0 ? 'gu-text-success' : 'gu-text-error'}`}
                   >
                     {entry.delta > 0 ? '↑' : '↓'} {Math.abs(entry.delta)}
                   </span>

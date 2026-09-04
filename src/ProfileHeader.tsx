@@ -157,7 +157,7 @@ export function ProfileHeader({
                 >
                   {tab.label}
                   {tab.count !== undefined && (
-                    <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${isActive ? 'gu-bg-primary-soft gu-text-primary' : 'gu-bg-surface-hover gu-text-text-muted'}`}>
+                    <span className={`rounded-full px-1.5 py-0.5 gu-text-2xs font-semibold ${isActive ? 'gu-bg-primary-soft gu-text-primary' : 'gu-bg-surface-hover gu-text-text-muted'}`}>
                       {tab.count}
                     </span>
                   )}
