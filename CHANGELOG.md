@@ -1,3 +1,10 @@
+## [1.39.6](https://github.com/jplannnou/gundo-ui/compare/v1.39.5...v1.39.6) (2026-09-04)
+
+
+### Bug Fixes
+
+* **tipografia:** 55 tamanos por debajo de 11px en 30 componentes — y esto lo ven los tres productos ([#123](https://github.com/jplannnou/gundo-ui/issues/123)) ([27cdba9](https://github.com/jplannnou/gundo-ui/commit/27cdba9687aa31d724a787e50025983122ec2082)), closes [#1431](https://github.com/jplannnou/gundo-ui/issues/1431)
+
 ## [1.39.5](https://github.com/jplannnou/gundo-ui/compare/v1.39.4...v1.39.5) (2026-09-04)
 
 
