@@ -145,11 +145,26 @@ describe('aria-prohibited-attr · el DS no etiqueta elementos sin rol', () => {
   it('PaywallUnified anuncia el sí/no de la matriz', () => {
     // El caso medido: 15 nodos serios. Las dos celdas van con `role="img"`
     // para que su `aria-label` sea válido y se anuncie.
+    //
+    // La etiqueta puede venir de una prop —el consumidor la traduce— así que
+    // se acepta tanto el literal como la expresión que lo lleva de valor por
+    // defecto. Lo que esta guarda protege NO es el texto, es el `role="img"`:
+    // sin él el lector de pantalla descarta el `aria-label` y la celda se
+    // anuncia vacía. Que la traducción llegue de verdad al DOM lo comprueba
+    // `etiquetas-traducibles.test.tsx`, que sí renderiza.
     const fuente = FUENTES['../PaywallUnified.tsx'];
     expect(fuente, 'no se encuentra PaywallUnified.tsx').toBeTruthy();
     for (const etiqueta of ['Incluido', 'No incluido']) {
-      const at = fuente.indexOf(`aria-label="${etiqueta}"`);
-      expect(at, `falta la celda "${etiqueta}"`).toBeGreaterThan(-1);
+      const literal = `aria-label="${etiqueta}"`;
+      const conProp = new RegExp(
+        `aria-label=\\{[^}]*"${etiqueta}"[^}]*\\}`,
+      ).exec(fuente);
+      const at = conProp ? conProp.index : fuente.indexOf(literal);
+      expect(
+        at,
+        `falta la celda "${etiqueta}" (ni literal ni como valor por defecto ` +
+          `de una prop)`,
+      ).toBeGreaterThan(-1);
       const celda = fuente.slice(Math.max(0, at - 400), at);
       expect(
         celda.includes('role="img"'),
