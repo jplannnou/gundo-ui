@@ -80,7 +80,7 @@ export function DataSourceRow({
       </span>
       {tag && (
         <span
-          className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold"
+          className="shrink-0 rounded-full px-2 py-0.5 gu-text-2xs font-bold"
           style={tagStyles[status]}
         >
           {tag}

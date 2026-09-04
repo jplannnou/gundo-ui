@@ -100,7 +100,7 @@ export function MacroRow({
               {c.value}
               {c.unit}
             </span>
-            <span className="mt-1 block text-[9.5px] font-semibold uppercase tracking-wide gu-text-text-secondary">
+            <span className="mt-1 block gu-text-2xs font-semibold uppercase tracking-wide gu-text-text-secondary">
               {c.label}
             </span>
           </div>
@@ -121,7 +121,7 @@ export function MacroRow({
             {c.value}
             {c.unit && <span className="text-[0.6em] font-semibold">{c.unit}</span>}
           </span>
-          <span className="mt-1.5 block text-[10.5px] font-semibold uppercase tracking-wide gu-text-text-muted">
+          <span className="mt-1.5 block gu-text-2xs font-semibold uppercase tracking-wide gu-text-text-muted">
             {c.label}
           </span>
         </div>

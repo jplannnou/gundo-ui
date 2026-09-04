@@ -1,3 +1,4 @@
+import './ui-classes.css';
 import type { HTMLAttributes } from 'react';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
@@ -74,7 +75,7 @@ export function DataChip({
       {label}
       {count !== undefined && (
         <span
-          className="ml-0.5 rounded-full px-1.5 text-[10px] font-bold tabular-nums"
+          className="ml-0.5 rounded-full px-1.5 gu-text-2xs font-bold tabular-nums"
           style={{ background: 'var(--ui-surface)', color: s.color }}
         >
           {count}

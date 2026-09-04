@@ -139,7 +139,7 @@ export function DetailHeader({
               <span className="text-base font-bold tabular-nums leading-none" style={{ color: scoreColor }}>
                 {score}
               </span>
-              <span className="text-[9px] gu-text-text-muted">score</span>
+              <span className="gu-text-2xs gu-text-text-muted">score</span>
             </div>
           )}
           {actions && <div className="flex items-center gap-2">{actions}</div>}

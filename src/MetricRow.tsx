@@ -100,7 +100,7 @@ export function MetricRow({
           <div className="flex flex-col items-end">
             <span className="text-sm font-bold gu-text-text">{value}</span>
             <span
-              className="mt-0.5 rounded-md px-2 py-0.5 text-[10px] font-bold tracking-wide"
+              className="mt-0.5 rounded-md px-2 py-0.5 gu-text-2xs font-bold tracking-wide"
               style={{ background: t.soft, color: t.color }}
             >
               {statusLabel}
@@ -154,7 +154,7 @@ export function MetricRow({
               style={{ background: 'var(--ui-text)', left: `${pct(range.current, range.min, range.max)}%` }}
             />
           </div>
-          <div className="mt-1 flex justify-between text-[10px] gu-text-text-muted">
+          <div className="mt-1 flex justify-between gu-text-2xs gu-text-text-muted">
             <span>{fmtBound(range.min)}</span>
             {range.optimalLabel && (
               <span style={{ color: 'var(--ui-range-optimal)' }}>

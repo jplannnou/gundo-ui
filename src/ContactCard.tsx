@@ -80,7 +80,7 @@ export function ContactCard({
           )}
           {score !== undefined && !isCompact && !isHorizontal && (
             <span
-              className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 gu-border-surface text-[9px] font-bold"
+              className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 gu-border-surface gu-text-2xs font-bold"
               style={{
                 background: score >= 75 ? 'var(--ui-success)' : score >= 50 ? 'var(--ui-primary)' : 'var(--ui-warning)',
                 color: 'white',
@@ -98,7 +98,7 @@ export function ContactCard({
             <div className="flex items-center gap-1.5">
               <p className="truncate text-sm font-semibold gu-text-text">{name}</p>
               {badge && (
-                <span className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${badgeColors[badgeVariant]}`}>
+                <span className={`shrink-0 rounded-full px-1.5 py-0.5 gu-text-2xs font-semibold ${badgeColors[badgeVariant]}`}>
                   {badge}
                 </span>
               )}
@@ -118,7 +118,7 @@ export function ContactCard({
           <div className="flex items-center gap-1.5">
             <p className="text-base font-semibold gu-text-text">{name}</p>
             {badge && (
-              <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${badgeColors[badgeVariant]}`}>
+              <span className={`rounded-full px-1.5 py-0.5 gu-text-2xs font-semibold ${badgeColors[badgeVariant]}`}>
                 {badge}
               </span>
             )}

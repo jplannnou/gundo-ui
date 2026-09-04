@@ -400,7 +400,7 @@ export function UploadWizard({
                   </span>
                   {typeof m.confidence === "number" && (
                     <span
-                      className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+                      className={`rounded-full px-2 py-0.5 gu-text-2xs font-semibold ${
                         m.confidence >= 80
                           ? "gu-bg-success-soft gu-text-success"
                           : m.confidence >= 60

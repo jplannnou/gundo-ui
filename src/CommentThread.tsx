@@ -129,7 +129,7 @@ function CommentItem({ comment, onReply, onDelete, depth, maxDepth }: CommentIte
           <div className="flex flex-wrap items-baseline gap-2">
             <span className="text-sm font-semibold gu-text-text">{comment.author.name}</span>
             {comment.badge && (
-              <span className="rounded-full gu-bg-primary-soft px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide gu-text-primary">
+              <span className="rounded-full gu-bg-primary-soft px-1.5 py-0.5 gu-text-2xs font-semibold uppercase tracking-wide gu-text-primary">
                 {comment.badge}
               </span>
             )}
@@ -283,7 +283,7 @@ interface AuthorAvatarProps {
 
 function AuthorAvatar({ name, avatar, initials, size = 'md' }: AuthorAvatarProps) {
   const dim = size === 'sm' ? 'h-7 w-7' : 'h-8 w-8';
-  const text = size === 'sm' ? 'text-[10px]' : 'text-xs';
+  const text = size === 'sm' ? 'gu-text-2xs' : 'text-xs';
 
   const fallback =
     initials ??

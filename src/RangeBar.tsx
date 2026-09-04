@@ -226,7 +226,7 @@ export function RangeBar({
             return (
               <span
                 key={edge}
-                className="absolute whitespace-nowrap text-[10px] gu-text-text-muted"
+                className="absolute whitespace-nowrap gu-text-2xs gu-text-text-muted"
                 style={{ left: `${position}%`, transform: anchorAt(position) }}
               >
                 {formatValue(edge)}
@@ -237,7 +237,7 @@ export function RangeBar({
       )}
 
       {(showBounds || labelledBands.length > 0) && (
-        <div className="mt-1 flex justify-between text-[10px] gu-text-text-muted">
+        <div className="mt-1 flex justify-between gu-text-2xs gu-text-text-muted">
           {showBounds && <span>{formatValue(min)}</span>}
           {labelledBands.map((b, i) => (
             <span key={i} style={{ color: toneColor(b.tone, false) }}>

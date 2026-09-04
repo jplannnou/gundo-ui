@@ -45,7 +45,7 @@ export function StepIndicator({ steps, currentStep, className = '' }: StepIndica
                   {step.label}
                 </p>
                 {step.description && (
-                  <p className="text-[10px] gu-text-text-muted">{step.description}</p>
+                  <p className="gu-text-2xs gu-text-text-muted">{step.description}</p>
                 )}
               </div>
             </div>

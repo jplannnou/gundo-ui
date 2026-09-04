@@ -142,7 +142,7 @@ export function CookieBanner({
                   <span className="text-xs font-medium gu-text-text">
                     {cat.label}
                     {cat.required && (
-                      <span className="ml-1 text-[10px] gu-text-text-muted">(requerida)</span>
+                      <span className="ml-1 gu-text-2xs gu-text-text-muted">(requerida)</span>
                     )}
                   </span>
                   <span className="text-[11px] gu-text-text-muted">{cat.description}</span>

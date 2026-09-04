@@ -99,7 +99,7 @@ export function ExplainabilityBadge({
         <div className="flex items-center gap-1.5">
           <span className="font-semibold">{reason}</span>
           {typeof score === "number" && (
-            <span className="rounded-full gu-bg-surface px-1.5 py-0.5 text-[10px] font-bold tabular-nums opacity-90">
+            <span className="rounded-full gu-bg-surface px-1.5 py-0.5 gu-text-2xs font-bold tabular-nums opacity-90">
               {Math.max(0, Math.min(100, Math.round(score)))}%
             </span>
           )}
@@ -112,7 +112,7 @@ export function ExplainabilityBadge({
               return (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-1 rounded-full gu-bg-surface px-2 py-0.5 text-[10px] font-medium"
+                  className="inline-flex items-center gap-1 rounded-full gu-bg-surface px-2 py-0.5 gu-text-2xs font-medium"
                   title={etiqueta}
                 >
                   <Icono className="h-3 w-3" aria-hidden="true" />

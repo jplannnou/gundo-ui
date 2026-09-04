@@ -117,7 +117,7 @@ export function RecipeReasoningPills({
               <meta.Icono className="h-3 w-3" aria-hidden="true" />
               {meta.label}
               <span
-                className={`ml-1 inline-flex min-w-[18px] items-center justify-center rounded-full px-1 text-[10px] tabular-nums ${
+                className={`ml-1 inline-flex min-w-[18px] items-center justify-center rounded-full px-1 gu-text-2xs tabular-nums ${
                   selected ? "bg-white/30" : ""
                 }`}
                 style={{
