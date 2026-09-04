@@ -1,3 +1,10 @@
+## [1.39.5](https://github.com/jplannnou/gundo-ui/compare/v1.39.4...v1.39.5) (2026-09-04)
+
+
+### Bug Fixes
+
+* **i18n:** PaywallUnified y RewardsGallery tenian 12 textos en castellano sin forma de sustituirlos ([#122](https://github.com/jplannnou/gundo-ui/issues/122)) ([8e8df12](https://github.com/jplannnou/gundo-ui/commit/8e8df122c33e630a62d1627ec45b9f7b12e2b813))
+
 ## [1.39.4](https://github.com/jplannnou/gundo-ui/compare/v1.39.3...v1.39.4) (2026-09-03)
 
 
