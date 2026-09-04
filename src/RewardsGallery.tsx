@@ -33,6 +33,21 @@ export interface RewardsGalleryProps {
   columns?: 2 | 3 | 4;
   /** Custom className */
   className?: string;
+  /**
+   * Textos de la galeria. La libreria NO tiene i18n y quien la consume si;
+   * los valores por defecto van en espanol neutro para no dejar huecos, pero
+   * una app multiidioma tiene que pasarlos. Incluye el `aria-label` de la
+   * region: un lector de pantalla lo lee en el idioma del usuario.
+   */
+  labels?: {
+    loading?: string;
+    galleryLabel?: string;
+    points?: string;
+    redeem?: string;
+    lockedByTier?: string;
+    /** Recibe cuantos puntos FALTAN, para poder ordenar la frase. */
+    pointsShort?: (missing: number) => string;
+  };
 }
 
 /**
@@ -47,11 +62,14 @@ export function RewardsGallery({
   emptyMessage = 'No hay recompensas disponibles',
   columns = 3,
   className,
+  labels,
 }: RewardsGalleryProps) {
   if (isLoading) {
     return (
       <div className="text-center py-12">
-        <p className="gu-text-text-secondary">Cargando recompensas...</p>
+        <p className="gu-text-text-secondary">
+          {labels?.loading ?? 'Cargando recompensas...'}
+        </p>
       </div>
     );
   }
@@ -70,7 +88,7 @@ export function RewardsGallery({
     <div
       className={`grid ${gridCols[columns]} gap-4 w-full ${className || ''}`}
       role="region"
-      aria-label="Catálogo de recompensas"
+      aria-label={labels?.galleryLabel ?? 'Catálogo de recompensas'}
       data-testid="rewards-gallery"
     >
       {rewards.map((reward) => {
@@ -119,7 +137,7 @@ export function RewardsGallery({
             <Stack direction="column" gap="3" className="mt-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium gu-text-text-secondary">
-                  Puntos
+                  {labels?.points ?? 'Puntos'}
                 </span>
                 <Badge variant={canRedeem ? 'success' : 'secondary'}>
                   {reward.pointsRequired}
@@ -133,17 +151,20 @@ export function RewardsGallery({
                 size="sm"
                 className="w-full"
               >
-                {reward.redeemText || 'Canjear'}
+                {reward.redeemText || labels?.redeem || 'Canjear'}
               </Button>
 
               {lockedByTier ? (
                 <p className="text-xs gu-text-text-muted text-center">
-                  Bloqueado por tu nivel
+                  {labels?.lockedByTier ?? 'Bloqueado por tu nivel'}
                 </p>
               ) : (
                 !canRedeem && (
                   <p className="text-xs gu-text-text-muted text-center">
-                    Necesitas {reward.pointsRequired - pointsBalance} puntos más
+                    {labels?.pointsShort?.(
+                      reward.pointsRequired - pointsBalance,
+                    ) ??
+                      `Necesitas ${reward.pointsRequired - pointsBalance} puntos más`}
                   </p>
                 )
               )}

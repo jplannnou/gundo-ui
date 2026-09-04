@@ -97,7 +97,34 @@ export interface PaywallUnifiedProps {
   /** Extra content slot below CTAs */
   footer?: ReactNode;
   className?: string;
+  /**
+   * Textos que no se podian sustituir de ninguna otra forma. `title`,
+   * `subtitle`, `featureMatrix` y `ctaLabel` ya tenian su prop; estos NO, y
+   * tres de ellos son `aria-label`: un lector de pantalla los lee en el idioma
+   * del usuario, asi que en aleman se oia "Cerrar".
+   *
+   * La libreria no tiene i18n y quien la consume si. Los valores por defecto
+   * van en espanol neutro para no dejar huecos.
+   */
+  labels?: {
+    /** Boton secundario que descarta el paywall. */
+    dismiss?: string;
+    /** `aria-label` de la X de arriba a la derecha. */
+    close?: string;
+    /** `aria-label` del check de la matriz. */
+    included?: string;
+    /** `aria-label` de la cruz de la matriz. */
+    notIncluded?: string;
+    monthly?: string;
+    /** Recibe el % de ahorro, para poder ordenar la frase. */
+    annual?: (savings: number) => string;
+    featureColumn?: string;
+    freeColumn?: string;
+  };
 }
+
+/** Los textos de `PaywallUnifiedProps["labels"]`, ya resueltos. */
+type PaywallLabels = NonNullable<PaywallUnifiedProps["labels"]>;
 
 export interface PaywallFeatureRow {
   feature: string;
@@ -198,13 +225,19 @@ function savingsPercent(pricing: PaywallPricing): number {
  * OJO: quitar el `aria-label` NO era el arreglo — dejaría la celda sin nombre,
  * que es peor. El arreglo es darle al elemento un rol que sí pueda llevarlo.
  */
-function Cell({ value }: { value: string | boolean }) {
+function Cell({
+  value,
+  labels,
+}: {
+  value: string | boolean;
+  labels?: PaywallLabels;
+}) {
   if (value === true) {
     return (
       <span
         role="img"
         className="inline-flex h-5 w-5 items-center justify-center rounded-full gu-bg-success-soft gu-text-success"
-        aria-label="Incluido"
+        aria-label={labels?.included ?? "Incluido"}
       >
         <svg
           width="12"
@@ -229,7 +262,7 @@ function Cell({ value }: { value: string | boolean }) {
       <span
         role="img"
         className="inline-flex h-5 w-5 items-center justify-center rounded-full gu-bg-surface-hover gu-text-text-muted"
-        aria-label="No incluido"
+        aria-label={labels?.notIncluded ?? "No incluido"}
       >
         <svg
           width="10"
@@ -270,6 +303,7 @@ export function PaywallUnified({
   testimonials,
   footer,
   className = "",
+  labels,
 }: PaywallUnifiedProps) {
   const [cycle, setCycle] = useState<PaywallBillingCycle>("yearly");
   const copy = triggerCopy[trigger];
@@ -310,7 +344,7 @@ export function PaywallUnified({
         <button
           type="button"
           onClick={onDismiss}
-          aria-label="Cerrar"
+          aria-label={labels?.close ?? "Cerrar"}
           className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full gu-text-text-secondary gu-h-bg-surface-hover focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
         >
           <svg
@@ -394,8 +428,9 @@ export function PaywallUnified({
                 }`}
               >
                 {c === "monthly"
-                  ? "Mensual"
-                  : `Anual${savings > 0 ? ` · -${savings}%` : ""}`}
+                  ? (labels?.monthly ?? "Mensual")
+                  : (labels?.annual?.(savings) ??
+                    `Anual${savings > 0 ? ` · -${savings}%` : ""}`)}
               </button>
             ))}
           </div>
@@ -457,9 +492,11 @@ export function PaywallUnified({
             <thead>
               <tr className="gu-bg-surface-raised gu-text-text-secondary">
                 <th className="px-3 py-2 text-left text-xs font-semibold">
-                  Feature
+                  {labels?.featureColumn ?? "Feature"}
                 </th>
-                <th className="px-3 py-2 text-xs font-semibold">Free</th>
+                <th className="px-3 py-2 text-xs font-semibold">
+                  {labels?.freeColumn ?? "Free"}
+                </th>
                 <th
                   className={`px-3 py-2 text-xs font-semibold ${
                     addon ? "" : "gu-text-primary"
@@ -488,14 +525,14 @@ export function PaywallUnified({
                 >
                   <td className="px-3 py-2 gu-text-text">{row.feature}</td>
                   <td className="px-3 py-2 text-center">
-                    <Cell value={row.free} />
+                    <Cell value={row.free} labels={labels} />
                   </td>
                   <td className="px-3 py-2 text-center">
-                    <Cell value={row.premium} />
+                    <Cell value={row.premium} labels={labels} />
                   </td>
                   {addon && (
                     <td className="px-3 py-2 text-center">
-                      <Cell value={row.addon ?? false} />
+                      <Cell value={row.addon ?? false} labels={labels} />
                     </td>
                   )}
                 </tr>
@@ -538,7 +575,7 @@ export function PaywallUnified({
               onClick={onDismiss}
               className="rounded-xl px-5 py-3 text-sm font-medium gu-text-text-secondary gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
             >
-              Ahora no
+              {labels?.dismiss ?? "Ahora no"}
             </button>
           )}
         </div>
