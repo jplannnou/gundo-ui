@@ -49,40 +49,40 @@ export function FeatureHighlight({
     return <>{children}</>;
   }
 
-  const cornerClass = placement === 'top-left' ? '-left-2 -top-2' : '-right-2 -top-2';
+  const cornerClass = placement === 'top-left' ? 'left-0 top-0' : 'right-0 top-0';
 
   return (
-    <span className={`relative inline-block ${className}`}>
+    <span className={`relative inline-flex min-h-11 min-w-11 ${className}`}>
       {children}
       <span className={`absolute z-10 ${cornerClass}`}>
-        {/* Pulse ring — 2 cycles, then stops (decorative) */}
-        {!reduced && (
-          <motion.span
-            aria-hidden="true"
-            className="absolute inset-0 rounded-full gu-bg-primary"
-            initial={{ scale: 1, opacity: 0.5 }}
-            animate={{ scale: 1.7, opacity: 0 }}
-            transition={{
-              duration: 1,
-              repeat: 1,
-              repeatDelay: 0.3,
-              ease: 'easeOut',
-            }}
-          />
-        )}
-        {/* Visual badge stays small; padding + negative margin extend the
-            touch target to >=44px without inflating the visual */}
+        {/* The 44 px hit target stays within the anchored element. Only the
+            decorative pulse is clipped, so focus indication remains intact. */}
         <button
           type="button"
           onClick={onSeen}
           aria-label={dismissLabel}
-          className="relative -m-[12px] inline-flex cursor-pointer rounded-full border-0 bg-transparent p-[12px] focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
+          className="relative inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
         >
+          {!reduced && (
+            <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
+              <motion.span
+                className="absolute inset-0 rounded-full gu-bg-primary"
+                initial={{ scale: 1, opacity: 0.5 }}
+                animate={{ scale: 1.7, opacity: 0 }}
+                transition={{
+                  duration: 1,
+                  repeat: 1,
+                  repeatDelay: 0.3,
+                  ease: 'easeOut',
+                }}
+              />
+            </span>
+          )}
           <motion.span
             initial={false}
             animate={reduced ? { scale: 1 } : { scale: [1, 1.12, 1, 1.12, 1] }}
             transition={{ duration: 2, ease: 'easeInOut' }}
-            className="inline-flex items-center rounded-full gu-bg-primary px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide gu-text-surface gu-shadow-shadow-sm"
+            className="relative inline-flex items-center rounded-full gu-bg-primary px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide gu-text-surface gu-shadow-shadow-sm"
           >
             {badge}
           </motion.span>
