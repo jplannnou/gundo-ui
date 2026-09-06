@@ -52,16 +52,16 @@ export function FeatureHighlight({
   const cornerClass = placement === 'top-left' ? 'left-0 top-0' : 'right-0 top-0';
 
   return (
-    <span className={`relative inline-flex min-h-11 min-w-11 ${className}`}>
+    <span className={`relative inline-grid min-h-11 min-w-11 ${className}`}>
       {children}
-      <span className={`absolute z-10 ${cornerClass}`}>
+      <span className={`z-10 col-start-1 row-start-1 ${cornerClass}`}>
         {/* The 44 px hit target stays within the anchored element. Only the
             decorative pulse is clipped, so focus indication remains intact. */}
         <button
           type="button"
           onClick={onSeen}
           aria-label={dismissLabel}
-          className="relative inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
+          className="relative inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
         >
           {!reduced && (
             <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
@@ -78,14 +78,16 @@ export function FeatureHighlight({
               />
             </span>
           )}
-          <motion.span
-            initial={false}
-            animate={reduced ? { scale: 1 } : { scale: [1, 1.12, 1, 1.12, 1] }}
-            transition={{ duration: 2, ease: 'easeInOut' }}
-            className="relative inline-flex items-center rounded-full gu-bg-primary px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide gu-text-surface gu-shadow-shadow-sm"
-          >
-            {badge}
-          </motion.span>
+          <span className="relative inline-flex max-w-full overflow-hidden rounded-full">
+            <motion.span
+              initial={false}
+              animate={reduced ? { scale: 1 } : { scale: [1, 1.12, 1, 1.12, 1] }}
+              transition={{ duration: 2, ease: 'easeInOut' }}
+              className="inline-flex items-center rounded-full gu-bg-primary px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide gu-text-surface gu-shadow-shadow-sm"
+            >
+              {badge}
+            </motion.span>
+          </span>
         </button>
       </span>
     </span>
