@@ -1,3 +1,10 @@
+## [1.39.7](https://github.com/jplannnou/gundo-ui/compare/v1.39.6...v1.39.7) (2026-09-06)
+
+
+### Bug Fixes
+
+* **learn:** contain FeatureHighlight pulse ([#124](https://github.com/jplannnou/gundo-ui/issues/124)) ([5fd55f4](https://github.com/jplannnou/gundo-ui/commit/5fd55f47398df6f548e3f7dc57c27179a4cfb889))
+
 ## [1.39.6](https://github.com/jplannnou/gundo-ui/compare/v1.39.5...v1.39.6) (2026-09-04)
 
 
