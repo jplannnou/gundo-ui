@@ -49,14 +49,23 @@ export function FeatureHighlight({
     return <>{children}</>;
   }
 
-  const cornerClass = placement === 'top-left' ? 'left-0 top-0' : 'right-0 top-0';
+  const isLeft = placement === 'top-left';
+  const layoutClass = isLeft
+    ? 'grid-cols-[auto_minmax(0,1fr)]'
+    : 'grid-cols-[minmax(0,1fr)_auto]';
+  const contentClass = isLeft ? 'col-start-2' : 'col-start-1';
+  const badgeClass = isLeft
+    ? 'col-start-1 justify-self-start'
+    : 'col-start-2 justify-self-end';
 
   return (
-    <span className={`relative inline-grid min-h-11 min-w-11 ${className}`}>
-      {children}
-      <span className={`z-10 col-start-1 row-start-1 ${cornerClass}`}>
-        {/* The 44 px hit target stays within the anchored element. Only the
-            decorative pulse is clipped, so focus indication remains intact. */}
+    <span className={`relative inline-grid min-h-11 min-w-11 ${layoutClass} ${className}`}>
+      <span className={`${contentClass} row-start-1 min-w-0`}>
+        {children}
+      </span>
+      <span className={`z-10 ${badgeClass} row-start-1 self-start`}>
+        {/* The 44 px hit target and the label reserve grid space. Only the
+            decorative pulse is clipped, so neither label nor focus is cut. */}
         <button
           type="button"
           onClick={onSeen}
@@ -78,15 +87,8 @@ export function FeatureHighlight({
               />
             </span>
           )}
-          <span className="relative inline-flex max-w-full overflow-hidden rounded-full">
-            <motion.span
-              initial={false}
-              animate={reduced ? { scale: 1 } : { scale: [1, 1.12, 1, 1.12, 1] }}
-              transition={{ duration: 2, ease: 'easeInOut' }}
-              className="inline-flex items-center rounded-full gu-bg-primary px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide gu-text-surface gu-shadow-shadow-sm"
-            >
-              {badge}
-            </motion.span>
+          <span className="relative inline-flex items-center rounded-full gu-bg-primary px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide gu-text-surface gu-shadow-shadow-sm">
+            {badge}
           </span>
         </button>
       </span>

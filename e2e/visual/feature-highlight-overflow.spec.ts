@@ -9,37 +9,16 @@ const badges = [
   { label: 'Consejos', placement: 'top-right' },
   { label: 'Nuevo', placement: 'top-left' },
   { label: 'Internationalization', placement: 'top-right' },
-];
+] as const;
 
 for (const viewport of viewports) {
   for (const badge of badges) {
     test(`FeatureHighlight contains ${badge.label} at ${badge.placement} and ${viewport.width}px`, async ({ page }) => {
       await page.setViewportSize(viewport);
-      await page.goto('/#/FeatureHighlight');
+      const query = new URLSearchParams({ badge: badge.label, placement: badge.placement, small: '1', full: '1' });
+      await page.goto(`/#/FeatureHighlight?${query}`);
 
-      const featureButton = page.getByRole('button', { name: 'Mis recetas' });
       const dismiss = page.getByRole('button', { name: 'Marcar como visto' });
-      await featureButton.evaluate((element, { label, placement }) => {
-        const root = element.parentElement;
-        if (!(root instanceof HTMLElement) || !root.classList.contains('relative')) {
-          throw new Error('FeatureHighlight root was not rendered');
-        }
-        root.style.position = 'fixed';
-        root.style.left = '0';
-        root.style.top = '0';
-        root.style.width = '100vw';
-
-        const dismissButton = root.querySelector('button[aria-label]');
-        const visual = dismissButton?.querySelector('span.max-w-full > span');
-        const anchor = dismissButton?.parentElement;
-        if (!(visual instanceof HTMLElement) || !(anchor instanceof HTMLElement)) {
-          throw new Error('FeatureHighlight badge was not rendered');
-        }
-        visual.textContent = label;
-        anchor.classList.remove('left-0', 'right-0');
-        anchor.classList.add(placement === 'top-left' ? 'left-0' : 'right-0');
-      }, badge);
-
       await expect(dismiss).toBeVisible();
       await dismiss.focus();
       await expect(dismiss).toBeFocused();
