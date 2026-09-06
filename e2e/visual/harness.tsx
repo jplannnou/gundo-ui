@@ -709,18 +709,40 @@ const showcases: Record<string, () => ReactNode> = {
     />
   ),
 
-  FeatureHighlight: () => (
-    <div style={{ padding: 24 }}>
-      <FeatureHighlight badge="Nuevo" seen={false} onSeen={() => {}} dismissLabel="Marcar como visto">
-        <button
-          type="button"
-          style={{ padding: '12px 20px', borderRadius: 8, border: '1px solid var(--ui-border)', background: 'var(--ui-surface-raised)', color: 'var(--ui-text)', minHeight: 44 }}
+  FeatureHighlight: () => {
+    const params = new URLSearchParams(window.location.hash.split('?')[1]);
+    const placement = params.get('placement') === 'top-left' ? 'top-left' : 'top-right';
+    const badge = params.get('badge') ?? 'Nuevo';
+    const small = params.get('small') === '1';
+    const full = params.get('full') === '1';
+    return (
+      <div style={{ padding: 24 }}>
+        <FeatureHighlight
+          badge={badge}
+          seen={false}
+          onSeen={() => {}}
+          dismissLabel="Marcar como visto"
+          placement={placement}
+          className={full ? 'w-full' : ''}
         >
-          Mis recetas
-        </button>
-      </FeatureHighlight>
-    </div>
-  ),
+          <button
+            type="button"
+            style={{
+              width: small ? 24 : undefined,
+              padding: small ? 0 : '12px 20px',
+              borderRadius: 8,
+              border: '1px solid var(--ui-border)',
+              background: 'var(--ui-surface-raised)',
+              color: 'var(--ui-text)',
+              minHeight: 44,
+            }}
+          >
+            {small ? '?' : 'Mis recetas'}
+          </button>
+        </FeatureHighlight>
+      </div>
+    );
+  },
 };
 
 /** Shared sample data for the chart showcases. */
