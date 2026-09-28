@@ -1,3 +1,10 @@
+## [1.39.8](https://github.com/jplannnou/gundo-ui/compare/v1.39.7...v1.39.8) (2026-09-28)
+
+
+### Bug Fixes
+
+* make danger dialog ink theme-aware ([#127](https://github.com/jplannnou/gundo-ui/issues/127)) ([7c1713b](https://github.com/jplannnou/gundo-ui/commit/7c1713bbed31a55bf461b3123483f75077927432))
+
 ## [1.39.7](https://github.com/jplannnou/gundo-ui/compare/v1.39.6...v1.39.7) (2026-09-06)
 
 
