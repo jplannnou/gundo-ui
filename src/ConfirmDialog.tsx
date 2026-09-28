@@ -47,7 +47,7 @@ export function ConfirmDialog({
           type="button"
           onClick={onConfirm}
           disabled={loading}
-          className={`px-4 py-2 text-sm font-medium rounded-lg text-white transition-colors disabled:opacity-50 ${confirmColor}`}
+          className={`px-4 py-2 text-sm font-medium rounded-lg gu-text-surface transition-colors disabled:opacity-50 ${confirmColor}`}
         >
           {loading ? 'Loading...' : confirmLabel}
         </button>
