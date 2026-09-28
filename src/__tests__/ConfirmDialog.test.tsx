@@ -42,4 +42,12 @@ describe('ConfirmDialog', () => {
     render(<ConfirmDialog {...baseProps} loading confirmLabel="Delete" />);
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
+
+  it('uses the theme-aware surface ink on danger backgrounds', () => {
+    render(<ConfirmDialog {...baseProps} variant="danger" confirmLabel="Delete" />);
+    const confirm = screen.getByRole('button', { name: 'Delete' });
+    expect(confirm).toHaveClass('gu-bg-error');
+    expect(confirm).toHaveClass('gu-text-surface');
+    expect(confirm).not.toHaveClass('text-white');
+  });
 });
