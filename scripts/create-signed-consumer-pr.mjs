@@ -102,9 +102,56 @@ async function request(token, url, init = {}) {
   const text = await response.text();
   const body = text ? JSON.parse(text) : null;
   if (!response.ok) {
-    throw new Error(`GitHub ${response.status} ${response.statusText}: ${body?.message ?? text}`);
+    const error = new Error(`GitHub ${response.status} ${response.statusText}: ${body?.message ?? text}`);
+    error.status = response.status;
+    throw error;
   }
   return body;
+}
+
+/**
+ * Deja `branch` apuntando EXACTAMENTE a `baseOid`: la crea si no existe y, si ya
+ * existe (bump anterior sin mergear), la reinicia con force. Es lo que hace que
+ * cada release REEMPLACE al bump pendiente en vez de abrir una rama y un PR
+ * nuevos por versión (151 PRs encadenados el 14-oct-2026).
+ */
+export async function resetBranchToBase(call, { owner, repo, branch, baseOid }) {
+  const refs = `${API}/repos/${owner}/${repo}/git/refs`;
+  try {
+    // `branch` ya pasó assertSafeInputs (`[\w./-]`): no necesita codificarse.
+    await call(`${refs}/heads/${branch}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ sha: baseOid, force: true }),
+    });
+    return 'reset';
+  } catch (error) {
+    if (error.status !== 404 && error.status !== 422) throw error;
+  }
+  await call(refs, {
+    method: 'POST',
+    body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: baseOid }),
+  });
+  return 'created';
+}
+
+/** Actualiza el PR abierto de `branch` (título y cuerpo) o lo crea si no hay. */
+export async function upsertPullRequest(call, { owner, repo, branch, base, title, body }) {
+  const pulls = `${API}/repos/${owner}/${repo}/pulls`;
+  const open = await call(
+    `${pulls}?state=open&head=${encodeURIComponent(`${owner}:${branch}`)}&base=${encodeURIComponent(base)}`,
+  );
+  if (Array.isArray(open) && open.length > 0) {
+    const pull = await call(`${pulls}/${open[0].number}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ title, body }),
+    });
+    return { pull, replaced: true };
+  }
+  const pull = await call(pulls, {
+    method: 'POST',
+    body: JSON.stringify({ title, body, head: branch, base }),
+  });
+  return { pull, replaced: false };
 }
 
 async function main() {
@@ -127,9 +174,12 @@ async function main() {
   );
   const baseOid = baseRef.object.sha;
 
-  await request(token, `${API}/repos/${owner}/${repo}/git/refs`, {
-    method: 'POST',
-    body: JSON.stringify({ ref: `refs/heads/${options.branch}`, sha: baseOid }),
+  const call = (url, init) => request(token, url, init);
+  const branchState = await resetBranchToBase(call, {
+    owner,
+    repo,
+    branch: options.branch,
+    baseOid,
   });
 
   const query = `
@@ -167,18 +217,23 @@ async function main() {
     );
   }
 
-  const pull = await request(token, `${API}/repos/${owner}/${repo}/pulls`, {
-    method: 'POST',
-    body: JSON.stringify({
-      title: options.title,
-      body: readFileSync(resolve(options['body-file']), 'utf8'),
-      head: options.branch,
-      base: options.base,
-    }),
+  const { pull, replaced } = await upsertPullRequest(call, {
+    owner,
+    repo,
+    branch: options.branch,
+    base: options.base,
+    title: options.title,
+    body: readFileSync(resolve(options['body-file']), 'utf8'),
   });
 
   process.stdout.write(
-    `${JSON.stringify({ pullRequest: pull.html_url, commit: commit.oid, verified: true })}\n`,
+    `${JSON.stringify({
+      pullRequest: pull.html_url,
+      commit: commit.oid,
+      verified: true,
+      branch: branchState,
+      replacedExistingPr: replaced,
+    })}\n`,
   );
 }
 
