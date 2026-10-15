@@ -220,7 +220,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.RENOVATE_PAT }}
         run: |
-          BRANCH="chore/update-gundo-ui-${VERSION}"
+          # Rama FIJA por consumidor (sin la versión): si el bump anterior sigue
+          # sin mergear, create-signed-consumer-pr.mjs reinicia esta rama a la
+          # base, la reescribe con la versión nueva y edita el PR existente.
+          # Antes era `chore/update-gundo-ui-${VERSION}`: una rama, un PR y un
+          # CI por release, sin cerrar el anterior (151 PRs encadenados el
+          # 14-oct-2026). El título y el cuerpo ya llevan la versión.
+          BRANCH="chore/update-gundo-ui"
           BASE="$(git branch --show-current)"
           test -n "$BASE"
           printf 'Bumps `@gundo/ui` to `^%s` sobre el alias canónico `"@gundo/ui": "npm:@jplannnou/gundo-ui@^%s"`.\n\nVerificado tras el install: una sola copia del DS en `node_modules`, resuelta a `%s`.\n\nTriggered by v%s release: https://github.com/jplannnou/gundo-ui/releases/tag/v%s\n\nAuto-generated.' \
