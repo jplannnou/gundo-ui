@@ -1,3 +1,12 @@
+## [1.39.9](https://github.com/jplannnou/gundo-ui/compare/v1.39.8...v1.39.9) (2026-10-24)
+
+
+### Bug Fixes
+
+* **ci:** support hosted runner browser install ([f33cbc3](https://github.com/jplannnou/gundo-ui/commit/f33cbc3e93c306e4c815e3175c9f9e1ca1783cbf))
+* **i18n:** support http backend v4 ([634b7b2](https://github.com/jplannnou/gundo-ui/commit/634b7b280283b3e12f7ee1ebcebd7d94203f8bd6))
+* **release:** honor consumer lifecycle ([79aaca0](https://github.com/jplannnou/gundo-ui/commit/79aaca0335515489a652e9487210fca7d7fd6678))
+
 ## [1.39.8](https://github.com/jplannnou/gundo-ui/compare/v1.39.7...v1.39.8) (2026-09-28)
 
 
