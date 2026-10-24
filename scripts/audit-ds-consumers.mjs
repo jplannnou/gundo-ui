@@ -16,16 +16,11 @@
  */
 
 import { readFileSync, appendFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
 
 import { auditConsumerManifest, formatViolations } from './ds-consumer-guard.mjs';
+import { loadConsumers, selectConsumers } from './consumer-lifecycle.mjs';
 
-const here = dirname(fileURLToPath(import.meta.url));
-
-export function loadConsumers(path = join(here, 'consumers.json')) {
-  return JSON.parse(readFileSync(path, 'utf8'));
-}
+export { loadConsumers } from './consumer-lifecycle.mjs';
 
 async function fetchManifest({ repo, pkg_dir: pkgDir }, token) {
   const path = pkgDir && pkgDir !== '.' ? `${pkgDir}/package.json` : 'package.json';
@@ -73,7 +68,7 @@ async function main() {
   } else {
     const token = process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN;
     entries = await Promise.all(
-      loadConsumers().map(async (consumer) => ({
+      selectConsumers(loadConsumers(), 'audit').map(async (consumer) => ({
         label: consumer.repo,
         pkg: await fetchManifest(consumer, token),
       })),

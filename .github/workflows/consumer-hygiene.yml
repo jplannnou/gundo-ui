@@ -24,6 +24,7 @@ on:
     # componentes por un consumidor sucio que no tiene nada que ver con ellos.
     paths:
       - 'scripts/consumers.json'
+      - 'scripts/consumer-lifecycle.mjs'
       - 'scripts/ds-consumer-guard.mjs'
       - 'scripts/audit-ds-consumers.mjs'
       - '.github/workflows/consumer-hygiene.yml'
