@@ -1,7 +1,12 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { act, render, screen } from '@testing-library/react';
 import { useTranslation } from 'react-i18next';
+import type { i18n as I18nInstance } from 'i18next';
 import { I18nProvider, DocumentLanguage } from '../I18nProvider';
+
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
 
 function GreetingProbe() {
   const { t, i18n } = useTranslation();
@@ -65,6 +70,63 @@ describe('I18nProvider', () => {
     );
 
     expect(screen.getByTestId('lang').textContent).toMatch(/^es/);
+  });
+
+  it('loads, changes language and falls back through the real http backend v4 contract', async () => {
+    let instance: I18nInstance | undefined;
+    const fetchTranslations = vi.fn(async (input: RequestInfo | URL) => {
+      const url = new URL(String(input));
+      const [, language, namespace] = url.pathname.match(/\/locales\/([^/]+)\/([^/.]+)\.json$/) ?? [];
+      const translations: Record<string, Record<string, Record<string, string>>> = {
+        es: { common: { greeting: 'Hola' } },
+        en: { common: { greeting: 'Hello' } },
+      };
+      const payload = translations[language]?.[namespace];
+
+      return {
+        ok: Boolean(payload),
+        status: payload ? 200 : 404,
+        statusText: payload ? 'OK' : 'Not Found',
+        text: async () => JSON.stringify(payload ?? {}),
+      } as Response;
+    });
+    vi.stubGlobal('fetch', fetchTranslations);
+    window.history.pushState({}, '', '?lang=es');
+
+    function NetworkGreetingProbe() {
+      const { t, i18n } = useTranslation();
+      instance = i18n;
+      return <span data-testid="network-greeting">{t('greeting')}</span>;
+    }
+
+    render(
+      <I18nProvider
+        lngs={['es', 'en', 'fr']}
+        defaultNs="common"
+        fallbackLng="en"
+        loadPath="https://translations.gundo.test/locales/{{lng}}/{{ns}}.json"
+      >
+        <NetworkGreetingProbe />
+      </I18nProvider>,
+    );
+
+    expect(await screen.findByTestId('network-greeting')).toHaveTextContent('Hola');
+    expect(instance?.getResource('es', 'common', 'greeting')).toBe('Hola');
+
+    await act(async () => {
+      await instance?.changeLanguage('en');
+    });
+    expect(screen.getByTestId('network-greeting')).toHaveTextContent('Hello');
+    expect(instance?.getResource('en', 'common', 'greeting')).toBe('Hello');
+
+    await act(async () => {
+      await instance?.changeLanguage('fr');
+    });
+    expect(screen.getByTestId('network-greeting')).toHaveTextContent('Hello');
+    expect(fetchTranslations).toHaveBeenCalledWith(
+      'https://translations.gundo.test/locales/fr/common.json',
+      expect.any(Object),
+    );
   });
 });
 
