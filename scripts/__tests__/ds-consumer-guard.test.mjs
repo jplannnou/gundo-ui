@@ -27,6 +27,7 @@ import {
 } from '../verify-ds-resolution.mjs';
 
 import { auditManifests, loadConsumers } from '../audit-ds-consumers.mjs';
+import { selectConsumers } from '../consumer-lifecycle.mjs';
 
 /* ---------------------------- fixtures reales --------------------------- */
 
@@ -261,23 +262,40 @@ describe('barrido de consumidores', () => {
     for (const consumer of consumers) {
       expect(consumer.repo).toMatch(/^[\w.-]+\/[\w.-]+$/);
       expect(typeof consumer.pkg_dir).toBe('string');
+      expect(['active', 'archived', 'migration-only']).toContain(consumer.lifecycle);
     }
     // Sin duplicados: dos entradas del mismo repo audirían dos veces y una de
     // ellas podría quedarse con un pkg_dir obsoleto.
     expect(new Set(consumers.map((c) => c.repo)).size).toBe(consumers.length);
 
-    // Los que el bot versiona (los 4 del org por npm + los 6 en file:).
-    const propagados = consumers.filter((c) => c.propagate !== false);
-    expect(propagados).toHaveLength(10);
-    expect(propagados.map((c) => c.repo)).toContain('Gundo-Health-and-Food/genie-ui');
+    // Solo consumidores activos y propagables entran al flujo que escribe PRs.
+    const propagados = selectConsumers(consumers, 'propagate');
+    expect(propagados).toHaveLength(7);
+    expect(propagados.map((c) => c.repo)).not.toContain('jplannnou/jp-assistant');
+    expect(propagados.map((c) => c.repo)).not.toContain('Gundo-Health-and-Food/genie-ui');
+    expect(propagados.map((c) => c.repo)).not.toContain('jplannnou/gundo-vida');
 
     // Y los que consumen el DS sin que el bot los versione: el barrido de
     // higiene SÍ los mira, que es lo que impide que sean un punto ciego.
-    const soloAuditados = consumers.filter((c) => c.propagate === false);
+    const soloAuditados = selectConsumers(consumers, 'audit').filter((c) => c.propagate === false);
     expect(soloAuditados.map((c) => c.repo)).toEqual([
       'Gundo-Health-and-Food/gundo-internal-dashboard-ui',
       'Gundo-Health-and-Food/gundo-ocr-pwa',
     ]);
+  });
+
+  it('🔒 falla cerrado y excluye ciclos no activos aunque propagate se active por error', () => {
+    expect(
+      selectConsumers(
+        [{ repo: 'jplannnou/jp-assistant', pkg_dir: '.', lifecycle: 'archived', propagate: true }],
+        'propagate',
+      ),
+    ).toEqual([]);
+    expect(() =>
+      selectConsumers([{ repo: 'org/unknown', pkg_dir: '.', lifecycle: 'retired' }], 'audit'),
+    ).toThrow(
+      /UNKNOWN_CONSUMER_LIFECYCLE/,
+    );
   });
 
   it('🔴 el barrido devuelve fallo en cuanto UN consumidor está duplicado', () => {
