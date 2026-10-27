@@ -1,3 +1,10 @@
+## [1.39.11](https://github.com/jplannnou/gundo-ui/compare/v1.39.10...v1.39.11) (2026-10-27)
+
+
+### Bug Fixes
+
+* **overlays:** onClose estable (foco robado al escribir) + X accesible en Modal ([#135](https://github.com/jplannnou/gundo-ui/issues/135)) ([45cc4cb](https://github.com/jplannnou/gundo-ui/commit/45cc4cbdb55d1f99cfd42cf2b8ca1b2457561bb2))
+
 ## [1.39.10](https://github.com/jplannnou/gundo-ui/compare/v1.39.9...v1.39.10) (2026-10-27)
 
 
