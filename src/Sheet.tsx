@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { X } from 'lucide-react';
 import { useFocusTrap } from './utils/useFocusTrap';
 import { useReducedMotion } from './utils/useReducedMotion';
+import { useLatestCallback } from './utils/useLatestCallback';
 
 type SheetSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
@@ -43,6 +44,8 @@ export function Sheet({
   const sheetRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 
+  const handleClose = useLatestCallback(onClose);
+
   useFocusTrap(sheetRef, open);
 
   useEffect(() => {
@@ -50,7 +53,7 @@ export function Sheet({
     previousFocusRef.current = document.activeElement as HTMLElement;
     const raf = requestAnimationFrame(() => sheetRef.current?.focus());
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') handleClose();
     };
     document.addEventListener('keydown', handler);
     return () => {
@@ -58,7 +61,7 @@ export function Sheet({
       document.removeEventListener('keydown', handler);
       previousFocusRef.current?.focus();
     };
-  }, [open, onClose]);
+  }, [open, handleClose]);
 
   useEffect(() => {
     if (open) document.body.style.overflow = 'hidden';

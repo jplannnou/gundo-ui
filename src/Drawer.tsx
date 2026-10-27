@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { X } from 'lucide-react';
 import { useFocusTrap } from './utils/useFocusTrap';
 import { useReducedMotion } from './utils/useReducedMotion';
+import { useLatestCallback } from './utils/useLatestCallback';
 
 export interface DrawerProps {
   open: boolean;
@@ -30,6 +31,8 @@ export function Drawer({
   const drawerRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 
+  const handleClose = useLatestCallback(onClose);
+
   useFocusTrap(drawerRef, open);
 
   useEffect(() => {
@@ -37,7 +40,7 @@ export function Drawer({
     previousFocusRef.current = document.activeElement as HTMLElement;
     const raf = requestAnimationFrame(() => drawerRef.current?.focus());
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') handleClose();
     };
     document.addEventListener('keydown', handler);
     return () => {
@@ -45,7 +48,7 @@ export function Drawer({
       document.removeEventListener('keydown', handler);
       previousFocusRef.current?.focus();
     };
-  }, [open, onClose]);
+  }, [open, handleClose]);
 
   useEffect(() => {
     if (open) {

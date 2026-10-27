@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from 'react';
 import { useFocusTrap } from './utils/useFocusTrap';
+import { useLatestCallback } from './utils/useLatestCallback';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
@@ -149,6 +150,8 @@ export function StepWizardModal({
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const handleClose = useLatestCallback(onClose);
+
   useFocusTrap(modalRef, open);
 
   useEffect(() => {
@@ -156,14 +159,14 @@ export function StepWizardModal({
     previousFocusRef.current = document.activeElement as HTMLElement;
     modalRef.current?.focus();
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') handleClose();
     };
     document.addEventListener('keydown', handler);
     return () => {
       document.removeEventListener('keydown', handler);
       previousFocusRef.current?.focus();
     };
-  }, [open, onClose]);
+  }, [open, handleClose]);
 
   if (!open) return null;
 
