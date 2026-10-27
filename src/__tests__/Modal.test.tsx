@@ -19,7 +19,7 @@ describe('Modal', () => {
   it('calls onClose when close button is clicked', () => {
     const onClose = vi.fn();
     render(<Modal open onClose={onClose} title="Test">Content</Modal>);
-    fireEvent.click(screen.getByLabelText('Cerrar'));
+    fireEvent.click(screen.getByLabelText('Close'));
     expect(onClose).toHaveBeenCalledOnce();
   });
 

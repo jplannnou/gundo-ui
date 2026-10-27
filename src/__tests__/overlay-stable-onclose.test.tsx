@@ -87,27 +87,34 @@ describe.each(overlays)('%s: onClose con identidad inestable', (_name, Overlay) 
   });
 });
 
-describe('Modal: botón de cierre', () => {
-  it('usa «Cerrar» por defecto', () => {
-    render(<Modal open onClose={() => {}} title="T">x</Modal>);
-    expect(screen.getByRole('button', { name: 'Cerrar' })).toBeInTheDocument();
-  });
+describe.each([
+  ['Modal', Modal, '-m-1'],
+  ['Drawer', Drawer as ComponentType<OverlayProps>, '-m-2'],
+  ['Sheet', Sheet, '-m-2'],
+] as Array<[string, ComponentType<OverlayProps & { closeLabel?: string }>, string]>)(
+  '%s: botón de cierre',
+  (_name, Overlay, negMargin) => {
+    it('usa «Close» por defecto (sin ruptura)', () => {
+      render(<Overlay open onClose={() => {}} title="T">x</Overlay>);
+      expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+    });
 
-  it('permite localizar la etiqueta con closeLabel', () => {
-    render(<Modal open onClose={() => {}} title="T" closeLabel="Close dialog">x</Modal>);
-    expect(screen.getByRole('button', { name: 'Close dialog' })).toBeInTheDocument();
-  });
+    it('permite localizar la etiqueta con closeLabel', () => {
+      render(<Overlay open onClose={() => {}} title="T" closeLabel="Cerrar">x</Overlay>);
+      expect(screen.getByRole('button', { name: 'Cerrar' })).toBeInTheDocument();
+    });
 
-  it('el área táctil es de al menos 44x44 sin ensanchar la cabecera', () => {
-    render(<Modal open onClose={() => {}} title="T">x</Modal>);
-    const btn = screen.getByRole('button', { name: 'Cerrar' });
-    // jsdom no calcula layout: se comprueba el contrato de clases
-    // (h-11/w-11 = 44px; -m-1 compensa para conservar la huella de 36px).
-    expect(btn.className).toContain('h-11');
-    expect(btn.className).toContain('w-11');
-    expect(btn.className).toContain('-m-1');
-  });
-});
+    it('el área táctil es de al menos 44x44 sin cambiar la huella de layout', () => {
+      render(<Overlay open onClose={() => {}} title="T">x</Overlay>);
+      const btn = screen.getByRole('button', { name: 'Close' });
+      // jsdom no calcula layout: se comprueba el contrato de clases
+      // (h-11/w-11 = 44px; el margen negativo conserva la huella anterior).
+      expect(btn.className).toContain('h-11');
+      expect(btn.className).toContain('w-11');
+      expect(btn.className.split(' ')).toContain(negMargin);
+    });
+  },
+);
 
 describe('Toast: onClose inline no reinicia el temporizador', () => {
   it('se descarta a los `duration` ms aunque el padre re-renderice', () => {

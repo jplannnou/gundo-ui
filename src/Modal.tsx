@@ -33,12 +33,13 @@ export interface ModalProps {
   className?: string;
   /**
    * Accessible name of the X button. The design system has no i18n of its own,
-   * so consumers in other languages pass a localized string. Defaults to Spanish.
+   * so consumers pass a localized string (e.g. `closeLabel={t('common.close')}`).
+   * Defaults to English.
    */
   closeLabel?: string;
 }
 
-export function Modal({ open, onClose, title, children, size = 'md', placement = 'center', className = '', closeLabel = 'Cerrar' }: ModalProps) {
+export function Modal({ open, onClose, title, children, size = 'md', placement = 'center', className = '', closeLabel = 'Close' }: ModalProps) {
   const titleId = useId();
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);

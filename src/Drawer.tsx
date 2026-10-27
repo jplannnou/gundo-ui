@@ -15,6 +15,12 @@ export interface DrawerProps {
   side?: 'left' | 'right';
   width?: string;
   className?: string;
+  /**
+   * Accessible name of the X button. The design system has no i18n of its own,
+   * so consumers pass a localized string (e.g. `closeLabel={t('common.close')}`).
+   * Defaults to English.
+   */
+  closeLabel?: string;
 }
 
 export function Drawer({
@@ -25,6 +31,7 @@ export function Drawer({
   side = 'right',
   width = 'max-w-md',
   className = '',
+  closeLabel = 'Close',
 }: DrawerProps) {
   const titleId = useId();
   const previousFocusRef = useRef<HTMLElement | null>(null);
@@ -97,8 +104,9 @@ export function Drawer({
                 <button
                   type="button"
                   onClick={onClose}
-                  aria-label="Close"
-                  className="rounded-md p-1 gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
+                  aria-label={closeLabel}
+                  // 44x44 hit area (WCAG 2.5.5); -m-2 keeps the previous 28px layout footprint.
+                  className="-m-2 inline-flex h-11 w-11 items-center justify-center rounded-md gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
                 >
                   <X className="h-5 w-5" aria-hidden="true" />
                 </button>

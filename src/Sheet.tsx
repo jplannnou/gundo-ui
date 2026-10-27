@@ -18,6 +18,12 @@ interface SheetProps {
   side?: 'left' | 'right';
   size?: SheetSize;
   className?: string;
+  /**
+   * Accessible name of the X button. The design system has no i18n of its own,
+   * so consumers pass a localized string (e.g. `closeLabel={t('common.close')}`).
+   * Defaults to English.
+   */
+  closeLabel?: string;
 }
 
 const sizeStyles: Record<SheetSize, string> = {
@@ -37,6 +43,7 @@ export function Sheet({
   side = 'right',
   size = 'md',
   className = '',
+  closeLabel = 'Close',
 }: SheetProps) {
   const titleId = useId();
   const descId = useId();
@@ -112,8 +119,9 @@ export function Sheet({
                   <button
                     type="button"
                     onClick={onClose}
-                    aria-label="Close"
-                    className="rounded-md p-1 gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
+                    aria-label={closeLabel}
+                    // 44x44 hit area (WCAG 2.5.5); -m-2 keeps the previous 28px layout footprint.
+                    className="-m-2 inline-flex h-11 w-11 items-center justify-center rounded-md gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
                   >
                     <X className="h-5 w-5" aria-hidden="true" />
                   </button>
