@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { X } from 'lucide-react';
 import { useFocusTrap } from './utils/useFocusTrap';
 import { useReducedMotion } from './utils/useReducedMotion';
+import { useLatestCallback } from './utils/useLatestCallback';
 
 type ModalSize = 'sm' | 'md' | 'lg' | 'xl';
 
@@ -30,13 +31,24 @@ export interface ModalProps {
   size?: ModalSize;
   placement?: ModalPlacement;
   className?: string;
+  /**
+   * Accessible name of the X button. The design system has no i18n of its own,
+   * so consumers pass a localized string (e.g. `closeLabel={t('common.close')}`).
+   * Defaults to English.
+   */
+  closeLabel?: string;
 }
 
-export function Modal({ open, onClose, title, children, size = 'md', placement = 'center', className = '' }: ModalProps) {
+export function Modal({ open, onClose, title, children, size = 'md', placement = 'center', className = '', closeLabel = 'Close' }: ModalProps) {
   const titleId = useId();
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+
+  // Stable identity: the focus/listener effect below must depend only on `open`.
+  // An inline `onClose` changes identity every render and would re-run it,
+  // yanking focus back to the dialog on every keystroke inside.
+  const handleClose = useLatestCallback(onClose);
 
   useFocusTrap(modalRef, open);
 
@@ -50,7 +62,7 @@ export function Modal({ open, onClose, title, children, size = 'md', placement =
     // Small delay to let AnimatePresence mount before focusing
     const raf = requestAnimationFrame(() => modalRef.current?.focus());
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') handleClose();
     };
     document.addEventListener('keydown', handler);
     return () => {
@@ -59,7 +71,7 @@ export function Modal({ open, onClose, title, children, size = 'md', placement =
       document.body.style.overflow = previousOverflow;
       previousFocusRef.current?.focus();
     };
-  }, [open, onClose]);
+  }, [open, handleClose]);
 
   const duration = reduced ? 0 : 0.2;
   const isSheet = placement === 'bottom-sheet';
@@ -84,7 +96,7 @@ export function Modal({ open, onClose, title, children, size = 'md', placement =
           transition={{ duration }}
           className={`fixed inset-0 flex justify-center gu-bg-overlay backdrop-blur-sm ${isSheet ? 'items-end sm:items-center' : 'items-center'}`}
           style={{ zIndex: 'var(--ui-z-modal)' }}
-          onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+          onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
           role="presentation"
         >
           <motion.div
@@ -106,9 +118,12 @@ export function Modal({ open, onClose, title, children, size = 'md', placement =
                 <h3 id={titleId} className="text-lg font-semibold gu-text-text">{title}</h3>
                 <button
                   type="button"
-                  onClick={onClose}
-                  aria-label="Close"
-                  className="rounded-md p-2 gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
+                  onClick={handleClose}
+                  aria-label={closeLabel}
+                  // 44x44 hit area (WCAG 2.5.5 / HIG). The negative margin keeps the
+                  // layout footprint at the previous 36px so the header doesn't grow
+                  // and the icon stays exactly where it was.
+                  className="-m-1 inline-flex h-11 w-11 items-center justify-center rounded-md gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface"
                 >
                   <X className="h-5 w-5" aria-hidden="true" />
                 </button>

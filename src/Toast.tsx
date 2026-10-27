@@ -3,6 +3,7 @@ import './animations.css';
 import { useEffect, useState, type ReactNode } from 'react';
 import { Check, X, AlertTriangle, Info } from 'lucide-react';
 import { useReducedMotion } from './utils/useReducedMotion';
+import { useLatestCallback } from './utils/useLatestCallback';
 
 type ToastType = 'success' | 'error' | 'info' | 'warning';
 
@@ -31,12 +32,16 @@ const typeIcons: Record<ToastType, ReactNode> = {
 export function Toast({ type = 'info', children, onClose, duration = 4000, className = '' }: ToastProps) {
   const [paused, setPaused] = useState(false);
   const reduced = useReducedMotion();
+  const hasOnClose = !!onClose;
+  // Stable identity: an inline `onClose` must not restart the auto-dismiss
+  // timer on every parent render.
+  const handleClose = useLatestCallback(() => onClose?.());
 
   useEffect(() => {
-    if (!onClose || duration <= 0 || paused) return;
-    const timer = setTimeout(onClose, duration);
+    if (!hasOnClose || duration <= 0 || paused) return;
+    const timer = setTimeout(handleClose, duration);
     return () => clearTimeout(timer);
-  }, [onClose, duration, paused]);
+  }, [hasOnClose, handleClose, duration, paused]);
 
   const s = typeStyles[type];
   const showProgress = !!onClose && duration > 0 && !reduced;

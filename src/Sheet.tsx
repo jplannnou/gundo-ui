@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { X } from 'lucide-react';
 import { useFocusTrap } from './utils/useFocusTrap';
 import { useReducedMotion } from './utils/useReducedMotion';
+import { useLatestCallback } from './utils/useLatestCallback';
 
 type SheetSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
@@ -17,6 +18,12 @@ interface SheetProps {
   side?: 'left' | 'right';
   size?: SheetSize;
   className?: string;
+  /**
+   * Accessible name of the X button. The design system has no i18n of its own,
+   * so consumers pass a localized string (e.g. `closeLabel={t('common.close')}`).
+   * Defaults to English.
+   */
+  closeLabel?: string;
 }
 
 const sizeStyles: Record<SheetSize, string> = {
@@ -36,12 +43,15 @@ export function Sheet({
   side = 'right',
   size = 'md',
   className = '',
+  closeLabel = 'Close',
 }: SheetProps) {
   const titleId = useId();
   const descId = useId();
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+
+  const handleClose = useLatestCallback(onClose);
 
   useFocusTrap(sheetRef, open);
 
@@ -50,7 +60,7 @@ export function Sheet({
     previousFocusRef.current = document.activeElement as HTMLElement;
     const raf = requestAnimationFrame(() => sheetRef.current?.focus());
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') handleClose();
     };
     document.addEventListener('keydown', handler);
     return () => {
@@ -58,7 +68,7 @@ export function Sheet({
       document.removeEventListener('keydown', handler);
       previousFocusRef.current?.focus();
     };
-  }, [open, onClose]);
+  }, [open, handleClose]);
 
   useEffect(() => {
     if (open) document.body.style.overflow = 'hidden';
@@ -109,8 +119,9 @@ export function Sheet({
                   <button
                     type="button"
                     onClick={onClose}
-                    aria-label="Close"
-                    className="rounded-md p-1 gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
+                    aria-label={closeLabel}
+                    // 44x44 hit area (WCAG 2.5.5); -m-2 keeps the previous 28px layout footprint.
+                    className="-m-2 inline-flex h-11 w-11 items-center justify-center rounded-md gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
                   >
                     <X className="h-5 w-5" aria-hidden="true" />
                   </button>
