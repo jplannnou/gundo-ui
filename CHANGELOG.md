@@ -1,3 +1,10 @@
+## [1.39.10](https://github.com/jplannnou/gundo-ui/compare/v1.39.9...v1.39.10) (2026-10-27)
+
+
+### Bug Fixes
+
+* **security:** remediate UI dependency advisories ([0536faa](https://github.com/jplannnou/gundo-ui/commit/0536faa87bfe16ac3611ad2d35344aff1f682a76))
+
 ## [1.39.9](https://github.com/jplannnou/gundo-ui/compare/v1.39.8...v1.39.9) (2026-10-24)
 
 
