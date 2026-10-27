@@ -1,16 +1,40 @@
 name: Security Audit
 
 on:
+  pull_request:
+    paths:
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/security.yml"
+  push:
+    branches: [main]
+    paths:
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/security.yml"
   schedule:
-    - cron: '0 8 * * 1'
+    - cron: "0 8 * * 1"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
+  dependency-audit:
+    name: pnpm dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm audit --audit-level low
+
   audit:
     name: Trivy filesystem scan
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -19,11 +43,10 @@ jobs:
         uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: fs
-          scan-ref: '.'
-          severity: 'HIGH,CRITICAL'
-          exit-code: '1'
+          scan-ref: "."
+          severity: "HIGH,CRITICAL"
+          exit-code: "1"
           ignore-unfixed: false
           format: table
         env:
-          TRIVY_INCLUDE_DEV_DEPS: 'true'
-
+          TRIVY_INCLUDE_DEV_DEPS: "true"
