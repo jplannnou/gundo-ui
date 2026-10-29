@@ -33,6 +33,11 @@ jobs:
     # que se pasa solo. `inherit` mandaria TODOS los secretos de este repo a un
     # reusable de otra cuenta referenciado por una rama movil.
 
+  node-policy:
+    uses: jplannnou/gundo-eslint-config/.github/workflows/node-policy.yml@main
+    with:
+      runner: ubuntu-latest
+
   test:
     name: Typecheck & unit tests
     runs-on: ubuntu-latest
@@ -46,7 +51,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: .nvmrc
           cache: 'pnpm'
 
       - run: pnpm install --frozen-lockfile

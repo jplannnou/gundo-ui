@@ -35,7 +35,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: pnpm
           registry-url: https://npm.pkg.github.com
           scope: '@jplannnou'
@@ -125,7 +125,9 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # Node que corre `pnpm install` en el repo ajeno, no el de este repo:
+          # se queda en 22 hasta que los consumidores migren (se verá en su PR).
+          node-version: 22 # node-policy: allow
           registry-url: https://npm.pkg.github.com
           scope: '@jplannnou'
 

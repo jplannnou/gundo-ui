@@ -18,7 +18,8 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v6
         with:
-          node-version: 24
+          # renovate declara engines.node ^24.11.0: no admite Node 26.
+          node-version: 24 # node-policy: allow
       - name: Run Renovate
         run: npx renovate@latest
         env:
