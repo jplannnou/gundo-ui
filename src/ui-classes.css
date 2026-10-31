@@ -159,3 +159,45 @@
    Sólo fija el tamaño, como hacía el valor arbitrario que sustituye: la
    interlínea se sigue heredando del contenedor. */
 .gu-text-2xs{font-size:.6875rem}
+
+/* ─── Tinta de par: texto que va SIEMPRE sobre un fondo concreto ──────────
+   Escrito a mano (no lo genera el codemod). Las reglas de abajo solo actúan
+   cuando las dos clases coinciden en el mismo elemento, y por eso arreglan de
+   una vez todos los sitios que pintan ese par: AlertBanner, Badge,
+   ExplainabilityBadge, SegmentedControl, Tabs, Pagination y el resto. No hace
+   falta tocar ningún componente.
+
+   POR QUÉ AQUÍ Y NO EN theme.css. Los consumidores no importan theme.css: cada
+   uno redefine los `--ui-*` en su propio CSS. Medido el 30-oct-2026 con los
+   tokens de la plataforma (`globals.css`), su `#dc2626` sobre `--ui-error-soft`
+   da 4,14:1 en claro y su `#ef4444` da 3,15:1 en oscuro, y su `#fff` sobre
+   `#67c728` da 2,15:1. Con los tokens de esta librería, los mismos pares pasan.
+   Bajar un valor en theme.css no habría cambiado ni un píxel de la plataforma.
+   Lo que sí controla la librería es CÓMO se combinan dos tokens, y ese es el
+   arreglo.
+
+   Tinta semántica sobre su fondo `-soft`: un 60 % del color semántico y un
+   40 % de `--ui-text`. Como `--ui-text` es oscuro en el tema claro y claro en
+   el oscuro, la mezcla oscurece en claro y aclara en oscuro sin preguntar qué
+   tema está activo. La mezcla se hace en OKLab y no en OKLCH porque hacia un
+   casi-neutro OKLCH gira el tono (el rojo se iba al magenta), mientras que
+   OKLab solo baja algo el croma y deja el tono quieto. El 60 % es el valor que
+   deja el peor caso medido, el error oscuro de la plataforma dentro de una
+   tarjeta, en 4,86:1. Con un 75 % se quedaba en 4,00:1.
+
+   Tinta sobre primario: usa `--ui-primary-ink` cuando el consumidor lo define
+   (la plataforma lo hace: `#052518`, 7,61:1 sobre `#67c728`) y, si no, sigue
+   usando `--ui-surface`, que es justo el comportamiento anterior.
+
+   Hay que declarar `var()` aquí, en el punto de uso, y no como token derivado
+   en `:root`. Una custom property se resuelve en el elemento donde se declara
+   y se hereda ya resuelta, así que un `--ui-error-ink` calculado en `:root`
+   arrastraría los colores oscuros dentro de un `.theme-light`.
+
+   Guarda: scripts/__tests__/pair-contrast.test.mjs. */
+.gu-bg-error-soft.gu-text-error{color:var(--ui-error-ink,color-mix(in oklab,var(--ui-error) 60%,var(--ui-text)))}
+.gu-bg-info-soft.gu-text-info{color:var(--ui-info-ink,color-mix(in oklab,var(--ui-info) 60%,var(--ui-text)))}
+.gu-bg-success-soft.gu-text-success{color:var(--ui-success-ink,color-mix(in oklab,var(--ui-success) 60%,var(--ui-text)))}
+.gu-bg-warning-soft.gu-text-warning{color:var(--ui-warning-ink,color-mix(in oklab,var(--ui-warning) 60%,var(--ui-text)))}
+.gu-bg-primary.gu-text-surface{color:var(--ui-primary-ink,var(--ui-surface))}
+.gu-h-bg-primary.gu-h-text-surface:hover{color:var(--ui-primary-ink,var(--ui-surface))}
