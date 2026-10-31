@@ -1,0 +1,569 @@
+[
+  {
+    "mode": "before",
+    "palette": "plat",
+    "theme": "light",
+    "violations": [
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .gu-border-error.gu-bg-error-soft.gu-text-error > .justify-between.items-start.gap-2 > div > p",
+        "text": "No se pudo cargar la cohorte",
+        "ratio": 4.13,
+        "fg": "#dc2626",
+        "bg": "#fce9e9"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .gu-border-error.gu-bg-error-soft.gu-text-error > .justify-between.items-start.gap-2 > div > div",
+        "text": "Reintenta en unos minutos.",
+        "ratio": 4.13,
+        "fg": "#dc2626",
+        "bg": "#fce9e9"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .gu-border-info.gu-bg-info-soft.gu-text-info > .justify-between.items-start.gap-2 > div > p",
+        "text": "Datos de los últimos 30 días",
+        "ratio": 4.48,
+        "fg": "#2563eb",
+        "bg": "#e9effd"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .gu-border-info.gu-bg-info-soft.gu-text-info > .justify-between.items-start.gap-2 > div > div",
+        "text": "Se actualizan cada noche.",
+        "ratio": 4.48,
+        "fg": "#2563eb",
+        "bg": "#e9effd"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .gu-border-success.gu-bg-success-soft.gu-text-success > .justify-between.items-start.gap-2 > div > div",
+        "text": "Plan guardado.",
+        "ratio": 2.95,
+        "fg": "#16a34a",
+        "bg": "#e8f6ed"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .p-0\\.5.gu-bg-surface[role=\"radiogroup\"] > .gu-bg-primary.gu-text-surface.shadow-sm",
+        "text": "",
+        "ratio": 2.14,
+        "fg": "#ffffff",
+        "bg": "#67c728"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .flex-wrap.gap-2.flex > .gu-bg-error-soft.gu-text-error",
+        "text": "Error",
+        "ratio": 4.13,
+        "fg": "#dc2626",
+        "bg": "#fce9e9"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .flex-wrap.gap-2.flex > .gu-bg-info-soft.gu-text-info",
+        "text": "Info",
+        "ratio": 4.48,
+        "fg": "#2563eb",
+        "bg": "#e9effd"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .flex-wrap.gap-2.flex > .gu-bg-success-soft.gu-text-success",
+        "text": "Activo",
+        "ratio": 2.95,
+        "fg": "#16a34a",
+        "bg": "#e8f6ed"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-error.gu-bg-error-soft.gu-text-error > .justify-between.items-start.gap-2 > div > p",
+        "text": "No se pudo cargar la cohorte",
+        "ratio": 3.86,
+        "fg": "#dc2626",
+        "bg": "#f4e2e2"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-error.gu-bg-error-soft.gu-text-error > .justify-between.items-start.gap-2 > div > div",
+        "text": "Reintenta en unos minutos.",
+        "ratio": 3.86,
+        "fg": "#dc2626",
+        "bg": "#f4e2e2"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-info.gu-bg-info-soft.gu-text-info > .justify-between.items-start.gap-2 > div > p",
+        "text": "Datos de los últimos 30 días",
+        "ratio": 4.21,
+        "fg": "#2563eb",
+        "bg": "#e2e8f6"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-info.gu-bg-info-soft.gu-text-info > .justify-between.items-start.gap-2 > div > div",
+        "text": "Se actualizan cada noche.",
+        "ratio": 4.21,
+        "fg": "#2563eb",
+        "bg": "#e2e8f6"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-success.gu-bg-success-soft.gu-text-success > .justify-between.items-start.gap-2 > div > div",
+        "text": "Plan guardado.",
+        "ratio": 2.77,
+        "fg": "#16a34a",
+        "bg": "#e1efe6"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .p-0\\.5.gu-bg-surface[role=\"radiogroup\"] > .gu-bg-primary.gu-text-surface.shadow-sm",
+        "text": "",
+        "ratio": 2.14,
+        "fg": "#ffffff",
+        "bg": "#67c728"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .flex-wrap.gap-2.flex > .gu-bg-error-soft.gu-text-error",
+        "text": "Error",
+        "ratio": 3.86,
+        "fg": "#dc2626",
+        "bg": "#f4e2e2"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .flex-wrap.gap-2.flex > .gu-bg-info-soft.gu-text-info",
+        "text": "Info",
+        "ratio": 4.21,
+        "fg": "#2563eb",
+        "bg": "#e2e8f6"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .flex-wrap.gap-2.flex > .gu-bg-success-soft.gu-text-success",
+        "text": "Activo",
+        "ratio": 2.77,
+        "fg": "#16a34a",
+        "bg": "#e1efe6"
+      }
+    ],
+    "incomplete": [],
+    "passes": 10,
+    "computed": [
+      {
+        "cls": "gu-border-error gu-bg-error-soft gu-text-error",
+        "color": "rgb(220, 38, 38)"
+      },
+      {
+        "cls": "gu-border-info gu-bg-info-soft gu-text-info",
+        "color": "rgb(37, 99, 235)"
+      },
+      {
+        "cls": "gu-border-success gu-bg-success-soft gu-text-success",
+        "color": "rgb(22, 163, 74)"
+      },
+      {
+        "cls": "gu-border-warning gu-bg-warning-soft gu-text-warning",
+        "color": "rgb(146, 64, 14)"
+      },
+      {
+        "cls": "gu-duration-duration-fast gu-fv-ring-focus-ring-color gu-fv-ring-offset-surface gu-bg-primary gu-text-surface",
+        "color": "rgb(255, 255, 255)"
+      }
+    ],
+    "errors": [],
+    "file": "before-plat-light.png"
+  },
+  {
+    "mode": "before",
+    "palette": "plat",
+    "theme": "dark",
+    "violations": [
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .gu-border-error.gu-bg-error-soft.gu-text-error > .justify-between.items-start.gap-2 > div > p",
+        "text": "No se pudo cargar la cohorte",
+        "ratio": 3.15,
+        "fg": "#ef4444",
+        "bg": "#473139"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .gu-border-error.gu-bg-error-soft.gu-text-error > .justify-between.items-start.gap-2 > div > div",
+        "text": "Reintenta en unos minutos.",
+        "ratio": 3.15,
+        "fg": "#ef4444",
+        "bg": "#473139"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .gu-border-info.gu-bg-info-soft.gu-text-info > .justify-between.items-start.gap-2 > div > p",
+        "text": "Datos de los últimos 30 días",
+        "ratio": 4.14,
+        "fg": "#60a5fa",
+        "bg": "#314054"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .gu-border-info.gu-bg-info-soft.gu-text-info > .justify-between.items-start.gap-2 > div > div",
+        "text": "Se actualizan cada noche.",
+        "ratio": 4.14,
+        "fg": "#60a5fa",
+        "bg": "#314054"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .flex-wrap.gap-2.flex > .gu-bg-error-soft.gu-text-error",
+        "text": "Error",
+        "ratio": 3.15,
+        "fg": "#ef4444",
+        "bg": "#473139"
+      },
+      {
+        "target": "section[data-block=\"Sobre la superficie\"] > .flex-wrap.gap-2.flex > .gu-bg-info-soft.gu-text-info",
+        "text": "Info",
+        "ratio": 4.14,
+        "fg": "#60a5fa",
+        "bg": "#314054"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-error.gu-bg-error-soft.gu-text-error > .justify-between.items-start.gap-2 > div > p",
+        "text": "No se pudo cargar la cohorte",
+        "ratio": 2.84,
+        "fg": "#ef4444",
+        "bg": "#4e3840"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-error.gu-bg-error-soft.gu-text-error > .justify-between.items-start.gap-2 > div > div",
+        "text": "Reintenta en unos minutos.",
+        "ratio": 2.84,
+        "fg": "#ef4444",
+        "bg": "#4e3840"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-info.gu-bg-info-soft.gu-text-info > .justify-between.items-start.gap-2 > div > p",
+        "text": "Datos de los últimos 30 días",
+        "ratio": 3.71,
+        "fg": "#60a5fa",
+        "bg": "#39475b"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-info.gu-bg-info-soft.gu-text-info > .justify-between.items-start.gap-2 > div > div",
+        "text": "Se actualizan cada noche.",
+        "ratio": 3.71,
+        "fg": "#60a5fa",
+        "bg": "#39475b"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-success.gu-bg-success-soft.gu-text-success > .justify-between.items-start.gap-2 > div > div",
+        "text": "Plan guardado.",
+        "ratio": 4.15,
+        "fg": "#22c55e",
+        "bg": "#304b44"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-warning.gu-bg-warning-soft.gu-text-warning > .justify-between.items-start.gap-2 > div > div",
+        "text": "Faltan datos de facturación.",
+        "ratio": 4.31,
+        "fg": "#f59e0b",
+        "bg": "#4f4637"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .flex-wrap.gap-2.flex > .gu-bg-error-soft.gu-text-error",
+        "text": "Error",
+        "ratio": 2.84,
+        "fg": "#ef4444",
+        "bg": "#4e3840"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .flex-wrap.gap-2.flex > .gu-bg-info-soft.gu-text-info",
+        "text": "Info",
+        "ratio": 3.71,
+        "fg": "#60a5fa",
+        "bg": "#39475b"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .flex-wrap.gap-2.flex > .gu-bg-success-soft.gu-text-success",
+        "text": "Activo",
+        "ratio": 4.15,
+        "fg": "#22c55e",
+        "bg": "#304b44"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .flex-wrap.gap-2.flex > .gu-bg-warning-soft.gu-text-warning",
+        "text": "Pendiente",
+        "ratio": 4.31,
+        "fg": "#f59e0b",
+        "bg": "#4f4637"
+      }
+    ],
+    "incomplete": [],
+    "passes": 12,
+    "computed": [
+      {
+        "cls": "gu-border-error gu-bg-error-soft gu-text-error",
+        "color": "rgb(239, 68, 68)"
+      },
+      {
+        "cls": "gu-border-info gu-bg-info-soft gu-text-info",
+        "color": "rgb(96, 165, 250)"
+      },
+      {
+        "cls": "gu-border-success gu-bg-success-soft gu-text-success",
+        "color": "rgb(34, 197, 94)"
+      },
+      {
+        "cls": "gu-border-warning gu-bg-warning-soft gu-text-warning",
+        "color": "rgb(245, 158, 11)"
+      },
+      {
+        "cls": "gu-duration-duration-fast gu-fv-ring-focus-ring-color gu-fv-ring-offset-surface gu-bg-primary gu-text-surface",
+        "color": "rgb(41, 46, 55)"
+      }
+    ],
+    "errors": [],
+    "file": "before-plat-dark.png"
+  },
+  {
+    "mode": "before",
+    "palette": "gui",
+    "theme": "light",
+    "violations": [],
+    "incomplete": [],
+    "passes": 28,
+    "computed": [
+      {
+        "cls": "gu-border-error gu-bg-error-soft gu-text-error",
+        "color": "rgb(185, 28, 28)"
+      },
+      {
+        "cls": "gu-border-info gu-bg-info-soft gu-text-info",
+        "color": "rgb(29, 78, 216)"
+      },
+      {
+        "cls": "gu-border-success gu-bg-success-soft gu-text-success",
+        "color": "rgb(22, 101, 52)"
+      },
+      {
+        "cls": "gu-border-warning gu-bg-warning-soft gu-text-warning",
+        "color": "rgb(146, 64, 14)"
+      },
+      {
+        "cls": "gu-duration-duration-fast gu-fv-ring-focus-ring-color gu-fv-ring-offset-surface gu-bg-primary gu-text-surface",
+        "color": "rgb(242, 244, 243)"
+      }
+    ],
+    "errors": [],
+    "file": "before-gui-light.png"
+  },
+  {
+    "mode": "before",
+    "palette": "gui",
+    "theme": "dark",
+    "violations": [
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-error.gu-bg-error-soft.gu-text-error > .justify-between.items-start.gap-2 > div > p",
+        "text": "No se pudo cargar la cohorte",
+        "ratio": 4.09,
+        "fg": "#f87171",
+        "bg": "#3c3942"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-error.gu-bg-error-soft.gu-text-error > .justify-between.items-start.gap-2 > div > div",
+        "text": "Reintenta en unos minutos.",
+        "ratio": 4.09,
+        "fg": "#f87171",
+        "bg": "#3c3942"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-info.gu-bg-info-soft.gu-text-info > .justify-between.items-start.gap-2 > div > p",
+        "text": "Datos de los últimos 30 días",
+        "ratio": 4.11,
+        "fg": "#60a5fa",
+        "bg": "#364050"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-info.gu-bg-info-soft.gu-text-info > .justify-between.items-start.gap-2 > div > div",
+        "text": "Se actualizan cada noche.",
+        "ratio": 4.11,
+        "fg": "#60a5fa",
+        "bg": "#364050"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-success.gu-bg-success-soft.gu-text-success > .justify-between.items-start.gap-2 > div > div",
+        "text": "Plan guardado.",
+        "ratio": 4.15,
+        "fg": "#22c55e",
+        "bg": "#304b44"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .gu-border-warning.gu-bg-warning-soft.gu-text-warning > .justify-between.items-start.gap-2 > div > div",
+        "text": "Faltan datos de facturación.",
+        "ratio": 4.31,
+        "fg": "#f59e0b",
+        "bg": "#4f4637"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .flex-wrap.gap-2.flex > .gu-bg-error-soft.gu-text-error",
+        "text": "Error",
+        "ratio": 4.09,
+        "fg": "#f87171",
+        "bg": "#3c3942"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .flex-wrap.gap-2.flex > .gu-bg-info-soft.gu-text-info",
+        "text": "Info",
+        "ratio": 4.11,
+        "fg": "#60a5fa",
+        "bg": "#364050"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .flex-wrap.gap-2.flex > .gu-bg-success-soft.gu-text-success",
+        "text": "Activo",
+        "ratio": 4.15,
+        "fg": "#22c55e",
+        "bg": "#304b44"
+      },
+      {
+        "target": "section[data-block=\"Dentro de una tarjeta\"] > .flex-wrap.gap-2.flex > .gu-bg-warning-soft.gu-text-warning",
+        "text": "Pendiente",
+        "ratio": 4.31,
+        "fg": "#f59e0b",
+        "bg": "#4f4637"
+      }
+    ],
+    "incomplete": [],
+    "passes": 18,
+    "computed": [
+      {
+        "cls": "gu-border-error gu-bg-error-soft gu-text-error",
+        "color": "rgb(248, 113, 113)"
+      },
+      {
+        "cls": "gu-border-info gu-bg-info-soft gu-text-info",
+        "color": "rgb(96, 165, 250)"
+      },
+      {
+        "cls": "gu-border-success gu-bg-success-soft gu-text-success",
+        "color": "rgb(34, 197, 94)"
+      },
+      {
+        "cls": "gu-border-warning gu-bg-warning-soft gu-text-warning",
+        "color": "rgb(245, 158, 11)"
+      },
+      {
+        "cls": "gu-duration-duration-fast gu-fv-ring-focus-ring-color gu-fv-ring-offset-surface gu-bg-primary gu-text-surface",
+        "color": "rgb(41, 46, 55)"
+      }
+    ],
+    "errors": [],
+    "file": "before-gui-dark.png"
+  },
+  {
+    "mode": "after",
+    "palette": "plat",
+    "theme": "light",
+    "violations": [],
+    "incomplete": [],
+    "passes": 28,
+    "computed": [
+      {
+        "cls": "gu-border-error gu-bg-error-soft gu-text-error",
+        "color": "oklab(0.437638 0.118144 0.044287)"
+      },
+      {
+        "cls": "gu-border-info gu-bg-info-soft gu-text-info",
+        "color": "oklab(0.419052 -0.0125481 -0.143102)"
+      },
+      {
+        "cls": "gu-border-success gu-bg-success-soft gu-text-success",
+        "color": "oklab(0.467603 -0.0841176 0.0372041)"
+      },
+      {
+        "cls": "gu-border-warning gu-bg-warning-soft gu-text-warning",
+        "color": "oklab(0.37529 0.0552402 0.0390269)"
+      },
+      {
+        "cls": "gu-duration-duration-fast gu-fv-ring-focus-ring-color gu-fv-ring-offset-surface gu-bg-primary gu-text-surface",
+        "color": "rgb(5, 37, 24)"
+      }
+    ],
+    "errors": [],
+    "file": "after-plat-light.png"
+  },
+  {
+    "mode": "after",
+    "palette": "plat",
+    "theme": "dark",
+    "violations": [],
+    "incomplete": [],
+    "passes": 28,
+    "computed": [
+      {
+        "cls": "gu-border-error gu-bg-error-soft gu-text-error",
+        "color": "oklab(0.768243 0.111782 0.0536309)"
+      },
+      {
+        "cls": "gu-border-info gu-bg-info-soft gu-text-info",
+        "color": "oklab(0.814374 -0.023741 -0.0826744)"
+      },
+      {
+        "cls": "gu-border-success gu-bg-success-soft gu-text-success",
+        "color": "oklab(0.819783 -0.10027 0.0586024)"
+      },
+      {
+        "cls": "gu-border-warning gu-bg-warning-soft gu-text-warning",
+        "color": "oklab(0.847295 0.0327324 0.0931555)"
+      },
+      {
+        "cls": "gu-duration-duration-fast gu-fv-ring-focus-ring-color gu-fv-ring-offset-surface gu-bg-primary gu-text-surface",
+        "color": "rgb(5, 37, 24)"
+      }
+    ],
+    "errors": [],
+    "file": "after-plat-dark.png"
+  },
+  {
+    "mode": "after",
+    "palette": "gui",
+    "theme": "light",
+    "violations": [],
+    "incomplete": [],
+    "passes": 28,
+    "computed": [
+      {
+        "cls": "gu-border-error gu-bg-error-soft gu-text-error",
+        "color": "oklab(0.423292 0.100417 0.0457643)"
+      },
+      {
+        "cls": "gu-border-info gu-bg-info-soft gu-text-info",
+        "color": "oklab(0.412942 -0.0137178 -0.136716)"
+      },
+      {
+        "cls": "gu-border-success gu-bg-success-soft gu-text-success",
+        "color": "oklab(0.388788 -0.0579666 0.0241358)"
+      },
+      {
+        "cls": "gu-border-warning gu-bg-warning-soft gu-text-warning",
+        "color": "oklab(0.403951 0.0508387 0.0469562)"
+      },
+      {
+        "cls": "gu-duration-duration-fast gu-fv-ring-focus-ring-color gu-fv-ring-offset-surface gu-bg-primary gu-text-surface",
+        "color": "rgb(242, 244, 243)"
+      }
+    ],
+    "errors": [],
+    "file": "after-gui-light.png"
+  },
+  {
+    "mode": "after",
+    "palette": "gui",
+    "theme": "dark",
+    "violations": [],
+    "incomplete": [],
+    "passes": 28,
+    "computed": [
+      {
+        "cls": "gu-border-error gu-bg-error-soft gu-text-error",
+        "color": "oklab(0.812517 0.091356 0.0379674)"
+      },
+      {
+        "cls": "gu-border-info gu-bg-info-soft gu-text-info",
+        "color": "oklab(0.814374 -0.023741 -0.0826744)"
+      },
+      {
+        "cls": "gu-border-success gu-bg-success-soft gu-text-success",
+        "color": "oklab(0.819783 -0.10027 0.0586024)"
+      },
+      {
+        "cls": "gu-border-warning gu-bg-warning-soft gu-text-warning",
+        "color": "oklab(0.847295 0.0327324 0.0931555)"
+      },
+      {
+        "cls": "gu-duration-duration-fast gu-fv-ring-focus-ring-color gu-fv-ring-offset-surface gu-bg-primary gu-text-surface",
+        "color": "rgb(41, 46, 55)"
+      }
+    ],
+    "errors": [],
+    "file": "after-gui-dark.png"
+  }
+]
