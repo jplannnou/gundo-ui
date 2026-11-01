@@ -49,7 +49,13 @@
   /* Contrast: AA-passing on dark surface (≥4.5:1) — safe for normal text */
   --ui-text-muted: #9aa4b2;
 
-  /* Semantic colors */
+  /* Semantic colors.
+     Text painted on its own -soft background does NOT use these directly: the
+     pair rules at the end of ui-classes.css mix 60 % of the colour with 40 %
+     of --ui-text (OKLab), so it stays AA on consumer palettes too. Optional
+     overrides, left undefined here on purpose: --ui-{error,info,success,
+     warning}-ink. Same for --ui-primary-ink (ink on --ui-primary; falls back
+     to --ui-surface). Guard: scripts/__tests__/pair-contrast.test.mjs. */
   --ui-success: #22c55e;
   --ui-success-soft: rgb(34 197 94 / 0.15);
   --ui-error: #f87171;

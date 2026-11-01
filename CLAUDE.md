@@ -182,6 +182,7 @@ for both guards live in `scripts/__tests__/` and run in the normal `pnpm test`.
 - **No build step** — consumers import TypeScript source directly; they handle transpilation
 - **Theme is NOT imported** — consumers redefine `--ui-*` tokens in their own CSS (`index.css` / `globals.css`); never import `@gundo/ui/src/theme.css`
 - **Button text color** — use `text-[var(--ui-surface)]` (not `text-white`) on `bg-brand` for WCAG AA on #67C728
+- **Ink pairs** — `gu-bg-X-soft gu-text-X` and `gu-bg-primary gu-text-surface` get their colour from *pair rules* at the end of `src/ui-classes.css` (semantic ink mixed with `--ui-text` in OKLab; primary ink = `--ui-primary-ink` → `--ui-surface`). Keep both classes on the same element or the fix doesn't apply. Consumers redefine `--ui-*`, so a token value in `theme.css` alone never fixes their contrast. Guard: `scripts/__tests__/pair-contrast.test.mjs`, which measures with gundo-ui's palettes and a consumer stress palette
 - **Badge purple variant** — maps to `--ui-tertiary` token, not a hardcoded purple
 
 ## Design Intelligence
