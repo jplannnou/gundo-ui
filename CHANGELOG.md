@@ -1,3 +1,10 @@
+## [1.39.12](https://github.com/jplannnou/gundo-ui/compare/v1.39.11...v1.39.12) (2026-11-01)
+
+
+### Bug Fixes
+
+* **a11y:** tinta de par AA para banners, badges y segmento activo (TD-PLAT-A35-002) ([#137](https://github.com/jplannnou/gundo-ui/issues/137)) ([b7badb1](https://github.com/jplannnou/gundo-ui/commit/b7badb12e55ad6bd111600ddbfb54e1a2a6031f9))
+
 ## [1.39.11](https://github.com/jplannnou/gundo-ui/compare/v1.39.10...v1.39.11) (2026-10-27)
 
 
