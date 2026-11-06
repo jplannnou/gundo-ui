@@ -171,7 +171,7 @@ describe('simetría del consentimiento', () => {
     const aceptar = screen.getByRole('button', { name: 'Aceptar todas' });
     const rechazar = screen.getByRole('button', { name: 'Solo necesarias' });
 
-    const compartido = ['flex-1', 'rounded-lg', 'border', 'px-4', 'py-2', 'text-xs', 'font-semibold'];
+    const compartido = ['min-h-11', 'flex-1', 'rounded-lg', 'border', 'px-4', 'py-2', 'text-xs', 'font-semibold'];
     for (const clase of compartido) {
       expect(aceptar.className).toContain(clase);
       expect(rechazar.className).toContain(clase);

@@ -61,7 +61,7 @@ const DEFAULT_CATEGORIES: CookieCategory[] = [
  * los distingue, que es lo que permite que ninguno pese más que el otro.
  */
 const SAME_BUTTON =
-  'flex-1 rounded-lg border px-4 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary';
+  'min-h-11 flex-1 rounded-lg border px-4 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary';
 
 const positionClasses: Record<string, string> = {
   bottom: 'bottom-0 left-0 right-0 mx-4 mb-4 sm:mx-auto sm:max-w-2xl',
@@ -198,7 +198,7 @@ function OpenCookieBanner({
                 <button
                   type="button"
                   onClick={() => onSavePreferences?.(prefs)}
-                  className="w-full rounded-lg border gu-border-primary px-4 py-2 text-xs font-semibold gu-text-primary transition-colors gu-h-bg-primary-soft focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
+                  className="min-h-11 w-full rounded-lg border gu-border-primary px-4 py-2 text-xs font-semibold gu-text-primary transition-colors gu-h-bg-primary-soft focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
                 >
                   {savePreferencesLabel}
                 </button>
@@ -206,7 +206,7 @@ function OpenCookieBanner({
                 <button
                   type="button"
                   onClick={() => setShowDetails(true)}
-                  className="w-full text-xs gu-text-text-muted underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary rounded"
+                  className="min-h-11 w-full text-xs gu-text-text-muted underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary rounded"
                 >
                   {customizeLabel ?? 'Personalizar'}
                 </button>
