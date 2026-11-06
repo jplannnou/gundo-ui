@@ -3,6 +3,63 @@ import { describe, it, expect, vi } from 'vitest';
 import { CookieBanner } from '../CookieBanner';
 
 describe('CookieBanner', () => {
+  it('restores saved optional choices and keeps necessary cookies selected', () => {
+    const onSave = vi.fn();
+    render(
+      <CookieBanner open variant="detailed" onAcceptAll={() => {}} onRejectAll={() => {}}
+        preferences={{ necessary: false, analytics: true, marketing: false }} onSavePreferences={onSave} />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Personalizar' }));
+    expect(screen.getByRole('checkbox', { name: /Necesarias/ })).toBeChecked();
+    expect(screen.getByRole('checkbox', { name: /Analíticas/ })).toBeChecked();
+    expect(screen.getByRole('checkbox', { name: /Marketing/ })).not.toBeChecked();
+    fireEvent.click(screen.getByRole('button', { name: 'Guardar preferencias' }));
+    expect(onSave).toHaveBeenCalledWith({ necessary: true, analytics: true, marketing: false });
+  });
+
+  it('opens a new editing session with the latest saved choices', () => {
+    const base = { onAcceptAll: () => {}, onRejectAll: () => {}, variant: 'detailed' as const };
+    const { rerender } = render(<CookieBanner {...base} open preferences={{ analytics: false }} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Personalizar' }));
+    fireEvent.click(screen.getByRole('checkbox', { name: /Marketing/ }));
+    rerender(<CookieBanner {...base} open={false} preferences={{ analytics: true, marketing: false }} />);
+    rerender(<CookieBanner {...base} open preferences={{ analytics: true, marketing: false }} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Personalizar' }));
+    expect(screen.getByRole('checkbox', { name: /Analíticas/ })).toBeChecked();
+    expect(screen.getByRole('checkbox', { name: /Marketing/ })).not.toBeChecked();
+  });
+
+  it('preserves explicit edits while applying saved updates to untouched categories', () => {
+    const base = { open: true, onAcceptAll: () => {}, onRejectAll: () => {}, variant: 'detailed' as const };
+    const { rerender } = render(<CookieBanner {...base} preferences={{ analytics: false, marketing: false }} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Personalizar' }));
+    fireEvent.click(screen.getByRole('checkbox', { name: /Analíticas/ }));
+    rerender(<CookieBanner {...base} title="Preferencias" preferences={{ analytics: false, marketing: true }} />);
+    expect(screen.getByRole('checkbox', { name: /Analíticas/ })).toBeChecked();
+    expect(screen.getByRole('checkbox', { name: /Marketing/ })).toBeChecked();
+  });
+
+  it('never enables optional cookies from a non-boolean persisted value', () => {
+    const onSave = vi.fn();
+    render(<CookieBanner open variant="detailed" onAcceptAll={() => {}} onRejectAll={() => {}}
+      preferences={{ analytics: 'true' as unknown as boolean, marketing: false, unknown: true }} onSavePreferences={onSave} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Personalizar' }));
+    expect(screen.getByRole('checkbox', { name: /Analíticas/ })).not.toBeChecked();
+    fireEvent.click(screen.getByRole('button', { name: 'Guardar preferencias' }));
+    expect(onSave).toHaveBeenCalledWith({ necessary: true, analytics: false, marketing: false });
+  });
+
+  it('supports a translated required-category label and an explicitly empty suffix', () => {
+    const base = { open: true, onAcceptAll: () => {}, onRejectAll: () => {}, variant: 'detailed' as const };
+    const { rerender } = render(<CookieBanner {...base} requiredLabel="(required)" />);
+    fireEvent.click(screen.getByRole('button', { name: 'Personalizar' }));
+    expect(screen.getByText('(required)')).toBeInTheDocument();
+    expect(screen.queryByText('(requerida)')).not.toBeInTheDocument();
+    rerender(<CookieBanner {...base} requiredLabel="" />);
+    expect(screen.queryByText('(required)')).not.toBeInTheDocument();
+    expect(screen.getByRole('checkbox', { name: /Necesarias/ })).toBeDisabled();
+  });
+
   it('renders nothing when open=false', () => {
     render(<CookieBanner open={false} onAcceptAll={() => {}} onRejectAll={() => {}} />);
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();

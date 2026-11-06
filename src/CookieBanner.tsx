@@ -22,6 +22,8 @@ export interface CookieBannerProps {
   onAcceptAll: () => void;
   onRejectAll: () => void;
   onSavePreferences?: (prefs: CookiePreferences) => void;
+  /** Saved choices. Untouched fields follow updates; edits stay local until saved. */
+  preferences?: CookiePreferences;
   categories?: CookieCategory[];
   title?: string;
   description?: string;
@@ -44,6 +46,8 @@ export interface CookieBannerProps {
   rejectLabel?: string;
   savePreferencesLabel?: string;
   customizeLabel?: string;
+  /** Optional suffix for required categories. Pass an empty string to omit it. */
+  requiredLabel?: string;
 }
 
 const DEFAULT_CATEGORIES: CookieCategory[] = [
@@ -67,11 +71,17 @@ const positionClasses: Record<string, string> = {
 
 /* ─── CookieBanner ────────────────────────────────────────────────────── */
 
-export function CookieBanner({
-  open,
+export function CookieBanner(props: CookieBannerProps) {
+  // Unmount the editor when closed so reopening uses the current saved choices
+  // and never reuses an abandoned draft from an earlier session.
+  return props.open ? <OpenCookieBanner {...props} /> : null;
+}
+
+function OpenCookieBanner({
   onAcceptAll,
   onRejectAll,
   onSavePreferences,
+  preferences,
   categories = DEFAULT_CATEGORIES,
   title = 'Usamos cookies',
   description = 'Usamos cookies para mejorar tu experiencia y analizar el tráfico del sitio. Puedes aceptar todas o personalizar tus preferencias.',
@@ -81,19 +91,26 @@ export function CookieBanner({
   rejectLabel = 'Solo necesarias',
   savePreferencesLabel = 'Guardar preferencias',
   customizeLabel,
+  requiredLabel = '(requerida)',
   variant = 'simple',
   position = 'bottom',
   className = '',
 }: CookieBannerProps) {
   const [showDetails, setShowDetails] = useState(false);
-  const [prefs, setPrefs] = useState<CookiePreferences>(() =>
-    Object.fromEntries(categories.map((c) => [c.id, !!c.required])),
+  const [draft, setDraft] = useState<CookiePreferences>({});
+  const prefs: CookiePreferences = Object.fromEntries(
+    categories.map((category) => [
+      category.id,
+      category.required === true ||
+        (draft[category.id] ?? preferences?.[category.id]) === true,
+    ]),
   );
 
-  if (!open) return null;
-
   const togglePref = (id: string) => {
-    setPrefs((p) => ({ ...p, [id]: !p[id] }));
+    setDraft((previous) => ({
+      ...previous,
+      [id]: !((previous[id] ?? preferences?.[id]) === true),
+    }));
   };
 
   return (
@@ -141,8 +158,8 @@ export function CookieBanner({
                 <label htmlFor={`cookie-${cat.id}`} className="flex flex-col gap-0.5 cursor-pointer">
                   <span className="text-xs font-medium gu-text-text">
                     {cat.label}
-                    {cat.required && (
-                      <span className="ml-1 gu-text-2xs gu-text-text-muted">(requerida)</span>
+                    {cat.required && requiredLabel && (
+                      <span className="ml-1 gu-text-2xs gu-text-text-muted">{requiredLabel}</span>
                     )}
                   </span>
                   <span className="text-[11px] gu-text-text-muted">{cat.description}</span>
@@ -160,7 +177,7 @@ export function CookieBanner({
             grosor, borde y relleno; solo cambia el color. `SAME_BUTTON` existe
             para que un cambio de estilo no pueda volver a desequilibrarlos sin
             que se note. */}
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-stretch gap-2">
           <button
             type="button"
             onClick={onAcceptAll}
