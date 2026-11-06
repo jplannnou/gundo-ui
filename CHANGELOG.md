@@ -1,3 +1,10 @@
+## [1.39.13](https://github.com/jplannnou/gundo-ui/compare/v1.39.12...v1.39.13) (2026-11-06)
+
+
+### Bug Fixes
+
+* **cookie-banner:** restaura las preferencias guardadas al reabrir ([#138](https://github.com/jplannnou/gundo-ui/issues/138)) ([be5c0ae](https://github.com/jplannnou/gundo-ui/commit/be5c0aede095872c549eb65bc7b06d79c30dd435))
+
 ## [1.39.12](https://github.com/jplannnou/gundo-ui/compare/v1.39.11...v1.39.12) (2026-11-01)
 
 
