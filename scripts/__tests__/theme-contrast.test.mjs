@@ -57,6 +57,15 @@ function extractBlock(css, selector) {
   throw new Error(`Bloque "${selector}" sin cerrar en theme.css`);
 }
 
+/** Declaraciones de propiedad normal (`color`, `background-color`), no tokens. */
+function parseDeclarations(block) {
+  const decls = new Map();
+  for (const [, name, value] of block.matchAll(/(?<![\w-])([a-z-]+)\s*:\s*([^;]+);/g)) {
+    decls.set(name, value.trim());
+  }
+  return decls;
+}
+
 function parseTokens(block) {
   const tokens = new Map();
   for (const [, name, value] of block.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)) {
@@ -80,7 +89,9 @@ function tokensFor(theme) {
 function parseColor(raw, lookup, seen = new Set()) {
   const value = String(raw).trim();
 
-  const varMatch = value.match(/^var\(\s*(--[\w-]+)\s*(?:,\s*([^)]+))?\)$/);
+  // El fallback puede ser otro `var(...)` (`var(--ui-primary-ink, var(--ui-surface))`),
+  // así que se captura hasta el último paréntesis y no hasta el primero.
+  const varMatch = value.match(/^var\(\s*(--[\w-]+)\s*(?:,\s*(.+))?\)$/);
   if (varMatch) {
     const [, name, fallback] = varMatch;
     if (seen.has(name)) return null; // referencia circular
@@ -252,4 +263,103 @@ describe("Toda familia vigilada sobrevive al tema claro", () => {
       expect(ratioOnSurface(token, "light")).toBeGreaterThanOrEqual(AA_LARGE);
     },
   );
+});
+
+/* ─── Combinaciones tinta/fondo de componentes ───────────────────────────
+ *
+ * Las secciones de arriba miden un token contra `--ui-surface`. Un Badge o un
+ * botón primario no pintan sobre la superficie: pintan sobre SU fondo (un
+ * `-soft` translúcido, o el propio `--ui-primary`). Ahí se escapaba el
+ * contraste: el token pasaba sobre la superficie y el par real no.
+ *
+ * Los pares se LEEN de `Badge.tsx` y `Button.css`, no se repiten aquí: si
+ * alguien cambia la clase de una variante, la guarda mide la nueva.
+ */
+const BADGE_TSX = readFileSync(resolve(process.cwd(), "src/Badge.tsx"), "utf8");
+const BUTTON_CSS = readFileSync(
+  resolve(process.cwd(), "src/Button.css"),
+  "utf8",
+).replace(/\/\*[\s\S]*?\*\//g, "");
+
+/** Compone un fondo posiblemente translúcido sobre la superficie del tema. */
+function solidBg(raw, lookup) {
+  const surface = parseColor(lookup.get("--ui-surface") ?? "", lookup);
+  const bg = parseColor(raw, lookup);
+  if (!bg || !surface) throw new Error(`Fondo ${raw} no resuelve a un color`);
+  return bg.a < 1 ? composite(bg, surface) : bg;
+}
+
+/** `{ success: "gu-bg-success-soft gu-text-success", ... }` desde Badge.tsx. */
+function badgeVariants() {
+  const block = BADGE_TSX.match(
+    /const variantStyles[^=]*=\s*\{([\s\S]*?)\n\};/,
+  );
+  if (!block) throw new Error("Badge.tsx ya no declara `variantStyles`");
+  return [...block[1].matchAll(/^\s*(\w+):\s*'([^']+)'/gm)].map(
+    ([, variant, classes]) => {
+      const text = classes.match(/gu-text-([\w-]+)/)?.[1];
+      const bg = classes.match(/gu-bg-([\w-]+)/)?.[1];
+      return {
+        variant,
+        textToken: `--ui-${text}`,
+        // `bg-transparent` (outline) pinta sobre la propia superficie.
+        bgToken: bg ? `--ui-${bg}` : "--ui-surface",
+      };
+    },
+  );
+}
+
+describe("Badge: tinta sobre su propio fondo (WCAG AA, 12–14 px = texto normal)", () => {
+  const variants = badgeVariants();
+
+  it("lee las variantes que dice vigilar", () => {
+    expect(variants.length).toBeGreaterThanOrEqual(9);
+  });
+
+  describe.each(["dark", "light"])("tema %s", (theme) => {
+    it.each(variants.map((v) => [v.variant, v]))("%s", (_name, v) => {
+      const lookup = tokensFor(theme);
+      const ink = parseColor(lookup.get(v.textToken) ?? "", lookup);
+      expect(ink, `${v.textToken} no resuelve a un color`).not.toBeNull();
+      const bg = solidBg(lookup.get(v.bgToken) ?? "", lookup);
+      expect(contrastRatio(ink, bg)).toBeGreaterThanOrEqual(AA_TEXT);
+    });
+  });
+});
+
+describe("Botón primario: tinta sobre --ui-primary", () => {
+  const rule = parseDeclarations(extractBlock(BUTTON_CSS, ".ui-btn-primary"));
+
+  function buttonRatio(lookup) {
+    const ink = parseColor(rule.get("color") ?? "", lookup);
+    const bg = parseColor(rule.get("background-color") ?? "", lookup);
+    expect(ink, "la tinta del botón no resuelve a un color").not.toBeNull();
+    expect(bg, "el fondo del botón no resuelve a un color").not.toBeNull();
+    return contrastRatio(ink, bg);
+  }
+
+  it.each(["dark", "light"])(
+    "con los tokens por defecto del tema %s llega a AA",
+    (theme) => {
+      expect(buttonRatio(tokensFor(theme))).toBeGreaterThanOrEqual(AA_TEXT);
+    },
+  );
+
+  // Un consumidor con superficie clara Y primario brillante (la plataforma B2B:
+  // #67c728 sobre #ffffff) obtenía tinta blanca a 2,15:1 porque la tinta estaba
+  // atada a --ui-surface. Debe poder fijar la suya con --ui-primary-ink.
+  const brightPrimaryOnLight = new Map([
+    ["--ui-primary", "#67c728"],
+    ["--ui-surface", "#ffffff"],
+  ]);
+
+  it("sin --ui-primary-ink conserva el comportamiento histórico (tinta = superficie)", () => {
+    expect(buttonRatio(brightPrimaryOnLight)).toBeLessThan(AA_LARGE);
+  });
+
+  it("con --ui-primary-ink definido por el consumidor, la usa y llega a AA", () => {
+    const lookup = new Map(brightPrimaryOnLight);
+    lookup.set("--ui-primary-ink", "#052518");
+    expect(buttonRatio(lookup)).toBeGreaterThanOrEqual(AA_TEXT);
+  });
 });
