@@ -8,6 +8,24 @@ const languages: Language[] = [
   { code: 'ca', label: 'Català', short: 'CA', flag: '🏴' },
 ];
 
+it('uses caller translations for the accessible names', () => {
+  const labels = {
+    currentLanguage: (label: string) => `Current language: ${label}`,
+    chooseLanguage: 'Choose language',
+    language: 'Language',
+  };
+  const props = { languages, currentLanguage: 'en', onChange: vi.fn(), labels };
+  const { rerender } = render(<LanguageSwitcher {...props} />);
+  fireEvent.click(screen.getByRole('button', { name: 'Current language: English' }));
+  expect(screen.getByRole('listbox', { name: 'Choose language' })).toBeInTheDocument();
+
+  rerender(<LanguageSwitcher {...props} variant="pills" />);
+  expect(screen.getByRole('group', { name: 'Choose language' })).toBeInTheDocument();
+
+  rerender(<LanguageSwitcher {...props} variant="select" />);
+  expect(screen.getByRole('combobox', { name: 'Language' })).toBeInTheDocument();
+});
+
 describe('LanguageSwitcher — dropdown variant', () => {
   it('renders current language button', () => {
     render(<LanguageSwitcher languages={languages} currentLanguage="es" onChange={() => {}} />);
