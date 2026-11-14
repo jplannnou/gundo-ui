@@ -16,6 +16,10 @@
   --ui-primary: #67C728;
   --ui-primary-hover: #5ab322;
   --ui-primary-soft: rgb(103 199 40 / 0.11);
+  /* OPCIONAL (no se define aquí a propósito): --ui-primary-ink = tinta del
+     botón primario. Sin definir, <Button> usa --ui-surface (comportamiento de
+     siempre). Defínelo solo si tu superficie clara convive con un primario
+     brillante (p. ej. #67c728 sobre #fff = 2,15:1; con #052518 sube a 7,6:1). */
 
   /* Secondary — deep dark green */
   --ui-secondary: #08563E;
