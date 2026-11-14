@@ -1,3 +1,10 @@
+## [1.39.14](https://github.com/jplannnou/gundo-ui/compare/v1.39.13...v1.39.14) (2026-11-14)
+
+
+### Bug Fixes
+
+* allow localized accessible names in LanguageSwitcher ([24e2b99](https://github.com/jplannnou/gundo-ui/commit/24e2b99692fb1d1f7f31a3d493c249c65fa52d30))
+
 ## [1.39.13](https://github.com/jplannnou/gundo-ui/compare/v1.39.12...v1.39.13) (2026-11-06)
 
 
