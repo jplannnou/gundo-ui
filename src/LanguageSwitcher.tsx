@@ -15,11 +15,24 @@ export interface Language {
 
 export type LanguageSwitcherVariant = 'dropdown' | 'pills' | 'select';
 
+interface LanguageSwitcherLabels {
+  currentLanguage: (label: string) => string;
+  chooseLanguage: string;
+  language: string;
+}
+
+const defaultLabels: LanguageSwitcherLabels = {
+  currentLanguage: (label) => `Idioma actual: ${label}`,
+  chooseLanguage: 'Seleccionar idioma',
+  language: 'Idioma',
+};
+
 export interface LanguageSwitcherProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
   languages: Language[];
   currentLanguage: string;
   onChange: (code: string) => void;
   variant?: LanguageSwitcherVariant;
+  labels?: Partial<LanguageSwitcherLabels>;
   /** Show full label (default: false — shows short/code only) */
   showLabel?: boolean;
   /** Show flag (default: true) */
@@ -86,6 +99,7 @@ function DropdownVariant({
   showLabel,
   showFlag,
   className,
+  labels,
   ...props
 }: Omit<LanguageSwitcherProps, 'variant'>) {
   const [open, setOpen] = useState(false);
@@ -108,7 +122,7 @@ function DropdownVariant({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={listId}
-        aria-label={`Idioma actual: ${current.label}`}
+        aria-label={(labels?.currentLanguage ?? defaultLabels.currentLanguage)(current.label)}
         onClick={() => setOpen((v) => !v)}
         /* El disparador mide 32px de alto y vive en barras compactas, así que
            subirlo a 44 lo deformaría. `gu-tap-44` le da el área táctil que pide
@@ -135,7 +149,7 @@ function DropdownVariant({
           <ul
             id={listId}
             role="listbox"
-            aria-label="Seleccionar idioma"
+            aria-label={labels?.chooseLanguage ?? defaultLabels.chooseLanguage}
             className="absolute right-0 top-full z-50 mt-1 min-w-36 rounded-lg border gu-border-border gu-bg-surface py-1 gu-shadow-shadow-md"
           >
             {languages.map((lang) => {
@@ -189,12 +203,13 @@ function PillsVariant({
   showLabel,
   showFlag,
   className,
+  labels,
   ...props
 }: Omit<LanguageSwitcherProps, 'variant'>) {
   return (
     <div
       role="group"
-      aria-label="Seleccionar idioma"
+      aria-label={labels?.chooseLanguage ?? defaultLabels.chooseLanguage}
       className={`flex items-center gap-1 ${className}`}
       {...props}
     >
@@ -232,13 +247,14 @@ function SelectVariant({
   currentLanguage,
   onChange,
   className,
+  labels,
   ...props
 }: Omit<LanguageSwitcherProps, 'variant' | 'showLabel' | 'showFlag'>) {
   const selectId = useId();
   return (
     <div className={className} {...props}>
       <label htmlFor={selectId} className="sr-only">
-        Idioma
+        {labels?.language ?? defaultLabels.language}
       </label>
       <select
         id={selectId}
