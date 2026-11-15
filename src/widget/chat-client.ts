@@ -78,6 +78,8 @@ export interface ChatStreamEvent {
  * completed onboarding) just sends what it has.
  */
 export interface ChatHealthContext {
+  /** Send the device's local calendar date when looking up a plan in chat. */
+  includeLocalPlanDate?: boolean;
   tier?: 'free' | 'pro';
   conditions?: string[];
   allergies?: string[];
@@ -174,6 +176,12 @@ export class ChatClient {
   private buildFormData(params: SendMessageParams): FormData {
     const fd = new FormData();
     fd.append('message', params.message);
+    if (params.includeLocalPlanDate) {
+      const now = new Date();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      fd.append('planDate', now.getFullYear() + '-' + month + '-' + day);
+    }
     if (params.channel) fd.append('channel', params.channel);
     if (params.tier) fd.append('tier', params.tier);
     if (params.conditions?.length) params.conditions.forEach((c) => fd.append('conditions', c));
