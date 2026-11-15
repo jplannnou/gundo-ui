@@ -1,3 +1,10 @@
+## [1.39.15](https://github.com/jplannnou/gundo-ui/compare/v1.39.14...v1.39.15) (2026-11-15)
+
+
+### Bug Fixes
+
+* **widget:** permitir seleccionar la fecha local del plan en Chat ([#140](https://github.com/jplannnou/gundo-ui/issues/140)) ([0133471](https://github.com/jplannnou/gundo-ui/commit/013347141b7b921f2a00be24b36cdc9dffe578ed))
+
 ## [1.39.14](https://github.com/jplannnou/gundo-ui/compare/v1.39.13...v1.39.14) (2026-11-14)
 
 
