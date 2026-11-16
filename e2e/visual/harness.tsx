@@ -6,6 +6,7 @@
 import { createRoot } from 'react-dom/client';
 import { useState, useEffect, type ReactNode } from 'react';
 import './harness.css';
+import { experienceShowcases } from './experience-showcases';
 import {
   Button, Card, Modal, Drawer, Sheet, Toast, AlertBanner, Accordion, AccordionItem,
   Tabs, Badge, Spinner, ProgressBar, Input, Select, Checkbox, Toggle, SearchInput,
@@ -44,6 +45,7 @@ function Wrapper({ children, theme }: { children: ReactNode; theme?: string }) {
 /* ─── Component Showcases ─────────────────────────────────────────── */
 
 const showcases: Record<string, () => ReactNode> = {
+  ...experienceShowcases,
   Button: () => (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
       <Button variant="primary">Primary</Button>

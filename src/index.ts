@@ -513,3 +513,51 @@ export {
 export type { Locale } from "./utils/formatLocale";
 export { isWeighableCode, getWeighableDisplay } from "./utils/weighable";
 export type { WeighableDisplay, WeighableInput } from "./utils/weighable";
+
+// ─── Experiencia B2C (Fase V): sellos, huella, «porque…», estados y cierre ───
+export {
+  ProfileSeal,
+  ProfileSealList,
+  SEAL_PROMISE_PATTERN,
+  sealCopyPromises,
+} from "./experience/ProfileSeal";
+export type {
+  ProfileSealProps,
+  ProfileSealListProps,
+  ProfileSealKind,
+  ProfileSealTone,
+} from "./experience/ProfileSeal";
+export { ProfileFootprint, ProfileFootprintSheet } from "./experience/ProfileFootprint";
+export type {
+  ProfileFootprintProps,
+  ProfileFootprintSheetProps,
+  ProfileFootprintSheetCopy,
+  ProfileFootprintSection,
+  ProfileFootprintFact,
+} from "./experience/ProfileFootprint";
+export { BecauseLine } from "./experience/BecauseLine";
+export type { BecauseLineProps } from "./experience/BecauseLine";
+export { CompanionState } from "./experience/CompanionState";
+export type {
+  CompanionStateProps,
+  CompanionStateKind,
+  CompanionStateAction,
+  CompanionStateStep,
+  CompanionPortrait,
+} from "./experience/CompanionState";
+export { DayCloseCelebration } from "./experience/DayCloseCelebration";
+export type {
+  DayCloseCelebrationProps,
+  WeekDay,
+  WeekDayState,
+} from "./experience/DayCloseCelebration";
+export { AchievementUnlock } from "./experience/AchievementUnlock";
+export type { AchievementUnlockProps } from "./experience/AchievementUnlock";
+export { HapticsProvider, useHaptics } from "./experience/haptics";
+export type {
+  HapticsAdapter,
+  HapticsProviderProps,
+  Haptics,
+  HapticImpact,
+  HapticNotification,
+} from "./experience/haptics";

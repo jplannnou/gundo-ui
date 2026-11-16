@@ -111,8 +111,8 @@ export function Sheet({
           >
             {(title || description) && (
               <div className="shrink-0 border-b gu-border-border px-6 py-5">
-                <div className="flex items-start justify-between">
-                  <div>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
                     {title && <h2 id={titleId} className="text-lg font-semibold gu-text-text">{title}</h2>}
                     {description && <p id={descId} className="mt-1 text-sm gu-text-text-secondary">{description}</p>}
                   </div>
@@ -121,7 +121,7 @@ export function Sheet({
                     onClick={onClose}
                     aria-label={closeLabel}
                     // 44x44 hit area (WCAG 2.5.5); -m-2 keeps the previous 28px layout footprint.
-                    className="-m-2 inline-flex h-11 w-11 items-center justify-center rounded-md gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
+                    className="-m-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
                   >
                     <X className="h-5 w-5" aria-hidden="true" />
                   </button>

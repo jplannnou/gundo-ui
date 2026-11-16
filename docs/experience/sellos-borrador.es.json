@@ -1,0 +1,42 @@
+{
+  "_estado": "BORRADOR pendiente de revisión de clinical-validator. No publicar sin revisión clínica.",
+  "_regla": "Cada sello describe la regla aplicada. Nunca «verificado», «seguro», «certificado» ni «apto para».",
+  "gluten": {
+    "label": "Sin ingredientes con gluten",
+    "detail": "revisa trazas"
+  },
+  "lactose": {
+    "label": "Sin ingredientes con lactosa",
+    "detail": "revisa la etiqueta"
+  },
+  "nuts": {
+    "label": "Sin frutos secos entre los ingredientes",
+    "detail": "revisa trazas"
+  },
+  "egg": {
+    "label": "Sin huevo entre los ingredientes",
+    "detail": "revisa trazas"
+  },
+  "allergen": {
+    "label": "Sin tus alérgenos entre los ingredientes",
+    "detail": "revisa trazas"
+  },
+  "raw-and-mercury": {
+    "label": "Evita crudos y pescados altos en mercurio"
+  },
+  "potassium": {
+    "label": "Bajo en potasio"
+  },
+  "sodium": {
+    "label": "Bajo en sal"
+  },
+  "sugar": {
+    "label": "Sin azúcar añadido en la receta"
+  },
+  "carbs": {
+    "label": "Hidratos repartidos en el día"
+  },
+  "family": {
+    "label": "Adaptado a tu familia"
+  }
+}
