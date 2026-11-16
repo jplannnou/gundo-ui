@@ -25,7 +25,17 @@ export interface BecauseLineProps {
  * Explicaciones placebo: frases que suenan a personalización sin decir el
  * motivo. Un «porque…» que solo dice esto es peor que ninguno (CHI 2019).
  */
-const PLACEBO = /^\s*(elegid[oa]s? para ti|recomendad[oa]s? para ti|para ti|personalizad[oa]s?|chosen for you|for you)\s*\.?\s*$/i;
+const PLACEBO = /^(elegid[oa]s? para ti|recomendad[oa]s? para ti|para ti|personalizad[oa]s?|chosen for you|for you)$/;
+
+/**
+ * Normaliza sin regex de espacios (CodeQL js/polynomial-redos): recorta, baja a
+ * minúsculas y quita un punto final. La comparación queda anclada y lineal.
+ */
+function isPlacebo(reason: string): boolean {
+  let t = reason.trim().toLowerCase();
+  if (t.endsWith('.')) t = t.slice(0, -1).trimEnd();
+  return t === '' || PLACEBO.test(t);
+}
 
 /**
  * Línea «porque…»: una explicación breve, anclada al perfil, para cada comida o
@@ -42,7 +52,7 @@ export function BecauseLine({
   className = '',
 }: BecauseLineProps) {
   useEffect(() => {
-    if (typeof reason === 'string' && (reason.trim() === '' || PLACEBO.test(reason))) {
+    if (typeof reason === 'string' && isPlacebo(reason)) {
       console.warn(
         `[BecauseLine] «${reason}» no explica nada. Pinta un motivo real del perfil o no pintes la línea.`,
       );
