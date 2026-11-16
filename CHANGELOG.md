@@ -1,3 +1,10 @@
+# [1.40.0](https://github.com/jplannnou/gundo-ui/compare/v1.39.15...v1.40.0) (2026-11-16)
+
+
+### Features
+
+* **experience:** sistema visual B2C de la Fase V ([#141](https://github.com/jplannnou/gundo-ui/issues/141)) ([20a4fbf](https://github.com/jplannnou/gundo-ui/commit/20a4fbf328e820d9df1cb252f5f235f384ec2eeb))
+
 ## [1.39.15](https://github.com/jplannnou/gundo-ui/compare/v1.39.14...v1.39.15) (2026-11-15)
 
 
