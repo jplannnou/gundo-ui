@@ -2,8 +2,10 @@ import { defineConfig } from 'vitest/config';
 import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'path';
 
+const here = import.meta.dirname;
+
 export default defineConfig({
-  root: resolve(__dirname),
+  root: resolve(here),
   // Without this the components render with colour but no layout — see harness.css.
   plugins: [tailwindcss()],
   server: {
@@ -28,7 +30,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@gundo/ui': resolve(__dirname, '../../src'),
+      '@gundo/ui': resolve(here, '../../src'),
     },
   },
 });
