@@ -41,6 +41,9 @@ describe('Sheet', () => {
   it('supports left side', () => {
     render(<Sheet open onClose={() => {}} side="left">Content</Sheet>);
     const dialog = screen.getByRole('dialog');
-    expect(dialog.className).toContain('mr-auto');
+    // Placement is owned by native-overlays.css via data-side (asserted for real
+    // in native-sheet.browser.test.tsx); here only the contract.
+    expect(dialog).toHaveAttribute('data-side', 'left');
+    expect(dialog.className).toContain('border-r');
   });
 });
