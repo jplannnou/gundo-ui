@@ -1,3 +1,10 @@
+## [1.41.2](https://github.com/jplannnou/gundo-ui/compare/v1.41.1...v1.41.2) (2026-11-17)
+
+
+### Bug Fixes
+
+* **Modal:** el padding:0 sin capa de .gu-dialog anulaba p-4/sm:p-6 de Tailwind 4 ([#147](https://github.com/jplannnou/gundo-ui/issues/147)) ([28db699](https://github.com/jplannnou/gundo-ui/commit/28db699fafb655e6e65a2fe9c53ad7603cf15398))
+
 ## [1.41.1](https://github.com/jplannnou/gundo-ui/compare/v1.41.0...v1.41.1) (2026-11-17)
 
 
