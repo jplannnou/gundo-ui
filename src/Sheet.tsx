@@ -1,11 +1,9 @@
 'use client';
 import './ui-classes.css';
-import { useEffect, useRef, useId, type ReactNode } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import './native-overlays.css';
+import { useRef, useId, type ReactNode } from 'react';
 import { X } from 'lucide-react';
-import { useFocusTrap } from './utils/useFocusTrap';
-import { useReducedMotion } from './utils/useReducedMotion';
-import { useLatestCallback } from './utils/useLatestCallback';
+import { useNativeDialog } from './utils/useNativeDialog';
 
 type SheetSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
@@ -34,6 +32,13 @@ const sizeStyles: Record<SheetSize, string> = {
   full: 'max-w-full',
 };
 
+/** Must match the drawer transition in native-overlays.css. */
+const EXIT_MS = 250;
+
+/**
+ * A native `<dialog>` opened with `showModal()`, pinned to one side. Shares its
+ * geometry and lifecycle with Drawer; Sheet adds a size scale and a description.
+ */
 export function Sheet({
   open,
   onClose,
@@ -47,93 +52,47 @@ export function Sheet({
 }: SheetProps) {
   const titleId = useId();
   const descId = useId();
-  const previousFocusRef = useRef<HTMLElement | null>(null);
-  const sheetRef = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const { mounted, dialogProps } = useNativeDialog({ ref: dialogRef, open, onClose, exitMs: EXIT_MS });
 
-  const handleClose = useLatestCallback(onClose);
-
-  useFocusTrap(sheetRef, open);
-
-  useEffect(() => {
-    if (!open) return;
-    previousFocusRef.current = document.activeElement as HTMLElement;
-    const raf = requestAnimationFrame(() => sheetRef.current?.focus());
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') handleClose();
-    };
-    document.addEventListener('keydown', handler);
-    return () => {
-      cancelAnimationFrame(raf);
-      document.removeEventListener('keydown', handler);
-      previousFocusRef.current?.focus();
-    };
-  }, [open, handleClose]);
-
-  useEffect(() => {
-    if (open) document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = ''; };
-  }, [open]);
-
-  const isLeft = side === 'left';
-  const slideX = isLeft ? '-100%' : '100%';
-  const duration = reduced ? 0 : 0.25;
+  if (!mounted) return null;
 
   return (
-    <AnimatePresence>
-      {open && (
-        <div className="fixed inset-0 gu-z-z-modal flex" role="presentation">
-          <motion.div
-            key="sheet-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration }}
-            className="absolute inset-0 gu-bg-overlay backdrop-blur-sm"
-            onClick={onClose}
-            role="presentation"
-          />
-          <motion.div
-            ref={sheetRef}
-            key="sheet-panel"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={title ? titleId : undefined}
-            aria-describedby={description ? descId : undefined}
-            tabIndex={-1}
-            initial={reduced ? undefined : { x: slideX }}
-            animate={{ x: 0 }}
-            exit={reduced ? undefined : { x: slideX }}
-            transition={{ duration, ease: [0.32, 0.72, 0, 1] }}
-            className={`relative flex h-full w-full ${sizeStyles[size]} flex-col gu-border-border gu-bg-surface shadow-2xl outline-none ${
-              isLeft ? 'mr-auto border-r' : 'ml-auto border-l'
-            } ${className}`}
-          >
-            {(title || description) && (
-              <div className="shrink-0 border-b gu-border-border px-6 py-5">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    {title && <h2 id={titleId} className="text-lg font-semibold gu-text-text">{title}</h2>}
-                    {description && <p id={descId} className="mt-1 text-sm gu-text-text-secondary">{description}</p>}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    aria-label={closeLabel}
-                    // 44x44 hit area (WCAG 2.5.5); -m-2 keeps the previous 28px layout footprint.
-                    className="-m-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
-                  >
-                    <X className="h-5 w-5" aria-hidden="true" />
-                  </button>
-                </div>
-              </div>
-            )}
-            <div className="flex-1 overflow-y-auto p-6">
-              {children}
+    <dialog
+      ref={dialogRef}
+      {...dialogProps}
+      data-kind="drawer"
+      data-side={side}
+      aria-modal="true"
+      aria-labelledby={title ? titleId : undefined}
+      aria-describedby={description ? descId : undefined}
+      tabIndex={-1}
+      className={`gu-dialog flex max-w-full ${sizeStyles[size]} flex-col gu-border-border gu-bg-surface shadow-2xl outline-none ${
+        side === 'left' ? 'border-r' : 'border-l'
+      } ${className}`}
+    >
+      {(title || description) && (
+        <div className="shrink-0 border-b gu-border-border px-6 py-5">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              {title && <h2 id={titleId} className="text-lg font-semibold gu-text-text">{title}</h2>}
+              {description && <p id={descId} className="mt-1 text-sm gu-text-text-secondary">{description}</p>}
             </div>
-          </motion.div>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={closeLabel}
+              // 44x44 hit area (WCAG 2.5.5); -m-2 keeps the previous 28px layout footprint.
+              className="-m-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md gu-text-text-muted gu-h-bg-surface-hover gu-h-text-text transition-colors focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color"
+            >
+              <X className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
         </div>
       )}
-    </AnimatePresence>
+      <div className="flex-1 overflow-y-auto p-6">
+        {children}
+      </div>
+    </dialog>
   );
 }

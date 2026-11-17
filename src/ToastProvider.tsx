@@ -1,8 +1,10 @@
 'use client';
-import { createContext, useContext, useRef, useState, useCallback, type ReactNode } from 'react';
+import './native-overlays.css';
+import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState, useCallback, type CSSProperties, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Toast } from './Toast';
 import { transitions } from './motion/tokens';
+import { OVERLAY_OPEN_EVENT } from './utils/useNativeDialog';
 
 /* ─── Types ────────────────────────────────────────────────────────── */
 
@@ -80,25 +82,73 @@ export function ToastProvider({
     dismissAll,
   };
 
-  const positionClass = {
-    'top-right': 'top-4 right-4',
-    'top-left': 'top-4 left-4',
-    'bottom-right': 'bottom-4 right-4',
-    'bottom-left': 'bottom-4 left-4',
-    'top-center': 'top-4 left-1/2 -translate-x-1/2',
-    'bottom-center': 'bottom-4 left-1/2 -translate-x-1/2',
-  }[position];
+  // Inline, not utility classes: a [popover] gets UA `inset: 0`, and only inline
+  // style reliably beats it regardless of how the consumer layers its CSS.
+  // All four edges are set: the UA's `inset: 0` would otherwise keep the two
+  // we leave out pinned to 0.
+  const edgeY: CSSProperties = position.startsWith('top')
+    ? { top: '1rem', bottom: 'auto' }
+    : { top: 'auto', bottom: '1rem' };
+  const edgeX: CSSProperties = position.endsWith('right')
+    ? { left: 'auto', right: '1rem' }
+    : position.endsWith('left')
+      ? { left: '1rem', right: 'auto' }
+      : { left: '50%', right: 'auto', transform: 'translateX(-50%)' };
 
   // Determine slide direction based on position
   const isTop = position.startsWith('top');
   const slideY = isTop ? -20 : 20;
 
+  // The toast stack lives in the top layer so a showModal() <dialog> never hides
+  // it. Shown while there are toasts; hidden a beat after the last one leaves
+  // so its exit animation can finish.
+  const layerRef = useRef<HTMLDivElement>(null);
+  const hasToasts = toasts.length > 0;
+  useLayoutEffect(() => {
+    const el = layerRef.current;
+    if (!el || typeof el.showPopover !== 'function') return;
+    const shown = el.matches(':popover-open');
+    if (hasToasts) {
+      // Top-layer order is open order: a toast added while a modal is open must
+      // re-enter above it. (Re-entering restarts the countdown bar, so only do
+      // it when there is actually a modal to get above.)
+      if (!shown) el.showPopover();
+      else if (document.querySelector('dialog:modal')) {
+        el.hidePopover();
+        el.showPopover();
+      }
+    }
+  }, [hasToasts, toasts]);
+  useEffect(() => {
+    const el = layerRef.current;
+    if (!el || typeof el.showPopover !== 'function' || hasToasts) return;
+    const t = setTimeout(() => {
+      if (el.matches(':popover-open')) el.hidePopover();
+    }, 250);
+    return () => clearTimeout(t);
+  }, [hasToasts]);
+  useEffect(() => {
+    // A modal that opens AFTER the toasts would cover them.
+    const lift = () => {
+      const el = layerRef.current;
+      if (el && typeof el.showPopover === 'function' && el.matches(':popover-open')) {
+        el.hidePopover();
+        el.showPopover();
+      }
+    };
+    window.addEventListener(OVERLAY_OPEN_EVENT, lift);
+    return () => window.removeEventListener(OVERLAY_OPEN_EVENT, lift);
+  }, []);
+
   return (
     <ToastContext.Provider value={value}>
       {children}
       <div
-        className={`fixed flex flex-col gap-2 ${positionClass}`}
-        style={{ maxWidth: '420px', width: '100%', pointerEvents: 'none', zIndex: 'var(--ui-z-toast)' }}
+        ref={layerRef}
+        popover={typeof HTMLElement !== 'undefined' && typeof HTMLElement.prototype.showPopover === 'function' ? 'manual' : undefined}
+        suppressHydrationWarning
+        className="gu-toast-layer fixed flex flex-col gap-2"
+        style={{ ...edgeY, ...edgeX, maxWidth: '420px', width: '100%', pointerEvents: 'none', zIndex: 'var(--ui-z-toast)' }}
       >
         <AnimatePresence initial={false}>
           {toasts.map(t => (

@@ -1,7 +1,15 @@
 'use client';
 import './ui-classes.css';
-import { useState, useRef, useEffect, useId, type ReactNode } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import './native-overlays.css';
+import {
+  useState,
+  useRef,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
 import { useReducedMotion } from './utils/useReducedMotion';
 
 type PopoverAlign = 'start' | 'center' | 'end';
@@ -17,6 +25,61 @@ export interface PopoverProps {
   className?: string;
 }
 
+/** Must match the transition duration in native-overlays.css. */
+const EXIT_MS = 150;
+
+const supportsPopover = () =>
+  typeof HTMLElement !== 'undefined' && typeof HTMLElement.prototype.showPopover === 'function';
+
+const supportsAnchor = () =>
+  typeof CSS !== 'undefined' && typeof CSS.supports === 'function' && CSS.supports('anchor-name', '--a');
+
+/**
+ * Browsers without CSS anchor positioning (Safari < 26, Firefox < 147) still get
+ * the top layer, but must be placed by hand: measure the trigger and pin the
+ * popover with `position: fixed` coordinates.
+ */
+function placeFromTrigger(
+  trigger: HTMLElement,
+  pop: HTMLElement,
+  side: PopoverSide,
+  align: PopoverAlign,
+) {
+  const r = trigger.getBoundingClientRect();
+  const vertical = side === 'top' || side === 'bottom';
+  let top: number;
+  let left: number;
+  const translate: string[] = ['0', '0'];
+
+  if (vertical) {
+    top = side === 'bottom' ? r.bottom : r.top;
+    if (side === 'top') translate[1] = '-100%';
+    if (align === 'start') left = r.left;
+    else if (align === 'end') {
+      left = r.right;
+      translate[0] = '-100%';
+    } else {
+      left = r.left + r.width / 2;
+      translate[0] = '-50%';
+    }
+  } else {
+    left = side === 'right' ? r.right : r.left;
+    if (side === 'left') translate[0] = '-100%';
+    if (align === 'start') top = r.top;
+    else if (align === 'end') {
+      top = r.bottom;
+      translate[1] = '-100%';
+    } else {
+      top = r.top + r.height / 2;
+      translate[1] = '-50%';
+    }
+  }
+
+  pop.style.top = `${top}px`;
+  pop.style.left = `${left}px`;
+  pop.style.translate = translate.join(' ');
+}
+
 export function Popover({
   trigger,
   children,
@@ -30,13 +93,61 @@ export function Popover({
   const isOpen = controlledOpen ?? internalOpen;
   const contentId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const popRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
+
+  // Keep the node mounted while the exit transition plays. Browsers without the
+  // Popover API (and jsdom) unmount immediately: there is no transition to wait for.
+  const [exiting, setExiting] = useState(false);
+  const wasOpen = useRef(isOpen);
+  useEffect(() => {
+    if (isOpen) {
+      wasOpen.current = true;
+      setExiting(false);
+      return;
+    }
+    if (!wasOpen.current) return;
+    wasOpen.current = false;
+    if (!supportsPopover() || reducedMotion) return;
+    setExiting(true);
+    const t = setTimeout(() => setExiting(false), EXIT_MS);
+    return () => clearTimeout(t);
+  }, [isOpen, reducedMotion]);
+
+  const mounted = isOpen || exiting;
 
   const setOpen = (v: boolean) => {
     setInternalOpen(v);
     onOpenChange?.(v);
   };
 
+  // Drive the native popover state from React state.
+  useLayoutEffect(() => {
+    const el = popRef.current;
+    if (!el || !supportsPopover()) return;
+    const shown = el.matches(':popover-open');
+    if (isOpen && !shown) el.showPopover();
+    else if (!isOpen && shown) el.hidePopover();
+  });
+
+  // Manual placement where CSS anchor positioning is missing.
+  useLayoutEffect(() => {
+    const pop = popRef.current;
+    const trig = triggerRef.current;
+    if (!isOpen || !pop || !trig || !supportsPopover() || supportsAnchor()) return;
+    const place = () => placeFromTrigger(trig, pop, side, align);
+    place();
+    window.addEventListener('resize', place);
+    window.addEventListener('scroll', place, true);
+    return () => {
+      window.removeEventListener('resize', place);
+      window.removeEventListener('scroll', place, true);
+    };
+  }, [isOpen, side, align]);
+
+  // `popover="manual"` so the trigger click and outside-click never race the
+  // browser's own light dismiss; Esc and outside-press are handled here.
   useEffect(() => {
     if (!isOpen) return;
     const handler = (e: MouseEvent) => {
@@ -53,52 +164,44 @@ export function Popover({
       document.removeEventListener('mousedown', handler);
       document.removeEventListener('keydown', keyHandler);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
-  const positionClass = {
-    top: 'bottom-full mb-2',
-    bottom: 'top-full mt-2',
-    left: 'right-full mr-2',
-    right: 'left-full ml-2',
-  }[side];
-
-  const alignClass = {
-    start: side === 'top' || side === 'bottom' ? 'left-0' : 'top-0',
-    center: side === 'top' || side === 'bottom' ? 'left-1/2 -translate-x-1/2' : 'top-1/2 -translate-y-1/2',
-    end: side === 'top' || side === 'bottom' ? 'right-0' : 'bottom-0',
-  }[align];
+  // `useId` yields ":r1:", which is not a valid CSS dashed-ident.
+  const anchorName = `--gu-pop-${contentId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
+  const anchorStyle = { '--gu-anchor': anchorName } as CSSProperties;
 
   return (
-    <div ref={containerRef} className={`relative inline-flex ${className}`}>
+    <div ref={containerRef} className={`relative inline-flex ${className}`} style={anchorStyle}>
       <div
+        ref={triggerRef}
         onClick={() => setOpen(!isOpen)}
         onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!isOpen); } }}
         tabIndex={0}
         role="button"
         aria-expanded={isOpen}
         aria-controls={contentId}
-        className="focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface rounded-md"
+        className="gu-popover-anchor focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface rounded-md"
       >
         {trigger}
       </div>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            id={contentId}
-            role="dialog"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{
-              duration: reducedMotion ? 0 : 0.15,
-              ease: 'easeOut',
-            }}
-            className={`absolute z-50 ${positionClass} ${alignClass} min-w-[200px] rounded-xl border gu-border-border gu-bg-surface p-4 shadow-xl`}
-          >
-            {children}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {mounted && (
+        <div
+          ref={popRef}
+          id={contentId}
+          role="dialog"
+          // Only where the Popover API exists. jsdom (consumer test suites) hides
+          // any [popover] that was never showPopover()'d, which would make the
+          // dialog invisible to getByRole/toBeVisible.
+          popover={supportsPopover() ? 'manual' : undefined}
+          suppressHydrationWarning
+          data-side={side}
+          data-align={align}
+          className="gu-popover"
+        >
+          {children}
+        </div>
+      )}
     </div>
   );
 }

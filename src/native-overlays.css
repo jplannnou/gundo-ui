@@ -1,0 +1,180 @@
+/* Native-platform overlays for @gundo/ui (Popover API + CSS anchor positioning).
+   Imported by the components that use them, same pattern as ui-classes.css, so
+   it never depends on the consumer scanning gundo-ui with Tailwind.
+
+   Why: a `popover` lives in the browser TOP LAYER, so it is never clipped by an
+   ancestor's overflow, never loses a z-index fight, and shows above a
+   showModal() <dialog>. Enter/exit run on @starting-style + allow-discrete
+   transitions instead of a JS animation library. */
+
+/* ── Popover ───────────────────────────────────────────────────────────
+   Position comes from --gu-anchor (set inline per instance) + one of the
+   data-side / data-align combinations below. */
+.gu-popover-anchor {
+  anchor-name: var(--gu-anchor);
+}
+
+.gu-popover {
+  /* UA default for [popover] is `inset: 0; margin: auto` — reset it. */
+  inset: auto;
+  margin: 0;
+  position-anchor: var(--gu-anchor);
+  position-try-fallbacks: flip-block, flip-inline;
+  min-width: 200px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-xl);
+  background: var(--ui-surface);
+  color: var(--ui-text);
+  padding: 1rem;
+  box-shadow: var(--ui-shadow-lg);
+  overflow: visible;
+
+  /* Open state = the resting state. */
+  opacity: 1;
+  scale: 1;
+  transition:
+    opacity 150ms var(--ui-ease-out),
+    scale 150ms var(--ui-ease-out),
+    overlay 150ms allow-discrete,
+    display 150ms allow-discrete;
+}
+
+/* Closed (and entering): invisible and slightly shrunk. */
+.gu-popover:not(:popover-open) {
+  opacity: 0;
+  scale: 0.95;
+}
+@starting-style {
+  .gu-popover:popover-open {
+    opacity: 0;
+    scale: 0.95;
+  }
+}
+
+/* side × align → position-area. `span-*` extends the box toward one edge of
+   the anchor so `start`/`end` align that edge with the trigger. */
+.gu-popover[data-side='bottom'][data-align='start']  { position-area: bottom span-right; margin-top: 0.5rem; }
+.gu-popover[data-side='bottom'][data-align='center'] { position-area: bottom;            margin-top: 0.5rem; }
+.gu-popover[data-side='bottom'][data-align='end']    { position-area: bottom span-left;  margin-top: 0.5rem; }
+.gu-popover[data-side='top'][data-align='start']     { position-area: top span-right;    margin-bottom: 0.5rem; }
+.gu-popover[data-side='top'][data-align='center']    { position-area: top;               margin-bottom: 0.5rem; }
+.gu-popover[data-side='top'][data-align='end']       { position-area: top span-left;     margin-bottom: 0.5rem; }
+.gu-popover[data-side='right'][data-align='start']   { position-area: right span-bottom; margin-left: 0.5rem; }
+.gu-popover[data-side='right'][data-align='center']  { position-area: right;             margin-left: 0.5rem; }
+.gu-popover[data-side='right'][data-align='end']     { position-area: right span-top;    margin-left: 0.5rem; }
+.gu-popover[data-side='left'][data-align='start']    { position-area: left span-bottom;  margin-right: 0.5rem; }
+.gu-popover[data-side='left'][data-align='center']   { position-area: left;              margin-right: 0.5rem; }
+.gu-popover[data-side='left'][data-align='end']      { position-area: left span-top;     margin-right: 0.5rem; }
+
+/* Reduced motion: no scale, no fade — it just appears. */
+@media (prefers-reduced-motion: reduce) {
+  .gu-popover {
+    transition: none;
+  }
+}
+
+/* ── Dialog (Modal, Drawer) ────────────────────────────────────────────
+   A <dialog> opened with showModal(): top layer, inert page behind it, focus
+   containment and the Esc `cancel` event come from the platform.
+
+   Geometry is set here, unlayered, on purpose: Tailwind's preflight zeroes
+   `margin` on every element (which would kill the UA's `margin: auto`
+   centring) and the UA gives <dialog> `color: CanvasText`. Max-width is NOT
+   set here: Modal's `size` and consumers' `className="max-w-sm"` own it. */
+.gu-dialog {
+  color: var(--ui-text);
+  padding: 0;
+  box-sizing: border-box;
+  /* Open state = resting state. */
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 200ms var(--ui-ease-out),
+    transform 200ms var(--ui-ease-out),
+    overlay 200ms allow-discrete,
+    display 200ms allow-discrete;
+}
+.gu-dialog::backdrop {
+  background: var(--ui-overlay, rgb(0 0 0 / 0.6));
+  backdrop-filter: blur(4px);
+  opacity: 1;
+  transition:
+    opacity 200ms var(--ui-ease-out),
+    overlay 200ms allow-discrete,
+    display 200ms allow-discrete;
+}
+.gu-dialog:not([open]) { opacity: 0; }
+.gu-dialog:not([open])::backdrop { opacity: 0; }
+@starting-style {
+  .gu-dialog[open] { opacity: 0; }
+  .gu-dialog[open]::backdrop { opacity: 0; }
+}
+
+/* Modal, centred. */
+.gu-dialog[data-kind='modal'] {
+  margin: auto;
+  width: calc(100% - 2rem);
+  max-height: 90dvh;
+  overflow-y: auto;
+}
+.gu-dialog[data-kind='modal']:not([open]) { transform: translateY(10px) scale(0.95); }
+@starting-style {
+  .gu-dialog[data-kind='modal'][open] { transform: translateY(10px) scale(0.95); }
+}
+
+/* Modal as a bottom sheet on mobile, centred from sm up. */
+@media (max-width: 639.98px) {
+  .gu-dialog[data-kind='modal'][data-placement='bottom-sheet'] {
+    margin: auto 0 0;
+    width: 100%;
+  }
+  .gu-dialog[data-kind='modal'][data-placement='bottom-sheet']:not([open]) { transform: translateY(32px); }
+  @starting-style {
+    .gu-dialog[data-kind='modal'][data-placement='bottom-sheet'][open] { transform: translateY(32px); }
+  }
+}
+
+/* Drawer: full height, pinned to a side, slides in. */
+.gu-dialog[data-kind='drawer'] {
+  height: 100dvh;
+  max-height: none;
+  width: 100%;
+  overflow: hidden;
+  transition:
+    transform 250ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 250ms var(--ui-ease-out),
+    overlay 250ms allow-discrete,
+    display 250ms allow-discrete;
+}
+.gu-dialog[data-kind='drawer'][data-side='right'] { margin: 0 0 0 auto; }
+.gu-dialog[data-kind='drawer'][data-side='left'] { margin: 0 auto 0 0; }
+.gu-dialog[data-kind='drawer'][data-side='right']:not([open]) { transform: translateX(100%); opacity: 1; }
+.gu-dialog[data-kind='drawer'][data-side='left']:not([open]) { transform: translateX(-100%); opacity: 1; }
+@starting-style {
+  .gu-dialog[data-kind='drawer'][data-side='right'][open] { transform: translateX(100%); }
+  .gu-dialog[data-kind='drawer'][data-side='left'][open] { transform: translateX(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gu-dialog,
+  .gu-dialog::backdrop,
+  .gu-dialog[data-kind='drawer'] {
+    transition: none;
+  }
+}
+
+/* ── Toast layer ───────────────────────────────────────────────────────
+   The stack is a `popover` (top layer). Strip the UA popover box; position
+   comes from inline style on the element. */
+.gu-toast-layer {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  overflow: visible;
+}
+.gu-toast-layer:not(:popover-open) {
+  /* Never-opened or closed: the UA already hides it; keep it out of layout. */
+  display: none;
+}

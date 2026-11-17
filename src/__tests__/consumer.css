@@ -1,0 +1,7 @@
+/* Stand-in for a consumer app's stylesheet in the real-browser tests: the
+   theme tokens plus Tailwind with its preflight (which zeroes `margin` on every
+   element, <dialog> included). Utilities are generated for the library's own
+   classes, the way a consumer that @source-scans gundo-ui would get them. */
+@import 'tailwindcss';
+@import '../theme.css';
+@source '../';

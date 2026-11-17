@@ -82,6 +82,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.2.3",
     "@vitest/browser": "^4.1.12",
+    "@vitest/browser-playwright": "4.1.12",
     "axe-core": "^4.12.1",
     "eslint": "^10.15.0",
     "i18next": "^25.8.18",

@@ -63,3 +63,26 @@ jobs:
 
       - name: Unit tests
         run: pnpm test
+
+  # Real Chromium. jsdom has no top layer, showModal(), popover, ::backdrop or
+  # anchor positioning, so the native overlays (Popover, Modal, Drawer, Sheet,
+  # ToastProvider) can only be proven here. `pnpm test` excludes these files.
+  browser:
+    name: Browser tests (Chromium)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: pnpm exec playwright install --with-deps chromium
+
+      - name: Browser tests
+        run: pnpm test:browser
