@@ -88,7 +88,11 @@
   --gu-safe-top: var(--ui-safe-area-top, env(safe-area-inset-top, 0px));
   --gu-safe-bottom: var(--ui-safe-area-bottom, env(safe-area-inset-bottom, 0px));
   color: var(--ui-text);
-  padding: 0;
+  /* No `padding` here, on purpose: this sheet is UNLAYERED, so a bare
+     `padding: 0` beats Tailwind 4's layered `p-4 sm:p-6` (and a consumer's
+     own className) whatever the specificity — every Modal lost its padding in
+     1.41.0/1.41.1. The UA's `padding: 1em` on <dialog> is already zeroed by
+     Tailwind's preflight; Drawer/Sheet reset their inline padding below. */
   box-sizing: border-box;
   /* Open state = resting state. */
   opacity: 1;
@@ -150,6 +154,7 @@
   overflow: hidden;
   /* Full height reaches under the notch: pad the CONTENT, not the panel, so
      the header stays readable and the end of the body clears the home bar. */
+  padding-inline: 0;
   padding-top: var(--gu-safe-top);
   padding-bottom: var(--gu-safe-bottom);
   transition:
