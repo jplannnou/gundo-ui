@@ -1,3 +1,10 @@
+## [1.41.1](https://github.com/jplannnou/gundo-ui/compare/v1.41.0...v1.41.1) (2026-11-17)
+
+
+### Bug Fixes
+
+* **overlays:** role=dialog explícito y safe-area en Modal, Drawer y Sheet nativos ([#146](https://github.com/jplannnou/gundo-ui/issues/146)) ([ec6f727](https://github.com/jplannnou/gundo-ui/commit/ec6f72738d973e29bcda82270d803402f22cfd73)), closes [#142](https://github.com/jplannnou/gundo-ui/issues/142)
+
 # [1.41.0](https://github.com/jplannnou/gundo-ui/compare/v1.40.0...v1.41.0) (2026-11-17)
 
 
