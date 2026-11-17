@@ -15,6 +15,8 @@ export default defineConfig({
       headless: true,
     },
     setupFiles: ['./src/__tests__/setup-browser.ts'],
-    include: ['src/__tests__/a11y.test.tsx', 'src/__tests__/*.browser.test.tsx'],
+    // Only the real-browser files. a11y.test.tsx stays in the jsdom suite:
+    // vitest-axe needs Node (`createRequire`) and cannot be bundled for Chromium.
+    include: ['src/__tests__/*.browser.test.tsx'],
   },
 });
