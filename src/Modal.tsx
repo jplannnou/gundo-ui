@@ -58,6 +58,9 @@ export function Modal({ open, onClose, title, children, size = 'md', placement =
       {...dialogProps}
       data-kind="modal"
       data-placement={placement}
+      // Redundant for a <dialog>, on purpose: consumers select on
+      // `[role="dialog"]` (CSS overrides, a native back-button handler).
+      role="dialog"
       aria-modal="true"
       aria-labelledby={title ? titleId : undefined}
       tabIndex={-1}

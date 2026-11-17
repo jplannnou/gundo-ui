@@ -82,6 +82,11 @@
    centring) and the UA gives <dialog> `color: CanvasText`. Max-width is NOT
    set here: Modal's `size` and consumers' `className="max-w-sm"` own it. */
 .gu-dialog {
+  /* Notch / home-indicator insets (Capacitor, PWA standalone, iOS Safari).
+     `env()` is 0px everywhere else. A consumer can override the tokens
+     (`--ui-safe-area-top/bottom`), which is also how the tests exercise this. */
+  --gu-safe-top: var(--ui-safe-area-top, env(safe-area-inset-top, 0px));
+  --gu-safe-bottom: var(--ui-safe-area-bottom, env(safe-area-inset-bottom, 0px));
   color: var(--ui-text);
   padding: 0;
   box-sizing: border-box;
@@ -114,7 +119,8 @@
 .gu-dialog[data-kind='modal'] {
   margin: auto;
   width: calc(100% - 2rem);
-  max-height: 90dvh;
+  /* A tall modal must not run under the notch or the home indicator. */
+  max-height: calc(90dvh - var(--gu-safe-top) - var(--gu-safe-bottom));
   overflow-y: auto;
 }
 .gu-dialog[data-kind='modal']:not([open]) { transform: translateY(10px) scale(0.95); }
@@ -127,6 +133,8 @@
   .gu-dialog[data-kind='modal'][data-placement='bottom-sheet'] {
     margin: auto 0 0;
     width: 100%;
+    /* Pinned to the bottom edge: its padding (1rem) absorbs the inset. */
+    padding-bottom: calc(1rem + var(--gu-safe-bottom));
   }
   .gu-dialog[data-kind='modal'][data-placement='bottom-sheet']:not([open]) { transform: translateY(32px); }
   @starting-style {
@@ -140,6 +148,10 @@
   max-height: none;
   width: 100%;
   overflow: hidden;
+  /* Full height reaches under the notch: pad the CONTENT, not the panel, so
+     the header stays readable and the end of the body clears the home bar. */
+  padding-top: var(--gu-safe-top);
+  padding-bottom: var(--gu-safe-bottom);
   transition:
     transform 250ms cubic-bezier(0.32, 0.72, 0, 1),
     opacity 250ms var(--ui-ease-out),

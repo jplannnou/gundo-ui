@@ -47,6 +47,8 @@ export function Drawer({
       {...dialogProps}
       data-kind="drawer"
       data-side={side}
+      // Redundant for a <dialog>, on purpose: see Modal.
+      role="dialog"
       aria-modal="true"
       aria-labelledby={title ? titleId : undefined}
       tabIndex={-1}
