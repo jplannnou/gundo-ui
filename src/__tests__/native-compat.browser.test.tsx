@@ -86,3 +86,39 @@ describe('native dialogs keep the contract the consumers depend on', () => {
     await waitFor(() => expect(parseFloat(getComputedStyle(dialog).paddingBottom)).toBe(base + 34));
   });
 });
+
+// Tailwind 4 puts its utilities in `@layer utilities`, and an UNLAYERED
+// declaration beats any layered one whatever the specificity. The panel's own
+// padding (`p-4 sm:p-6`) and a consumer's `className="p-…"` must therefore never
+// be fought by a bare `padding` in native-overlays.css (1.41.0/1.41.1 did, and
+// every Modal rendered with zero padding).
+describe('layered utilities (Tailwind 4) still style the dialog', () => {
+  let style: HTMLStyleElement;
+  afterEach(() => style?.remove());
+
+  const withUtilities = (css: string) => {
+    style = document.createElement('style');
+    style.textContent = `@layer utilities { ${css} }`;
+    document.head.append(style);
+  };
+
+  it('a Modal keeps the padding its utility classes ask for', async () => {
+    withUtilities('.p-4 { padding: 1rem } .p-9 { padding: 2.25rem }');
+    render(
+      <Modal open onClose={() => {}} title="T" className="p-9">
+        <p>body</p>
+      </Modal>,
+    );
+    const dialog = await screen.findByRole('dialog');
+    await waitFor(() => expect(getComputedStyle(dialog).opacity).toBe('1'));
+    expect(getComputedStyle(dialog).paddingLeft).toBe('36px');
+    expect(getComputedStyle(dialog).paddingTop).toBe('36px');
+  });
+
+  it('a Drawer has no side padding of its own (its body supplies it)', async () => {
+    // No preflight here: the UA gives <dialog> `padding: 1em`.
+    const dialog = await openDialog('drawer');
+    expect(getComputedStyle(dialog).paddingLeft).toBe('0px');
+    expect(getComputedStyle(dialog).paddingRight).toBe('0px');
+  });
+});
