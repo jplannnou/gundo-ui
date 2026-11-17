@@ -8,5 +8,7 @@ export default defineConfig({
     // impide que un consumidor vuelva a instalar dos copias del DS. Un check
     // que no corre en CI no es una guarda.
     include: ['src/**/*.test.tsx', 'src/**/*.test.ts', 'scripts/**/*.test.mjs'],
+    // Los *.browser.test.tsx necesitan un Chromium real (`pnpm test:browser`).
+    exclude: ['**/node_modules/**', 'src/**/*.browser.test.tsx'],
   },
 });

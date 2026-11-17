@@ -1,0 +1,74 @@
+/* Native-platform overlays for @gundo/ui (Popover API + CSS anchor positioning).
+   Imported by the components that use them, same pattern as ui-classes.css, so
+   it never depends on the consumer scanning gundo-ui with Tailwind.
+
+   Why: a `popover` lives in the browser TOP LAYER, so it is never clipped by an
+   ancestor's overflow, never loses a z-index fight, and shows above a
+   showModal() <dialog>. Enter/exit run on @starting-style + allow-discrete
+   transitions instead of a JS animation library. */
+
+/* ── Popover ───────────────────────────────────────────────────────────
+   Position comes from --gu-anchor (set inline per instance) + one of the
+   data-side / data-align combinations below. */
+.gu-popover-anchor {
+  anchor-name: var(--gu-anchor);
+}
+
+.gu-popover {
+  /* UA default for [popover] is `inset: 0; margin: auto` — reset it. */
+  inset: auto;
+  margin: 0;
+  position-anchor: var(--gu-anchor);
+  position-try-fallbacks: flip-block, flip-inline;
+  min-width: 200px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-xl);
+  background: var(--ui-surface);
+  color: var(--ui-text);
+  padding: 1rem;
+  box-shadow: var(--ui-shadow-lg);
+  overflow: visible;
+
+  /* Open state = the resting state. */
+  opacity: 1;
+  scale: 1;
+  transition:
+    opacity 150ms var(--ui-ease-out),
+    scale 150ms var(--ui-ease-out),
+    overlay 150ms allow-discrete,
+    display 150ms allow-discrete;
+}
+
+/* Closed (and entering): invisible and slightly shrunk. */
+.gu-popover:not(:popover-open) {
+  opacity: 0;
+  scale: 0.95;
+}
+@starting-style {
+  .gu-popover:popover-open {
+    opacity: 0;
+    scale: 0.95;
+  }
+}
+
+/* side × align → position-area. `span-*` extends the box toward one edge of
+   the anchor so `start`/`end` align that edge with the trigger. */
+.gu-popover[data-side='bottom'][data-align='start']  { position-area: bottom span-right; margin-top: 0.5rem; }
+.gu-popover[data-side='bottom'][data-align='center'] { position-area: bottom;            margin-top: 0.5rem; }
+.gu-popover[data-side='bottom'][data-align='end']    { position-area: bottom span-left;  margin-top: 0.5rem; }
+.gu-popover[data-side='top'][data-align='start']     { position-area: top span-right;    margin-bottom: 0.5rem; }
+.gu-popover[data-side='top'][data-align='center']    { position-area: top;               margin-bottom: 0.5rem; }
+.gu-popover[data-side='top'][data-align='end']       { position-area: top span-left;     margin-bottom: 0.5rem; }
+.gu-popover[data-side='right'][data-align='start']   { position-area: right span-bottom; margin-left: 0.5rem; }
+.gu-popover[data-side='right'][data-align='center']  { position-area: right;             margin-left: 0.5rem; }
+.gu-popover[data-side='right'][data-align='end']     { position-area: right span-top;    margin-left: 0.5rem; }
+.gu-popover[data-side='left'][data-align='start']    { position-area: left span-bottom;  margin-right: 0.5rem; }
+.gu-popover[data-side='left'][data-align='center']   { position-area: left;              margin-right: 0.5rem; }
+.gu-popover[data-side='left'][data-align='end']      { position-area: left span-top;     margin-right: 0.5rem; }
+
+/* Reduced motion: no scale, no fade — it just appears. */
+@media (prefers-reduced-motion: reduce) {
+  .gu-popover {
+    transition: none;
+  }
+}
