@@ -1,3 +1,10 @@
+# [1.41.0](https://github.com/jplannnou/gundo-ui/compare/v1.40.0...v1.41.0) (2026-11-17)
+
+
+### Features
+
+* **overlays:** Popover, Modal, Drawer, Sheet y Toast sobre primitivas nativas ([#142](https://github.com/jplannnou/gundo-ui/issues/142)) ([38207dd](https://github.com/jplannnou/gundo-ui/commit/38207dd57d6162bf2813c029b39347ca58043045))
+
 # [1.40.0](https://github.com/jplannnou/gundo-ui/compare/v1.39.15...v1.40.0) (2026-11-16)
 
 
