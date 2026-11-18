@@ -1,3 +1,10 @@
+# [1.42.0](https://github.com/jplannnou/gundo-ui/compare/v1.41.2...v1.42.0) (2026-11-18)
+
+
+### Features
+
+* Fase 3 — DropdownMenu, Tooltip, CommandPalette y StepWizardModal a nativo ([#148](https://github.com/jplannnou/gundo-ui/issues/148)) ([61cb005](https://github.com/jplannnou/gundo-ui/commit/61cb00598d7e6f63753932788235783b7fedb37d))
+
 ## [1.41.2](https://github.com/jplannnou/gundo-ui/compare/v1.41.1...v1.41.2) (2026-11-17)
 
 
