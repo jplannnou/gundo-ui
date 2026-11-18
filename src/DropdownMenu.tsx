@@ -1,8 +1,8 @@
 'use client';
 import './ui-classes.css';
+import './native-overlays.css';
 import { useState, useRef, useEffect, useId, useCallback, type ReactNode, type KeyboardEvent } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import { useReducedMotion } from './utils/useReducedMotion';
+import { useNativePopover } from './utils/useNativePopover';
 
 interface DropdownItem {
   label: string;
@@ -19,17 +19,41 @@ export interface DropdownMenuProps {
   className?: string;
 }
 
+/** Must match the transition duration in native-overlays.css. */
+const EXIT_MS = 150;
+
+/**
+ * A `popover="manual"` menu: top layer (never clipped by an `overflow` ancestor
+ * or a scrolling Modal), anchored to the trigger with CSS anchor positioning.
+ * Roving focus, Esc and outside-press stay here (see `useNativePopover`).
+ */
 export function DropdownMenu({ trigger, items, align = 'right', className = '' }: DropdownMenuProps) {
   const [open, setOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const menuId = useId();
-  const reducedMotion = useReducedMotion();
+  const { mounted, popRef, popoverProps, anchorStyle } = useNativePopover<HTMLDivElement>({
+    open,
+    id: menuId,
+    triggerRef,
+    side: 'bottom',
+    // `right` = the menu's right edge lines up with the trigger's, growing leftwards.
+    align: align === 'right' ? 'end' : 'start',
+    exitMs: EXIT_MS,
+  });
 
   const enabledIndices = items.reduce<number[]>((acc, item, i) => {
     if (!item.disabled) acc.push(i);
     return acc;
+  }, []);
+
+  // Close and hand focus back to the trigger (menu-button pattern), for the
+  // paths where the user stays in the page: Esc and choosing an item.
+  const closeAndRestoreFocus = useCallback(() => {
+    setOpen(false);
+    triggerRef.current?.focus();
   }, []);
 
   useEffect(() => {
@@ -46,11 +70,11 @@ export function DropdownMenu({ trigger, items, align = 'right', className = '' }
   useEffect(() => {
     if (!open) return;
     const handler = (e: globalThis.KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'Escape') closeAndRestoreFocus();
     };
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
-  }, [open]);
+  }, [open, closeAndRestoreFocus]);
 
   // Auto-focus first enabled item when menu opens
   useEffect(() => {
@@ -103,7 +127,7 @@ export function DropdownMenu({ trigger, items, align = 'right', className = '' }
         const item = items[focusedIndex];
         if (item && !item.disabled) {
           item.onClick();
-          setOpen(false);
+          closeAndRestoreFocus();
         }
         break;
       }
@@ -115,8 +139,9 @@ export function DropdownMenu({ trigger, items, align = 'right', className = '' }
   };
 
   return (
-    <div ref={ref} className={`relative inline-block ${className}`}>
+    <div ref={ref} className={`relative inline-block ${className}`} style={anchorStyle}>
       <div
+        ref={triggerRef}
         onClick={() => setOpen(!open)}
         onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!open); } }}
         tabIndex={0}
@@ -124,52 +149,43 @@ export function DropdownMenu({ trigger, items, align = 'right', className = '' }
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={open ? menuId : undefined}
-        className="focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface rounded-md"
+        className="gu-popover-anchor focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-focus-ring-color focus-visible:ring-offset-2 gu-fv-ring-offset-surface rounded-md"
       >
         {trigger}
       </div>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            id={menuId}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{
-              duration: reducedMotion ? 0 : 0.15,
-              ease: 'easeOut',
-            }}
-            className={`absolute z-50 mt-1 min-w-[160px] rounded-lg border gu-border-border gu-bg-surface shadow-xl py-1 ${
-              align === 'right' ? 'right-0' : 'left-0'
-            }`}
-            role="menu"
-            onKeyDown={handleMenuKeyDown}
-          >
-            {items.map((item, i) => (
-              <button
-                key={i}
-                ref={el => { itemRefs.current[i] = el; }}
-                type="button"
-                role="menuitem"
-                disabled={item.disabled}
-                tabIndex={i === focusedIndex ? 0 : -1}
-                onClick={() => {
-                  item.onClick();
-                  setOpen(false);
-                }}
-                className={`w-full flex items-center gap-2 px-3 py-2 text-sm text-left transition-colors disabled:opacity-40 ${
-                  item.danger
-                    ? 'gu-text-error gu-h-bg-error-soft'
-                    : 'gu-text-text gu-h-bg-surface-hover'
-                } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset gu-fv-ring-focus-ring-color`}
-              >
-                {item.icon && <span className="w-4 h-4 shrink-0">{item.icon}</span>}
-                {item.label}
-              </button>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {mounted && (
+        <div
+          ref={popRef}
+          id={menuId}
+          {...popoverProps}
+          className="gu-menu rounded-lg border gu-border-border gu-bg-surface shadow-xl py-1"
+          role="menu"
+          onKeyDown={handleMenuKeyDown}
+        >
+          {items.map((item, i) => (
+            <button
+              key={i}
+              ref={el => { itemRefs.current[i] = el; }}
+              type="button"
+              role="menuitem"
+              disabled={item.disabled}
+              tabIndex={i === focusedIndex ? 0 : -1}
+              onClick={() => {
+                item.onClick();
+                closeAndRestoreFocus();
+              }}
+              className={`w-full flex items-center gap-2 px-3 py-2 text-sm text-left transition-colors disabled:opacity-40 ${
+                item.danger
+                  ? 'gu-text-error gu-h-bg-error-soft'
+                  : 'gu-text-text gu-h-bg-surface-hover'
+              } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset gu-fv-ring-focus-ring-color`}
+            >
+              {item.icon && <span className="w-4 h-4 shrink-0">{item.icon}</span>}
+              {item.label}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

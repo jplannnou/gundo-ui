@@ -7,27 +7,24 @@
    showModal() <dialog>. Enter/exit run on @starting-style + allow-discrete
    transitions instead of a JS animation library. */
 
-/* ── Popover ───────────────────────────────────────────────────────────
-   Position comes from --gu-anchor (set inline per instance) + one of the
-   data-side / data-align combinations below. */
+/* ── Anchored layers (Popover, DropdownMenu, Tooltip) ──────────────────
+   Position comes from --gu-anchor (set inline per instance, on an ancestor of
+   both trigger and layer) + one of the data-side / data-align combinations
+   below. Only geometry and motion live here, unlayered: box properties a
+   consumer may restyle with utilities (padding, border, background) are left
+   to the component's own classes, or an unlayered rule would beat them. */
 .gu-popover-anchor {
   anchor-name: var(--gu-anchor);
 }
 
-.gu-popover {
+.gu-popover,
+.gu-menu,
+.gu-tooltip {
   /* UA default for [popover] is `inset: 0; margin: auto` — reset it. */
   inset: auto;
   margin: 0;
   position-anchor: var(--gu-anchor);
-  position-try-fallbacks: flip-block, flip-inline;
-  min-width: 200px;
-  border: 1px solid var(--ui-border);
-  border-radius: var(--ui-radius-xl);
-  background: var(--ui-surface);
-  color: var(--ui-text);
-  padding: 1rem;
-  box-shadow: var(--ui-shadow-lg);
-  overflow: visible;
+  --gu-float-gap: 0.5rem;
 
   /* Open state = the resting state. */
   opacity: 1;
@@ -40,35 +37,78 @@
 }
 
 /* Closed (and entering): invisible and slightly shrunk. */
-.gu-popover:not(:popover-open) {
+.gu-popover:not(:popover-open),
+.gu-menu:not(:popover-open),
+.gu-tooltip:not(:popover-open) {
   opacity: 0;
   scale: 0.95;
 }
 @starting-style {
-  .gu-popover:popover-open {
+  .gu-popover:popover-open,
+  .gu-menu:popover-open,
+  .gu-tooltip:popover-open {
     opacity: 0;
     scale: 0.95;
   }
 }
 
+.gu-popover {
+  position-try-fallbacks: flip-block, flip-inline;
+  min-width: 200px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-xl);
+  background: var(--ui-surface);
+  color: var(--ui-text);
+  padding: 1rem;
+  box-shadow: var(--ui-shadow-lg);
+  overflow: visible;
+}
+
+/* DropdownMenu: the box (border, background, radius, shadow, padding) comes
+   from the component's classes. The UA's `[popover]` colour is CanvasText. */
+.gu-menu {
+  --gu-float-gap: 0.25rem;
+  position-try-fallbacks: flip-block, flip-inline;
+  min-width: 160px;
+  /* Sized by its items, not by the strip of free space around a small trigger. */
+  width: max-content;
+  color: var(--ui-text);
+}
+
+/* Tooltip: transparent shell, the bubble and its arrow are children. It does
+   not flip (the arrow is drawn on one side) and never takes the pointer, so
+   landing on it cannot flicker the hover. */
+.gu-tooltip {
+  width: max-content;
+  max-width: 20rem;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  overflow: visible;
+  pointer-events: none;
+}
+
 /* side × align → position-area. `span-*` extends the box toward one edge of
    the anchor so `start`/`end` align that edge with the trigger. */
-.gu-popover[data-side='bottom'][data-align='start']  { position-area: bottom span-right; margin-top: 0.5rem; }
-.gu-popover[data-side='bottom'][data-align='center'] { position-area: bottom;            margin-top: 0.5rem; }
-.gu-popover[data-side='bottom'][data-align='end']    { position-area: bottom span-left;  margin-top: 0.5rem; }
-.gu-popover[data-side='top'][data-align='start']     { position-area: top span-right;    margin-bottom: 0.5rem; }
-.gu-popover[data-side='top'][data-align='center']    { position-area: top;               margin-bottom: 0.5rem; }
-.gu-popover[data-side='top'][data-align='end']       { position-area: top span-left;     margin-bottom: 0.5rem; }
-.gu-popover[data-side='right'][data-align='start']   { position-area: right span-bottom; margin-left: 0.5rem; }
-.gu-popover[data-side='right'][data-align='center']  { position-area: right;             margin-left: 0.5rem; }
-.gu-popover[data-side='right'][data-align='end']     { position-area: right span-top;    margin-left: 0.5rem; }
-.gu-popover[data-side='left'][data-align='start']    { position-area: left span-bottom;  margin-right: 0.5rem; }
-.gu-popover[data-side='left'][data-align='center']   { position-area: left;              margin-right: 0.5rem; }
-.gu-popover[data-side='left'][data-align='end']      { position-area: left span-top;     margin-right: 0.5rem; }
+:is(.gu-popover, .gu-menu, .gu-tooltip)[data-side='bottom'][data-align='start']  { position-area: bottom span-right; margin-top: var(--gu-float-gap); }
+:is(.gu-popover, .gu-menu, .gu-tooltip)[data-side='bottom'][data-align='center'] { position-area: bottom;            margin-top: var(--gu-float-gap); }
+:is(.gu-popover, .gu-menu, .gu-tooltip)[data-side='bottom'][data-align='end']    { position-area: bottom span-left;  margin-top: var(--gu-float-gap); }
+:is(.gu-popover, .gu-menu, .gu-tooltip)[data-side='top'][data-align='start']     { position-area: top span-right;    margin-bottom: var(--gu-float-gap); }
+:is(.gu-popover, .gu-menu, .gu-tooltip)[data-side='top'][data-align='center']    { position-area: top;               margin-bottom: var(--gu-float-gap); }
+:is(.gu-popover, .gu-menu, .gu-tooltip)[data-side='top'][data-align='end']       { position-area: top span-left;     margin-bottom: var(--gu-float-gap); }
+:is(.gu-popover, .gu-menu, .gu-tooltip)[data-side='right'][data-align='start']   { position-area: right span-bottom; margin-left: var(--gu-float-gap); }
+:is(.gu-popover, .gu-menu, .gu-tooltip)[data-side='right'][data-align='center']  { position-area: right;             margin-left: var(--gu-float-gap); }
+:is(.gu-popover, .gu-menu, .gu-tooltip)[data-side='right'][data-align='end']     { position-area: right span-top;    margin-left: var(--gu-float-gap); }
+:is(.gu-popover, .gu-menu, .gu-tooltip)[data-side='left'][data-align='start']    { position-area: left span-bottom;  margin-right: var(--gu-float-gap); }
+:is(.gu-popover, .gu-menu, .gu-tooltip)[data-side='left'][data-align='center']   { position-area: left;              margin-right: var(--gu-float-gap); }
+:is(.gu-popover, .gu-menu, .gu-tooltip)[data-side='left'][data-align='end']      { position-area: left span-top;     margin-right: var(--gu-float-gap); }
 
 /* Reduced motion: no scale, no fade — it just appears. */
 @media (prefers-reduced-motion: reduce) {
-  .gu-popover {
+  .gu-popover,
+  .gu-menu,
+  .gu-tooltip {
     transition: none;
   }
 }
@@ -130,6 +170,19 @@
 .gu-dialog[data-kind='modal']:not([open]) { transform: translateY(10px) scale(0.95); }
 @starting-style {
   .gu-dialog[data-kind='modal'][open] { transform: translateY(10px) scale(0.95); }
+}
+
+/* Command palette: hangs from the top (15dvh), centred horizontally. Its
+   width cap (`max-w-lg`) and box classes come from the component. */
+.gu-dialog[data-kind='palette'] {
+  /* Never under the notch, whatever the viewport height. */
+  margin: max(15dvh, calc(var(--gu-safe-top) + 1rem)) auto auto;
+  width: calc(100% - 2rem);
+  max-height: calc(85dvh - 1rem - var(--gu-safe-bottom));
+}
+.gu-dialog[data-kind='palette']:not([open]) { transform: translateY(-8px) scale(0.95); }
+@starting-style {
+  .gu-dialog[data-kind='palette'][open] { transform: translateY(-8px) scale(0.95); }
 }
 
 /* Modal as a bottom sheet on mobile, centred from sm up. */
