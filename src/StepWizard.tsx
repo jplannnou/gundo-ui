@@ -1,17 +1,16 @@
 'use client';
 import './ui-classes.css';
+import './native-overlays.css';
 import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useId,
   useRef,
   useState,
   type ReactNode,
 } from 'react';
-import { useFocusTrap } from './utils/useFocusTrap';
-import { useLatestCallback } from './utils/useLatestCallback';
+import { useNativeDialog } from './utils/useNativeDialog';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
@@ -138,6 +137,14 @@ const sizeStyles: Record<string, string> = {
   xl: 'max-w-4xl',
 };
 
+/** Must match the dialog transition in native-overlays.css. */
+const EXIT_MS = 200;
+
+/**
+ * A native `<dialog>` opened with `showModal()`: top layer, inert page behind it,
+ * focus containment, focus restore and Esc come from the platform (see
+ * `useNativeDialog`).
+ */
 export function StepWizardModal({
   open,
   onClose,
@@ -147,72 +154,50 @@ export function StepWizardModal({
   ...wizardProps
 }: StepWizardModalProps) {
   const titleId = useId();
-  const previousFocusRef = useRef<HTMLElement | null>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const { mounted, dialogProps } = useNativeDialog({ ref: dialogRef, open, onClose, exitMs: EXIT_MS });
 
-  const handleClose = useLatestCallback(onClose);
-
-  useFocusTrap(modalRef, open);
-
-  useEffect(() => {
-    if (!open) return;
-    previousFocusRef.current = document.activeElement as HTMLElement;
-    modalRef.current?.focus();
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') handleClose();
-    };
-    document.addEventListener('keydown', handler);
-    return () => {
-      document.removeEventListener('keydown', handler);
-      previousFocusRef.current?.focus();
-    };
-  }, [open, handleClose]);
-
-  if (!open) return null;
+  if (!mounted) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-[var(--ui-z-modal,500)] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-      role="presentation"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
+    <dialog
+      ref={dialogRef}
+      {...dialogProps}
+      data-kind="modal"
+      // Redundant for a <dialog>, on purpose: consumers select on `[role="dialog"]`.
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={title ? titleId : undefined}
+      tabIndex={-1}
+      // p-0: the header and the body pad themselves.
+      className={`gu-dialog ${sizeStyles[size]} rounded-xl border gu-border-border gu-bg-surface gu-shadow-shadow-lg p-0 outline-none`}
     >
-      <div
-        ref={modalRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={title ? titleId : undefined}
-        tabIndex={-1}
-        className={`w-full ${sizeStyles[size]} rounded-xl border gu-border-border gu-bg-surface gu-shadow-shadow-lg outline-none`}
-      >
-        {title && (
-          <div className="flex items-center justify-between border-b gu-border-border px-6 py-4">
-            <h2 id={titleId} className="text-base font-semibold gu-text-text">
-              {title}
-            </h2>
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Cerrar"
-              className="flex h-8 w-8 items-center justify-center rounded-lg gu-text-text-muted transition-colors gu-h-bg-surface-hover gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path
-                  d="M12 4L4 12M4 4l8 8"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
-          </div>
-        )}
-        <StepWizard {...wizardProps} onCancel={onCancel ?? onClose} className="p-6">
-          {wizardProps.children}
-        </StepWizard>
-      </div>
-    </div>
+      {title && (
+        <div className="flex items-center justify-between border-b gu-border-border px-6 py-4">
+          <h2 id={titleId} className="text-base font-semibold gu-text-text">
+            {title}
+          </h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Cerrar"
+            className="flex h-8 w-8 items-center justify-center rounded-lg gu-text-text-muted transition-colors gu-h-bg-surface-hover gu-h-text-text focus-visible:outline-none focus-visible:ring-2 gu-fv-ring-primary"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path
+                d="M12 4L4 12M4 4l8 8"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+      )}
+      <StepWizard {...wizardProps} onCancel={onCancel ?? onClose} className="p-6">
+        {wizardProps.children}
+      </StepWizard>
+    </dialog>
   );
 }
 

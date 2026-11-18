@@ -1,10 +1,9 @@
 'use client';
 import './ui-classes.css';
+import './native-overlays.css';
 import { useState, useEffect, useRef, useCallback, useId, type ReactNode, type KeyboardEvent } from 'react';
 import { Search } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
-import { useFocusTrap } from './utils/useFocusTrap';
-import { useReducedMotion } from './utils/useReducedMotion';
+import { useNativeDialog } from './utils/useNativeDialog';
 
 interface Command {
   id: string;
@@ -44,6 +43,14 @@ function groupCommands(commands: Command[]): Map<string, Command[]> {
   return groups;
 }
 
+/** Must match the dialog transition in native-overlays.css. */
+const EXIT_MS = 200;
+
+/**
+ * A native `<dialog>` opened with `showModal()`: top layer, inert page behind it,
+ * focus containment, focus restore and Esc come from the platform (see
+ * `useNativeDialog`). The panel hangs from the top of the viewport.
+ */
 export function CommandPalette({
   commands,
   open,
@@ -56,12 +63,18 @@ export function CommandPalette({
   const [focusedIndex, setFocusedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const inputId = useId();
   const listId = useId();
 
-  useFocusTrap(panelRef, open);
-  const reducedMotion = useReducedMotion();
+  // Declared before the "focus input" effect below: the hook parks focus on the
+  // dialog in a rAF, and the input's rAF has to run after it.
+  const { mounted, dialogProps } = useNativeDialog({
+    ref: dialogRef,
+    open,
+    onClose: () => onOpenChange(false),
+    exitMs: EXIT_MS,
+  });
 
   const filtered = query ? commands.filter(c => matchesQuery(c, query)) : commands;
   const enabledFiltered = filtered.filter(c => !c.disabled);
@@ -105,7 +118,7 @@ export function CommandPalette({
     onOpenChange(false);
   }, [onOpenChange]);
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLDialogElement>) => {
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
@@ -119,10 +132,8 @@ export function CommandPalette({
         e.preventDefault();
         if (enabledFiltered[focusedIndex]) selectCommand(enabledFiltered[focusedIndex]);
         break;
-      case 'Escape':
-        e.preventDefault();
-        onOpenChange(false);
-        break;
+      // Escape is the dialog's native `cancel` event. Preventing the keydown here
+      // would suppress it.
     }
   };
 
@@ -131,94 +142,80 @@ export function CommandPalette({
   // Build flat list to track indexes
   let flatIndex = 0;
 
+  if (!mounted) return null;
+
   return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          className="fixed inset-0 z-[550] flex items-start justify-center pt-[15vh]"
-          role="presentation"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: reducedMotion ? 0 : 0.2 }}
-        >
-          <div className="absolute inset-0 gu-bg-overlay backdrop-blur-sm" onClick={() => onOpenChange(false)} />
-          <motion.div
-            ref={panelRef}
-            role="dialog"
-            aria-label="Command palette"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{
-              duration: reducedMotion ? 0 : 0.15,
-              ease: 'easeOut',
-            }}
-            className={`relative w-full max-w-lg gu-rounded-radius-xl border gu-border-border gu-bg-surface shadow-2xl overflow-hidden ${className}`}
-            onKeyDown={handleKeyDown}
-          >
-            {/* Search input */}
-            <div className="flex items-center gap-2 border-b gu-border-border px-4">
-              <Search className="w-5 h-5 gu-text-text-muted shrink-0" aria-hidden="true" />
-              <input
-                ref={inputRef}
-                id={inputId}
-                type="text"
-                role="combobox"
-                aria-expanded={true}
-                aria-controls={listId}
-                aria-autocomplete="list"
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-                placeholder={placeholder}
-                className="flex-1 bg-transparent py-3 text-sm gu-text-text placeholder:text-[var(--ui-text-muted)] outline-none"
-              />
-              <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border gu-border-border gu-text-2xs gu-text-text-muted font-mono">
-                ESC
-              </kbd>
-            </div>
+    <dialog
+      ref={dialogRef}
+      {...dialogProps}
+      data-kind="palette"
+      // Redundant for a <dialog>, on purpose: consumers select on `[role="dialog"]`.
+      role="dialog"
+      aria-modal="true"
+      aria-label="Command palette"
+      tabIndex={-1}
+      className={`gu-dialog w-full max-w-lg gu-rounded-radius-xl border gu-border-border gu-bg-surface shadow-2xl overflow-hidden outline-none ${className}`}
+      onKeyDown={handleKeyDown}
+    >
+      {/* Search input */}
+      <div className="flex items-center gap-2 border-b gu-border-border px-4">
+        <Search className="w-5 h-5 gu-text-text-muted shrink-0" aria-hidden="true" />
+        <input
+          ref={inputRef}
+          id={inputId}
+          type="text"
+          role="combobox"
+          aria-expanded={true}
+          aria-controls={listId}
+          aria-autocomplete="list"
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          placeholder={placeholder}
+          className="flex-1 bg-transparent py-3 text-sm gu-text-text placeholder:text-[var(--ui-text-muted)] outline-none"
+        />
+        <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border gu-border-border gu-text-2xs gu-text-text-muted font-mono">
+          ESC
+        </kbd>
+      </div>
 
-            {/* Results */}
-            <div ref={listRef} id={listId} role="listbox" className="max-h-72 overflow-y-auto p-2">
-              {filtered.length === 0 && (
-                <div className="py-6 text-center text-sm gu-text-text-muted">No results found</div>
-              )}
-              {Array.from(grouped.entries()).map(([group, cmds]) => (
-                <div key={group}>
-                  {group && (
-                    <div className="px-2 py-1.5 text-xs font-medium gu-text-text-secondary">{group}</div>
-                  )}
-                  {cmds.map(cmd => {
-                    const isEnabled = !cmd.disabled;
-                    const enabledIdx = isEnabled ? enabledFiltered.indexOf(cmd) : -1;
-                    const isFocused = enabledIdx === focusedIndex;
-                    flatIndex++;
+      {/* Results */}
+      <div ref={listRef} id={listId} role="listbox" className="max-h-72 overflow-y-auto p-2">
+        {filtered.length === 0 && (
+          <div className="py-6 text-center text-sm gu-text-text-muted">No results found</div>
+        )}
+        {Array.from(grouped.entries()).map(([group, cmds]) => (
+          <div key={group}>
+            {group && (
+              <div className="px-2 py-1.5 text-xs font-medium gu-text-text-secondary">{group}</div>
+            )}
+            {cmds.map(cmd => {
+              const isEnabled = !cmd.disabled;
+              const enabledIdx = isEnabled ? enabledFiltered.indexOf(cmd) : -1;
+              const isFocused = enabledIdx === focusedIndex;
+              flatIndex++;
 
-                    return (
-                      <div
-                        key={cmd.id}
-                        role="option"
-                        aria-selected={isFocused}
-                        aria-disabled={cmd.disabled || undefined}
-                        onClick={() => isEnabled && selectCommand(cmd)}
-                        className={`flex items-center gap-3 px-3 py-2 gu-rounded-radius-md cursor-pointer text-sm transition-colors ${
-                          isFocused ? 'gu-bg-primary-soft gu-text-text' : 'gu-text-text-secondary gu-h-bg-surface-hover'
-                        } ${cmd.disabled ? 'opacity-40 cursor-not-allowed' : ''}`}
-                      >
-                        {cmd.icon && <span className="w-5 h-5 shrink-0 flex items-center justify-center">{cmd.icon}</span>}
-                        <div className="flex-1 min-w-0">
-                          <div className="truncate">{cmd.label}</div>
-                          {cmd.description && <div className="text-xs gu-text-text-muted truncate">{cmd.description}</div>}
-                        </div>
-                      </div>
-                    );
-                  })}
+              return (
+                <div
+                  key={cmd.id}
+                  role="option"
+                  aria-selected={isFocused}
+                  aria-disabled={cmd.disabled || undefined}
+                  onClick={() => isEnabled && selectCommand(cmd)}
+                  className={`flex items-center gap-3 px-3 py-2 gu-rounded-radius-md cursor-pointer text-sm transition-colors ${
+                    isFocused ? 'gu-bg-primary-soft gu-text-text' : 'gu-text-text-secondary gu-h-bg-surface-hover'
+                  } ${cmd.disabled ? 'opacity-40 cursor-not-allowed' : ''}`}
+                >
+                  {cmd.icon && <span className="w-5 h-5 shrink-0 flex items-center justify-center">{cmd.icon}</span>}
+                  <div className="flex-1 min-w-0">
+                    <div className="truncate">{cmd.label}</div>
+                    {cmd.description && <div className="text-xs gu-text-text-muted truncate">{cmd.description}</div>}
+                  </div>
                 </div>
-              ))}
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+    </dialog>
   );
 }
