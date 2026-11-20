@@ -1,3 +1,10 @@
+## [1.42.1](https://github.com/jplannnou/gundo-ui/compare/v1.42.0...v1.42.1) (2026-11-20)
+
+
+### Bug Fixes
+
+* **ari:** read current chat history without cache ([#149](https://github.com/jplannnou/gundo-ui/issues/149)) ([8d4c016](https://github.com/jplannnou/gundo-ui/commit/8d4c016b1ad50df13a4a978f823095cf454b37f2))
+
 # [1.42.0](https://github.com/jplannnou/gundo-ui/compare/v1.41.2...v1.42.0) (2026-11-18)
 
 
