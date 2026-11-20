@@ -255,6 +255,7 @@ export class ChatClient {
   async history(limit = 50): Promise<ChatHistoryResponse> {
     const headers = await this.headers();
     const response = await fetch(`${this.config.apiBaseUrl}/api/chat/history?limit=${limit}`, {
+      cache: 'no-store',
       headers: { ...headers, 'Content-Type': 'application/json' },
     });
     if (!response.ok) return { session: null, messages: [] };
