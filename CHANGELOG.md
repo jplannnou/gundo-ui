@@ -1,3 +1,10 @@
+# [1.44.0](https://github.com/jplannnou/gundo-ui/compare/v1.43.0...v1.44.0) (2026-11-21)
+
+
+### Features
+
+* componentes de Estadio, tanda 1, y anuncio a pantalla completa ([#151](https://github.com/jplannnou/gundo-ui/issues/151)) ([7f4e48a](https://github.com/jplannnou/gundo-ui/commit/7f4e48a17c1358bb6669105f0ad6fa91b81029f5))
+
 # [1.43.0](https://github.com/jplannnou/gundo-ui/compare/v1.42.2...v1.43.0) (2026-11-21)
 
 
