@@ -18,6 +18,8 @@ import {
 } from '../StepWizard';
 
 const rect = (el: Element) => el.getBoundingClientRect();
+// Los overlays entran con una transición: la geometría se mide con ella terminada.
+const settled = (el: Element) => Promise.all(el.getAnimations().map((a) => a.finished));
 const inTopLayer = (el: Element) => el.matches(':popover-open') || el.matches(':modal');
 
 afterEach(() => {
@@ -60,6 +62,7 @@ describe('DropdownMenu (native popover)', () => {
     const trigger = screen.getByRole('button', { name: 'Actions' });
     await userEvent.click(trigger);
     const menu = await screen.findByRole('menu');
+    await settled(menu);
     const t = rect(trigger);
     const m = rect(menu);
     expect(Math.abs(m.top - t.bottom - 4)).toBeLessThan(2);
@@ -75,6 +78,7 @@ describe('DropdownMenu (native popover)', () => {
     const trigger = screen.getByRole('button', { name: 'Actions' });
     await userEvent.click(trigger);
     const menu = await screen.findByRole('menu');
+    await settled(menu);
     expect(Math.abs(rect(menu).left - rect(trigger).left)).toBeLessThan(2);
   });
 
@@ -327,6 +331,7 @@ describe('CommandPalette (native <dialog>)', () => {
 
   it('hangs near the top (15dvh) and is centred horizontally', async () => {
     const dialog = await openPalette();
+    await settled(dialog);
     const r = rect(dialog);
     expect(Math.abs(r.top - window.innerHeight * 0.15)).toBeLessThan(2);
     expect(Math.abs(r.left + r.width / 2 - window.innerWidth / 2)).toBeLessThan(2);
@@ -436,6 +441,7 @@ describe('StepWizardModal (native <dialog>)', () => {
 
   it('is centred in the viewport', async () => {
     const dialog = await openWizard();
+    await settled(dialog);
     const r = rect(dialog);
     expect(Math.abs(r.left + r.width / 2 - window.innerWidth / 2)).toBeLessThan(2);
     expect(Math.abs(r.top + r.height / 2 - window.innerHeight / 2)).toBeLessThan(2);
