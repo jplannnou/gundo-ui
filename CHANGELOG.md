@@ -1,3 +1,10 @@
+# [1.48.0](https://github.com/jplannnou/gundo-ui/compare/v1.47.0...v1.48.0) (2026-11-21)
+
+
+### Features
+
+* PlayerControls y SleepTimer, controles de reproductor y temporizador de apagado ([#156](https://github.com/jplannnou/gundo-ui/issues/156)) ([bb70334](https://github.com/jplannnou/gundo-ui/commit/bb703343f30ebb64b9a579cd0efa56b45cc08a29))
+
 # [1.47.0](https://github.com/jplannnou/gundo-ui/compare/v1.46.0...v1.47.0) (2026-11-21)
 
 
