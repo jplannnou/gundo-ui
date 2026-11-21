@@ -15,6 +15,7 @@
       "import": "./dist/charts/index.js"
     },
     "./theme.css": "./src/theme.css",
+    "./themes/estadio.css": "./src/themes/estadio.css",
     "./assets/*": "./assets/*"
   },
   "scripts": {

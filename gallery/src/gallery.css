@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @source "../../src";
 @import "../../src/theme.css";
+@import "../../src/themes/estadio.css";
 
 details summary::-webkit-details-marker { display: none; }
 details[open] .details-arrow { transform: rotate(90deg); }

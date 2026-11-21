@@ -1,0 +1,161 @@
+/*
+ * @gundo/ui — preset de marca "Estadio" (look 2), claro y oscuro.
+ *
+ * Uso (el consumidor importa DESPUÉS de theme.css, o de su propia copia de los
+ * tokens, y marca el contenedor):
+ *
+ *   @import '@gundo/ui/themes/estadio.css';
+ *   <html data-brand-look="estadio-2">                  oscuro
+ *   <html data-brand-look="estadio-2" class="theme-light">  claro
+ *
+ * No cambia nada de quien no lo importe, y nada de quien no ponga el atributo.
+ *
+ * LAS FUENTES NO VAN AQUÍ. Este archivo solo declara las familias
+ * (Bebas Neue para títulos, Montserrat para texto); cargarlas (@font-face,
+ * <link>, next/font) es cosa del consumidor, que es quien decide el subconjunto
+ * y el peso. Sin ellas cae al fallback condensado del sistema.
+ *
+ * CÓMO ESTÁ PARTIDO. El primer bloque es el oscuro y también la base de la
+ * marca (radios y fuentes no dependen del modo). El segundo bloque pisa SOLO el
+ * modo claro. Dos reglas que no son obvias:
+ *  - Todo token de color que define el bloque oscuro lo redefine el claro. Si no,
+ *    el valor oscuro se filtra en claro (mismo elemento, mismo origen).
+ *  - Los tokens que `.theme-light` de theme.css también redefine (superficies,
+ *    texto, degradado, fuentes, sombra de brillo...) se repiten en el bloque
+ *    claro a propósito: ahí la especificidad es (0,2,0) frente al (0,1,0) de
+ *    `.theme-light`, así que gana el preset se importe antes o después.
+ *  Las dos las vigila scripts/__tests__/estadio-contrast.test.mjs.
+ *
+ * `.theme-light` la pone useTheme() en <html>. `data-brand-look` puede estar en
+ * <html>, en <body> o en un contenedor: el bloque claro cubre los tres casos.
+ *
+ * TOKENS NUEVOS QUE ESTE PRESET DEFINE Y theme.css NO TIENE (ningún componente
+ * los lee todavía; los leerá el PR que cablee Button/gu-text-primary):
+ *   --ui-surface-strong   tercer nivel de superficie (modales, selección).
+ *   --ui-border-control   borde de un control en reposo (campo, casilla).
+ * Los demás (--ui-primary-fill, --ui-primary-text, --ui-radius-2xl) sí tienen
+ * valor por defecto en theme.css.
+ *
+ * ROLES DEL PRIMARIO. #FD0154 (--ui-primary) es el color de marca y solo sirve
+ * de decoración (filete, glow, icono grande). No llega a 4,5:1 con texto blanco
+ * encima ni como texto sobre las superficies altas. Para eso:
+ *   --ui-primary-fill  relleno de botón; con tinta --ui-primary-ink (blanco)
+ *   --ui-primary-text  primario cuando se lee como texto
+ * --ui-primary-ink es el token que ya usan Button y los pares gu-bg-primary.
+ * --ui-brand-accent(-fg) apunta a fill/ink para que CookieBanner (que ya lo
+ * lee) pinte relleno E3004C con texto blanco.
+ *
+ * Guarda: scripts/__tests__/estadio-contrast.test.mjs (AA en ambos modos).
+ */
+
+[data-brand-look="estadio-2"] {
+  /* Fondo y superficies */
+  --ui-surface: #0A0A0B;
+  --ui-surface-raised: #141416;
+  --ui-surface-hover: #1C1C1F;
+  --ui-surface-strong: #26262B;
+
+  /* Bordes. hover = punto medio entre border y control (valor derivado). */
+  --ui-border: #2E2E34;
+  --ui-border-hover: #51515A;
+  --ui-border-control: #74747E;
+
+  /* Texto */
+  --ui-text: #F5F5F7;
+  --ui-text-secondary: #B4B4BC;
+  --ui-text-muted: #8F8F98;
+
+  /* Primario */
+  --ui-primary: #FD0154;
+  --ui-primary-hover: #E3004C;
+  --ui-primary-soft: rgb(253 1 84 / 0.15);
+  --ui-primary-fill: #E3004C;
+  --ui-primary-ink: #FFFFFF;
+  --ui-primary-text: #FF4D85;
+  --ui-brand-accent: var(--ui-primary-fill);
+  --ui-brand-accent-fg: var(--ui-primary-ink);
+  /* Los dos extremos con tinta blanca >= 4,5:1 (el degradado de theme.css es
+     azul/verde de GUNDO y no pinta en esta marca). */
+  --ui-gradient: linear-gradient(135deg, #C4003F, #E3004C);
+  --ui-shadow-glow: 0 0 24px rgb(253 1 84 / 0.35);
+
+  /* Estados */
+  --ui-success: #7EDB9C;
+  --ui-success-soft: rgb(126 219 156 / 0.15);
+  --ui-warning: #F4B860;
+  --ui-warning-soft: rgb(244 184 96 / 0.15);
+  --ui-error: #FFB4B4;
+  --ui-error-soft: rgb(255 180 180 / 0.12);
+
+  /* Derivados de otros tokens. Una custom property se resuelve donde se declara
+     y se hereda ya resuelta: si el preset va en un contenedor y no en <html>,
+     los de theme.css arrastrarían aquí los valores de :root. */
+  --ui-focus-ring-color: var(--ui-primary);
+  --ui-tooltip-bg: var(--ui-text);
+  --ui-tooltip-text: var(--ui-surface);
+  --ui-macro-kcal: var(--ui-text);
+  --ui-code-text: var(--ui-text);
+
+  /* Tipografía. Solo familias: el consumidor carga los archivos. */
+  --ui-font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --ui-font-display: 'Bebas Neue', 'Arial Narrow', 'Roboto Condensed', Impact, sans-serif;
+
+  /* Radios: 12 / 16 / 20 / 24 px y píldora. */
+  --ui-radius-md: 0.75rem;
+  --ui-radius-lg: 1rem;
+  --ui-radius-xl: 1.25rem;
+  --ui-radius-2xl: 1.5rem;
+  --ui-radius-full: 9999px;
+}
+
+.theme-light[data-brand-look="estadio-2"],
+[data-brand-look="estadio-2"].theme-light,
+.theme-light [data-brand-look="estadio-2"],
+[data-brand-look="estadio-2"] .theme-light {
+  /* Lienzo y tarjeta. En claro las superficies se reducen a dos niveles: hover
+     y strong se quedan en blanco o casi, porque cualquier gris más oscuro deja
+     el verde de éxito (#1B7F4B, 4,57:1 sobre el lienzo) por debajo de AA. */
+  --ui-surface: #F4F4F6;
+  --ui-surface-raised: #FFFFFF;
+  --ui-surface-hover: #F9F9FB;
+  --ui-surface-strong: #FFFFFF;
+
+  --ui-border: #D9D9DF;
+  --ui-border-hover: #A2A2AA;
+  --ui-border-control: #6B6B76;
+
+  --ui-text: #16161A;
+  --ui-text-secondary: #55555F;
+  /* El plan no da un tercer nivel de texto claro: #6B6B76 es el borde de
+     control, que sí cumple AA sobre lienzo y tarjeta. */
+  --ui-text-muted: #6B6B76;
+
+  /* #FD0154 sigue siendo SOLO decorativo en claro (3,60:1 sobre el lienzo). */
+  --ui-primary: #FD0154;
+  --ui-primary-hover: #E3004C;
+  --ui-primary-soft: rgb(253 1 84 / 0.10);
+  --ui-primary-fill: #E3004C;
+  --ui-primary-ink: #FFFFFF;
+  --ui-primary-text: #C4003F;
+  --ui-brand-accent: var(--ui-primary-fill);
+  --ui-brand-accent-fg: var(--ui-primary-ink);
+  --ui-gradient: linear-gradient(135deg, #C4003F, #E3004C);
+  --ui-shadow-glow: 0 0 24px rgb(253 1 84 / 0.25);
+
+  --ui-success: #1B7F4B;
+  --ui-success-soft: rgb(27 127 75 / 0.10);
+  --ui-warning: #8A5A00;
+  --ui-warning-soft: rgb(138 90 0 / 0.10);
+  --ui-error: #B42318;
+  --ui-error-soft: rgb(180 35 24 / 0.10);
+
+  --ui-focus-ring-color: var(--ui-primary);
+  --ui-tooltip-bg: var(--ui-text);
+  --ui-tooltip-text: var(--ui-surface);
+  --ui-macro-kcal: var(--ui-text);
+  --ui-code-text: var(--ui-text);
+
+  /* Las fuentes se repiten porque `.theme-light` de theme.css las redefine. */
+  --ui-font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --ui-font-display: 'Bebas Neue', 'Arial Narrow', 'Roboto Condensed', Impact, sans-serif;
+}

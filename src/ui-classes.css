@@ -201,3 +201,15 @@
 .gu-bg-warning-soft.gu-text-warning{color:var(--ui-warning-ink,color-mix(in oklab,var(--ui-warning) 60%,var(--ui-text)))}
 .gu-bg-primary.gu-text-surface{color:var(--ui-primary-ink,var(--ui-surface))}
 .gu-h-bg-primary.gu-h-text-surface:hover{color:var(--ui-primary-ink,var(--ui-surface))}
+
+/* ── Titular de display ───────────────────────────────────────────────────
+   Escrito a mano. Solo la receta tipográfica de un titular de marca: la
+   familia sale de `--ui-font-display`, así que cada tema decide la suya
+   (Quicksand por defecto, Bebas Neue en themes/estadio.css).
+
+   Peso 400 y SIN `text-transform`: Bebas Neue ya dibuja todo en versal, y
+   cualquier otra familia de display debe mostrar el texto tal como se escribe.
+   Si un titular concreto necesita versales, que lo decida su marcado y no esta
+   clase. Interlínea adimensional y tracking en `em` para que escalen con el
+   cuerpo del texto. */
+.gu-display{font-family:var(--ui-font-display);font-weight:400;line-height:1.05;letter-spacing:.02em}
