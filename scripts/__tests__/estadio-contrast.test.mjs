@@ -211,14 +211,18 @@ describe.each(["dark", "light"])("estadio.css · contraste · modo %s", (mode) =
   });
 });
 
-// Hueco conocido, medido al escribir el preset (no se afirma de memoria):
-// el borde de control oscuro del plan, #5A5A62, queda en 2,90:1 sobre el fondo
-// y 2,20:1 sobre la superficie alta, por debajo del 3:1 que WCAG 1.4.11 pide a
-// la frontera de un control. El claro (#6B6B76) llega a 4,79:1. No se asierta
-// porque el valor viene dado por el plan y asertarlo dejaría el PR en rojo
-// sin decidir; queda visible aquí hasta que se elija un valor.
+// WCAG 1.4.11: la frontera de un control necesita 3:1 contra lo que la rodea.
+// El primer valor del plan (#5A5A62) medía 2,90:1 sobre el fondo y 2,20:1 sobre
+// la superficie alta; se sustituyó por #74747E, que pasa en los cuatro niveles.
 describe("estadio.css · borde de control (WCAG 1.4.11)", () => {
-  it.todo("--ui-border-control oscuro >= 3:1 sobre el fondo: hoy 2,90:1 con #5A5A62");
+  it.each([
+    ["--ui-surface"],
+    ["--ui-surface-raised"],
+    ["--ui-surface-hover"],
+    ["--ui-surface-strong"],
+  ])("--ui-border-control oscuro >= 3:1 sobre %s", (bg) => {
+    expect(ratio("--ui-border-control", bg, "dark")).toBeGreaterThanOrEqual(3);
+  });
   it("--ui-border-control claro >= 3:1 sobre lienzo y tarjeta", () => {
     for (const bg of ["--ui-surface", "--ui-surface-raised"]) {
       expect(ratio("--ui-border-control", bg, "light")).toBeGreaterThanOrEqual(3);

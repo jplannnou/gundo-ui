@@ -57,8 +57,8 @@
 
   /* Bordes. hover = punto medio entre border y control (valor derivado). */
   --ui-border: #2E2E34;
-  --ui-border-hover: #44444B;
-  --ui-border-control: #5A5A62;
+  --ui-border-hover: #51515A;
+  --ui-border-control: #74747E;
 
   /* Texto */
   --ui-text: #F5F5F7;
