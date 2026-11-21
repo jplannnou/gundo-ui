@@ -43,11 +43,11 @@
  * brillante" (plataforma B2B: #ffffff sobre #67c728 = 2,15:1), donde la
  * superficie NO sirve de tinta. */
 .ui-btn-primary {
-  background-color: var(--ui-primary);
+  background-color: var(--ui-primary-fill, var(--ui-primary));
   color: var(--ui-primary-ink, var(--ui-surface));
 }
 .ui-btn-primary:hover:not(:disabled) {
-  background-color: var(--ui-primary-hover);
+  background-color: var(--ui-primary-fill-hover, var(--ui-primary-hover));
 }
 
 .ui-btn-secondary {

@@ -255,6 +255,8 @@ export { QuoteCard } from "./QuoteCard";
 export type { QuoteCardProps, QuoteCardTone, QuoteCardSize } from "./QuoteCard";
 export { LockedCard } from "./LockedCard";
 export type { LockedCardProps } from "./LockedCard";
+export { Takeover } from "./Takeover";
+export type { TakeoverProps } from "./Takeover";
 export { ProgramMap } from "./ProgramMap";
 export type { ProgramMapProps, ProgramMapPhase, ProgramMapStep, ProgramMapStepStatus } from "./ProgramMap";
 export { ProfileHeader } from "./ProfileHeader";
