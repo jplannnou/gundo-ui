@@ -1,4 +1,4 @@
-import { useState, type CSSProperties, type ReactNode } from 'react';
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import { MediaCard } from '../../../src/MediaCard';
 import { HorizontalRail } from '../../../src/HorizontalRail';
 import { SessionPreview } from '../../../src/SessionPreview';
@@ -11,6 +11,8 @@ import { ShareSummary } from '../../../src/ShareSummary';
 import { Countdown } from '../../../src/Countdown';
 import { BreathingGuide } from '../../../src/BreathingGuide';
 import { MiniPlayer } from '../../../src/MiniPlayer';
+import { PlayerControls } from '../../../src/PlayerControls';
+import { SleepTimer, type SleepTimerValue } from '../../../src/SleepTimer';
 
 const CLASSES = [
   { id: 'f1', title: 'Fuerza 01 · Tren inferior', meta: ['42 min', 'Intermedio'], progress: 0.6 },
@@ -32,6 +34,33 @@ const SIZES = [
   { value: 'xl', label: 'Muy grande', scale: 1.3 },
 ];
 
+/** Duración de la pieza de demostración de PlayerControls: 28 min. */
+const PLAYER_DURATION = 1680;
+
+const PLAYER_LABELS = {
+  play: 'Reproducir',
+  pause: 'Pausar',
+  skipBack: 'Retroceder 10 segundos',
+  skipForward: 'Avanzar 10 segundos',
+  seek: 'Posición',
+  elapsed: 'Transcurrido',
+  remaining: 'Restante',
+  mute: 'Silenciar',
+  unmute: 'Activar sonido',
+  enterFullscreen: 'Pantalla completa',
+  exitFullscreen: 'Salir de pantalla completa',
+  controls: 'Controles del reproductor',
+};
+
+const SLEEP_LABELS = {
+  group: 'Detener en',
+  minutes: (n: number) => `${n} min`,
+  end: 'Al terminar la pista',
+  endStatus: 'Se detendrá al terminar la pista',
+  remaining: (time: string) => `Se detiene en ${time}`,
+  cancel: 'Cancelar temporizador',
+};
+
 /** Second and third batch of pieces for the 5T4D10 look, shown under the preset. */
 export function EstadioComponentsTanda2() {
   const [feeling, setFeeling] = useState<string | undefined>();
@@ -43,6 +72,35 @@ export function EstadioComponentsTanda2() {
   const [countKey, setCountKey] = useState(0);
   const [breathing, setBreathing] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const [ctrlPlaying, setCtrlPlaying] = useState(false);
+  const [ctrlTime, setCtrlTime] = useState(200);
+  const [muted, setMuted] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
+  const [sleep, setSleep] = useState<SleepTimerValue>(null);
+  const [sleepLeft, setSleepLeft] = useState(0);
+
+  // La demostración hace de reproductor: avanza el tiempo mientras suena y
+  // cuenta atrás el temporizador. La librería no lleva ningún reloj propio.
+  useEffect(() => {
+    if (!ctrlPlaying) return undefined;
+    const id = window.setInterval(() => setCtrlTime((t) => Math.min(PLAYER_DURATION, t + 1)), 1000);
+    return () => window.clearInterval(id);
+  }, [ctrlPlaying]);
+
+  useEffect(() => {
+    if (typeof sleep !== 'number') return undefined;
+    const id = window.setInterval(() => setSleepLeft((s) => Math.max(0, s - 1)), 1000);
+    return () => window.clearInterval(id);
+  }, [sleep]);
+
+  useEffect(() => {
+    if (typeof sleep === 'number' && sleepLeft === 0) {
+      setSleep(null);
+      setCtrlPlaying(false);
+    }
+  }, [sleep, sleepLeft]);
+
+  const seekTo = (seconds: number) => setCtrlTime(Math.min(PLAYER_DURATION, Math.max(0, seconds)));
 
   return (
     <div data-testid="estadio-components-tanda-2" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 20, maxWidth: 390 }}>
@@ -252,6 +310,60 @@ export function EstadioComponentsTanda2() {
             closeLabel="Cerrar"
           />
         </div>
+      </Block>
+
+      <Block title="PlayerControls">
+        <div style={{ display: 'grid', gap: 20 }}>
+          <PlayerControls
+            playing={ctrlPlaying}
+            currentTime={ctrlTime}
+            duration={PLAYER_DURATION}
+            buffered={900}
+            muted={muted}
+            fullscreen={fullscreen}
+            onPlayPause={() => setCtrlPlaying((v) => !v)}
+            onSeek={seekTo}
+            onSkip={(delta) => seekTo(ctrlTime + delta)}
+            onToggleMute={() => setMuted((v) => !v)}
+            onToggleFullscreen={() => setFullscreen((v) => !v)}
+            labels={PLAYER_LABELS}
+            formatValueText={(elapsed, total) => `${elapsed} de ${total}`}
+          />
+          <PlayerControls
+            compact
+            playing={ctrlPlaying}
+            currentTime={ctrlTime}
+            duration={PLAYER_DURATION}
+            onPlayPause={() => setCtrlPlaying((v) => !v)}
+            onSeek={seekTo}
+            onSkip={(delta) => seekTo(ctrlTime + delta)}
+            labels={{ ...PLAYER_LABELS, seek: 'Posición del audio', controls: undefined }}
+            formatValueText={(elapsed, total) => `${elapsed} de ${total}`}
+          />
+          <PlayerControls
+            playing={false}
+            currentTime={0}
+            duration={0}
+            canSkip={false}
+            onPlayPause={() => {}}
+            onSeek={() => {}}
+            onSkip={() => {}}
+            labels={{ ...PLAYER_LABELS, seek: 'Posición (directo)', controls: undefined }}
+          />
+        </div>
+      </Block>
+
+      <Block title="SleepTimer">
+        <SleepTimer
+          options={[5, 10, 15, 30]}
+          value={sleep}
+          remainingSeconds={typeof sleep === 'number' ? sleepLeft : undefined}
+          onChange={(next) => {
+            setSleep(next);
+            setSleepLeft(typeof next === 'number' ? next * 60 : 0);
+          }}
+          labels={SLEEP_LABELS}
+        />
       </Block>
 
       <Block title="TextSizeControl">
