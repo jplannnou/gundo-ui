@@ -8,7 +8,7 @@
 .gu-bg-info{background-color:var(--ui-info)}
 .gu-bg-info-soft{background-color:var(--ui-info-soft)}
 .gu-bg-overlay{background-color:var(--ui-overlay)}
-.gu-bg-primary{background-color:var(--ui-primary)}
+.gu-bg-primary{background-color:var(--ui-primary-fill,var(--ui-primary))}
 /* Relleno de marca. Distinto de --ui-primary A PROPÓSITO: ese token codifica
    CONTRASTE y la app lo intercambia entre temas para que la marca se lea COMO
    TEXTO sobre el fondo activo, así que de fondo sale pálido. Medido en
@@ -94,7 +94,7 @@
 .gu-shadow-shadow-sm{box-shadow:var(--ui-shadow-sm)}
 .gu-text-error{color:var(--ui-error)}
 .gu-text-info{color:var(--ui-info)}
-.gu-text-primary{color:var(--ui-primary)}
+.gu-text-primary{color:var(--ui-primary-text,var(--ui-primary))}
 .gu-text-range-attention{color:var(--ui-range-attention)}
 .gu-text-range-critical{color:var(--ui-range-critical)}
 .gu-text-range-optimal{color:var(--ui-range-optimal)}

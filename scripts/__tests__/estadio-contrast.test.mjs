@@ -192,6 +192,8 @@ describe.each(["dark", "light"])("estadio.css · contraste · modo %s", (mode) =
     ["--ui-primary-ink", "--ui-primary-fill"],
     // Button y gu-bg-primary pintan `--ui-primary-hover` al pasar el ratón.
     ["--ui-primary-ink", "--ui-primary-hover"],
+    // Button pinta `--ui-primary-fill-hover` al pasar el ratón.
+    ["--ui-primary-ink", "--ui-primary-fill-hover"],
     // El par que ya lee CookieBanner (gu-bg-brand-accent + gu-text-brand-accent-fg).
     ["--ui-brand-accent-fg", "--ui-brand-accent"],
   ])("tinta %s sobre relleno %s >= 4,5:1", (fg, bg) => aa(fg, bg, mode));

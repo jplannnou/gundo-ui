@@ -70,6 +70,7 @@
   --ui-primary-hover: #E3004C;
   --ui-primary-soft: rgb(253 1 84 / 0.15);
   --ui-primary-fill: #E3004C;
+  --ui-primary-fill-hover: #C4003F;
   --ui-primary-ink: #FFFFFF;
   --ui-primary-text: #FF4D85;
   --ui-brand-accent: var(--ui-primary-fill);
@@ -135,6 +136,7 @@
   --ui-primary-hover: #E3004C;
   --ui-primary-soft: rgb(253 1 84 / 0.10);
   --ui-primary-fill: #E3004C;
+  --ui-primary-fill-hover: #C4003F;
   --ui-primary-ink: #FFFFFF;
   --ui-primary-text: #C4003F;
   --ui-brand-accent: var(--ui-primary-fill);
