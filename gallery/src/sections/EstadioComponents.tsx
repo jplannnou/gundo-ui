@@ -2,6 +2,7 @@ import { useState, type CSSProperties } from 'react';
 import { GoalRing } from '../../../src/GoalRing';
 import { StatHero } from '../../../src/StatHero';
 import { WeekdayPicker } from '../../../src/WeekdayPicker';
+import { StreakCalendar } from '../../../src/StreakCalendar';
 import { NextStepBanner } from '../../../src/NextStepBanner';
 import { QuoteCard } from '../../../src/QuoteCard';
 import { LockedCard } from '../../../src/LockedCard';
@@ -158,6 +159,21 @@ export function EstadioComponents() {
 
       <Block title="WeekdayPicker">
         <WeekdayPicker days={DAYS} value={days} onChange={setDays} ariaLabel="Días de entreno" min={1} max={5} />
+      </Block>
+
+      <Block title="StreakCalendar">
+        <StreakCalendar
+          month="2026-11"
+          marked={['2026-11-02', '2026-11-04', '2026-11-06', '2026-11-09', '2026-11-11', '2026-11-16', '2026-11-18', '2026-11-20']}
+          today="2026-11-21"
+          weekdays={DAYS}
+          ariaLabel="Noviembre de 2026"
+          dayLabel={(date, state) =>
+            `${Number(date.slice(8))} de noviembre, ${
+              state === 'marked' ? 'entreno completado' : state === 'upcoming' ? 'por llegar' : 'sin entreno'
+            }`
+          }
+        />
       </Block>
 
       <Block title="MacroRow · progress">
