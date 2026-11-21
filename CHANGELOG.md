@@ -1,3 +1,10 @@
+# [1.43.0](https://github.com/jplannnou/gundo-ui/compare/v1.42.2...v1.43.0) (2026-11-21)
+
+
+### Features
+
+* **theme:** preset de marca Estadio (look 2), claro y oscuro ([#150](https://github.com/jplannnou/gundo-ui/issues/150)) ([50f5ab6](https://github.com/jplannnou/gundo-ui/commit/50f5ab6a85b5fe4679f80af0aed316d406d72dde))
+
 ## [1.42.2](https://github.com/jplannnou/gundo-ui/compare/v1.42.1...v1.42.2) (2026-11-21)
 
 
