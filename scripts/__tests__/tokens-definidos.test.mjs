@@ -43,7 +43,7 @@ const definidos = new Set();
 for (const { ruta, texto } of fuentes) {
   const patron = ruta.endsWith('.css')
     ? /(--ui-[a-z0-9-]+)\s*:/g
-    : /['"`\[](--ui-[a-z0-9-]+)['"`\]]\s*[:\]]/g;
+    : /['"`[](--ui-[a-z0-9-]+)['"`\]]\s*[:\]]/g;
   for (const m of texto.matchAll(patron)) definidos.add(m[1]);
 }
 
