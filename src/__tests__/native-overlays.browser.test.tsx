@@ -6,6 +6,9 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { Popover } from '../Popover';
 
+// Los overlays entran con una transición: la geometría se mide con ella terminada.
+const settled = (el: Element) => Promise.all(el.getAnimations().map((a) => a.finished));
+
 describe('Popover (native)', () => {
   it('opens in the top layer', async () => {
     render(<Popover trigger={<span>Open</span>}>Panel</Popover>);
@@ -25,6 +28,7 @@ describe('Popover (native)', () => {
     const trigger = screen.getByRole('button');
     fireEvent.click(trigger);
     const dialog = await screen.findByRole('dialog');
+    await settled(dialog);
     const t = trigger.getBoundingClientRect();
     const d = dialog.getBoundingClientRect();
     expect(d.top).toBeGreaterThanOrEqual(t.bottom);

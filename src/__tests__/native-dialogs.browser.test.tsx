@@ -33,6 +33,9 @@ function DrawerHarness({ side }: { side?: 'left' | 'right' }) {
   );
 }
 
+// Los overlays entran con una transición: la geometría se mide con ella terminada.
+const settled = (el: Element) => Promise.all(el.getAnimations().map((a) => a.finished));
+
 const openModal = async () => {
   render(<ModalHarness />);
   // A real click: it focuses the opener, which is what focus must return to.
@@ -49,6 +52,7 @@ describe('Modal (native <dialog>)', () => {
 
   it('is centred in the viewport', async () => {
     const dialog = await openModal();
+    await settled(dialog);
     const r = dialog.getBoundingClientRect();
     expect(Math.abs(r.left + r.width / 2 - window.innerWidth / 2)).toBeLessThan(2);
     expect(Math.abs(r.top + r.height / 2 - window.innerHeight / 2)).toBeLessThan(2);
