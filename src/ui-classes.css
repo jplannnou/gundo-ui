@@ -213,3 +213,15 @@
    clase. Interlínea adimensional y tracking en `em` para que escalen con el
    cuerpo del texto. */
 .gu-display{font-family:var(--ui-font-display);font-weight:400;line-height:1.05;letter-spacing:.02em}
+
+/* ── Llenado de una barra al entrar ───────────────────────────────────────
+   Escrito a mano. El relleno de una barra de progreso crece desde su origen la
+   primera vez que se pinta. Solo `transform`: no mueve el layout ni cambia el
+   ancho real, que sigue siendo el dato. Con «reducir movimiento» no hay
+   animación y la barra sale ya en su valor.
+
+   El escalonado entre barras lo pone quien la usa con `animation-delay`. */
+@keyframes gu-fill-in{from{transform:scaleX(0)}}
+.gu-fill-in{transform-origin:left center;animation:gu-fill-in var(--ui-duration-reveal) var(--ui-easing-out) both}
+[dir="rtl"] .gu-fill-in{transform-origin:right center}
+@media (prefers-reduced-motion:reduce){.gu-fill-in{animation:none}}

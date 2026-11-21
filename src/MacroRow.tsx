@@ -195,8 +195,13 @@ export function MacroRow({
                   style={{ backgroundColor: 'var(--ui-surface-hover)' }}
                 >
                   <div
-                    className="h-full rounded-full"
-                    style={{ width: `${figure.fraction * 100}%`, backgroundColor: macroColor(c.kind) }}
+                    className="gu-fill-in h-full rounded-full"
+                    style={{
+                      width: `${figure.fraction * 100}%`,
+                      backgroundColor: macroColor(c.kind),
+                      // Las barras entran una tras otra, no todas a la vez.
+                      animationDelay: `${i * 60}ms`,
+                    }}
                   />
                 </div>
               )}
