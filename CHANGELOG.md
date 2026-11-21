@@ -1,3 +1,10 @@
+# [1.46.0](https://github.com/jplannnou/gundo-ui/compare/v1.45.0...v1.46.0) (2026-11-21)
+
+
+### Features
+
+* **streak-calendar:** calendario mensual de constancia ([#154](https://github.com/jplannnou/gundo-ui/issues/154)) ([59c1083](https://github.com/jplannnou/gundo-ui/commit/59c1083a92604463fc760f41cb2336a042b47f85))
+
 # [1.45.0](https://github.com/jplannnou/gundo-ui/compare/v1.44.1...v1.45.0) (2026-11-21)
 
 
