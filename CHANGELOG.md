@@ -1,3 +1,10 @@
+## [1.44.1](https://github.com/jplannnou/gundo-ui/compare/v1.44.0...v1.44.1) (2026-11-21)
+
+
+### Bug Fixes
+
+* **motion:** los overlays nativos recuperan su transición + tokens de movimiento ([#152](https://github.com/jplannnou/gundo-ui/issues/152)) ([d112443](https://github.com/jplannnou/gundo-ui/commit/d1124439bc5f877292881b909f996edd5827a450))
+
 # [1.44.0](https://github.com/jplannnou/gundo-ui/compare/v1.43.0...v1.44.0) (2026-11-21)
 
 
