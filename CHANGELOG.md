@@ -1,3 +1,10 @@
+## [1.42.2](https://github.com/jplannnou/gundo-ui/compare/v1.42.1...v1.42.2) (2026-11-21)
+
+
+### Bug Fixes
+
+* **button:** tinta del botón primario configurable (--ui-primary-ink) + guarda de contraste de Badge y botón ([#130](https://github.com/jplannnou/gundo-ui/issues/130)) ([17e37a8](https://github.com/jplannnou/gundo-ui/commit/17e37a8f981c4b6e3f4891934a63b93197a33137)), closes [#67c728](https://github.com/jplannnou/gundo-ui/issues/67c728) [#052518](https://github.com/jplannnou/gundo-ui/issues/052518)
+
 ## [1.42.1](https://github.com/jplannnou/gundo-ui/compare/v1.42.0...v1.42.1) (2026-11-20)
 
 
