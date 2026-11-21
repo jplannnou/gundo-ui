@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { EstadioComponents } from './EstadioComponents';
+import { EstadioComponentsTanda2 } from './EstadioComponentsTanda2';
 
 /**
  * Brand preset "Estadio" (look 2): `@gundo/ui/themes/estadio.css`.
@@ -160,6 +161,11 @@ export function EstadioPreview() {
         <section>
           <h3 style={sectionTitle}>Components · batch 1</h3>
           <EstadioComponents />
+        </section>
+
+        <section>
+          <h3 style={sectionTitle}>Components · batches 2 and 3</h3>
+          <EstadioComponentsTanda2 />
         </section>
 
         {/* Surfaces */}
