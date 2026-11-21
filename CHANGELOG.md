@@ -1,3 +1,10 @@
+# [1.45.0](https://github.com/jplannnou/gundo-ui/compare/v1.44.1...v1.45.0) (2026-11-21)
+
+
+### Features
+
+* **motion:** las barras de macros se llenan al entrar ([#153](https://github.com/jplannnou/gundo-ui/issues/153)) ([d991111](https://github.com/jplannnou/gundo-ui/commit/d991111263e753eafaa73c56a40ffc93fac760a5))
+
 ## [1.44.1](https://github.com/jplannnou/gundo-ui/compare/v1.44.0...v1.44.1) (2026-11-21)
 
 
