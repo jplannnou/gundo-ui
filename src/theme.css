@@ -27,6 +27,18 @@
   --ui-tertiary-hover: #1e3d4c;
   --ui-tertiary-soft: rgb(36 73 90 / 0.15);
 
+  /* Primary, por rol. --ui-primary es UN solo color con tres trabajos (relleno
+     de botón, texto de enlace y acento decorativo), y con una marca viva no
+     existe un valor que cumpla AA en los tres. Estos dos tokens separan los
+     roles. Por defecto valen lo mismo que --ui-primary, así que no cambia nada
+     hasta que un tema de marca (src/themes/*.css) los redefina.
+       --ui-primary-fill  relleno de un botón/chip con texto encima. La tinta
+                          de ese texto es --ui-primary-ink (opcional, ver abajo).
+       --ui-primary-text  el primario cuando se lee COMO TEXTO sobre la
+                          superficie (enlaces, cifras de acento). */
+  --ui-primary-fill: var(--ui-primary);
+  --ui-primary-text: var(--ui-primary);
+
   /* Brand gradient. Ink on top is always white (PaywallUnified/MagicLinkAuth):
      the blue start #24495A needs it (surface-dark is 1.41:1 there). The green
      end is #36852C — darkened from the old #409C35 so white clears WCAG AA
@@ -166,6 +178,9 @@
   --ui-radius-md: 0.5rem;
   --ui-radius-lg: 0.75rem;
   --ui-radius-xl: 1rem;
+  /* Un paso por encima de xl. Ningún componente lo lee todavía: existe para que
+     un tema de marca con radios más generosos tenga dónde colgarlos. */
+  --ui-radius-2xl: 1.5rem;
   --ui-radius-full: 9999px;
 
   /* Shadows */
@@ -252,6 +267,12 @@
   --ui-tertiary: #67C728;
   --ui-tertiary-hover: #5ab322;
   --ui-tertiary-soft: rgb(103 199 40 / 0.1);
+
+  /* Se vuelven a declarar aquí para que sigan al primario del tema claro aunque
+     `.theme-light` no esté en el mismo elemento que `:root` (una custom property
+     se resuelve donde se declara y se hereda ya resuelta). */
+  --ui-primary-fill: var(--ui-primary);
+  --ui-primary-text: var(--ui-primary);
 
   /* Green end darkened from the old #67C728 (white was 2.15:1 — worse than the
      dark theme) to #428417 so white clears WCAG AA normal (4.6:1). See the dark
