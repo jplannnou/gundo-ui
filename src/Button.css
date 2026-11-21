@@ -36,9 +36,15 @@
   transform: translate(-50%, -50%);
 }
 
+/* Tinta del botón primario. `--ui-primary-ink` es OPCIONAL: sin definir cae a
+ * `--ui-surface`, que es lo que siempre se pintó (oscuro: #292E37 sobre verde
+ * 6,35:1; claro: #F2F4F3 sobre #08563E 7,88:1), así que ningún consumidor que no
+ * lo defina cambia de aspecto. Existe para el caso "superficie clara + primario
+ * brillante" (plataforma B2B: #ffffff sobre #67c728 = 2,15:1), donde la
+ * superficie NO sirve de tinta. */
 .ui-btn-primary {
   background-color: var(--ui-primary);
-  color: var(--ui-surface);
+  color: var(--ui-primary-ink, var(--ui-surface));
 }
 .ui-btn-primary:hover:not(:disabled) {
   background-color: var(--ui-primary-hover);
