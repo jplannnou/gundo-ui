@@ -1,3 +1,10 @@
+# [1.47.0](https://github.com/jplannnou/gundo-ui/compare/v1.46.0...v1.47.0) (2026-11-21)
+
+
+### Features
+
+* componentes de las tandas 2 y 3 del look de 5T4D10 ([#155](https://github.com/jplannnou/gundo-ui/issues/155)) ([3eed16b](https://github.com/jplannnou/gundo-ui/commit/3eed16b364e454f8de1242cb3f1b67e88eea31b6))
+
 # [1.46.0](https://github.com/jplannnou/gundo-ui/compare/v1.45.0...v1.46.0) (2026-11-21)
 
 
