@@ -249,6 +249,12 @@ export { GoalRing } from "./GoalRing";
 export type { GoalRingProps, GoalRingSize } from "./GoalRing";
 export { WeekdayPicker } from "./WeekdayPicker";
 export type { WeekdayPickerProps, WeekdayPickerDay } from "./WeekdayPicker";
+export { StreakCalendar } from "./StreakCalendar";
+export type {
+  StreakCalendarProps,
+  StreakCalendarWeekday,
+  StreakCalendarDayState,
+} from "./StreakCalendar";
 export { NextStepBanner } from "./NextStepBanner";
 export type { NextStepBannerProps, NextStepBannerProgress } from "./NextStepBanner";
 export { QuoteCard } from "./QuoteCard";
