@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
+import { EstadioComponents } from './EstadioComponents';
 
 /**
  * Brand preset "Estadio" (look 2): `@gundo/ui/themes/estadio.css`.
@@ -153,6 +154,12 @@ export function EstadioPreview() {
               Texto atenuado a 12 px, el mínimo del sistema.
             </p>
           </div>
+        </section>
+
+        {/* Home building blocks */}
+        <section>
+          <h3 style={sectionTitle}>Components · batch 1</h3>
+          <EstadioComponents />
         </section>
 
         {/* Surfaces */}
