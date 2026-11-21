@@ -30,8 +30,8 @@
   opacity: 1;
   scale: 1;
   transition:
-    opacity 150ms var(--ui-ease-out),
-    scale 150ms var(--ui-ease-out),
+    opacity 150ms var(--ui-easing-out),
+    scale 150ms var(--ui-easing-out),
     overlay 150ms allow-discrete,
     display 150ms allow-discrete;
 }
@@ -138,8 +138,8 @@
   opacity: 1;
   transform: none;
   transition:
-    opacity 200ms var(--ui-ease-out),
-    transform 200ms var(--ui-ease-out),
+    opacity 200ms var(--ui-easing-out),
+    transform 200ms var(--ui-easing-out),
     overlay 200ms allow-discrete,
     display 200ms allow-discrete;
 }
@@ -148,7 +148,7 @@
   backdrop-filter: blur(4px);
   opacity: 1;
   transition:
-    opacity 200ms var(--ui-ease-out),
+    opacity 200ms var(--ui-easing-out),
     overlay 200ms allow-discrete,
     display 200ms allow-discrete;
 }
@@ -212,7 +212,7 @@
   padding-bottom: var(--gu-safe-bottom);
   transition:
     transform 250ms cubic-bezier(0.32, 0.72, 0, 1),
-    opacity 250ms var(--ui-ease-out),
+    opacity 250ms var(--ui-easing-out),
     overlay 250ms allow-discrete,
     display 250ms allow-discrete;
 }
@@ -242,8 +242,8 @@
   padding-top: var(--gu-safe-top);
   padding-bottom: var(--gu-safe-bottom);
   transition:
-    transform 250ms var(--ui-ease-out),
-    opacity 250ms var(--ui-ease-out),
+    transform 250ms var(--ui-easing-out),
+    opacity 250ms var(--ui-easing-out),
     overlay 250ms allow-discrete,
     display 250ms allow-discrete;
 }
@@ -353,7 +353,7 @@
   height: 0.25rem;
   border-radius: var(--ui-radius-full);
   background: var(--ui-border-control, var(--ui-border));
-  transition: background-color 200ms var(--ui-ease-out);
+  transition: background-color 200ms var(--ui-easing-out);
 }
 .gu-takeover__progress > span:not([data-state='todo']) {
   background: var(--ui-primary-fill, var(--ui-primary));
@@ -373,7 +373,7 @@
   from { opacity: 0; transform: translateX(12px); }
 }
 .gu-dialog[data-kind='takeover'][data-tour] :is(.gu-takeover__media, .gu-takeover__copy) {
-  animation: gu-takeover-slide-in 220ms var(--ui-ease-out);
+  animation: gu-takeover-slide-in 220ms var(--ui-easing-out);
 }
 /* A tour keeps the copy block the same height so the actions do not jump. */
 .gu-dialog[data-kind='takeover'][data-tour] .gu-takeover__copy { min-height: 11rem; }

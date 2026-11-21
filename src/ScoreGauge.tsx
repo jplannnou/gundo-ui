@@ -153,7 +153,7 @@ export function ScoreGauge({
             strokeLinecap="round"
             strokeDasharray={`${arcLength - dashOffset} ${circumference - (arcLength - dashOffset)}`}
             fill="none"
-            style={{ transition: 'stroke-dasharray 0.4s var(--ui-ease-out, ease-out)' }}
+            style={{ transition: 'stroke-dasharray 0.4s var(--ui-easing-out, ease-out)' }}
           />
         </svg>
 

@@ -235,6 +235,12 @@
   --ui-easing-in: cubic-bezier(0.4, 0, 1, 1);
   --ui-easing-out: cubic-bezier(0, 0, 0.2, 1);
   --ui-easing-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Celebraciones y llegadas (anillo que se llena, sesión completada): pasa un
+     poco de largo y asienta. Solo para `transform`; nunca en algo que el
+     usuario esté esperando para poder actuar. */
+  --ui-easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Pulsación de botones y chips. */
+  --ui-press-scale: 0.97;
 
   /* Z-index layers */
   --ui-z-dropdown: 50;
