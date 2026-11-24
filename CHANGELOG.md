@@ -1,3 +1,11 @@
+## [1.49.1](https://github.com/jplannnou/gundo-ui/compare/v1.49.0...v1.49.1) (2026-11-24)
+
+
+### Bug Fixes
+
+* **MacroRow,StatNumber:** la unidad va en la fuente del cuerpo, separada de la cifra ([#159](https://github.com/jplannnou/gundo-ui/issues/159)) ([8c4c45d](https://github.com/jplannnou/gundo-ui/commit/8c4c45d1d9f816b35e13ab59b60daa7de7a4b28b))
+* **widget:** el chat registra la causa del error y corrige el voseo ([#160](https://github.com/jplannnou/gundo-ui/issues/160)) ([e500355](https://github.com/jplannnou/gundo-ui/commit/e5003556ec15b09c3ac3b800950c6ca1b1af0f22))
+
 # [1.49.0](https://github.com/jplannnou/gundo-ui/compare/v1.48.0...v1.49.0) (2026-11-24)
 
 
