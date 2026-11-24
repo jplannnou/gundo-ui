@@ -9,7 +9,24 @@ import type {
   FoodAnalysis,
   ChatHealthContext,
   SendMessageParams,
+  ChatErrorInfo,
 } from './chat-client';
+import { describeChatError } from './chat-client';
+
+/**
+ * Deja rastro de un fallo del chat: consola del navegador y `onEvent` del host
+ * (analítica/Sentry). Antes el `catch` se tragaba la causa y solo quedaba el
+ * «tuve un problema técnico» en pantalla (Estadio, 24-nov-2026: CORS).
+ */
+function reportChatError(
+  info: ChatErrorInfo,
+  operation: 'stream' | 'history',
+  onEvent?: (event: string, payload?: Record<string, unknown>) => void,
+) {
+  const payload = { operation, ...info };
+  console.error('[GundoWidget] chat_error', payload);
+  onEvent?.('chat_error', payload);
+}
 
 export interface ChatLabels {
   online: string;
@@ -157,8 +174,11 @@ export function ChatSection({
         }
         setHistoryLoaded(true);
       })
-      .catch(() => setHistoryLoaded(true));
-  }, [client, historyLoaded, buildWelcome]);
+      .catch((err: unknown) => {
+        reportChatError(describeChatError(err), 'history', onEvent);
+        setHistoryLoaded(true);
+      });
+  }, [client, historyLoaded, buildWelcome, onEvent]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
@@ -252,6 +272,7 @@ export function ChatSection({
               break;
             case 'error':
               fullContent = event.data;
+              reportChatError(event.error ?? { kind: 'server' }, 'stream', onEvent);
               break;
             case 'done':
               break;
@@ -265,7 +286,8 @@ export function ChatSection({
               : m,
           ),
         );
-      } catch {
+      } catch (err: unknown) {
+        reportChatError(describeChatError(err), 'stream', onEvent);
         setMessages((prev) =>
           prev.map((m) => (m.id === assistantId ? { ...m, content: labels.errorMessage, isStreaming: false } : m)),
         );
