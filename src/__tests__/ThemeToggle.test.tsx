@@ -48,6 +48,40 @@ describe('ThemeToggle', () => {
   });
 });
 
+describe('ThemeToggle labels', () => {
+  const es = {
+    switchToLight: 'Cambiar a modo claro',
+    switchToDark: 'Cambiar a modo oscuro',
+    light: 'Modo claro',
+    dark: 'Modo oscuro',
+  };
+
+  beforeEach(() => {
+    document.documentElement.classList.remove('theme-light');
+  });
+
+  it('uses the custom accessible name in both themes', () => {
+    renderWithProvider(<ThemeToggle labels={es} />);
+    expect(screen.getByRole('button', { name: 'Cambiar a modo claro' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button'));
+    expect(screen.getByRole('button', { name: 'Cambiar a modo oscuro' })).toBeInTheDocument();
+  });
+
+  it('uses the custom visible text in the row variant', () => {
+    renderWithProvider(<ThemeToggle variant="row" labels={es} />);
+    expect(screen.getByText('Modo oscuro')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button'));
+    expect(screen.getByText('Modo claro')).toBeInTheDocument();
+  });
+
+  it('falls back to English for labels that are not provided', () => {
+    renderWithProvider(<ThemeToggle labels={{ switchToDark: 'Cambiar a modo oscuro' }} />);
+    expect(screen.getByRole('button', { name: 'Switch to light mode' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button'));
+    expect(screen.getByRole('button', { name: 'Cambiar a modo oscuro' })).toBeInTheDocument();
+  });
+});
+
 describe('ThemeProvider', () => {
   beforeEach(() => {
     document.documentElement.classList.remove('theme-light');

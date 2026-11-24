@@ -101,6 +101,7 @@ export { CopyButton } from "./CopyButton";
 export { RadioGroup } from "./RadioGroup";
 export { StatusDot } from "./StatusDot";
 export { ThemeToggle } from "./ThemeToggle";
+export type { ThemeToggleProps, ThemeToggleLabels } from "./ThemeToggle";
 export { UserMenu } from "./UserMenu";
 export { SidebarUserCard } from "./SidebarUserCard";
 export type {

@@ -396,6 +396,22 @@ describe('Accessibility (axe)', () => {
     await expectNoA11yViolations(container);
   });
 
+  it('ThemeToggle with translated labels has no a11y violations', async () => {
+    const labels = {
+      switchToLight: 'Cambiar a modo claro',
+      switchToDark: 'Cambiar a modo oscuro',
+      light: 'Modo claro',
+      dark: 'Modo oscuro',
+    };
+    const { container } = render(
+      <ThemeProvider>
+        <ThemeToggle labels={labels} />
+        <ThemeToggle variant="row" labels={labels} />
+      </ThemeProvider>,
+    );
+    await expectNoA11yViolations(container);
+  });
+
   it('UserMenu has no a11y violations', async () => {
     const { container } = render(
       <UserMenu user={{ name: 'John Doe', email: 'john@gundo.io' }} onLogout={() => {}} />,
