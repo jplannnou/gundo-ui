@@ -1,3 +1,10 @@
+# [1.49.0](https://github.com/jplannnou/gundo-ui/compare/v1.48.0...v1.49.0) (2026-11-24)
+
+
+### Features
+
+* **ThemeToggle:** etiquetas traducibles con la prop labels ([#157](https://github.com/jplannnou/gundo-ui/issues/157)) ([b1efca2](https://github.com/jplannnou/gundo-ui/commit/b1efca239107c8c2de8092570cbbb9353dfbd8e8))
+
 # [1.48.0](https://github.com/jplannnou/gundo-ui/compare/v1.47.0...v1.48.0) (2026-11-21)
 
 
