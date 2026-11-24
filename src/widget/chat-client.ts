@@ -70,6 +70,47 @@ export interface ChatStreamEvent {
     tokensUsed: { input: number; output: number; cached: number };
     durationMs: number;
   };
+  /** Solo en `type: 'error'` generado por el cliente: por qué falló. */
+  error?: ChatErrorInfo;
+}
+
+/**
+ * Por qué falló una llamada al chat, sin datos del usuario.
+ *
+ * - `network`: `fetch` rechazó sin respuesta HTTP. Offline, DNS, TLS o el
+ *   navegador bloqueándola por CORS. JavaScript no puede distinguirlas (la
+ *   consola del navegador sí), así que se informa con la URL para que se vea.
+ *   El 24-nov-2026 Mia falló en playhere.5t4d10.com por CORS y el widget solo
+ *   pintaba «tuve un problema técnico», sin rastro en consola ni en analítica.
+ * - `http`: el Engine respondió con un estado de error o sin cuerpo.
+ * - `server`: el Engine emitió un evento `error` dentro del stream.
+ * - `unknown`: cualquier otra excepción al procesar la respuesta.
+ */
+export type ChatErrorKind = 'network' | 'http' | 'server' | 'unknown';
+
+export interface ChatErrorInfo {
+  kind: ChatErrorKind;
+  /** Endpoint llamado (sin query). */
+  url?: string;
+  status?: number;
+  /** Mensaje técnico de la excepción (p. ej. «Failed to fetch»). */
+  detail?: string;
+}
+
+export class ChatStreamError extends Error {
+  readonly info: ChatErrorInfo;
+
+  constructor(info: ChatErrorInfo) {
+    super(`chat ${info.kind} error${info.status ? ` ${info.status}` : ''}${info.url ? ` (${info.url})` : ''}`);
+    this.name = 'ChatStreamError';
+    this.info = info;
+  }
+}
+
+/** Convierte cualquier excepción del chat en información registrable. */
+export function describeChatError(err: unknown): ChatErrorInfo {
+  if (err instanceof ChatStreamError) return err.info;
+  return { kind: 'unknown', detail: err instanceof Error ? err.message : String(err) };
 }
 
 /**
@@ -220,14 +261,28 @@ export class ChatClient {
   /** Stream a message via SSE. Yields events as they arrive. */
   async *stream(params: SendMessageParams): AsyncGenerator<ChatStreamEvent> {
     const headers = await this.headers();
-    const response = await fetch(`${this.config.apiBaseUrl}/api/chat/stream`, {
-      method: 'POST',
-      headers, // no Content-Type — browser sets the multipart boundary
-      body: this.buildFormData(params),
-    });
+    const url = `${this.config.apiBaseUrl}/api/chat/stream`;
+    let response: Response;
+    try {
+      response = await fetch(url, {
+        method: 'POST',
+        headers, // no Content-Type — browser sets the multipart boundary
+        body: this.buildFormData(params),
+      });
+    } catch (err) {
+      throw new ChatStreamError({
+        kind: 'network',
+        url,
+        detail: err instanceof Error ? err.message : String(err),
+      });
+    }
 
     if (!response.ok || !response.body) {
-      yield { type: 'error', data: 'No pude conectar con el asistente. Intentá de nuevo en unos momentos.' };
+      yield {
+        type: 'error',
+        data: 'No pude conectar con el asistente. Intenta de nuevo en unos momentos.',
+        error: { kind: 'http', url, status: response.status },
+      };
       return;
     }
 
