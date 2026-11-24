@@ -1,5 +1,6 @@
 import './ui-classes.css';
 import type { CSSProperties, ReactNode } from 'react';
+import { UnitSuffix } from './utils/UnitSuffix';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
@@ -64,7 +65,7 @@ export function StatNumber({
       )}
       <span className={`font-bold leading-none tabular-nums ${sizeClass[size]}`} style={numberStyle}>
         {value}
-        {unit && <span className="text-[0.5em] font-semibold opacity-80">{unit}</span>}
+        {unit && <UnitSuffix unit={unit} className="text-[0.5em] font-semibold opacity-80" />}
       </span>
       {label && <span className="mt-1.5 text-xs font-medium gu-text-text-muted">{label}</span>}
     </div>

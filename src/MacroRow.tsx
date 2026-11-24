@@ -1,5 +1,6 @@
 import './ui-classes.css';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
+import { UnitSuffix } from './utils/UnitSuffix';
 
 /* ─── Types ──────────────────────────────────────────────────────────── */
 
@@ -90,9 +91,14 @@ const macroColor = (kind: MacroCell['kind']): string =>
 
 /* ─── Progress figure ────────────────────────────────────────────────── */
 
+/** A run of the figure: plain text, or a unit drawn with `UnitSuffix`. */
+type FigurePiece = string | { unit: string };
+
 interface ProgressFigure {
-  /** The visible figure; also the `aria-valuetext` of the bar. */
+  /** The figure as plain text: the `aria-valuetext` of the bar. */
   text: string;
+  /** The same figure in pieces, so each unit keeps the body font. */
+  pieces: FigurePiece[];
   /** Consumed share of the goal, clamped to 0..1. `null` → no goal, no bar. */
   fraction: number | null;
   /** `aria-valuenow`, clamped to 0..target so it never exceeds `aria-valuemax`. */
@@ -100,7 +106,9 @@ interface ProgressFigure {
 }
 
 const round1 = (n: number): number => Math.round(n * 10) / 10;
-const withUnit = (n: number, unit?: string): string => (unit ? `${n} ${unit}` : `${n}`);
+const withUnit = (n: number, unit?: string): FigurePiece[] => (unit ? [`${n} `, { unit }] : [`${n}`]);
+const asText = (pieces: FigurePiece[]): string =>
+  pieces.map((p) => (typeof p === 'string' ? p : p.unit)).join('');
 
 function progressFigure(
   cell: MacroCell,
@@ -109,8 +117,14 @@ function progressFigure(
   overLabel: string | undefined,
 ): ProgressFigure {
   const { value, target, unit } = cell;
+  const figure = (pieces: FigurePiece[], fraction: number | null, valueNow: number): ProgressFigure => ({
+    text: asText(pieces),
+    pieces,
+    fraction,
+    valueNow,
+  });
   if (target === undefined || !(target > 0)) {
-    return { text: withUnit(value, unit), fraction: null, valueNow: value };
+    return figure(withUnit(value, unit), null, value);
   }
 
   const fraction = Math.max(0, Math.min(1, value / target));
@@ -120,14 +134,18 @@ function progressFigure(
   // Over the goal both modes say the same thing: how far over.
   if (excess > 0) {
     const diff = withUnit(excess, unit);
-    return { text: overLabel ? `${diff} ${overLabel}` : `+${diff}`, fraction, valueNow };
+    return figure(overLabel ? [...diff, ` ${overLabel}`] : ['+', ...diff], fraction, valueNow);
   }
   if (mode === 'remaining') {
     const left = withUnit(round1(target - value), unit);
-    return { text: remainingLabel ? `${left} ${remainingLabel}` : left, fraction, valueNow };
+    return figure(remainingLabel ? [...left, ` ${remainingLabel}`] : left, fraction, valueNow);
   }
-  return { text: `${value} / ${withUnit(target, unit)}`, fraction, valueNow };
+  return figure([`${value} / `, ...withUnit(target, unit)], fraction, valueNow);
 }
+
+/** Draws figure pieces: numbers in the cell font, units in the body font. */
+const renderPieces = (pieces: FigurePiece[]): ReactNode =>
+  pieces.map((p, i) => (typeof p === 'string' ? p : <UnitSuffix key={i} unit={p.unit} />));
 
 /* ─── MacroRow ───────────────────────────────────────────────────────── */
 
@@ -180,7 +198,7 @@ export function MacroRow({
               <div className="flex items-baseline justify-between gap-3">
                 <span className="text-sm font-medium gu-text-text-secondary">{c.label}</span>
                 <span className="text-sm font-bold tabular-nums" style={numberStyle('var(--ui-text)')}>
-                  {figure.text}
+                  {renderPieces(figure.pieces)}
                 </span>
               </div>
               {figure.fraction !== null && (
@@ -219,7 +237,7 @@ export function MacroRow({
           <div key={i} className="flex-1 rounded-lg px-1 py-1.5 text-center gu-bg-surface-raised">
             <span className="block text-base font-bold leading-none tabular-nums" style={numberStyle(macroColor(c.kind))}>
               {c.value}
-              {c.unit}
+              {c.unit && <UnitSuffix unit={c.unit} className="text-[0.75em] font-semibold" />}
             </span>
             <span className="mt-1 block gu-text-2xs font-semibold uppercase tracking-wide gu-text-text-secondary">
               {c.label}
@@ -240,7 +258,7 @@ export function MacroRow({
         <div key={i} className="rounded-xl px-1.5 py-3 text-center gu-bg-surface-raised">
           <span className="block text-xl font-bold leading-none tabular-nums" style={numberStyle(macroColor(c.kind))}>
             {c.value}
-            {c.unit && <span className="text-[0.6em] font-semibold">{c.unit}</span>}
+            {c.unit && <UnitSuffix unit={c.unit} className="text-[0.6em] font-semibold" />}
           </span>
           <span className="mt-1.5 block gu-text-2xs font-semibold uppercase tracking-wide gu-text-text-muted">
             {c.label}
