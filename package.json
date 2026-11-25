@@ -86,7 +86,7 @@
     "@vitest/browser-playwright": "5.1.0",
     "axe-core": "^4.12.1",
     "eslint": "^10.15.0",
-    "i18next": "^25.8.18",
+    "i18next": "^26.3.4",
     "i18next-browser-languagedetector": "^8.2.1",
     "i18next-http-backend": "^4.0.5",
     "jsdom": "^28.1.0",
