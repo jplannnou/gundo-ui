@@ -8,16 +8,21 @@
  *   <html data-brand-look="estadio-2">                  oscuro
  *   <html data-brand-look="estadio-2" class="theme-light">  claro
  *
- * No cambia nada de quien no lo importe, y nada de quien no ponga el atributo.
+ * No cambia nada de quien no lo importe, y nada de quien no ponga el atributo:
+ * TODO selector de este archivo lleva el atributo de marca.
  *
  * LAS FUENTES NO VAN AQUÍ. Este archivo solo declara las familias
  * (Bebas Neue para títulos, Montserrat para texto); cargarlas (@font-face,
  * <link>, next/font) es cosa del consumidor, que es quien decide el subconjunto
  * y el peso. Sin ellas cae al fallback condensado del sistema.
  *
- * CÓMO ESTÁ PARTIDO. El primer bloque es el oscuro y también la base de la
- * marca (radios y fuentes no dependen del modo). El segundo bloque pisa SOLO el
- * modo claro. Dos reglas que no son obvias:
+ * CÓMO ESTÁ PARTIDO.
+ *  1. Bloque oscuro: también es la base de la marca. Lleva los colores del modo
+ *     oscuro y los tokens que no dependen del modo (radios, espacio, tamaños,
+ *     trazos, capas, filtros de foto).
+ *  2. Bloque claro: pisa SOLO los colores.
+ *  3. Clases tipográficas `t-*` (la escala de Gian, §2.3).
+ *  Dos reglas que no son obvias:
  *  - Todo token de color que define el bloque oscuro lo redefine el claro. Si no,
  *    el valor oscuro se filtra en claro (mismo elemento, mismo origen).
  *  - Los tokens que `.theme-light` de theme.css también redefine (superficies,
@@ -29,46 +34,75 @@
  * `.theme-light` la pone useTheme() en <html>. `data-brand-look` puede estar en
  * <html>, en <body> o en un contenedor: el bloque claro cubre los tres casos.
  *
- * TOKENS NUEVOS QUE ESTE PRESET DEFINE Y theme.css NO TIENE (ningún componente
- * los lee todavía; los leerá el PR que cablee Button/gu-text-primary):
- *   --ui-surface-strong   tercer nivel de superficie (modales, selección).
- *   --ui-border-control   borde de un control en reposo (campo, casilla).
- * Los demás (--ui-primary-fill, --ui-primary-text, --ui-radius-2xl) sí tienen
- * valor por defecto en theme.css.
+ * SISTEMA DE DISEÑO DE GIAN (App 2.0, nov-2026). Sus tokens base entran aquí con
+ * nombre `--ui-*`, el contrato que leen los componentes. La tabla «nombre de
+ * Gian → token» y la lista de desviaciones viven en
+ * scripts/__tests__/estadio-gian-tokens.test.mjs, que falla si falta uno o si
+ * un valor se aparta sin estar justificado. Las tres traducciones que no son
+ * literales:
+ *  - Superficies: `bg` → --ui-surface, `surface` → --ui-surface-raised,
+ *    `surface-raised` → --ui-surface-hover, `avatar` → --ui-surface-strong.
+ *  - Radios: nuestra escala va un paso por detrás de la suya. Su `sm` (12) es
+ *    nuestro `md`, y así hasta su `xl` (24) = nuestro `2xl`; su `2xl` (28) es
+ *    nuestro `3xl`.
+ *  - Espacio: nuestra escala es 4 px × N (`--ui-spacing-N`). La suya va de 2
+ *    en 2 px, así que los pasos intermedios son medios: su `space-2` (6) es
+ *    `--ui-spacing-1-5`, su `space-4` (10) es `--ui-spacing-2-5`...
+ * Gian solo define el modo oscuro. Los valores claros de los colores nuevos
+ * son derivados nuestros (marcados abajo) y los mide la misma guarda.
+ *
+ * TOKENS QUE ESTE PRESET DEFINE Y theme.css NO TIENE: --ui-surface-strong,
+ * --ui-surface-sunken, --ui-border-control, --ui-border-strong, --ui-track,
+ * --ui-primary-line, --ui-nav-*, --ui-scrim, --ui-photo-*, --ui-mia-ground,
+ * --ui-chart-1…7, --ui-range-band, --ui-ghost, --ui-shadow-fab, y toda la
+ * escala de espacio, tamaño, trazo y capa de abajo. Ningún componente de la
+ * librería los lee: son para el consumidor que pinta la marca.
  *
  * ROLES DEL PRIMARIO. #FD0154 (--ui-primary) es el color de marca y solo sirve
  * de decoración (filete, glow, icono grande). No llega a 4,5:1 con texto blanco
- * encima ni como texto sobre las superficies altas. Para eso:
+ * encima (3,96:1) ni como texto sobre las superficies altas. Para eso:
  *   --ui-primary-fill  relleno de botón; con tinta --ui-primary-ink (blanco)
  *   --ui-primary-text  primario cuando se lee como texto
  * --ui-primary-ink es el token que ya usan Button y los pares gu-bg-primary.
  * --ui-brand-accent(-fg) apunta a fill/ink para que CookieBanner (que ya lo
  * lee) pinte relleno E3004C con texto blanco.
  *
- * Guarda: scripts/__tests__/estadio-contrast.test.mjs (AA en ambos modos).
+ * Guardas: scripts/__tests__/estadio-contrast.test.mjs (AA en ambos modos) y
+ * scripts/__tests__/estadio-gian-tokens.test.mjs (la lista de Gian).
  */
 
 [data-brand-look="estadio-2"] {
-  /* Fondo y superficies */
+  /* Fondo y superficies (Gian: bg, surface, surface-raised, avatar,
+     surface-sunken). */
   --ui-surface: #0A0A0B;
   --ui-surface-raised: #141416;
   --ui-surface-hover: #1C1C1F;
   --ui-surface-strong: #26262B;
+  --ui-surface-sunken: #1F1F23;
 
-  /* Bordes. hover = punto medio entre border y control (valor derivado). */
+  /* Bordes y pistas. hover = punto medio entre border y control (derivado).
+     --ui-border se queda en #2E2E34 y no en el `line` #26262B de Gian: el suyo
+     baja el contraste contra las cuatro superficies y sobre --ui-surface-strong
+     mide 1,00:1 (es el mismo color), e Input, Textarea, Combobox, DatePicker
+     y FileUpload lo usan como borde de control. */
   --ui-border: #2E2E34;
   --ui-border-hover: #51515A;
   --ui-border-control: #74747E;
+  --ui-border-strong: #3A3A41;
+  --ui-track: #2A2A2F;
 
   /* Texto */
   --ui-text: #F5F5F7;
   --ui-text-secondary: #B4B4BC;
   --ui-text-muted: #8F8F98;
 
-  /* Primario */
+  /* Primario. --ui-primary-hover NO es el `pink-hover` #FF4D85 de Gian: es el
+     hover de un relleno con texto blanco, y blanco sobre #FF4D85 mide 3,16:1.
+     El #FF4D85 vive en --ui-primary-text. */
   --ui-primary: #FD0154;
   --ui-primary-hover: #E3004C;
-  --ui-primary-soft: rgb(253 1 84 / 0.15);
+  --ui-primary-soft: rgb(253 1 84 / 0.10);
+  --ui-primary-line: #5A1A30;
   --ui-primary-fill: #E3004C;
   --ui-primary-fill-hover: #C4003F;
   --ui-primary-ink: #FFFFFF;
@@ -80,13 +114,34 @@
   --ui-gradient: linear-gradient(135deg, #C4003F, #E3004C);
   --ui-shadow-glow: 0 0 24px rgb(253 1 84 / 0.35);
 
-  /* Estados */
+  /* Estados. Gian prohíbe verde y ámbar en la UI (§7); siguen aquí hasta que
+     JP decida, porque hoy los pintan componentes del inquilino. */
   --ui-success: #7EDB9C;
   --ui-success-soft: rgb(126 219 156 / 0.15);
   --ui-warning: #F4B860;
   --ui-warning-soft: rgb(244 184 96 / 0.15);
   --ui-error: #FFB4B4;
   --ui-error-soft: rgb(255 180 180 / 0.12);
+
+  /* Navegación y capas */
+  --ui-nav-bg: rgb(12 12 14 / 0.96);
+  --ui-nav-inactive: #7E7E87;
+  --ui-scrim: rgb(10 10 11 / 0.96);
+  --ui-photo-overlay: rgb(20 20 22 / 0.70);
+  --ui-mia-ground: #000000;
+  --ui-shadow-fab: 0 8px 24px rgb(0 0 0 / 0.6);
+
+  /* Datos. chart-1 es el más destacado; 5–7 no llegan a 3:1 y son solo para
+     relleno de fondo, rejilla o series apagadas. */
+  --ui-chart-1: #F5F5F7;
+  --ui-chart-2: #D9D9DE;
+  --ui-chart-3: #A6A6AE;
+  --ui-chart-4: #8F8F98;
+  --ui-chart-5: #5A5A62;
+  --ui-chart-6: #4A4A52;
+  --ui-chart-7: #2E2E33;
+  --ui-range-band: rgb(255 255 255 / 0.14);
+  --ui-ghost: rgb(255 255 255 / 0.06);
 
   /* Derivados de otros tokens. Una custom property se resuelve donde se declara
      y se hereda ya resuelta: si el preset va en un contenedor y no en <html>,
@@ -101,29 +156,86 @@
   --ui-font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
   --ui-font-display: 'Bebas Neue', 'Arial Narrow', 'Roboto Condensed', Impact, sans-serif;
 
-  /* Radios: 12 / 16 / 20 / 24 px y píldora. */
+  /* ── Desde aquí, nada depende del modo ─────────────────────────────── */
+
+  /* Radios (Gian: xs 6 · sm 12 · md 16 · lg 20 · xl 24 · 2xl 28 · sheet 32 ·
+     device 44 · pill). El de dispositivo va en px: es la esquina física. */
+  --ui-radius-xs: 0.375rem;
   --ui-radius-md: 0.75rem;
   --ui-radius-lg: 1rem;
   --ui-radius-xl: 1.25rem;
   --ui-radius-2xl: 1.5rem;
+  --ui-radius-3xl: 1.75rem;
+  --ui-radius-sheet: 2rem;
+  --ui-radius-device: 44px;
   --ui-radius-full: 9999px;
+
+  /* Espacio: los medios pasos de la escala 4 px × N, más los nombres de
+     maquetación de Gian. Los enteros (1 = 4, 2 = 8, 3 = 12, 4 = 16, 5 = 20,
+     6 = 24) ya están en theme.css; 7 (28) no. Los dos márgenes del sistema
+     (safe-bottom, header-top) van en px porque son de la pantalla, no del
+     texto. */
+  --ui-spacing-1-5: 0.375rem;
+  --ui-spacing-2-5: 0.625rem;
+  --ui-spacing-3-5: 0.875rem;
+  --ui-spacing-4-5: 1.125rem;
+  --ui-spacing-7: 1.75rem;
+  --ui-gutter-card: 1.25rem;
+  --ui-gutter-text: 1.5rem;
+  --ui-section-gap: 1.75rem;
+  --ui-safe-bottom: 34px;
+  --ui-header-top: 54px;
+  --ui-nav-height: 6rem;
+
+  /* Tamaños. Toda zona táctil (icon-button, chip, cta) >= 44 px. */
+  --ui-size-icon: 1.375rem;
+  --ui-size-icon-s: 1rem;
+  --ui-size-icon-button: 2.75rem;
+  --ui-size-cta: 3.5rem;
+  --ui-size-cta-s: 3.25rem;
+  --ui-size-chip: 2.75rem;
+  --ui-size-pill: 1.75rem;
+  --ui-size-tab-center: 4rem;
+  --ui-size-fab: 3.75rem;
+  --ui-size-screen: 390px;
+
+  /* Trazos (px: un trazo no crece con el texto). */
+  --ui-stroke-icon: 1.8px;
+  --ui-stroke-ring: 7px;
+  --ui-stroke-gauge: 14px;
+  --ui-stroke-hairline: 1px;
+
+  /* Efectos. --ui-locked-opacity es para contenido bloqueado: lo que quede a
+     0,35 no cumple contraste y tiene que decirse también con texto o icono. */
+  --ui-photo-filter: brightness(0.72) saturate(0.72) contrast(1.05);
+  --ui-photo-filter-player: brightness(0.68) saturate(0.7) contrast(1.05);
+  --ui-locked-opacity: 0.35;
+
+  /* Capas dentro de la pantalla (por debajo de --ui-z-dropdown y de los
+     overlays de theme.css). */
+  --ui-z-nav: 5;
+  --ui-z-fab: 6;
 }
 
 .theme-light[data-brand-look="estadio-2"],
 [data-brand-look="estadio-2"].theme-light,
 .theme-light [data-brand-look="estadio-2"],
 [data-brand-look="estadio-2"] .theme-light {
-  /* Lienzo y tarjeta. En claro las superficies se reducen a dos niveles: hover
-     y strong se quedan en blanco o casi, porque cualquier gris más oscuro deja
-     el verde de éxito (#1B7F4B, 4,57:1 sobre el lienzo) por debajo de AA. */
+  /* Lienzo y tarjeta. En claro las superficies se reducen a dos niveles: hover,
+     strong y sunken se quedan en blanco o en el lienzo, porque cualquier gris
+     más oscuro deja el verde de éxito (#1B7F4B, 4,57:1 sobre el lienzo) por
+     debajo de AA. */
   --ui-surface: #F4F4F6;
   --ui-surface-raised: #FFFFFF;
   --ui-surface-hover: #F9F9FB;
   --ui-surface-strong: #FFFFFF;
+  --ui-surface-sunken: #F4F4F6;
 
   --ui-border: #D9D9DF;
   --ui-border-hover: #A2A2AA;
   --ui-border-control: #6B6B76;
+  --ui-border-strong: #BDBDC5;
+  --ui-track: #E4E4E9;
 
   --ui-text: #16161A;
   --ui-text-secondary: #55555F;
@@ -135,6 +247,7 @@
   --ui-primary: #FD0154;
   --ui-primary-hover: #E3004C;
   --ui-primary-soft: rgb(253 1 84 / 0.10);
+  --ui-primary-line: #F2B6C9;
   --ui-primary-fill: #E3004C;
   --ui-primary-fill-hover: #C4003F;
   --ui-primary-ink: #FFFFFF;
@@ -151,6 +264,27 @@
   --ui-error: #B42318;
   --ui-error-soft: rgb(180 35 24 / 0.10);
 
+  /* Derivados nuestros: Gian no define modo claro. photo-overlay y
+     mia-ground no cambian (oscurecen una foto y son el fondo del símbolo MIA),
+     pero se repiten por la regla de paridad. */
+  --ui-nav-bg: rgb(255 255 255 / 0.96);
+  --ui-nav-inactive: #6B6B76;
+  --ui-scrim: rgb(244 244 246 / 0.96);
+  --ui-photo-overlay: rgb(20 20 22 / 0.70);
+  --ui-mia-ground: #000000;
+  --ui-shadow-fab: 0 8px 24px rgb(22 22 26 / 0.18);
+
+  /* Rampa de datos invertida: chart-1 sigue siendo el más destacado. */
+  --ui-chart-1: #16161A;
+  --ui-chart-2: #2E2E34;
+  --ui-chart-3: #55555F;
+  --ui-chart-4: #6B6B76;
+  --ui-chart-5: #A2A2AA;
+  --ui-chart-6: #BDBDC5;
+  --ui-chart-7: #D9D9DF;
+  --ui-range-band: rgb(22 22 26 / 0.10);
+  --ui-ghost: rgb(22 22 26 / 0.05);
+
   --ui-focus-ring-color: var(--ui-primary);
   --ui-tooltip-bg: var(--ui-text);
   --ui-tooltip-text: var(--ui-surface);
@@ -161,3 +295,30 @@
   --ui-font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
   --ui-font-display: 'Bebas Neue', 'Arial Narrow', 'Roboto Condensed', Impact, sans-serif;
 }
+
+/*
+ * Escala tipográfica de Gian (§2.3). En rem, para que crezca con el tamaño de
+ * letra del sistema (Gian, §8: los títulos pueden crecer hasta 1,3×).
+ *
+ * Desviación deliberada: ningún texto baja de 12 px. Gian pone `micro` y
+ * `overline` a 11 y `nav-label` a 10; aquí los tres van a 0.75rem.
+ */
+[data-brand-look="estadio-2"] .t-display-xl { font-family: var(--ui-font-display); font-size: 4.125rem; line-height: 0.92; font-weight: 400; letter-spacing: 0.01em; text-transform: uppercase; }
+[data-brand-look="estadio-2"] .t-display-l { font-family: var(--ui-font-display); font-size: 3.5rem; line-height: 0.92; font-weight: 400; letter-spacing: 0.01em; text-transform: uppercase; }
+[data-brand-look="estadio-2"] .t-metric-xl { font-family: var(--ui-font-display); font-size: 3.25rem; line-height: 1; font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; }
+[data-brand-look="estadio-2"] .t-title-xl { font-family: var(--ui-font-display); font-size: 2.5rem; line-height: 1; font-weight: 400; letter-spacing: 0.01em; text-transform: uppercase; }
+[data-brand-look="estadio-2"] .t-title-l { font-family: var(--ui-font-display); font-size: 2rem; line-height: 1; font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; }
+[data-brand-look="estadio-2"] .t-metric-l { font-family: var(--ui-font-display); font-size: 1.875rem; line-height: 1; font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; }
+[data-brand-look="estadio-2"] .t-card-title { font-family: var(--ui-font-display); font-size: 1.8125rem; line-height: 1.05; font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; }
+[data-brand-look="estadio-2"] .t-metric-m { font-family: var(--ui-font-display); font-size: 1.5rem; line-height: 1; font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; }
+[data-brand-look="estadio-2"] .t-section-title { font-family: var(--ui-font-display); font-size: 1.375rem; line-height: 1.05; font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; }
+[data-brand-look="estadio-2"] .t-button { font-family: var(--ui-font-display); font-size: 1.25rem; line-height: 1; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; }
+[data-brand-look="estadio-2"] .t-item-title { font-family: var(--ui-font-display); font-size: 1.0625rem; line-height: 1.05; font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; }
+[data-brand-look="estadio-2"] .t-body-l { font-family: var(--ui-font-family); font-size: 0.9375rem; line-height: 1.55; font-weight: 400; }
+[data-brand-look="estadio-2"] .t-body { font-family: var(--ui-font-family); font-size: 0.875rem; line-height: 1.5; font-weight: 400; }
+[data-brand-look="estadio-2"] .t-ui-strong { font-family: var(--ui-font-family); font-size: 0.875rem; line-height: 1.4; font-weight: 700; }
+[data-brand-look="estadio-2"] .t-body-s { font-family: var(--ui-font-family); font-size: 0.8125rem; line-height: 1.45; font-weight: 400; }
+[data-brand-look="estadio-2"] .t-caption { font-family: var(--ui-font-family); font-size: 0.75rem; line-height: 1.4; font-weight: 500; }
+[data-brand-look="estadio-2"] .t-micro { font-family: var(--ui-font-family); font-size: 0.75rem; line-height: 1.4; font-weight: 500; }
+[data-brand-look="estadio-2"] .t-overline { font-family: var(--ui-font-family); font-size: 0.75rem; line-height: 1.3; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+[data-brand-look="estadio-2"] .t-nav-label { font-family: var(--ui-font-family); font-size: 0.75rem; line-height: 1.2; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
