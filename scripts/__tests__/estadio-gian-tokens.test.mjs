@@ -403,7 +403,10 @@ describe("Gian · los tokens nuevos solo existen dentro del preset", () => {
   });
 
   it.each(NUEVOS)("%s no se define fuera de themes/estadio.css", (token) => {
-    const declarado = new RegExp(`${token.replace(/-/g, "\\-")}\\s*:`);
+    // Escape completo de los metacaracteres (no solo el guion) y frontera a la
+    // izquierda, para que `--ui-track` no case dentro de otro nombre.
+    const literal = token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const declarado = new RegExp(`(?<![\\w-])${literal}\\s*:`);
     const fuera = OTROS.filter((ruta) => declarado.test(readFileSync(ruta, "utf8")));
     expect(fuera.map((r) => relative(SRC, r))).toEqual([]);
   });
