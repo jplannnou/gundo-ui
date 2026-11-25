@@ -53,8 +53,9 @@ const normaliza = (selector) => selector.replace(/\s+/g, " ").trim();
 const RULES = parseRules(read("src/themes/estadio.css"));
 const selectors = [...RULES.keys()];
 
-// El bloque oscuro es el que NO menciona `.theme-light`; el claro, el que sí.
-const darkKey = selectors.find((s) => !s.includes(".theme-light"));
+// El bloque oscuro es el del atributo a secas; el claro, el que menciona
+// `.theme-light`. Las clases `t-*` van en reglas propias y no cuentan.
+const darkKey = selectors.find((s) => normaliza(s) === SCOPE);
 const lightKey = selectors.find((s) => s.includes(".theme-light"));
 
 const tokensOf = (decls) =>
@@ -109,6 +110,11 @@ describe("estadio.css · el barrido lee lo que dice vigilar", () => {
       "--ui-surface-raised",
       "--ui-surface-hover",
       "--ui-surface-strong",
+      "--ui-surface-sunken",
+      "--ui-nav-bg",
+      "--ui-nav-inactive",
+      "--ui-chart-1",
+      "--ui-chart-4",
       "--ui-text",
       "--ui-text-secondary",
       "--ui-text-muted",
@@ -149,6 +155,16 @@ describe("estadio.css · alcance", () => {
       expect(selector, selector).toContain(SCOPE);
     }
   });
+
+  // Lo mismo para el archivo entero (también las clases `t-*`): una regla sin
+  // el atributo pintaría a todos los inquilinos que importan el preset.
+  it("todo selector del archivo lleva el atributo de marca", () => {
+    const sueltos = selectors
+      .flatMap((s) => s.split(",").map(normaliza))
+      .filter((s) => !s.includes(SCOPE));
+    expect(selectors.length).toBeGreaterThan(2);
+    expect(sueltos, `selectores sin ${SCOPE}: ${sueltos.join(" | ")}`).toEqual([]);
+  });
 });
 
 /* ─── Contraste, en los dos modos ────────────────────────────────────── */
@@ -158,6 +174,7 @@ const SUPERFICIES = [
   "--ui-surface-raised",
   "--ui-surface-hover",
   "--ui-surface-strong",
+  "--ui-surface-sunken",
 ];
 const TEXTOS = ["--ui-text", "--ui-text-secondary", "--ui-text-muted"];
 const ESTADOS = ["--ui-success", "--ui-warning", "--ui-error"];
@@ -211,6 +228,21 @@ describe.each(["dark", "light"])("estadio.css · contraste · modo %s", (mode) =
       ).toBeGreaterThanOrEqual(AA_TEXT);
     }
   });
+
+  // La etiqueta de una pestaña inactiva es texto (Gian, §8, la da por 4,6:1).
+  it("--ui-nav-inactive sobre --ui-nav-bg >= 4,5:1", () => {
+    aa("--ui-nav-inactive", "--ui-nav-bg", mode);
+  });
+
+  // WCAG 1.4.11: una serie de datos es un objeto gráfico y necesita 3:1. La
+  // rampa 5–7 no llega a propósito (fondos, rejilla, series apagadas).
+  it.each(pares(
+    ["--ui-chart-1", "--ui-chart-2", "--ui-chart-3", "--ui-chart-4"],
+    ["--ui-surface", "--ui-surface-raised"],
+  ))("serie %s sobre %s >= 3:1", (fg, bg) => {
+    const r = ratio(fg, bg, mode);
+    expect(r, `${fg} sobre ${bg} (${mode}) mide ${rounded(r)}:1`).toBeGreaterThanOrEqual(3);
+  });
 });
 
 // WCAG 1.4.11: la frontera de un control necesita 3:1 contra lo que la rodea.
@@ -237,13 +269,38 @@ describe("estadio.css · borde de control (WCAG 1.4.11)", () => {
 describe("estadio.css · paridad claro/oscuro", () => {
   // El bloque oscuro se aplica TAMBIÉN en claro (mismo elemento). Todo token de
   // color que defina y el claro no redefina se filtra al claro con su valor
-  // oscuro. Es el fallo de `--ui-range-*` de 2026 con otra forma. Los radios
-  // no dependen del modo y `.theme-light` de theme.css no los toca.
-  it("el bloque claro redefine todo token del oscuro, salvo los radios", () => {
+  // oscuro. Es el fallo de `--ui-range-*` de 2026 con otra forma. Los radios,
+  // el espacio, los tamaños, los trazos, las capas y los filtros de foto no
+  // dependen del modo y `.theme-light` de theme.css no los toca.
+  const SIN_MODO = [
+    /^--ui-radius-/,
+    /^--ui-spacing-/,
+    /^--ui-size-/,
+    /^--ui-stroke-/,
+    /^--ui-z-/,
+    /^--ui-gutter-/,
+    /^--ui-(section-gap|safe-bottom|header-top|nav-height)$/,
+    /^--ui-photo-filter(-player)?$/,
+    /^--ui-locked-opacity$/,
+  ];
+  const sinModo = (name) => SIN_MODO.some((re) => re.test(name));
+
+  it("el bloque claro redefine todo token de color del oscuro", () => {
     const faltan = [...DARK_OWN.keys()].filter(
-      (name) => !name.startsWith("--ui-radius-") && !LIGHT_OWN.has(name),
+      (name) => !sinModo(name) && !LIGHT_OWN.has(name),
     );
     expect(faltan, `faltan en el bloque claro: ${faltan.join(", ")}`).toEqual([]);
+  });
+
+  // La excepción de arriba va por nombre: que nadie cuele un color bajo uno
+  // de esos prefijos, porque se filtraría al claro sin que nada lo vea.
+  it("ningún token exento de la paridad lleva un color", () => {
+    const conColor = [...DARK_OWN.entries()]
+      .filter(([name]) => sinModo(name))
+      .filter(([, raw]) => /#[0-9a-f]{3,8}\b|rgba?\(|hsla?\(|oklch\(/i.test(raw))
+      .map(([name]) => name);
+    expect([...DARK_OWN.keys()].filter(sinModo).length).toBeGreaterThan(30);
+    expect(conColor, `color en token sin modo: ${conColor.join(", ")}`).toEqual([]);
   });
 
   // Si el preset redefine un token que `.theme-light` de theme.css también
