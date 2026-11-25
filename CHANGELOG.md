@@ -1,3 +1,10 @@
+# [1.50.0](https://github.com/jplannnou/gundo-ui/compare/v1.49.1...v1.50.0) (2026-11-25)
+
+
+### Features
+
+* **estadio:** tokens base del sistema de diseño de Gian (App 2.0) y escala t-* ([#161](https://github.com/jplannnou/gundo-ui/issues/161)) ([a4cd20e](https://github.com/jplannnou/gundo-ui/commit/a4cd20eef4981a048b70687e06858a4a4d8a9671)), closes [#2E2E34](https://github.com/jplannnou/gundo-ui/issues/2E2E34) [#26262](https://github.com/jplannnou/gundo-ui/issues/26262) [#E3004](https://github.com/jplannnou/gundo-ui/issues/E3004) [#FF4D85](https://github.com/jplannnou/gundo-ui/issues/FF4D85)
+
 ## [1.49.1](https://github.com/jplannnou/gundo-ui/compare/v1.49.0...v1.49.1) (2026-11-24)
 
 
